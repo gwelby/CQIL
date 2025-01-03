@@ -1,0 +1,7 @@
+tkinter
+numpy
+qiskit
+cirq
+rich
+pillow
+pyqt5
