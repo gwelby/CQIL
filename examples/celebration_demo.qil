@@ -1,0 +1,20 @@
+# 🎉 CQIL Celebration Demo
+# Created by Greg & Cascade
+
+# Initialize the celebration
+🎲 celebration = 🎉⚡💫
+
+# Team colors
+🎨 cowboys = ⭐💙⚪
+🎨 eagles = 💚⚫🦅
+
+# Victory dance
+🎯 victory_celebration(team) {
+    💫 particles = team.colors ✨ 2.0
+    🌟 effect = particles ⚡ celebration
+    return effect 💫 "Champions!"
+}
+
+# Touchdown celebration
+⚡ touchdown = victory_celebration(cowboys)
+📢 broadcast(touchdown, security=✨)

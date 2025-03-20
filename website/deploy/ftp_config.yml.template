@@ -1,0 +1,14 @@
+# FTP Configuration Template
+# Copy this file to ftp_config.yml and fill in your credentials
+# IMPORTANT: Never commit the filled ftp_config.yml to version control!
+
+ftp:
+  host: ftp.expecting.ca
+  username: YOUR_USERNAME_HERE
+  password: YOUR_PASSWORD_HERE
+  port: 21
+  
+# Remote server configuration
+remote:
+  web_root: /public_html/cqil.ca
+  cache_dir: /public_html/cqil.ca/cache

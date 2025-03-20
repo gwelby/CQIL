@@ -1,0 +1,38 @@
+{
+    "flow_patterns": [
+        {
+            "type": "QUANTUM_FLOW",
+            "energy": 1.0,
+            "stability": 0.9,
+            "nodes": [
+                {"x": 0, "y": 0, "energy": 0.8},
+                {"x": 1, "y": 1, "energy": 0.9}
+            ]
+        },
+        {
+            "type": "HARMONIC",
+            "frequency": 432.0,
+            "amplitude": 0.5,
+            "resonance": 0.95
+        }
+    ],
+    "nfl_patterns": [
+        {
+            "team": "GB",
+            "energy": 0.9,
+            "flow_state": 0.85,
+            "players": [
+                {"id": "GB-12", "energy": 0.9, "flow": 0.8},
+                {"id": "GB-17", "energy": 0.85, "flow": 0.9}
+            ]
+        }
+    ],
+    "mobile_patterns": [
+        {
+            "type": "UI_FLOW",
+            "fps": 60,
+            "particles": true,
+            "effects": ["quantum", "harmonic", "crystal"]
+        }
+    ]
+}

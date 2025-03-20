@@ -1,0 +1,82 @@
+2025-03-16 13:04:13,999 - ERROR - Connection failed: 530 Login authentication failed
+2025-03-16 13:05:38,410 - ERROR - Connection failed: 530 Login authentication failed
+2025-03-16 13:05:50,742 - ERROR - Connection failed: 530 Login authentication failed
+2025-03-16 13:06:02,627 - ERROR - Connection failed: 530 Login authentication failed
+2025-03-16 13:06:28,998 - ERROR - Connection failed: 530 Login authentication failed
+2025-03-16 13:16:08,781 - INFO - Connected to ftp.expecting.ca
+2025-03-16 13:16:08,871 - INFO - Changed to public_html directory
+2025-03-16 13:16:08,959 - INFO - Changed to cqil.ca directory
+2025-03-16 13:16:08,959 - INFO - Starting Backup step...
+2025-03-16 13:16:10,693 - ERROR - Backup failed: 550 Sorry, but that file doesn't exist
+2025-03-16 13:16:10,694 - ERROR - Backup step failed
+2025-03-16 13:16:31,234 - INFO - Connected to ftp.expecting.ca
+2025-03-16 13:16:31,311 - INFO - Changed to public_html directory
+2025-03-16 13:16:31,385 - INFO - Changed to cqil.ca directory
+2025-03-16 13:16:31,386 - INFO - Starting Backup step...
+2025-03-16 13:16:31,461 - INFO - Created backup directory: backup_20250316_131631
+2025-03-16 13:16:31,786 - INFO - Found 19 items to backup
+2025-03-16 13:16:31,941 - INFO - Skipping directory: OLD
+2025-03-16 13:16:32,091 - INFO - Skipping directory: docs
+2025-03-16 13:16:33,138 - INFO - Backed up file: QuantumImplementationPlan.md
+2025-03-16 13:16:34,073 - INFO - Backed up file: .gitignore
+2025-03-16 13:16:34,226 - INFO - Skipping directory: pages
+2025-03-16 13:16:35,087 - INFO - Backed up file: MYWish.md
+2025-03-16 13:16:36,006 - INFO - Backed up file: launch_website.bat
+2025-03-16 13:16:36,155 - INFO - Skipping directory: secure_logs
+2025-03-16 13:16:37,189 - INFO - Backed up file: index.html
+2025-03-16 13:16:37,338 - INFO - Skipping directory: backup_website_20250316_131608
+2025-03-16 13:16:37,493 - INFO - Skipping directory: mobile
+2025-03-16 13:16:37,643 - INFO - Skipping directory: js
+2025-03-16 13:16:37,791 - INFO - Skipping directory: hosting
+2025-03-16 13:16:37,940 - INFO - Skipping directory: css
+2025-03-16 13:16:38,803 - INFO - Backed up file: README.md
+2025-03-16 13:16:39,701 - INFO - Backed up file: launch_website.sh
+2025-03-16 13:16:39,702 - INFO - Backup completed: 7 files backed up to backup_20250316_131631
+2025-03-16 13:16:39,703 - INFO - Backup step completed
+2025-03-16 13:16:39,704 - INFO - Starting Upload step...
+2025-03-16 13:16:40,099 - INFO - Uploaded /.gitignore
+2025-03-16 13:16:40,683 - INFO - Uploaded /css/golden-age.css
+2025-03-16 13:16:41,188 - INFO - Uploaded /css/style.css
+2025-03-16 13:16:41,691 - INFO - Uploaded /docs/getting_started.md
+2025-03-16 13:16:42,108 - INFO - Uploaded /docs/mobile_guide.md
+2025-03-16 13:16:42,509 - INFO - Uploaded /docs/public_api.md
+2025-03-16 13:16:42,996 - INFO - Uploaded /hosting/cloudflare_setup.md
+2025-03-16 13:16:43,412 - INFO - Uploaded /hosting/godaddy_setup.md
+2025-03-16 13:16:43,799 - INFO - Uploaded /hosting/setup.md
+2025-03-16 13:16:44,296 - INFO - Uploaded /index.html
+2025-03-16 13:16:44,772 - INFO - Uploaded /js/advanced-quantum.js
+2025-03-16 13:16:45,352 - INFO - Uploaded /js/ai-quantum-coach.js
+2025-03-16 13:16:45,957 - INFO - Uploaded /js/golden-age.js
+2025-03-16 13:16:46,372 - INFO - Uploaded /js/interactive-features.js
+2025-03-16 13:16:46,834 - INFO - Uploaded /js/interactive-learning.js
+2025-03-16 13:16:47,241 - INFO - Uploaded /js/phi-harmonic-ui.js
+2025-03-16 13:16:47,740 - INFO - Uploaded /js/quantum-adaptive-learning.js
+2025-03-16 13:16:48,285 - INFO - Uploaded /js/quantum-connection.js
+2025-03-16 13:16:48,872 - INFO - Uploaded /js/quantum-experience/cymatics-visualizer.js
+2025-03-16 13:16:49,357 - INFO - Uploaded /js/quantum-experience/dna-resonance.js
+2025-03-16 13:16:49,844 - INFO - Uploaded /js/quantum-experience/quantum-being-portal.js
+2025-03-16 13:16:50,351 - INFO - Uploaded /js/quantum-experience/sacred-geometry.js
+2025-03-16 13:16:50,878 - INFO - Uploaded /js/quantum-experience/time-crystal.js
+2025-03-16 13:16:51,376 - INFO - Uploaded /js/quantum-experience/zen-point-field.js
+2025-03-16 13:16:51,765 - INFO - Uploaded /js/quantum-experience.js
+2025-03-16 13:16:52,168 - INFO - Uploaded /js/quantum-flow.js
+2025-03-16 13:16:52,743 - INFO - Uploaded /js/quantum-mastery.js
+2025-03-16 13:16:53,142 - INFO - Uploaded /launch_website.bat
+2025-03-16 13:16:53,544 - INFO - Uploaded /launch_website.sh
+2025-03-16 13:16:54,126 - INFO - Uploaded /mobile/beta/index.html
+2025-03-16 13:16:54,524 - INFO - Uploaded /mobile/index.html
+2025-03-16 13:16:54,920 - INFO - Uploaded /MYWish.md
+2025-03-16 13:16:55,416 - INFO - Uploaded /pages/examples.html
+2025-03-16 13:16:55,906 - INFO - Uploaded /pages/experiments.html
+2025-03-16 13:16:56,374 - INFO - Uploaded /pages/golden-age.html
+2025-03-16 13:16:56,790 - INFO - Uploaded /pages/visualizations.html
+2025-03-16 13:16:57,257 - INFO - Uploaded /QuantumImplementationPlan.md
+2025-03-16 13:16:57,698 - INFO - Uploaded /README.md
+2025-03-16 13:16:58,201 - INFO - Uploaded /secure_logs/deploy_20250315_141334.log
+2025-03-16 13:16:58,634 - INFO - Uploaded /secure_logs/deploy_20250315_141744.log
+2025-03-16 13:16:59,048 - INFO - Uploaded /secure_logs/deploy_20250315_224206.log
+2025-03-16 13:16:59,452 - INFO - Uploaded /secure_logs/deploy_20250316_125159.log
+2025-03-16 13:16:59,854 - INFO - Uploaded /secure_logs/deploy_20250316_130127.log
+2025-03-16 13:17:00,275 - INFO - Uploaded /secure_logs/deploy_20250316_130156.log
+2025-03-16 13:17:00,278 - INFO - Upload step completed
+2025-03-16 13:17:00,279 - INFO - Deployment completed successfully

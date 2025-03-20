@@ -1,0 +1,47 @@
+project:
+  name: "CQIL"
+  version: "1.0.0"
+  public_url: "https://cqil.ca"
+
+private_patterns:
+  - "**/private/*"
+  - "**/*.key"
+  - "**/secrets.yml"
+  - "**/credentials.json"
+  - "**/api_keys.txt"
+
+required_docs:
+  - "api/public_api.md"
+  - "getting_started.md"
+  - "mobile/installation.md"
+  - "nfl/integration.md"
+  - "quantum/basics.md"
+
+update_schedule:
+  website: 7  # days
+  mobile: 3   # days
+  docs: 14    # days
+  social: 1   # days
+
+social_media:
+  platforms:
+    - twitter
+    - linkedin
+    - github
+  update_frequency: "daily"
+
+monitoring:
+  check_frequency: 3600  # seconds
+  alert_threshold: 0.8   # 80%
+  metrics:
+    - uptime
+    - response_time
+    - error_rate
+
+security:
+  scan_frequency: "daily"
+  required_checks:
+    - ssl_certificate
+    - file_permissions
+    - content_exposure
+    - api_security

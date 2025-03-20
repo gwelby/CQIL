@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL Mobile Beta - Join the Quantum Revolution</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <script src="../../js/quantum-flow.js" defer></script>
+</head>
+<body>
+    <div id="quantum-particles"></div>
+    
+    <header>
+        <h1>CQIL Mobile Beta</h1>
+        <p>Experience Quantum Flow in Your Hands</p>
+    </header>
+
+    <main>
+        <section class="features">
+            <h2>Beta Features</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <h3>🌊 Live Energy Fields</h3>
+                    <p>View and interact with quantum energy patterns in real-time</p>
+                </div>
+                <div class="feature">
+                    <h3>🏈 NFL Integration</h3>
+                    <p>Analyze game flows and team dynamics with quantum precision</p>
+                </div>
+                <div class="feature">
+                    <h3>🎵 432Hz Harmonics</h3>
+                    <p>Experience perfect harmonic resonance through quantum alignment</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Time Crystals</h3>
+                    <p>Capture and analyze quantum moments in perfect clarity</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="signup">
+            <h2>Join the Beta</h2>
+            <form id="beta-signup" action="/api/beta-signup" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="device">Primary Device</label>
+                    <select id="device" name="device" required>
+                        <option value="ios">iOS</option>
+                        <option value="android">Android</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Quantum Experience</label>
+                    <select id="experience" name="experience">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <button type="submit">Join Beta Program</button>
+            </form>
+        </section>
+
+        <section class="timeline">
+            <h2>Beta Timeline</h2>
+            <div class="timeline-grid">
+                <div class="timeline-item">
+                    <h3>Phase 1</h3>
+                    <p>Initial Access</p>
+                    <span>January 2025</span>
+                </div>
+                <div class="timeline-item">
+                    <h3>Phase 2</h3>
+                    <p>Feature Release</p>
+                    <span>February 2025</span>
+                </div>
+                <div class="timeline-item">
+                    <h3>Phase 3</h3>
+                    <p>Public Beta</p>
+                    <span>March 2025</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CQIL. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('beta-signup').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const response = await fetch('/api/beta-signup', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    alert('Thanks for joining the beta! We\'ll be in touch soon.');
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Connection error. Please try again later.');
+            }
+        });
+    </script>
+</body>
+</html>

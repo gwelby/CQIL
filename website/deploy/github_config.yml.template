@@ -1,0 +1,39 @@
+# GitHub Integration Configuration
+# Make a copy of this file as github_config.yml and add your token
+
+github:
+  # Your GitHub personal access token with repo scope
+  token: "YOUR_GITHUB_TOKEN"
+  
+  # GitHub username
+  owner: "gwelby"
+  
+  # Repository name for the website
+  repo: "cqil-website"
+  
+  # Branch to use for GitHub Pages
+  branch: "main"
+
+deploy:
+  # Automatically deploy when pushing to this branch
+  auto_deploy: true
+  
+  # Branch to deploy from
+  deploy_branch: "main"
+  
+  # Whether to enable GitHub webhooks for CloudFlare integration
+  webhooks_enabled: false
+
+cloudflare:
+  # CloudFlare Pages configuration
+  pages:
+    enabled: true
+    
+    # Custom domain to use with CloudFlare Pages
+    domain: "cqil.ca"
+    
+    # Build settings (usually not needed for static sites)
+    build_command: ""
+    
+    # Output directory for CloudFlare Pages (usually / for static sites)
+    output_directory: "/"

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL - Public Examples</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#flow">Flow Examples</a></li>
+            <li><a href="#nfl">NFL Examples</a></li>
+            <li><a href="#mobile">Mobile Examples</a></li>
+        </ul>
+    </nav>
+
+    <main class="examples-container">
+        <section id="flow" class="example-section">
+            <h2>Quantum Flow Examples</h2>
+            
+            <div class="example-card">
+                <h3>Basic Flow Pattern</h3>
+                <pre><code class="language-python">
+from cqil.public import CascadeFlow
+
+# Create a basic flow pattern
+flow = CascadeFlow()
+pattern = await flow.create_flow_pattern(data)
+
+# Visualize the pattern
+pattern.visualize()
+                </code></pre>
+            </div>
+
+            <div class="example-card">
+                <h3>432Hz Harmonics</h3>
+                <pre><code class="language-python">
+from cqil.public import HarmonicFlow
+
+# Create harmonic resonance
+harmonic = HarmonicFlow(frequency=432)
+resonance = harmonic.create_resonance()
+
+# Apply to data
+harmonic_data = resonance.apply(data)
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="nfl" class="example-section">
+            <h2>NFL Integration Examples</h2>
+            
+            <div class="example-card">
+                <h3>Game Analysis</h3>
+                <pre><code class="language-python">
+from cqil.public import NFLAnalyzer
+
+# Analyze game data
+analyzer = NFLAnalyzer()
+game_flow = analyzer.analyze_game("GB", "CHI")
+
+# Get quantum insights
+insights = game_flow.get_insights()
+                </code></pre>
+            </div>
+
+            <div class="example-card">
+                <h3>Team Flow Patterns</h3>
+                <pre><code class="language-python">
+from cqil.public import TeamFlow
+
+# Create team flow
+packers = TeamFlow("GB")
+pattern = packers.create_pattern()
+
+# Visualize team energy
+pattern.show_energy_field()
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="mobile" class="example-section">
+            <h2>Mobile Integration</h2>
+            
+            <div class="example-card">
+                <h3>Mobile UI Flow</h3>
+                <pre><code class="language-python">
+from cqil.public.mobile import MobileFlow
+
+# Create mobile interface
+mobile = MobileFlow()
+ui = mobile.create_interface()
+
+# Add quantum effects
+ui.add_flow_effects()
+ui.add_particle_system()
+                </code></pre>
+            </div>
+
+            <div class="example-card">
+                <h3>Real-time Updates</h3>
+                <pre><code class="language-python">
+from cqil.public.mobile import LiveUpdates
+
+# Setup live updates
+updates = LiveUpdates()
+flow = updates.create_flow_stream()
+
+# Monitor changes
+@flow.on_update
+def handle_update(data):
+    print("New quantum state:", data)
+                </code></pre>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL - Quantum Visualizations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/quantum-flow.js" defer></script>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#flow">Flow</a></li>
+            <li><a href="#patterns">Patterns</a></li>
+            <li><a href="#harmonics">Harmonics</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="flow" class="viz-section">
+            <h2>Quantum Flow Visualization</h2>
+            <div class="viz-container">
+                <canvas id="flow-canvas" class="quantum-canvas"></canvas>
+                <div class="controls">
+                    <button onclick="startFlow()">Start Flow</button>
+                    <button onclick="pauseFlow()">Pause</button>
+                    <input type="range" id="flow-speed" min="1" max="100">
+                </div>
+            </div>
+        </section>
+
+        <section id="patterns" class="viz-section">
+            <h2>Pattern Analysis</h2>
+            <div class="viz-container">
+                <canvas id="pattern-canvas" class="quantum-canvas"></canvas>
+                <div class="controls">
+                    <button onclick="showPattern('nfl')">NFL Pattern</button>
+                    <button onclick="showPattern('quantum')">Quantum Pattern</button>
+                    <button onclick="showPattern('harmonic')">Harmonic Pattern</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="harmonics" class="viz-section">
+            <h2>432Hz Harmonics</h2>
+            <div class="viz-container">
+                <canvas id="harmonic-canvas" class="quantum-canvas"></canvas>
+                <div class="controls">
+                    <button onclick="startHarmonics()">Start Harmonics</button>
+                    <button onclick="stopHarmonics()">Stop</button>
+                    <input type="range" id="frequency" min="400" max="440" value="432">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize visualizations when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeVisualizations();
+        });
+    </script>
+</body>
+</html>

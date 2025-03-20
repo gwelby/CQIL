@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL Mobile - Quantum in Your Hands</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/quantum-flow.js" defer></script>
+    <script src="../js/interactive-features.js" defer></script>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL Mobile</div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#download">Download</a></li>
+            <li><a href="#demo">Live Demo</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="mobile-hero" class="hero">
+            <div id="particles" class="quantum-particles"></div>
+            <h1>CQIL Mobile</h1>
+            <p>Real Quantum Flow in Your Hands</p>
+            <div class="app-badges">
+                <a href="#" class="store-badge">
+                    <img src="../img/app-store.png" alt="Download on App Store">
+                </a>
+                <a href="#" class="store-badge">
+                    <img src="../img/play-store.png" alt="Get it on Google Play">
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h2>Quantum Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Energy Field Display</h3>
+                    <canvas class="feature-demo" id="energy-field"></canvas>
+                    <p>View real-time quantum energy fields</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Flow Patterns</h3>
+                    <canvas class="feature-demo" id="flow-pattern"></canvas>
+                    <p>Visualize quantum flow states</p>
+                </div>
+                <div class="feature-card">
+                    <h3>432Hz Harmonics</h3>
+                    <canvas class="feature-demo" id="harmonics"></canvas>
+                    <p>Experience harmonic resonance</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Time Crystals</h3>
+                    <canvas class="feature-demo" id="time-crystal"></canvas>
+                    <p>Capture perfect quantum moments</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="download-section">
+            <h2>Download Now</h2>
+            <div class="download-options">
+                <div class="download-card">
+                    <h3>Mobile App</h3>
+                    <p>Experience quantum flow on your phone</p>
+                    <div class="store-buttons">
+                        <a href="#" class="download-btn">App Store</a>
+                        <a href="#" class="download-btn">Google Play</a>
+                    </div>
+                </div>
+                <div class="download-card">
+                    <h3>Desktop Version</h3>
+                    <p>Full quantum capabilities on your computer</p>
+                    <div class="platform-buttons">
+                        <a href="#" class="download-btn">Windows</a>
+                        <a href="#" class="download-btn">macOS</a>
+                        <a href="#" class="download-btn">Linux</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Demo -->
+        <section id="demo" class="demo-section">
+            <h2>Live Demo</h2>
+            <div class="demo-container">
+                <div class="phone-frame">
+                    <canvas id="demo-canvas"></canvas>
+                </div>
+                <div class="demo-controls">
+                    <button onclick="startDemo('energy')">Energy Fields</button>
+                    <button onclick="startDemo('flow')">Flow Patterns</button>
+                    <button onclick="startDemo('harmonic')">432Hz Harmonics</button>
+                    <button onclick="startDemo('crystal')">Time Crystals</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="../docs/mobile_guide.md">Documentation</a>
+                <a href="https://github.com/GWelby/CQIL">GitHub</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="mailto:support@cqil.ca">support@cqil.ca</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

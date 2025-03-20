@@ -1,0 +1,40 @@
+canary:
+  initial_percentage: 5
+  target_percentage: 100
+  increment: 20
+  check_duration: 300
+  monitoring_interval: 60
+  auto_rollback: true
+  rollback_thresholds:
+    error_rate: 2.0  # Percentage
+    response_time: 1000  # Milliseconds
+    availability: 99.0  # Percentage
+
+monitoring:
+  endpoints:
+    - name: home
+      path: /
+    - name: golden-age
+      path: /pages/golden-age.html
+    - name: experiments
+      path: /pages/experiments.html
+  regions:
+    - us-east
+    - eu-west
+    - ap-east
+  alert_email: alerts@cqil.ca
+
+platforms:
+  cloudflare:
+    canary_url: https://canary.cqil.pages.dev
+    stable_url: https://cqil.pages.dev
+  github:
+    canary_branch: canary
+    stable_branch: main
+    canary_url: https://gwelby.github.io/cqil-website-canary
+    stable_url: https://gwelby.github.io/cqil-website
+  traditional:
+    canary_dir: /canary
+    stable_dir: /
+    canary_url: https://canary.cqil.ca
+    stable_url: https://cqil.ca

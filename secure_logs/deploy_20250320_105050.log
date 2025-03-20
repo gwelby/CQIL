@@ -1,0 +1,87 @@
+2025-03-20 10:50:50,060 - INFO - Connecting to ftp.expecting.ca with username mig@expecting.ca
+2025-03-20 10:50:50,061 - INFO - Testing connection...
+2025-03-20 10:50:55,474 - INFO - Connected to ftp.expecting.ca (standard FTP)
+2025-03-20 10:50:55,569 - INFO - Changed to public_html directory
+2025-03-20 10:50:55,656 - INFO - Changed to cqil.ca directory
+2025-03-20 10:50:55,774 - INFO - Uploading CONTRIBUTING.md
+2025-03-20 10:50:56,263 - INFO - Uploaded CONTRIBUTING.md
+2025-03-20 10:50:56,363 - INFO - Uploading health-check.html
+2025-03-20 10:50:56,835 - INFO - Uploaded health-check.html
+2025-03-20 10:50:56,935 - INFO - Uploading health.html
+2025-03-20 10:50:57,418 - INFO - Uploaded health.html
+2025-03-20 10:50:57,539 - INFO - Uploading index.html
+2025-03-20 10:50:58,088 - INFO - Uploaded index.html
+2025-03-20 10:50:58,185 - INFO - Uploading launch_website.bat
+2025-03-20 10:50:58,629 - INFO - Uploaded launch_website.bat
+2025-03-20 10:50:58,722 - INFO - Uploading launch_website.sh
+2025-03-20 10:50:59,175 - INFO - Uploaded launch_website.sh
+2025-03-20 10:50:59,277 - INFO - Uploading MYWish.md
+2025-03-20 10:50:59,753 - INFO - Uploaded MYWish.md
+2025-03-20 10:50:59,850 - INFO - Uploading QuantumImplementationPlan.md
+2025-03-20 10:51:00,368 - INFO - Uploaded QuantumImplementationPlan.md
+2025-03-20 10:51:00,460 - INFO - Uploading README.md
+2025-03-20 10:51:00,906 - INFO - Uploaded README.md
+2025-03-20 10:51:01,002 - INFO - Uploading WISHLIST.md
+2025-03-20 10:51:01,468 - INFO - Uploaded WISHLIST.md
+2025-03-20 10:51:01,642 - INFO - Uploading css/golden-age.css
+2025-03-20 10:51:02,159 - INFO - Uploaded css/golden-age.css
+2025-03-20 10:51:02,252 - INFO - Uploading css/style.css
+2025-03-20 10:51:02,790 - INFO - Uploaded css/style.css
+2025-03-20 10:51:03,288 - INFO - Uploading docs/getting_started.md
+2025-03-20 10:51:03,638 - ERROR - Failed to upload docs/getting_started.md: 553 Can't open that file: No such file or directory
+2025-03-20 10:51:03,756 - INFO - Uploading docs/mobile_guide.md
+2025-03-20 10:51:04,124 - ERROR - Failed to upload docs/mobile_guide.md: 553 Can't open that file: No such file or directory
+2025-03-20 10:51:04,214 - INFO - Uploading docs/public_api.md
+2025-03-20 10:51:04,580 - ERROR - Failed to upload docs/public_api.md: 553 Can't open that file: No such file or directory
+2025-03-20 10:51:04,682 - INFO - Uploading hosting/cloudflare_setup.md
+2025-03-20 10:51:05,041 - ERROR - Failed to upload hosting/cloudflare_setup.md: 553 Can't open that file: No such file or directory
+2025-03-20 10:51:05,141 - INFO - Uploading hosting/godaddy_setup.md
+2025-03-20 10:51:05,508 - ERROR - Failed to upload hosting/godaddy_setup.md: 553 Can't open that file: No such file or directory
+2025-03-20 10:51:05,603 - INFO - Uploading hosting/setup.md
+2025-03-20 10:51:05,988 - ERROR - Failed to upload hosting/setup.md: 553 Can't open that file: No such file or directory
+2025-03-20 10:51:06,086 - INFO - Uploading js/advanced-quantum.js
+2025-03-20 10:51:06,551 - INFO - Uploaded js/advanced-quantum.js
+2025-03-20 10:51:06,647 - INFO - Uploading js/ai-quantum-coach.js
+2025-03-20 10:51:07,287 - INFO - Uploaded js/ai-quantum-coach.js
+2025-03-20 10:51:07,386 - INFO - Uploading js/golden-age.js
+2025-03-20 10:51:08,009 - INFO - Uploaded js/golden-age.js
+2025-03-20 10:51:08,106 - INFO - Uploading js/interactive-features.js
+2025-03-20 10:51:08,631 - INFO - Uploaded js/interactive-features.js
+2025-03-20 10:51:08,723 - INFO - Uploading js/interactive-learning.js
+2025-03-20 10:51:09,380 - INFO - Uploaded js/interactive-learning.js
+2025-03-20 10:51:09,480 - INFO - Uploading js/phi-harmonic-ui.js
+2025-03-20 10:51:11,009 - INFO - Uploaded js/phi-harmonic-ui.js
+2025-03-20 10:51:11,106 - INFO - Uploading js/quantum-adaptive-learning.js
+2025-03-20 10:51:11,709 - INFO - Uploaded js/quantum-adaptive-learning.js
+2025-03-20 10:51:11,812 - INFO - Uploading js/quantum-connection.js
+2025-03-20 10:51:12,465 - INFO - Uploaded js/quantum-connection.js
+2025-03-20 10:51:12,599 - INFO - Uploading js/quantum-experience.js
+2025-03-20 10:51:13,105 - INFO - Uploaded js/quantum-experience.js
+2025-03-20 10:51:13,220 - INFO - Uploading js/quantum-flow.js
+2025-03-20 10:51:13,677 - INFO - Uploaded js/quantum-flow.js
+2025-03-20 10:51:13,783 - INFO - Uploading js/quantum-mastery.js
+2025-03-20 10:51:14,420 - INFO - Uploaded js/quantum-mastery.js
+2025-03-20 10:51:14,615 - INFO - Uploading js/quantum-experience/cymatics-visualizer.js
+2025-03-20 10:51:15,172 - INFO - Uploaded js/quantum-experience/cymatics-visualizer.js
+2025-03-20 10:51:15,373 - INFO - Uploading js/quantum-experience/dna-resonance.js
+2025-03-20 10:51:15,939 - INFO - Uploaded js/quantum-experience/dna-resonance.js
+2025-03-20 10:51:16,128 - INFO - Uploading js/quantum-experience/quantum-being-portal.js
+2025-03-20 10:51:16,686 - INFO - Uploaded js/quantum-experience/quantum-being-portal.js
+2025-03-20 10:51:16,876 - INFO - Uploading js/quantum-experience/sacred-geometry.js
+2025-03-20 10:51:17,439 - INFO - Uploaded js/quantum-experience/sacred-geometry.js
+2025-03-20 10:51:17,625 - INFO - Uploading js/quantum-experience/time-crystal.js
+2025-03-20 10:51:18,153 - INFO - Uploaded js/quantum-experience/time-crystal.js
+2025-03-20 10:51:18,346 - INFO - Uploading js/quantum-experience/zen-point-field.js
+2025-03-20 10:51:18,941 - INFO - Uploaded js/quantum-experience/zen-point-field.js
+2025-03-20 10:51:19,055 - INFO - Uploading mobile/index.html
+2025-03-20 10:51:19,507 - INFO - Uploaded mobile/index.html
+2025-03-20 10:51:19,701 - INFO - Uploading mobile/beta/index.html
+2025-03-20 10:51:20,161 - INFO - Uploaded mobile/beta/index.html
+2025-03-20 10:51:20,291 - INFO - Uploading pages/examples.html
+2025-03-20 10:51:20,737 - INFO - Uploaded pages/examples.html
+2025-03-20 10:51:20,848 - INFO - Uploading pages/experiments.html
+2025-03-20 10:51:21,392 - INFO - Uploaded pages/experiments.html
+2025-03-20 10:51:21,492 - INFO - Uploading pages/golden-age.html
+2025-03-20 10:51:22,062 - INFO - Uploaded pages/golden-age.html
+2025-03-20 10:51:22,159 - INFO - Uploading pages/visualizations.html
+2025-03-20 10:51:22,611 - INFO - Uploaded pages/visualizations.html

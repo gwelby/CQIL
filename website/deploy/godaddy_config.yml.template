@@ -1,0 +1,21 @@
+# This is a template file. Copy to godaddy_config.yml and fill in your credentials.
+# IMPORTANT: Never commit the filled godaddy_config.yml to version control!
+
+ftp:
+  host: "ftp.example.com"  # FTP host
+  username: "YOUR_USERNAME"  # FTP username
+  password: "YOUR_PASSWORD"  # FTP password
+
+local:
+  web_root: "/mnt/d/cqil/website"  # Local website directory
+
+exclude:
+  - ".git"
+  - ".github"
+  - "node_modules"
+  - "__pycache__"
+  - "*.pyc"
+  - "deploy"
+  - "*.log"
+  - "*.yml"
+  - "tests"

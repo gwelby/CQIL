@@ -1,0 +1,41 @@
+# Secure API Configuration Template
+# DO NOT commit the actual secure_config.yml with real credentials
+
+cloudflare:
+  api_token: "ENCRYPTED_TOKEN_HERE"  # Will be encrypted by secure_api_manager.py
+  zone_id: "YOUR_ZONE_ID"
+  security:
+    ssl_mode: "full"
+    always_use_https: true
+    security_level: "high"
+    email_obfuscation: true
+    server_side_exclude: true
+    hotlink_protection: true
+
+godaddy:
+  api_key: "ENCRYPTED_KEY_HERE"  # Will be encrypted by secure_api_manager.py
+  api_secret: "ENCRYPTED_SECRET_HERE"  # Will be encrypted by secure_api_manager.py
+  domain: "cqil.ca"
+  settings:
+    ssl_enabled: true
+    forward_emails: true
+    privacy_protection: true
+
+security_audit:
+  frequency: "daily"  # Options: hourly, daily, weekly
+  notify_email: "your-email@example.com"
+  checks:
+    - ssl_status
+    - dns_records
+    - firewall_rules
+    - access_rules
+    - cache_settings
+    - origin_certificates
+    - page_rules
+
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  rotate: true
+  max_size: "10MB"
+  backup_count: 5
+  secure_path: "./secure_logs"

@@ -1,0 +1,52 @@
+# CQIL Website .gitignore
+
+# Sensitive configuration
+deploy/secure_config.yml
+deploy/github_config.yml
+deploy/.secure/
+deploy/secure_logs/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.bak
+*~
+.cache/
+
+# Environment files
+.env
+.env.*
+.venv/
+venv/
+env/
+
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Large media files (add to LFS if needed)
+*.mp4
+*.mov
+*.avi

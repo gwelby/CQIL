@@ -1,0 +1,20 @@
+# Ignore sensitive configuration files
+ftp_config.yml
+secure_config.yml
+github_config.yml
+godaddy_config.yml
+
+# Ignore log files
+*.log
+deploy.log
+secure_logs/
+
+# Ignore temporary files
+*~
+*.swp
+*.tmp
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*$py.class

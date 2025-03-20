@@ -1,0 +1,7 @@
+paramiko>=2.8.1
+PyYAML>=6.0
+cryptography>=36.0.0
+cloudflare>=2.8.15
+godaddypy>=2.4.5
+PyGithub>=2.1.1
+colorama>=0.4.4

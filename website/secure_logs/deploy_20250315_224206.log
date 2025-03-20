@@ -1,0 +1,14 @@
+2025-03-15 22:42:06,358 - INFO - Copied directory .github
+2025-03-15 22:42:06,387 - INFO - Copied file .gitignore
+2025-03-15 22:42:06,493 - INFO - Copied directory css
+2025-03-15 22:42:06,603 - INFO - Copied directory docs
+2025-03-15 22:42:06,755 - INFO - Copied directory hosting
+2025-03-15 22:42:06,798 - INFO - Copied file index.html
+2025-03-15 22:42:07,485 - INFO - Copied directory js
+2025-03-15 22:42:07,639 - INFO - Copied directory mobile
+2025-03-15 22:42:07,674 - INFO - Copied file MYWish.md
+2025-03-15 22:42:07,853 - INFO - Copied directory pages
+2025-03-15 22:42:07,898 - INFO - Copied file QuantumImplementationPlan.md
+2025-03-15 22:42:07,946 - INFO - Copied file README.md
+2025-03-15 22:42:08,105 - INFO - Copied directory secure_logs
+2025-03-15 22:42:08,107 - INFO - Successfully copied website files to /mnt/d/cqil/website_deployed

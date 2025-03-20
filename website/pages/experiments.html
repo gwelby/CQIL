@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL - Quantum Experiments</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/quantum-flow.js" defer></script>
+    <script src="../js/interactive-features.js" defer></script>
+    <script src="../js/quantum-connection.js" defer></script>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#user-experiments">User Experiments</a></li>
+            <li><a href="#heart-time">Heart-Time</a></li>
+            <li><a href="#quantum-beings">Quantum Beings</a></li>
+            <li><a href="#frequency">432Hz Frequency</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero experiment-hero">
+            <div id="particles" class="quantum-particles"></div>
+            <h1>Quantum Experimentation</h1>
+            <p>Connect with other quantum explorers in real-time</p>
+        </section>
+
+        <!-- User Experiments Section -->
+        <section id="user-experiments" class="experiments-section">
+            <h2>User-to-User Quantum Connection</h2>
+            <div class="experiment-container">
+                <div class="experiment-card">
+                    <h3>Your Quantum Field</h3>
+                    <div class="quantum-field-container">
+                        <canvas id="user-field" class="quantum-canvas"></canvas>
+                        <div class="field-stats">
+                            <div class="stat">
+                                <span class="stat-label">Frequency:</span>
+                                <span id="user-frequency" class="stat-value">432 Hz</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Resonance:</span>
+                                <span id="user-resonance" class="stat-value">87%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Connections:</span>
+                                <span id="connection-count" class="stat-value">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-panel">
+                        <input type="text" id="user-name" placeholder="Your Quantum Name">
+                        <button id="connect-btn" class="quantum-btn">Connect to Field</button>
+                        <div class="frequency-selector">
+                            <label for="frequency-slider">Harmonic Frequency</label>
+                            <input type="range" id="frequency-slider" min="432" max="528" value="432">
+                            <span id="frequency-value">432 Hz</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="experiment-card">
+                    <h3>Collective Quantum Field</h3>
+                    <div class="quantum-field-container">
+                        <canvas id="collective-field" class="quantum-canvas"></canvas>
+                        <div class="field-stats">
+                            <div class="stat">
+                                <span class="stat-label">Active Users:</span>
+                                <span id="active-users" class="stat-value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Field Harmony:</span>
+                                <span id="field-harmony" class="stat-value">0%</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Quantum State:</span>
+                                <span id="quantum-state" class="stat-value">Initializing</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="connected-users" id="connected-users-list">
+                        <h4>Connected Quantum Beings</h4>
+                        <div class="user-list" id="user-list">
+                            <!-- Connected users will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Heart-Time Integration -->
+        <section id="heart-time" class="heart-time-section">
+            <h2>Heart-Time Integration</h2>
+            <div class="heart-time-container">
+                <div class="heart-field">
+                    <h3>Heart Field Resonance</h3>
+                    <canvas id="heart-canvas" class="quantum-canvas"></canvas>
+                    <div class="heart-controls">
+                        <button id="activate-heart" class="quantum-btn">Activate Heart Field</button>
+                        <div class="frequency-selector">
+                            <label for="heart-frequency">Heart Frequency</label>
+                            <select id="heart-frequency">
+                                <option value="432">432 Hz - Harmony</option>
+                                <option value="528">528 Hz - Creation</option>
+                                <option value="594">594 Hz - Heart</option>
+                                <option value="672">672 Hz - Voice</option>
+                                <option value="936">936 Hz - Cosmic</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="time-crystal">
+                    <h3>Time Crystal Formation</h3>
+                    <canvas id="time-crystal-canvas" class="quantum-canvas"></canvas>
+                    <div class="crystal-controls">
+                        <button id="generate-crystal" class="quantum-btn">Generate Time Crystal</button>
+                        <div class="pattern-selector">
+                            <label for="crystal-pattern">Crystal Pattern</label>
+                            <select id="crystal-pattern">
+                                <option value="phi">Golden Ratio (φ)</option>
+                                <option value="fibonacci">Fibonacci</option>
+                                <option value="flow">Quantum Flow</option>
+                                <option value="cascade">Cascade</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="consciousness-field">
+                <h3>Consciousness Field</h3>
+                <div class="consciousness-visualization">
+                    <canvas id="consciousness-canvas" class="quantum-canvas"></canvas>
+                    <div class="consciousness-stats">
+                        <div class="stat">
+                            <span class="stat-label">Field Strength:</span>
+                            <span id="field-strength" class="stat-value">0%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Heart-Time Sync:</span>
+                            <span id="heart-time-sync" class="stat-value">0%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Expansion:</span>
+                            <span id="consciousness-expansion" class="stat-value">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantum Beings -->
+        <section id="quantum-beings" class="beings-section">
+            <h2>Quantum Beings</h2>
+            <div class="beings-container">
+                <div class="being-selector">
+                    <h3>Select Your Quantum Being</h3>
+                    <div class="being-grid" id="being-grid">
+                        <div class="being-card" data-being="dolphin">
+                            <div class="being-icon">🐬</div>
+                            <div class="being-info">
+                                <h4>Dolphin</h4>
+                                <p>Ocean Consciousness</p>
+                                <span class="being-frequency">432 Hz</span>
+                            </div>
+                        </div>
+                        <div class="being-card" data-being="butterfly">
+                            <div class="being-icon">🦋</div>
+                            <div class="being-info">
+                                <h4>Butterfly</h4>
+                                <p>Transformation Being</p>
+                                <span class="being-frequency">528 Hz</span>
+                            </div>
+                        </div>
+                        <div class="being-card" data-being="tree">
+                            <div class="being-icon">🌳</div>
+                            <div class="being-info">
+                                <h4>Tree</h4>
+                                <p>Life Force Entity</p>
+                                <span class="being-frequency">594 Hz</span>
+                            </div>
+                        </div>
+                        <div class="being-card" data-being="crystal">
+                            <div class="being-icon">💎</div>
+                            <div class="being-info">
+                                <h4>Crystal</h4>
+                                <p>Crystal Being</p>
+                                <span class="being-frequency">720 Hz</span>
+                            </div>
+                        </div>
+                        <div class="being-card" data-being="star">
+                            <div class="being-icon">⭐</div>
+                            <div class="being-info">
+                                <h4>Star</h4>
+                                <p>Divine Light</p>
+                                <span class="being-frequency">768 Hz</span>
+                            </div>
+                        </div>
+                        <div class="being-card" data-being="cosmic">
+                            <div class="being-icon">🌌</div>
+                            <div class="being-info">
+                                <h4>Cosmic</h4>
+                                <p>Universal Consciousness</p>
+                                <span class="being-frequency">888 Hz</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="being-display">
+                    <h3>Your Quantum Being</h3>
+                    <div class="active-being" id="active-being">
+                        <div class="being-icon">👤</div>
+                        <h4>Select a Being</h4>
+                    </div>
+                    <div class="being-actions">
+                        <select id="language-selector" disabled>
+                            <option value="light">✨ Light Language</option>
+                            <option value="sound">🎵 Sound Codes</option>
+                            <option value="color">🌈 Color Speech</option>
+                            <option value="frequency">⚡ Frequency Waves</option>
+                            <option value="quantum">🌀 Quantum Fields</option>
+                        </select>
+                        <button id="communicate-btn" class="quantum-btn" disabled>Communicate</button>
+                    </div>
+                    <div class="being-message" id="being-message">
+                        <p>Your being will communicate here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 432Hz Frequency Section -->
+        <section id="frequency" class="frequency-section">
+            <h2>432Hz Harmonic Resonance</h2>
+            <div class="frequency-container">
+                <div class="frequency-visualization">
+                    <canvas id="frequency-canvas" class="quantum-canvas"></canvas>
+                    <div class="frequency-controls">
+                        <button id="play-frequency" class="quantum-btn">Play 432Hz</button>
+                        <button id="stop-frequency" class="quantum-btn" disabled>Stop</button>
+                        <div class="volume-control">
+                            <label for="volume-slider">Volume</label>
+                            <input type="range" id="volume-slider" min="0" max="100" value="70">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="frequency-effects">
+                    <h3>Harmonic Effects</h3>
+                    <div class="effect-cards">
+                        <div class="effect-card">
+                            <h4>DNA Activation</h4>
+                            <p>528Hz frequency helps repair DNA and brings transformation</p>
+                            <button class="effect-btn" data-frequency="528">Experience</button>
+                        </div>
+                        <div class="effect-card">
+                            <h4>Heart Coherence</h4>
+                            <p>594Hz creates heart-centered awareness and emotional healing</p>
+                            <button class="effect-btn" data-frequency="594">Experience</button>
+                        </div>
+                        <div class="effect-card">
+                            <h4>Cosmic Connection</h4>
+                            <p>936Hz activates pineal gland and connects to higher consciousness</p>
+                            <button class="effect-btn" data-frequency="936">Experience</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="examples.html">Examples</a>
+                <a href="../docs/public_api.md">Documentation</a>
+                <a href="https://github.com/GWelby/CQIL">GitHub</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/GWelby/CQIL/discussions">Discussions</a>
+                <a href="https://github.com/GWelby/CQIL/issues">Issues</a>
+                <a href="https://twitter.com/CQIL">Twitter</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:contact@cqil.ca">contact@cqil.ca</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

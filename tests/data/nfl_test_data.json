@@ -1,0 +1,57 @@
+{
+    "games": [
+        {
+            "home": "GB",
+            "away": "CHI",
+            "date": "2025-01-04",
+            "flow_patterns": {
+                "offense": {
+                    "energy": 0.9,
+                    "stability": 0.85,
+                    "patterns": [
+                        {"type": "pass", "energy": 0.9},
+                        {"type": "run", "energy": 0.8}
+                    ]
+                },
+                "defense": {
+                    "energy": 0.85,
+                    "stability": 0.9,
+                    "patterns": [
+                        {"type": "coverage", "energy": 0.9},
+                        {"type": "rush", "energy": 0.85}
+                    ]
+                }
+            },
+            "players": {
+                "GB-12": {
+                    "name": "Player 12",
+                    "position": "QB",
+                    "flow_state": 0.95,
+                    "energy": 0.9
+                },
+                "GB-17": {
+                    "name": "Player 17",
+                    "position": "WR",
+                    "flow_state": 0.9,
+                    "energy": 0.85
+                }
+            }
+        }
+    ],
+    "teams": {
+        "GB": {
+            "name": "Green Bay",
+            "flow_patterns": {
+                "offense": {"energy": 0.9, "stability": 0.85},
+                "defense": {"energy": 0.85, "stability": 0.9}
+            }
+        },
+        "CHI": {
+            "name": "Chicago",
+            "flow_patterns": {
+                "offense": {"energy": 0.8, "stability": 0.85},
+                "defense": {"energy": 0.9, "stability": 0.85}
+            }
+        }
+    }
+}

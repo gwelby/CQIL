@@ -1,0 +1,26 @@
+ssh:
+  host: "cqil.ca"  # Your server hostname
+  username: "your_ssh_username"
+  key_path: "~/.ssh/id_rsa"  # Path to your SSH private key
+  port: 22  # SSH port
+
+local:
+  web_root: "/mnt/d/cqil/website"  # Local website directory
+
+remote:
+  web_root: "/var/www/cqil.ca/public_html"  # Remote website directory
+  cache_dir: "/var/www/cqil.ca/cache"  # Remote cache directory
+  backup_dir: "/backup/website"  # Remote backup directory
+
+permissions:
+  files: "644"  # Default file permissions
+  directories: "755"  # Default directory permissions
+
+exclude:
+  - ".git"
+  - ".github"
+  - "node_modules"
+  - "__pycache__"
+  - "*.pyc"
+  - "deploy.log"
+  - "config.yml"
