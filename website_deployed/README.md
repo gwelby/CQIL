@@ -193,12 +193,16 @@ launch_website.bat   # Windows
 # OR use Python directly
 python3 deploy/website_manager.py --launch
 
-# Deploy to the live server
+# Deploy to the live server (UniversalPublisher recommended)
+cd /mnt/d/Projects/UniversalPublisher && ./publish deploy cqil.ca
+
+# Legacy deployment (not recommended)
 python3 deploy/deploy_now.py --ftp
 ```
 
 ### Deployment Options
 
+- **UniversalPublisher** (Recommended): See [ftp_check/deploy_guide.md](ftp_check/deploy_guide.md)
 - **Local testing**: See [deploy/LOCAL_DEPLOY.md](deploy/LOCAL_DEPLOY.md)
 - **FTP deployment**: See [deploy/FTP_DEPLOY_GUIDE.md](deploy/FTP_DEPLOY_GUIDE.md)
 - **Cloudflare issues**: See [deploy/CLOUDFLARE_FIX.md](deploy/CLOUDFLARE_FIX.md)

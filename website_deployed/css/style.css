@@ -642,11 +642,28 @@ footer {
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(33, 150, 243, 0.2);
+}
+
+.interactive-btn.secondary {
+    background: linear-gradient(90deg, #9c27b0, #3f51b5);
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
 .interactive-btn:hover {
     background: var(--quantum-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(33, 150, 243, 0.3);
+}
+
+.additional-demos {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .content-visual {

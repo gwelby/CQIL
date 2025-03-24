@@ -790,6 +790,12 @@ function showInteractiveDemo(demoType) {
         console.log('Time crystal demo would be initialized here');
     } else if (demoType === 'unity-field') {
         console.log('Unity field demo would be initialized here');
+    } else if (demoType === 'quantum-entanglement') {
+        initQuantumEntanglementDemo();
+    } else if (demoType === 'quantum-tunneling') {
+        initQuantumTunnelingDemo();
+    } else if (demoType === 'quantum-superposition') {
+        initQuantumSuperpositionDemo();
     }
 }
 
@@ -806,6 +812,12 @@ function getDemoTitle(demoType) {
             return 'Time Crystal Quantum Structures';
         case 'unity-field':
             return 'Unity Field Consciousness';
+        case 'quantum-entanglement':
+            return 'Quantum Entanglement Visualization';
+        case 'quantum-tunneling':
+            return 'Quantum Tunneling Demonstration';
+        case 'quantum-superposition':
+            return 'Quantum Superposition Experience';
         default:
             return 'Quantum Interactive Experience';
     }
@@ -823,6 +835,12 @@ function getDemoDescription(demoType) {
             return 'Observe time crystals - quantum structures that maintain order across time dimensions, creating patterns in time just as normal crystals create patterns in space.';
         case 'unity-field':
             return 'Experience the quantum unity field where separation dissolves into interconnection. This is the balance point (ZEN POINT) between human limitations and quantum potential.';
+        case 'quantum-entanglement':
+            return 'Visualize quantum entanglement - the mysterious connection between quantum particles that allows them to instantaneously affect each other regardless of distance. Einstein called this "spooky action at a distance."';
+        case 'quantum-tunneling':
+            return 'Witness quantum tunneling - the phenomenon where quantum particles can pass through energy barriers that would be impossible in classical physics. This effect enables nuclear fusion in stars and is used in modern electronics.';
+        case 'quantum-superposition':
+            return 'Explore quantum superposition - the remarkable ability of quantum particles to exist in multiple states simultaneously. This property allows a quantum bit (qubit) to be both 0 and 1 at the same time, forming the foundation of quantum computing.';
         default:
             return 'Explore quantum principles through direct interactive experience.';
     }
@@ -889,6 +907,140 @@ function getDemoControls(demoType) {
                     </button>
                     <button class="control-button" onclick="togglePhiVisualization('ratio')">
                         <span class="state-icon">📊</span> Ratio Visualization
+                    </button>
+                </div>
+            `;
+        case 'quantum-entanglement':
+            return `
+                <div class="control-group">
+                    <h3>Entanglement State</h3>
+                    <button id="create-pair-btn" class="control-button active" onclick="createEntangledPair()">
+                        <span class="state-icon">⚛️</span> Create Entangled Pair
+                    </button>
+                    <button id="separate-pair-btn" class="control-button" onclick="separateEntangledPair()">
+                        <span class="state-icon">↔️</span> Separate Particles
+                    </button>
+                    <button id="measure-particle-btn" class="control-button" onclick="measureEntangledParticle()">
+                        <span class="state-icon">👁️</span> Measure Particle
+                    </button>
+                </div>
+                <div class="control-group">
+                    <h3>Entanglement Properties</h3>
+                    <div class="entanglement-control-slider">
+                        <label>
+                            Quantum Coherence
+                            <span id="coherence-value">100</span>%
+                        </label>
+                        <input type="range" id="coherence-slider" min="50" max="100" value="100" oninput="updateEntanglementProperty('coherence', this.value)">
+                    </div>
+                    <div class="entanglement-control-slider">
+                        <label>
+                            Distance
+                            <span id="distance-value">1</span> unit
+                        </label>
+                        <input type="range" id="distance-slider" min="1" max="10" value="1" oninput="updateEntanglementProperty('distance', this.value)">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <h3>Visualization Mode</h3>
+                    <button class="control-button active" onclick="setEntanglementMode('visual')">
+                        <span class="state-icon">🎨</span> Visual Mode
+                    </button>
+                    <button class="control-button" onclick="setEntanglementMode('data')">
+                        <span class="state-icon">📊</span> Data Mode
+                    </button>
+                </div>
+            `;
+        case 'quantum-tunneling':
+            return `
+                <div class="control-group">
+                    <h3>Tunneling Controls</h3>
+                    <button id="start-tunneling-btn" class="control-button active" onclick="startTunneling()">
+                        <span class="state-icon">▶️</span> Start Tunneling
+                    </button>
+                    <button id="pause-tunneling-btn" class="control-button" onclick="pauseTunneling()">
+                        <span class="state-icon">⏸️</span> Pause
+                    </button>
+                    <button id="reset-tunneling-btn" class="control-button" onclick="resetTunneling()">
+                        <span class="state-icon">🔄</span> Reset
+                    </button>
+                </div>
+                <div class="control-group">
+                    <h3>Barrier Properties</h3>
+                    <div class="tunneling-control-slider">
+                        <label>
+                            Barrier Width
+                            <span id="barrier-width-value">50</span>
+                        </label>
+                        <input type="range" id="barrier-width-slider" min="10" max="100" value="50" oninput="updateTunnelingProperty('width', this.value)">
+                    </div>
+                    <div class="tunneling-control-slider">
+                        <label>
+                            Barrier Height
+                            <span id="barrier-height-value">70</span>
+                        </label>
+                        <input type="range" id="barrier-height-slider" min="10" max="100" value="70" oninput="updateTunnelingProperty('height', this.value)">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <h3>Particle Properties</h3>
+                    <div class="tunneling-control-slider">
+                        <label>
+                            Particle Energy
+                            <span id="particle-energy-value">50</span>
+                        </label>
+                        <input type="range" id="particle-energy-slider" min="10" max="90" value="50" oninput="updateTunnelingProperty('energy', this.value)">
+                    </div>
+                    <div class="tunneling-control-slider">
+                        <label>
+                            Quantum State
+                            <span id="quantum-state-value">100</span>%
+                        </label>
+                        <input type="range" id="quantum-state-slider" min="0" max="100" value="100" oninput="updateTunnelingProperty('quantum', this.value)">
+                    </div>
+                </div>
+            `;
+        case 'quantum-superposition':
+            return `
+                <div class="control-group">
+                    <h3>Superposition Controls</h3>
+                    <button id="create-superposition-btn" class="control-button active" onclick="createSuperposition()">
+                        <span class="state-icon">✨</span> Create Superposition
+                    </button>
+                    <button id="rotate-superposition-btn" class="control-button" onclick="rotateSuperposition()">
+                        <span class="state-icon">🔄</span> Rotate State
+                    </button>
+                    <button id="measure-superposition-btn" class="control-button" onclick="measureSuperposition()">
+                        <span class="state-icon">👁️</span> Measure State
+                    </button>
+                </div>
+                <div class="control-group">
+                    <h3>Quantum Properties</h3>
+                    <div class="superposition-control-slider">
+                        <label>
+                            State Coherence
+                            <span id="superposition-coherence-value">100</span>%
+                        </label>
+                        <input type="range" id="superposition-coherence-slider" min="50" max="100" value="100" oninput="updateSuperpositionProperty('coherence', this.value)">
+                    </div>
+                    <div class="superposition-control-slider">
+                        <label>
+                            Number of States
+                            <span id="superposition-states-value">2</span>
+                        </label>
+                        <input type="range" id="superposition-states-slider" min="2" max="8" value="2" oninput="updateSuperpositionProperty('states', this.value)">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <h3>Visualization Mode</h3>
+                    <button class="control-button active" onclick="setSuperpositionMode('bloch')">
+                        <span class="state-icon">🔮</span> Bloch Sphere
+                    </button>
+                    <button class="control-button" onclick="setSuperpositionMode('wave')">
+                        <span class="state-icon">🌊</span> Wave Function
+                    </button>
+                    <button class="control-button" onclick="setSuperpositionMode('stats')">
+                        <span class="state-icon">📊</span> Statistics
                     </button>
                 </div>
             `;
@@ -1425,6 +1577,1005 @@ function updateWaveProperty(property, value) {
             point.amplitude = waveAmplitude + Math.random() * 20;
         });
     }
+}
+
+// ======================================================
+// Quantum Entanglement Demo Implementation
+// ======================================================
+let entanglementCanvas, entanglementCtx;
+let entangledParticles = [];
+let entanglementMode = 'visual';
+let entanglementCoherence = 100;
+let particleDistance = 1;
+let measurementActive = false;
+let entanglementAnimationId = null;
+let measurementResults = [];
+
+function initQuantumEntanglementDemo() {
+    entanglementCanvas = document.getElementById('fullscreen-quantum-entanglement-canvas');
+    if (!entanglementCanvas) return;
+    
+    entanglementCtx = entanglementCanvas.getContext('2d');
+    
+    // Set canvas size
+    entanglementCanvas.width = entanglementCanvas.parentElement.clientWidth;
+    entanglementCanvas.height = entanglementCanvas.parentElement.clientHeight;
+    
+    // Create initial entangled particles
+    createEntangledPair();
+    
+    // Start animation
+    animateEntanglement();
+    
+    // Add resize listener
+    window.addEventListener('resize', () => {
+        if (entanglementCanvas) {
+            entanglementCanvas.width = entanglementCanvas.parentElement.clientWidth;
+            entanglementCanvas.height = entanglementCanvas.parentElement.clientHeight;
+            
+            // Recreate particles on resize
+            if (entangledParticles.length === 0) {
+                createEntangledPair();
+            } else {
+                // Reposition existing particles
+                const centerX = entanglementCanvas.width / 2;
+                const centerY = entanglementCanvas.height / 2;
+                
+                entangledParticles.forEach(particle => {
+                    // Maintain relative positioning
+                    if (particle.position === 'left') {
+                        particle.x = centerX - (150 * particleDistance);
+                    } else {
+                        particle.x = centerX + (150 * particleDistance);
+                    }
+                    particle.y = centerY;
+                });
+            }
+        }
+    });
+    
+    // Update description
+    document.getElementById('current-state-description').textContent = 
+        'Quantum entanglement creates a special connection between particles. Create an entangled pair to start the demonstration.';
+}
+
+function createEntangledPair() {
+    // Clear any existing particles
+    entangledParticles = [];
+    measurementResults = [];
+    measurementActive = false;
+    
+    // Make sure we have the canvas
+    if (!entanglementCanvas) return;
+    
+    const centerX = entanglementCanvas.width / 2;
+    const centerY = entanglementCanvas.height / 2;
+    
+    // Create a pair of entangled particles
+    const spinOptions = ['up', 'down'];
+    const randomSpin = spinOptions[Math.floor(Math.random() * spinOptions.length)];
+    
+    // First particle (left)
+    entangledParticles.push({
+        x: centerX - 50, // Start close together
+        y: centerY,
+        size: 20,
+        spin: 'superposition', // Initially in superposition
+        color: 'rgba(33, 150, 243, 0.8)', // Blue
+        position: 'left',
+        measured: false,
+        angle: 0,
+        targetX: centerX - 50,
+        targetY: centerY,
+        superpositionColors: [
+            'rgba(33, 150, 243, 0.8)', // Blue
+            'rgba(156, 39, 176, 0.8)'  // Purple
+        ],
+        colorIndex: 0,
+        colorTransition: 0
+    });
+    
+    // Second particle (right)
+    entangledParticles.push({
+        x: centerX + 50, // Start close together
+        y: centerY,
+        size: 20,
+        spin: 'superposition', // Initially in superposition
+        color: 'rgba(33, 150, 243, 0.8)', // Blue
+        position: 'right',
+        measured: false,
+        angle: 0,
+        targetX: centerX + 50,
+        targetY: centerY,
+        superpositionColors: [
+            'rgba(33, 150, 243, 0.8)', // Blue
+            'rgba(156, 39, 176, 0.8)'  // Purple
+        ],
+        colorIndex: 0,
+        colorTransition: 0
+    });
+    
+    // Create connection line
+    const connectionGradient = entanglementCtx.createLinearGradient(
+        entangledParticles[0].x, entangledParticles[0].y,
+        entangledParticles[1].x, entangledParticles[1].y
+    );
+    connectionGradient.addColorStop(0, entangledParticles[0].color);
+    connectionGradient.addColorStop(1, entangledParticles[1].color);
+    
+    // Activate the "Create Entangled Pair" button
+    const buttons = document.querySelectorAll('.control-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById('create-pair-btn').classList.add('active');
+    
+    // Update description
+    document.getElementById('current-state-description').textContent = 
+        'Entangled particles are created in a quantum superposition state. They share a special connection regardless of distance.';
+}
+
+function separateEntangledPair() {
+    if (entangledParticles.length !== 2) return;
+    
+    const centerX = entanglementCanvas.width / 2;
+    const centerY = entanglementCanvas.height / 2;
+    
+    // Update particle targets to move away from each other
+    entangledParticles[0].targetX = centerX - (150 * particleDistance);
+    entangledParticles[1].targetX = centerX + (150 * particleDistance);
+    
+    // Activate the "Separate Particles" button
+    const buttons = document.querySelectorAll('.control-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById('separate-pair-btn').classList.add('active');
+    
+    // Update description
+    document.getElementById('current-state-description').textContent = 
+        'Even when separated by vast distances, entangled particles maintain their quantum connection. Distance does not break entanglement!';
+}
+
+function measureEntangledParticle() {
+    if (entangledParticles.length !== 2) return;
+    
+    measurementActive = true;
+    
+    // Determine which particle to measure (randomly choose left or right)
+    const particleIndex = Math.floor(Math.random() * 2);
+    const otherIndex = particleIndex === 0 ? 1 : 0;
+    
+    // Measure the particle - collapse superposition
+    const spinOptions = ['up', 'down'];
+    const measuredSpin = spinOptions[Math.floor(Math.random() * spinOptions.length)];
+    
+    // Set the measured particle's state
+    entangledParticles[particleIndex].spin = measuredSpin;
+    entangledParticles[particleIndex].measured = true;
+    
+    // The other particle must have opposite spin due to conservation laws
+    const oppositeSpin = measuredSpin === 'up' ? 'down' : 'up';
+    entangledParticles[otherIndex].spin = oppositeSpin;
+    entangledParticles[otherIndex].measured = true;
+    
+    // Update colors based on spin
+    entangledParticles.forEach(particle => {
+        particle.color = particle.spin === 'up' ? 'rgba(33, 150, 243, 0.8)' : 'rgba(156, 39, 176, 0.8)';
+    });
+    
+    // Record measurement result
+    measurementResults.push({
+        measured: entangledParticles[particleIndex].position,
+        measuredSpin: measuredSpin,
+        otherSpin: oppositeSpin,
+        coherence: entanglementCoherence,
+        timestamp: Date.now()
+    });
+    
+    // Activate the "Measure Particle" button
+    const buttons = document.querySelectorAll('.control-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById('measure-particle-btn').classList.add('active');
+    
+    // Update description
+    document.getElementById('current-state-description').textContent = 
+        `Measuring one particle instantly affects its entangled partner! When particle ${entangledParticles[particleIndex].position} was measured as "${measuredSpin}", particle ${entangledParticles[otherIndex].position} immediately became "${oppositeSpin}".`;
+    
+    // Optional: After a delay, create a new pair
+    setTimeout(() => {
+        createEntangledPair();
+    }, 5000);
+}
+
+function updateEntanglementProperty(property, value) {
+    if (property === 'coherence') {
+        entanglementCoherence = parseInt(value);
+        document.getElementById('coherence-value').textContent = value;
+    } else if (property === 'distance') {
+        particleDistance = parseInt(value);
+        document.getElementById('distance-value').textContent = value;
+        
+        // Only update position if particles are separated
+        if (entangledParticles.length === 2) {
+            const centerX = entanglementCanvas.width / 2;
+            
+            // Calculate new positions based on distance
+            entangledParticles[0].targetX = centerX - (150 * particleDistance);
+            entangledParticles[1].targetX = centerX + (150 * particleDistance);
+        }
+    }
+}
+
+function setEntanglementMode(mode) {
+    entanglementMode = mode;
+    
+    // Update button states
+    const buttons = document.querySelectorAll('.control-button');
+    buttons.forEach(btn => {
+        if (btn.textContent.includes(mode === 'visual' ? 'Visual Mode' : 'Data Mode')) {
+            btn.classList.add('active');
+        } else if (btn.textContent.includes(mode === 'visual' ? 'Data Mode' : 'Visual Mode')) {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+function animateEntanglement() {
+    if (!entanglementCanvas || !entanglementCtx) return;
+    
+    // Clear canvas
+    entanglementCtx.clearRect(0, 0, entanglementCanvas.width, entanglementCanvas.height);
+    
+    // Background gradient
+    const bgGradient = entanglementCtx.createRadialGradient(
+        entanglementCanvas.width / 2, entanglementCanvas.height / 2, 10,
+        entanglementCanvas.width / 2, entanglementCanvas.height / 2, entanglementCanvas.width / 2
+    );
+    bgGradient.addColorStop(0, 'rgba(10, 10, 26, 0.7)');
+    bgGradient.addColorStop(1, 'rgba(10, 10, 26, 1)');
+    entanglementCtx.fillStyle = bgGradient;
+    entanglementCtx.fillRect(0, 0, entanglementCanvas.width, entanglementCanvas.height);
+    
+    // Draw based on mode
+    if (entanglementMode === 'visual') {
+        drawEntanglementVisual();
+    } else {
+        drawEntanglementData();
+    }
+    
+    // Continue animation
+    entanglementAnimationId = requestAnimationFrame(animateEntanglement);
+}
+
+function drawEntanglementVisual() {
+    if (entangledParticles.length !== 2) return;
+    
+    const time = Date.now() * 0.001;
+    
+    // Update particle positions (smooth movement to target)
+    entangledParticles.forEach(particle => {
+        particle.x += (particle.targetX - particle.x) * 0.05;
+        particle.y += (particle.targetY - particle.y) * 0.05;
+        
+        // Update angle for rotation effect
+        particle.angle = time * 2;
+        
+        // Update color transition for superposition effect
+        if (particle.spin === 'superposition') {
+            particle.colorTransition += 0.02;
+            if (particle.colorTransition >= 1) {
+                particle.colorTransition = 0;
+                particle.colorIndex = (particle.colorIndex + 1) % particle.superpositionColors.length;
+            }
+            
+            // Calculate color based on transition
+            const currentColor = particle.superpositionColors[particle.colorIndex];
+            const nextColorIndex = (particle.colorIndex + 1) % particle.superpositionColors.length;
+            const nextColor = particle.superpositionColors[nextColorIndex];
+            
+            // Extract RGB values from current and next colors
+            const currentRGB = currentColor.match(/\d+/g).map(Number);
+            const nextRGB = nextColor.match(/\d+/g).map(Number);
+            
+            // Interpolate between colors
+            const r = Math.floor(currentRGB[0] + (nextRGB[0] - currentRGB[0]) * particle.colorTransition);
+            const g = Math.floor(currentRGB[1] + (nextRGB[1] - currentRGB[1]) * particle.colorTransition);
+            const b = Math.floor(currentRGB[2] + (nextRGB[2] - currentRGB[2]) * particle.colorTransition);
+            
+            particle.color = `rgba(${r}, ${g}, ${b}, 0.8)`;
+        }
+    });
+    
+    // Draw entanglement connection
+    if (entanglementCoherence > 50) {
+        entanglementCtx.beginPath();
+        entanglementCtx.moveTo(entangledParticles[0].x, entangledParticles[0].y);
+        
+        // Draw wavy connection line based on coherence
+        const segments = 20;
+        const waveHeight = (100 - entanglementCoherence) / 5;
+        
+        for (let i = 1; i <= segments; i++) {
+            const t = i / segments;
+            const x = entangledParticles[0].x + (entangledParticles[1].x - entangledParticles[0].x) * t;
+            const y = entangledParticles[0].y + (entangledParticles[1].y - entangledParticles[0].y) * t;
+            
+            // Add wave effect
+            const waveY = Math.sin(t * Math.PI * 4 + time * 5) * waveHeight;
+            
+            if (i === 1) {
+                entanglementCtx.lineTo(x, y + waveY);
+            } else {
+                entanglementCtx.lineTo(x, y + waveY);
+            }
+        }
+        
+        // Set line style based on coherence
+        entanglementCtx.strokeStyle = `rgba(255, 255, 255, ${entanglementCoherence / 100})`;
+        entanglementCtx.lineWidth = 2;
+        entanglementCtx.stroke();
+        
+        // Add glow effect
+        entanglementCtx.strokeStyle = `rgba(100, 200, 255, ${entanglementCoherence / 200})`;
+        entanglementCtx.lineWidth = 6;
+        entanglementCtx.stroke();
+    }
+    
+    // Draw particles
+    entangledParticles.forEach(particle => {
+        entanglementCtx.save();
+        
+        // Set up rotation
+        entanglementCtx.translate(particle.x, particle.y);
+        
+        if (particle.spin === 'superposition') {
+            // Draw superposition effect - multiple rotating circles
+            const orbitRadius = 5;
+            const orbitCount = 5;
+            
+            for (let i = 0; i < orbitCount; i++) {
+                const orbitAngle = particle.angle + (i * Math.PI * 2 / orbitCount);
+                const orbitX = Math.cos(orbitAngle) * orbitRadius;
+                const orbitY = Math.sin(orbitAngle) * orbitRadius;
+                
+                entanglementCtx.beginPath();
+                entanglementCtx.arc(orbitX, orbitY, particle.size / 2, 0, Math.PI * 2);
+                entanglementCtx.fillStyle = particle.color;
+                entanglementCtx.fill();
+            }
+        } else {
+            // Draw measured state
+            entanglementCtx.beginPath();
+            entanglementCtx.arc(0, 0, particle.size, 0, Math.PI * 2);
+            entanglementCtx.fillStyle = particle.color;
+            entanglementCtx.fill();
+            
+            // Draw spin arrow
+            entanglementCtx.beginPath();
+            if (particle.spin === 'up') {
+                entanglementCtx.moveTo(-8, 5);
+                entanglementCtx.lineTo(0, -8);
+                entanglementCtx.lineTo(8, 5);
+            } else {
+                entanglementCtx.moveTo(-8, -5);
+                entanglementCtx.lineTo(0, 8);
+                entanglementCtx.lineTo(8, -5);
+            }
+            entanglementCtx.strokeStyle = 'white';
+            entanglementCtx.lineWidth = 2;
+            entanglementCtx.stroke();
+        }
+        
+        // Add glow effect
+        const glowRadius = particle.size + 10;
+        const gradient = entanglementCtx.createRadialGradient(0, 0, particle.size, 0, 0, glowRadius);
+        gradient.addColorStop(0, particle.color);
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        
+        entanglementCtx.beginPath();
+        entanglementCtx.arc(0, 0, glowRadius, 0, Math.PI * 2);
+        entanglementCtx.fillStyle = gradient;
+        entanglementCtx.fill();
+        
+        // Add particle label
+        entanglementCtx.font = '14px Arial';
+        entanglementCtx.fillStyle = 'white';
+        entanglementCtx.textAlign = 'center';
+        entanglementCtx.fillText(`Particle ${particle.position}`, 0, particle.size + 20);
+        
+        if (particle.measured) {
+            entanglementCtx.fillText(`Spin: ${particle.spin}`, 0, particle.size + 40);
+        }
+        
+        entanglementCtx.restore();
+    });
+}
+
+function drawEntanglementData() {
+    // Draw data visualization mode
+    entanglementCtx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    entanglementCtx.font = '18px Arial';
+    entanglementCtx.textAlign = 'center';
+    
+    // Draw title
+    entanglementCtx.fillText('Quantum Entanglement Data', entanglementCanvas.width / 2, 40);
+    
+    // Draw statistics
+    entanglementCtx.textAlign = 'left';
+    entanglementCtx.font = '16px Arial';
+    
+    const statX = 50;
+    let statY = 80;
+    
+    // Coherence info
+    entanglementCtx.fillText(`Quantum Coherence: ${entanglementCoherence}%`, statX, statY);
+    statY += 30;
+    
+    // Distance info
+    entanglementCtx.fillText(`Particle Separation: ${particleDistance} units`, statX, statY);
+    statY += 30;
+    
+    // Measurements info
+    entanglementCtx.fillText(`Total Measurements: ${measurementResults.length}`, statX, statY);
+    statY += 30;
+    
+    if (measurementResults.length > 0) {
+        // Draw measurement history table
+        statY += 20;
+        entanglementCtx.fillText('Measurement History:', statX, statY);
+        statY += 30;
+        
+        // Table headers
+        const colWidth = 120;
+        entanglementCtx.fillText('Measured', statX, statY);
+        entanglementCtx.fillText('Result', statX + colWidth, statY);
+        entanglementCtx.fillText('Partner Result', statX + colWidth * 2, statY);
+        entanglementCtx.fillText('Coherence', statX + colWidth * 3, statY);
+        
+        // Draw line under headers
+        entanglementCtx.beginPath();
+        entanglementCtx.moveTo(statX, statY + 10);
+        entanglementCtx.lineTo(statX + colWidth * 4, statY + 10);
+        entanglementCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        entanglementCtx.stroke();
+        
+        // Table rows (show last 5 measurements)
+        const displayResults = measurementResults.slice(-5);
+        displayResults.forEach((result, index) => {
+            statY += 30;
+            entanglementCtx.fillText(result.measured, statX, statY);
+            entanglementCtx.fillText(result.measuredSpin, statX + colWidth, statY);
+            entanglementCtx.fillText(result.otherSpin, statX + colWidth * 2, statY);
+            entanglementCtx.fillText(`${result.coherence}%`, statX + colWidth * 3, statY);
+        });
+        
+        // Draw correlation diagram
+        const diagramX = entanglementCanvas.width - 250;
+        const diagramY = 150;
+        const diagramSize = 200;
+        
+        entanglementCtx.fillText('Correlation Diagram:', diagramX, diagramY - 40);
+        
+        // Draw diagram background
+        entanglementCtx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        entanglementCtx.fillRect(diagramX, diagramY, diagramSize, diagramSize);
+        
+        // Draw axes
+        entanglementCtx.beginPath();
+        entanglementCtx.moveTo(diagramX, diagramY + diagramSize / 2);
+        entanglementCtx.lineTo(diagramX + diagramSize, diagramY + diagramSize / 2);
+        entanglementCtx.moveTo(diagramX + diagramSize / 2, diagramY);
+        entanglementCtx.lineTo(diagramX + diagramSize / 2, diagramY + diagramSize);
+        entanglementCtx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+        entanglementCtx.stroke();
+        
+        // Draw axis labels
+        entanglementCtx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        entanglementCtx.textAlign = 'center';
+        entanglementCtx.fillText('Particle Left', diagramX + diagramSize / 4, diagramY + diagramSize + 20);
+        entanglementCtx.fillText('Particle Right', diagramX + diagramSize * 3 / 4, diagramY + diagramSize + 20);
+        
+        entanglementCtx.save();
+        entanglementCtx.translate(diagramX - 10, diagramY + diagramSize / 2);
+        entanglementCtx.rotate(-Math.PI / 2);
+        entanglementCtx.fillText('Spin Down', 0, 0);
+        entanglementCtx.restore();
+        
+        entanglementCtx.save();
+        entanglementCtx.translate(diagramX - 10, diagramY + diagramSize / 4);
+        entanglementCtx.rotate(-Math.PI / 2);
+        entanglementCtx.fillText('Spin Up', 0, 0);
+        entanglementCtx.restore();
+        
+        // Plot measurements
+        const maxPoints = 20;
+        const displayPoints = measurementResults.slice(-maxPoints);
+        
+        displayPoints.forEach((result, index) => {
+            let x, y;
+            
+            if (result.measured === 'left') {
+                x = result.measuredSpin === 'up' ? diagramX + diagramSize / 4 : diagramX + diagramSize / 4;
+                y = result.measuredSpin === 'up' ? diagramY + diagramSize / 4 : diagramY + diagramSize * 3 / 4;
+            } else {
+                x = result.otherSpin === 'up' ? diagramX + diagramSize * 3 / 4 : diagramX + diagramSize * 3 / 4;
+                y = result.otherSpin === 'up' ? diagramY + diagramSize / 4 : diagramY + diagramSize * 3 / 4;
+            }
+            
+            // Add some jitter to avoid perfect overlap
+            x += (Math.random() - 0.5) * 10;
+            y += (Math.random() - 0.5) * 10;
+            
+            // Draw data point
+            entanglementCtx.beginPath();
+            entanglementCtx.arc(x, y, 5, 0, Math.PI * 2);
+            
+            // Color based on age (newer points are brighter)
+            const opacity = 0.3 + (0.7 * index / maxPoints);
+            entanglementCtx.fillStyle = `rgba(0, 255, 255, ${opacity})`;
+            entanglementCtx.fill();
+        });
+    }
+}
+
+// ======================================================
+// Quantum Tunneling Demo Implementation
+// ======================================================
+let tunnelingCanvas, tunnelingCtx;
+let tunnelingParticles = [];
+let barrierWidth = 50;
+let barrierHeight = 70;
+let particleEnergy = 50;
+let quantumState = 100; // 0-100% quantum vs. classical
+let tunnelingAnimationId = null;
+let tunnelingActive = false;
+let tunnelingPaused = false;
+let tunnelCount = 0;
+let totalParticles = 0;
+let tunnelingStartTime = 0;
+
+function initQuantumTunnelingDemo() {
+    tunnelingCanvas = document.getElementById('fullscreen-quantum-tunneling-canvas');
+    if (!tunnelingCanvas) return;
+    
+    tunnelingCtx = tunnelingCanvas.getContext('2d');
+    
+    // Set canvas size
+    tunnelingCanvas.width = tunnelingCanvas.parentElement.clientWidth;
+    tunnelingCanvas.height = tunnelingCanvas.parentElement.clientHeight;
+    
+    // Create barrier label
+    const barrierLabel = document.createElement('div');
+    barrierLabel.className = 'barrier-label';
+    barrierLabel.textContent = 'Energy Barrier';
+    barrierLabel.style.position = 'absolute';
+    barrierLabel.style.top = '50%';
+    barrierLabel.style.left = '50%';
+    barrierLabel.style.transform = 'translate(-50%, -50%)';
+    barrierLabel.style.color = 'white';
+    barrierLabel.style.fontWeight = 'bold';
+    barrierLabel.style.textShadow = '0 0 5px rgba(0,0,0,0.7)';
+    barrierLabel.style.pointerEvents = 'none';
+    tunnelingCanvas.parentElement.appendChild(barrierLabel);
+    
+    // Reset counters
+    tunnelCount = 0;
+    totalParticles = 0;
+    
+    // Start animation
+    animateTunneling();
+    
+    // Add resize listener
+    window.addEventListener('resize', () => {
+        if (tunnelingCanvas) {
+            tunnelingCanvas.width = tunnelingCanvas.parentElement.clientWidth;
+            tunnelingCanvas.height = tunnelingCanvas.parentElement.clientHeight;
+        }
+    });
+    
+    // Update description
+    document.getElementById('current-state-description').textContent = 
+        'Quantum tunneling allows particles to pass through energy barriers that would be impossible in classical physics.';
+}
+
+function startTunneling() {
+    tunnelingActive = true;
+    tunnelingPaused = false;
+    tunnelingStartTime = Date.now();
+    
+    // Activate the "Start Tunneling" button
+    const buttons = document.querySelectorAll('.control-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById('start-tunneling-btn').classList.add('active');
+    
+    // Update description
+    document.getElementById('current-state-description').textContent = 
+        'Watch as quantum particles approach the energy barrier. Some will tunnel through despite having insufficient energy!';
+}
+
+function pauseTunneling() {
+    tunnelingPaused = !tunnelingPaused;
+    
+    // Toggle the "Pause" button
+    const pauseBtn = document.getElementById('pause-tunneling-btn');
+    
+    if (pauseBtn) {
+        if (tunnelingPaused) {
+            pauseBtn.classList.add('active');
+            // Update description
+            document.getElementById('current-state-description').textContent = 'Demonstration paused. Click "Pause" again to resume.';
+        } else {
+            pauseBtn.classList.remove('active');
+            // Update description
+            document.getElementById('current-state-description').textContent = 'Demonstration resumed. Observe the quantum tunneling effect.';
+        }
+    }
+}
+
+function resetTunneling() {
+    tunnelingActive = false;
+    tunnelingPaused = false;
+    tunnelingParticles = [];
+    tunnelCount = 0;
+    totalParticles = 0;
+    
+    // Activate the "Reset" button briefly
+    const buttons = document.querySelectorAll('.control-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById('reset-tunneling-btn').classList.add('active');
+    
+    // Then after a short delay, activate the "Start" button
+    setTimeout(() => {
+        buttons.forEach(btn => btn.classList.remove('active'));
+        document.getElementById('start-tunneling-btn').classList.add('active');
+    }, 1000);
+    
+    // Update description
+    document.getElementById('current-state-description').textContent = 
+        'Demonstration reset. Click "Start Tunneling" to begin a new demonstration.';
+}
+
+function updateTunnelingProperty(property, value) {
+    value = parseInt(value);
+    
+    if (property === 'width') {
+        barrierWidth = value;
+        document.getElementById('barrier-width-value').textContent = value;
+    } else if (property === 'height') {
+        barrierHeight = value;
+        document.getElementById('barrier-height-value').textContent = value;
+    } else if (property === 'energy') {
+        particleEnergy = value;
+        document.getElementById('particle-energy-value').textContent = value;
+    } else if (property === 'quantum') {
+        quantumState = value;
+        document.getElementById('quantum-state-value').textContent = value;
+    }
+}
+
+function animateTunneling() {
+    if (!tunnelingCanvas || !tunnelingCtx) return;
+    
+    // Clear canvas
+    tunnelingCtx.clearRect(0, 0, tunnelingCanvas.width, tunnelingCanvas.height);
+    
+    // Draw background gradient
+    const bgGradient = tunnelingCtx.createLinearGradient(0, 0, tunnelingCanvas.width, 0);
+    bgGradient.addColorStop(0, 'rgba(20, 20, 50, 1)');
+    bgGradient.addColorStop(0.5, 'rgba(30, 30, 70, 1)');
+    bgGradient.addColorStop(1, 'rgba(20, 20, 50, 1)');
+    tunnelingCtx.fillStyle = bgGradient;
+    tunnelingCtx.fillRect(0, 0, tunnelingCanvas.width, tunnelingCanvas.height);
+    
+    const centerX = tunnelingCanvas.width / 2;
+    const centerY = tunnelingCanvas.height / 2;
+    
+    // Draw energy barrier
+    const barrierX = centerX - (barrierWidth / 2);
+    const barrierHeight_px = tunnelingCanvas.height * (barrierHeight / 100);
+    const barrierY = centerY - (barrierHeight_px / 2);
+    const barrierWidth_px = barrierWidth;
+    
+    // Barrier gradient
+    const barrierGradient = tunnelingCtx.createLinearGradient(
+        barrierX, centerY,
+        barrierX + barrierWidth_px, centerY
+    );
+    barrierGradient.addColorStop(0, 'rgba(255, 50, 50, 0.6)');
+    barrierGradient.addColorStop(0.5, 'rgba(255, 50, 50, 0.8)');
+    barrierGradient.addColorStop(1, 'rgba(255, 50, 50, 0.6)');
+    
+    tunnelingCtx.fillStyle = barrierGradient;
+    tunnelingCtx.fillRect(barrierX, barrierY, barrierWidth_px, barrierHeight_px);
+    
+    // Add barrier border
+    tunnelingCtx.strokeStyle = 'rgba(255, 100, 100, 0.8)';
+    tunnelingCtx.lineWidth = 2;
+    tunnelingCtx.strokeRect(barrierX, barrierY, barrierWidth_px, barrierHeight_px);
+    
+    // Draw energy level indicator
+    const energyLevelHeight = tunnelingCanvas.height * (1 - particleEnergy / 100);
+    
+    tunnelingCtx.beginPath();
+    tunnelingCtx.moveTo(0, energyLevelHeight);
+    tunnelingCtx.lineTo(tunnelingCanvas.width, energyLevelHeight);
+    tunnelingCtx.strokeStyle = 'rgba(50, 255, 50, 0.5)';
+    tunnelingCtx.lineWidth = 1;
+    tunnelingCtx.stroke();
+    
+    tunnelingCtx.fillStyle = 'rgba(50, 255, 50, 0.8)';
+    tunnelingCtx.font = '12px Arial';
+    tunnelingCtx.fillText('Particle Energy Level', 10, energyLevelHeight - 5);
+    
+    // Add barrier potential indicator
+    const barrierEnergyHeight = tunnelingCanvas.height * (1 - barrierHeight / 100);
+    
+    tunnelingCtx.beginPath();
+    tunnelingCtx.moveTo(barrierX, barrierEnergyHeight);
+    tunnelingCtx.lineTo(barrierX + barrierWidth_px, barrierEnergyHeight);
+    tunnelingCtx.strokeStyle = 'rgba(255, 50, 50, 0.5)';
+    tunnelingCtx.lineWidth = 1;
+    tunnelingCtx.stroke();
+    
+    tunnelingCtx.fillStyle = 'rgba(255, 50, 50, 0.8)';
+    tunnelingCtx.font = '12px Arial';
+    tunnelingCtx.fillText('Barrier Potential', barrierX + barrierWidth_px + 5, barrierEnergyHeight - 5);
+    
+    // Create new particles if tunneling is active
+    if (tunnelingActive && !tunnelingPaused) {
+        if (Math.random() < 0.05) { // Control particle creation rate
+            createTunnelingParticle();
+        }
+    }
+    
+    // Update and draw particles
+    updateTunnelingParticles(barrierX, barrierX + barrierWidth_px, barrierY, barrierHeight_px);
+    
+    // Draw statistics
+    drawTunnelingStats();
+    
+    // Continue animation
+    tunnelingAnimationId = requestAnimationFrame(animateTunneling);
+}
+
+function createTunnelingParticle() {
+    // Create a new particle on the left side
+    const particleSize = 6 + Math.random() * 4;
+    const particleY = tunnelingCanvas.height / 2 + (Math.random() - 0.5) * (tunnelingCanvas.height / 4);
+    
+    // Determine if particle is in quantum or classical state based on quantumState setting
+    const isQuantum = Math.random() * 100 < quantumState;
+    
+    tunnelingParticles.push({
+        x: 50, // Start from left side
+        y: particleY,
+        size: particleSize,
+        speed: 1 + Math.random() * 1.5,
+        energy: particleEnergy + (Math.random() * 20 - 10), // Energy level with some variation
+        quantum: isQuantum,
+        tunneling: false,
+        tunneled: false,
+        reflected: false,
+        opacity: 1,
+        waveFunction: [],
+        color: isQuantum ? 'rgba(0, 200, 255, 0.8)' : 'rgba(255, 200, 0, 0.8)',
+        waveFrequency: 0.2 + Math.random() * 0.1,
+        waveMagnitude: 5 + Math.random() * 5,
+        wavePhase: Math.random() * Math.PI * 2
+    });
+    
+    totalParticles++;
+}
+
+function updateTunnelingParticles(barrierLeft, barrierRight, barrierTop, barrierHeight) {
+    const time = Date.now() * 0.001;
+    
+    // Update each particle
+    tunnelingParticles = tunnelingParticles.filter(particle => {
+        if (tunnelingPaused) return true; // Don't update if paused
+        
+        // Calculate particle's vertical energy position
+        const particleEnergyHeight = tunnelingCanvas.height * (1 - particle.energy / 100);
+        
+        // Check for barrier interaction
+        if (!particle.tunneling && !particle.tunneled && !particle.reflected && 
+            particle.x >= barrierLeft - particle.size && particle.x <= barrierLeft) {
+            
+            // Classical particles reflect if energy < barrier energy
+            if (!particle.quantum && particle.energy < barrierHeight) {
+                particle.reflected = true;
+                particle.speed *= -0.8; // Bounce back with reduced speed
+            } 
+            // Quantum particles have chance to tunnel based on energy difference
+            else if (particle.quantum && particle.energy < barrierHeight) {
+                // Calculate tunneling probability using simplified quantum formula
+                // P ≈ exp(-2*k*L) where k is related to sqrt(V-E)
+                const energyDifference = barrierHeight - particle.energy;
+                const barrierFactor = Math.sqrt(energyDifference) * (barrierRight - barrierLeft) / 20;
+                const tunnelProbability = Math.exp(-barrierFactor);
+                
+                if (Math.random() < tunnelProbability) {
+                    // Start tunneling
+                    particle.tunneling = true;
+                    particle.opacity = 0.5; // Fade during tunneling
+                    
+                    // Generate wave function path through barrier
+                    particle.waveFunction = [];
+                    const steps = 10;
+                    for (let i = 0; i <= steps; i++) {
+                        const x = barrierLeft + ((barrierRight - barrierLeft) * i / steps);
+                        let y = particle.y;
+                        
+                        // Add some wave-like movement during tunneling
+                        const waveY = Math.sin(i / steps * Math.PI) * (tunnelProbability * 20);
+                        y += waveY;
+                        
+                        particle.waveFunction.push({x, y});
+                    }
+                } else {
+                    // Failed to tunnel, reflect
+                    particle.reflected = true;
+                    particle.speed *= -0.8; // Bounce back with reduced speed
+                }
+            } 
+            // Particles with sufficient energy pass through normally
+            else if (particle.energy >= barrierHeight) {
+                // Just pass through normally
+            }
+        }
+        
+        // Update position based on state
+        if (particle.tunneling) {
+            // Move through barrier along wave function
+            particle.x += particle.speed * 0.5; // Slower during tunneling
+            
+            // Use wave function for position if available
+            if (particle.waveFunction.length > 0) {
+                const barrierProgress = (particle.x - barrierLeft) / (barrierRight - barrierLeft);
+                const waveIndex = Math.min(Math.floor(barrierProgress * particle.waveFunction.length), 
+                                          particle.waveFunction.length - 1);
+                if (waveIndex >= 0) {
+                    particle.y = particle.waveFunction[waveIndex].y;
+                }
+            }
+            
+            // Check if tunneling is complete
+            if (particle.x > barrierRight) {
+                particle.tunneling = false;
+                particle.tunneled = true;
+                particle.opacity = 1; // Restore visibility
+                tunnelCount++; // Count successful tunnels
+            }
+        } else {
+            // Normal movement
+            particle.x += particle.speed;
+            
+            // Quantum particles have wave-like movement
+            if (particle.quantum && !particle.reflected) {
+                particle.y += Math.sin(time * 5 + particle.wavePhase) * 0.5;
+            }
+        }
+        
+        // Draw the particle
+        tunnelingCtx.save();
+        
+        if (particle.quantum) {
+            // Quantum particles have wave-particle appearance
+            const waveEffect = Math.sin(time * particle.waveFrequency * 10 + 
+                               particle.wavePhase + particle.x * 0.05) * particle.waveMagnitude;
+            
+            // Wave visualization
+            tunnelingCtx.beginPath();
+            for (let i = -10; i <= 10; i++) {
+                const waveX = particle.x + i * 3;
+                const waveAmplitude = particle.size * (1 - Math.abs(i) / 10);
+                const waveY = particle.y + Math.sin(time * 5 + particle.wavePhase + i * 0.5) * waveAmplitude;
+                
+                if (i === -10) {
+                    tunnelingCtx.moveTo(waveX, waveY);
+                } else {
+                    tunnelingCtx.lineTo(waveX, waveY);
+                }
+            }
+            tunnelingCtx.strokeStyle = `rgba(0, 200, 255, ${particle.opacity * 0.5})`;
+            tunnelingCtx.lineWidth = 2;
+            tunnelingCtx.stroke();
+            
+            // Central particle
+            tunnelingCtx.beginPath();
+            tunnelingCtx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            tunnelingCtx.fillStyle = `rgba(0, 200, 255, ${particle.opacity})`;
+            tunnelingCtx.fill();
+            
+            // Add glow effect
+            const glowRadius = particle.size * 2;
+            const gradient = tunnelingCtx.createRadialGradient(
+                particle.x, particle.y, particle.size,
+                particle.x, particle.y, glowRadius
+            );
+            gradient.addColorStop(0, `rgba(0, 200, 255, ${particle.opacity * 0.7})`);
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            
+            tunnelingCtx.beginPath();
+            tunnelingCtx.arc(particle.x, particle.y, glowRadius, 0, Math.PI * 2);
+            tunnelingCtx.fillStyle = gradient;
+            tunnelingCtx.fill();
+        } else {
+            // Classical particles are simple circles
+            tunnelingCtx.beginPath();
+            tunnelingCtx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            tunnelingCtx.fillStyle = `rgba(255, 200, 0, ${particle.opacity})`;
+            tunnelingCtx.fill();
+        }
+        
+        tunnelingCtx.restore();
+        
+        // Wave function visualization for tunneling particles
+        if (particle.tunneling) {
+            tunnelingCtx.beginPath();
+            particle.waveFunction.forEach((point, index) => {
+                if (index === 0) {
+                    tunnelingCtx.moveTo(point.x, point.y);
+                } else {
+                    tunnelingCtx.lineTo(point.x, point.y);
+                }
+            });
+            tunnelingCtx.strokeStyle = `rgba(0, 255, 255, ${particle.opacity * 0.5})`;
+            tunnelingCtx.lineWidth = 1;
+            tunnelingCtx.stroke();
+        }
+        
+        // Remove particles that have left the screen
+        const margin = 50;
+        return (particle.x > -margin && particle.x < tunnelingCanvas.width + margin);
+    });
+}
+
+function drawTunnelingStats() {
+    tunnelingCtx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    tunnelingCtx.font = '16px Arial';
+    tunnelingCtx.textAlign = 'left';
+    
+    const statX = 20;
+    let statY = 30;
+    
+    // Draw time elapsed if active
+    if (tunnelingActive) {
+        const timeElapsed = (Date.now() - tunnelingStartTime) / 1000;
+        tunnelingCtx.fillText(`Time: ${timeElapsed.toFixed(1)}s`, statX, statY);
+        statY += 25;
+    }
+    
+    // Draw tunneling stats
+    tunnelingCtx.fillText(`Total Particles: ${totalParticles}`, statX, statY);
+    statY += 25;
+    
+    tunnelingCtx.fillText(`Tunneled: ${tunnelCount}`, statX, statY);
+    statY += 25;
+    
+    if (totalParticles > 0) {
+        const tunnelPercentage = (tunnelCount / totalParticles * 100).toFixed(1);
+        tunnelingCtx.fillText(`Success Rate: ${tunnelPercentage}%`, statX, statY);
+    }
+    
+    // Draw quantum vs classical indicator
+    const rightX = tunnelingCanvas.width - 200;
+    statY = 30;
+    
+    tunnelingCtx.textAlign = 'left';
+    tunnelingCtx.fillText(`Quantum State: ${quantumState}%`, rightX, statY);
+    statY += 25;
+    
+    tunnelingCtx.fillText(`Particle Energy: ${particleEnergy}%`, rightX, statY);
+    statY += 25;
+    
+    tunnelingCtx.fillText(`Barrier Height: ${barrierHeight}%`, rightX, statY);
+    
+    // Draw theory note at bottom
+    tunnelingCtx.textAlign = 'center';
+    tunnelingCtx.font = '14px Arial';
+    tunnelingCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    tunnelingCtx.fillText('In quantum mechanics, particles can tunnel through energy barriers', 
+                         tunnelingCanvas.width / 2, tunnelingCanvas.height - 40);
+    tunnelingCtx.fillText('that would be impossible to cross in classical physics.', 
+                         tunnelingCanvas.width / 2, tunnelingCanvas.height - 20);
 }
 
 // Practice Timer functionality

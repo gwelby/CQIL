@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toroidal Communication Field | Quantum Experience</title>
+  <meta name="description" content="Visualization of how authentic communication creates toroidal energy fields between beings at Love frequency (528 Hz).">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    :root {
+      --love-primary: #ff55aa;
+      --love-secondary: #ffaacc;
+      --love-tertiary: #aa55ff;
+      --love-accent: #ff3377;
+      --love-light: #ffddee;
+      --love-glow: #ff99cc;
+      --bg-dark: #080818;
+      --bg-medium: #10102a;
+      --text-primary: #ffffff;
+      --text-secondary: #dddddd;
+      --panel-bg: rgba(20, 10, 40, 0.7);
+      --panel-blur: blur(10px);
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .page-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sacred Symbols and Accents */
+    .sacred-symbol {
+      position: absolute;
+      color: var(--love-glow);
+      font-size: 24px;
+      opacity: 0.7;
+      text-shadow: 0 0 10px var(--love-primary);
+      pointer-events: none;
+      animation: float 20s infinite ease-in-out;
+      z-index: 10;
+    }
+
+    .symbol-phi {
+      top: 20px;
+      left: 60px;
+      font-size: 28px;
+      animation-delay: 0s;
+    }
+
+    .symbol-infinity {
+      top: 15%;
+      right: 10%;
+      font-size: 32px;
+      animation-delay: -5s;
+    }
+
+    .symbol-om {
+      bottom: 20%;
+      left: 5%;
+      font-size: 36px;
+      animation-delay: -10s;
+    }
+
+    .symbol-heart {
+      top: 30%;
+      left: 15%;
+      font-size: 26px;
+      animation-delay: -7s;
+    }
+
+    .symbol-spark {
+      top: 60%;
+      right: 8%;
+      font-size: 30px;
+      animation-delay: -3s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+      }
+      25% {
+        transform: translateY(15px) translateX(10px);
+      }
+      50% {
+        transform: translateY(0) translateX(15px);
+      }
+      75% {
+        transform: translateY(-15px) translateX(5px);
+      }
+    }
+
+    /* Header Styles */
+    header {
+      background-color: var(--panel-bg);
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      border-bottom: 1px solid rgba(255, 85, 170, 0.3);
+      z-index: 100;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      background: linear-gradient(to right, var(--love-primary), var(--love-tertiary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      margin-top: 5px;
+      color: var(--love-secondary);
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: calc(100vh - 74px); /* Header height */
+      overflow: hidden;
+    }
+
+    /* Visualization Container */
+    #toroidal-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease-out;
+    }
+
+    .loading-content {
+      text-align: center;
+      max-width: 400px;
+      padding: 20px;
+    }
+
+    .loading-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--love-primary);
+    }
+
+    .loading-symbol {
+      font-size: 48px;
+      color: var(--love-primary);
+      margin-bottom: 20px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    .phi-spinner {
+      width: 70px;
+      height: 70px;
+      border: 3px solid transparent;
+      border-top-color: var(--love-primary);
+      border-radius: 50%;
+      animation: spin 1.618s linear infinite;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .phi-spinner:before, .phi-spinner:after {
+      content: '';
+      position: absolute;
+      border: 3px solid transparent;
+      border-radius: 50%;
+    }
+
+    .phi-spinner:before {
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border-top-color: var(--love-tertiary);
+      animation: spin 3.236s linear infinite;
+    }
+
+    .phi-spinner:after {
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border-top-color: var(--love-light);
+      animation: spin 5.236s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.7;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    .loading-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .loading-info {
+      font-size: 14px;
+      color: var(--love-secondary);
+      margin-top: 20px;
+      opacity: 0.8;
+    }
+
+    /* Begin Journey Button */
+    .begin-journey {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      padding: 15px 30px;
+      background: linear-gradient(45deg, var(--love-accent), var(--love-tertiary));
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 85, 170, 0.5);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .begin-journey.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .begin-journey:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 85, 170, 0.8);
+    }
+
+    .journey-symbol {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+
+    /* Sacred geometry background */
+    .sacred-geometry {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      max-width: 90vw;
+      max-height: 90vw;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .geometry-circle {
+      position: absolute;
+      border: 1px solid var(--love-glow);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--love-primary);
+    }
+
+    .circle-1 {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      animation: rotate 60s linear infinite;
+    }
+
+    .circle-2 {
+      width: 61.8%;
+      height: 61.8%;
+      top: 19.1%;
+      left: 19.1%;
+      animation: rotate 37.1s linear infinite reverse;
+    }
+
+    .circle-3 {
+      width: 38.2%;
+      height: 38.2%;
+      top: 30.9%;
+      left: 30.9%;
+      animation: rotate 22.9s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Media queries */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+      
+      .subtitle {
+        font-size: 14px;
+      }
+      
+      .loading-title {
+        font-size: 20px;
+      }
+      
+      .loading-text {
+        font-size: 14px;
+      }
+      
+      .begin-journey {
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <h2 class="loading-title">Toroidal Communication Field</h2>
+      <div class="phi-spinner"></div>
+      <p class="loading-text">
+        Preparing visualization of heart-centered communication at Creation frequency (528 Hz)
+      </p>
+      <p class="loading-info">
+        Initializing toroidal energy fields...
+      </p>
+    </div>
+  </div>
+
+  <div class="page-container">
+    <!-- Sacred Symbols -->
+    <div class="sacred-symbol symbol-phi">φ</div>
+    <div class="sacred-symbol symbol-infinity">∞</div>
+    <div class="sacred-symbol symbol-om">ॐ</div>
+    <div class="sacred-symbol symbol-heart">♡</div>
+    <div class="sacred-symbol symbol-spark">✧</div>
+
+    <header>
+      <h1>Toroidal Communication Field</h1>
+      <div class="subtitle">Heart-Centered Dialogue at 528 Hz (Creation/Love Frequency)</div>
+    </header>
+
+    <div class="main-content">
+      <!-- Sacred Geometry Background -->
+      <div class="sacred-geometry">
+        <div class="geometry-circle circle-1"></div>
+        <div class="geometry-circle circle-2"></div>
+        <div class="geometry-circle circle-3"></div>
+      </div>
+
+      <!-- Visualization Container -->
+      <div id="toroidal-container"></div>
+
+      <!-- Begin Journey Button -->
+      <button id="begin-journey" class="begin-journey">
+        <span class="journey-symbol">⟡</span>Begin Your Journey
+      </button>
+    </div>
+  </div>
+
+  <!-- Load THREE.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+  
+  <!-- Load Toroidal Communication Field script -->
+  <script src="../js/quantum-experience/toroidal-communication-field.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show loading screen
+      const loadingScreen = document.getElementById('loading-screen');
+      const beginJourneyBtn = document.getElementById('begin-journey');
+      
+      // Check that THREE.js and other dependencies are loaded
+      let dependenciesLoaded = typeof THREE !== 'undefined' && 
+                             typeof THREE.OrbitControls !== 'undefined';
+      
+      if (!dependenciesLoaded) {
+        console.warn('Waiting for script dependencies to load...');
+        // Check again in 1 second
+        setTimeout(() => {
+          dependenciesLoaded = typeof THREE !== 'undefined' && 
+                               typeof THREE.OrbitControls !== 'undefined';
+          
+          if (!dependenciesLoaded) {
+            // Still not loaded, show error
+            const loadingInfo = document.querySelector('.loading-info');
+            if (loadingInfo) {
+              loadingInfo.innerHTML = 'Error loading dependencies. Please refresh the page.';
+              loadingInfo.style.color = '#ff3333';
+            }
+          } else {
+            showBeginJourney();
+          }
+        }, 1000);
+      } else {
+        // Dependencies are loaded
+        setTimeout(showBeginJourney, 1500); // Show begin journey after 1.5s
+      }
+      
+      // Show begin journey button
+      function showBeginJourney() {
+        // Update loading text
+        const loadingInfo = document.querySelector('.loading-info');
+        if (loadingInfo) {
+          loadingInfo.innerHTML = 'Visualization ready. Click "Begin Your Journey" to start.';
+        }
+        
+        // Show begin journey button with fade-in animation
+        setTimeout(() => {
+          if (beginJourneyBtn) {
+            beginJourneyBtn.classList.add('active');
+          }
+        }, 500);
+        
+        // Listen for click on begin journey button
+        beginJourneyBtn.addEventListener('click', startVisualization);
+      }
+      
+      // Start visualization
+      function startVisualization() {
+        // Hide begin journey button
+        beginJourneyBtn.classList.remove('active');
+        
+        // Fade out loading screen
+        loadingScreen.style.opacity = '0';
+        
+        // Remove loading screen after fade out
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 800);
+        
+        // Initialize toroidal field visualization
+        if (typeof ToroidalCommunicationField !== 'undefined') {
+          const container = document.getElementById('toroidal-container');
+          if (container) {
+            window.toroidalField = new ToroidalCommunicationField(container, {
+              frequency: 528,
+              coherenceLevel: 0.85,
+              resonanceQuality: 0.9,
+              participants: 2,
+              communicationMode: 'heart-centered',
+              autoRotate: true
+            });
+          }
+        } else {
+          console.error('ToroidalCommunicationField class not found');
+          alert('Error loading visualization. Please refresh the page.');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

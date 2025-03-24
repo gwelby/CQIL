@@ -2,7 +2,26 @@
 
 Secure deployment solutions for the CQIL website with multiple deployment options.
 
+> **IMPORTANT UPDATE**: The recommended deployment method is now the UniversalPublisher system. See the [new deployment guide](/ftp_check/deploy_guide.md) for details.
+
 ## Quick Start
+
+### UniversalPublisher Deployment (Recommended)
+
+```bash
+# Navigate to the UniversalPublisher directory
+cd /mnt/d/Projects/UniversalPublisher
+
+# Deploy CQIL website with all optimizations
+./publish deploy cqil.ca
+```
+
+Benefits:
+- Automated backups before deployment
+- Only uploads changed files (hash comparison for speed)
+- Better security (credentials stored securely)
+- Cloudflare cache purging integration
+- Full logging and error handling
 
 ### Local Deployment and Testing
 
@@ -14,7 +33,7 @@ python deploy_now.py --local
 # Navigate to D:\cqil\website_deployed and double-click index.html
 ```
 
-### FTP Deployment
+### FTP Deployment (Legacy)
 
 ```bash
 # Deploy via FTP with automated settings
@@ -24,7 +43,7 @@ python deploy_now.py --ftp
 python deploy_now.py
 ```
 
-### GitHub and CloudFlare Pages Deployment (New!)
+### GitHub and CloudFlare Pages Deployment
 
 ```bash
 # Deploy to GitHub repository
@@ -101,8 +120,9 @@ deploy/
 
 | Method | Best For | Command |
 |--------|----------|---------|
+| **UniversalPublisher** | **Recommended for all uses** | `cd /mnt/d/Projects/UniversalPublisher && ./publish deploy cqil.ca` |
 | Local | Testing | `python deploy_now.py --local` |
-| FTP | Quick updates | `python deploy_now.py --ftp` |
+| FTP | Legacy quick updates | `python deploy_now.py --ftp` |
 | GitHub | Version control | `python github_deploy.py --github` |
 | CloudFlare Pages | Automated deployment | Setup via `python github_deploy.py --cloudflare` |
 | SSH | Production deployment | `python deploy.py` |

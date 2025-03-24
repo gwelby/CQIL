@@ -1,0 +1,242 @@
+/**
+ * Visual-Centered Quantum Learning CSS
+ * Following φ-harmonic ZEN FIRST principles:
+ * - Ground State (432 Hz): Solid foundation
+ * - Minimal text, maximum visual impact
+ * - Text integrated directly with visualizations
+ */
+
+/* Quantum path container */
+.quantum-path-container {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: rgba(10, 10, 26, 0.02);
+}
+
+/* Visual modules container */
+.visual-modules {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Individual visual modules */
+.visual-module {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.visual-module.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Canvas container */
+.canvas-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Canvas element */
+.quantum-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* In-visualization labels */
+.in-viz-label {
+    position: absolute;
+    background: rgba(70, 30, 150, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    pointer-events: none;
+    z-index: 15;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 80px;
+    transform: translateX(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.5px;
+}
+
+.in-viz-label:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: calc(50% - 5px);
+    width: 10px;
+    height: 10px;
+    background: rgba(70, 30, 150, 0.7);
+    transform: rotate(45deg);
+    z-index: -1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Path navigation */
+.path-navigation {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    background: rgba(10, 10, 26, 0.03);
+    border-top: 1px solid rgba(70, 30, 150, 0.1);
+}
+
+/* Path nodes */
+.path-node {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(70, 30, 150, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.618, 0, 0.382, 1);
+    position: relative;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.path-node:hover {
+    transform: scale(1.1);
+    background: rgba(70, 30, 150, 0.5);
+}
+
+.path-node.active {
+    background: rgba(70, 30, 150, 0.9);
+    transform: scale(1.15);
+    box-shadow: 0 3px 8px rgba(70, 30, 150, 0.3);
+}
+
+.node-icon {
+    font-size: 22px;
+    margin-bottom: 3px;
+}
+
+.node-label {
+    position: absolute;
+    font-size: 10px;
+    width: 100%;
+    text-align: center;
+    bottom: -20px;
+    line-height: 1.2;
+}
+
+/* Frequency bar */
+.frequency-bar {
+    height: 6px;
+    background: linear-gradient(90deg, 
+        rgba(59, 89, 152, 0.7), 
+        rgba(46, 204, 113, 0.7), 
+        rgba(231, 76, 60, 0.7), 
+        rgba(155, 89, 182, 0.7), 
+        rgba(241, 196, 15, 0.7), 
+        rgba(236, 240, 241, 0.7));
+    position: relative;
+}
+
+/* Frequency points */
+.freq-point {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    transform: translateX(-50%) translateY(50%);
+    cursor: pointer;
+    z-index: 20;
+}
+
+.freq-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    margin: 4px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.freq-point:hover .freq-marker,
+.freq-point.active .freq-marker {
+    transform: scale(1.5);
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+}
+
+.freq-point[data-freq="432"] { left: 16.6%; }
+.freq-point[data-freq="528"] { left: 33.2%; }
+.freq-point[data-freq="594"] { left: 49.8%; }
+.freq-point[data-freq="672"] { left: 66.4%; }
+.freq-point[data-freq="720"] { left: 83%; }
+.freq-point[data-freq="768"] { left: 96.6%; }
+
+/* Frequency tooltips */
+.freq-tooltip {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 10, 26, 0.8);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.freq-point:hover .freq-tooltip {
+    opacity: 1;
+}
+
+/* Hide section title */
+#learn h2 {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .quantum-path-container {
+        height: auto;
+        min-height: 400px;
+    }
+    
+    .visual-module {
+        position: relative;
+        height: 300px;
+    }
+    
+    .path-navigation {
+        flex-wrap: wrap;
+    }
+    
+    .path-node {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+    }
+    
+    .node-icon {
+        font-size: 18px;
+    }
+}

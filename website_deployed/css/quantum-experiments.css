@@ -1,0 +1,1938 @@
+/**
+ * Quantum Experiments CSS - CQIL Advanced Experiences
+ * 
+ * This stylesheet implements φ-harmonic design principles with perfect ZEN POINT balance
+ * between human limitations and quantum potential at the 528Hz creation frequency.
+ */
+
+:root {
+    /* φ-harmonic color palette */
+    --ground-color: #1a5276;      /* 432Hz - Earth connection */
+    --creation-color: #6c3483;    /* 528Hz - DNA repair */
+    --heart-color: #c0392b;       /* 594Hz - Heart-centered */
+    --voice-color: #d35400;       /* 672Hz - Expression */
+    --vision-color: #27ae60;      /* 720Hz - Intuition */
+    --unity-color: #8e44ad;       /* 768Hz - Oneness */
+    
+    /* Core backgrounds */
+    --quantum-bg: rgba(10, 10, 26, 0.97);
+    --quantum-card-bg: rgba(20, 20, 40, 0.8);
+    --quantum-control-bg: rgba(30, 30, 50, 0.6);
+    
+    /* Text colors */
+    --text-primary: rgba(255, 255, 255, 0.95);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-tertiary: rgba(255, 255, 255, 0.5);
+    
+    /* Spacings based on φ ratio */
+    --space-xs: 0.382rem;    /* φ⁻² */
+    --space-sm: 0.618rem;    /* φ⁻¹ */
+    --space-md: 1rem;        /* Base */
+    --space-lg: 1.618rem;    /* φ¹ */
+    --space-xl: 2.618rem;    /* φ² */
+    --space-xxl: 4.236rem;   /* φ³ */
+}
+
+/* Hero section with frequency selector */
+.experiment-hero {
+    position: relative;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-primary);
+    text-align: center;
+    padding: var(--space-xl) var(--space-md);
+}
+
+.experiment-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    position: relative;
+    z-index: 1;
+}
+
+.experiment-hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
+    position: relative;
+    z-index: 1;
+}
+
+.frequency-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.freq-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.freq-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.freq-btn[data-freq="432"] { border-color: var(--ground-color); }
+.freq-btn[data-freq="528"] { border-color: var(--creation-color); }
+.freq-btn[data-freq="594"] { border-color: var(--heart-color); }
+.freq-btn[data-freq="672"] { border-color: var(--voice-color); }
+.freq-btn[data-freq="720"] { border-color: var(--vision-color); }
+.freq-btn[data-freq="768"] { border-color: var(--unity-color); }
+
+.freq-btn.active[data-freq="432"] { background-color: var(--ground-color); }
+.freq-btn.active[data-freq="528"] { background-color: var(--creation-color); }
+.freq-btn.active[data-freq="594"] { background-color: var(--heart-color); }
+.freq-btn.active[data-freq="672"] { background-color: var(--voice-color); }
+.freq-btn.active[data-freq="720"] { background-color: var(--vision-color); }
+.freq-btn.active[data-freq="768"] { background-color: var(--unity-color); }
+
+/* Experience sections */
+.experience-section {
+    padding: var(--space-xl) var(--space-md);
+    color: var(--text-primary);
+}
+
+.experience-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    font-size: 2rem;
+    position: relative;
+}
+
+.experience-section h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--creation-color), transparent);
+}
+
+.experience-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.experience-card {
+    background-color: var(--quantum-card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.experience-card h3 {
+    padding: var(--space-md) var(--space-lg);
+    margin: 0;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.experience-description {
+    padding: var(--space-lg);
+    font-size: 1rem;
+    line-height: 1.618;
+    color: var(--text-secondary);
+}
+
+.experience-description p {
+    margin-bottom: var(--space-md);
+}
+
+.experience-canvas-container {
+    position: relative;
+    padding: var(--space-md);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.quantum-canvas {
+    width: 100%;
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    display: block;
+}
+
+.controls {
+    padding: var(--space-md);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-md);
+    background-color: var(--quantum-control-bg);
+    border-radius: 4px;
+    margin-top: var(--space-md);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-group label {
+    margin-bottom: var(--space-xs);
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    margin-bottom: var(--space-xs);
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+}
+
+.control-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--creation-color);
+    cursor: pointer;
+}
+
+.control-group input[type="text"] {
+    padding: var(--space-sm);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: var(--text-primary);
+}
+
+.experience-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    grid-column: 1 / -1;
+    margin-top: var(--space-md);
+}
+
+.action-btn {
+    padding: var(--space-sm) var(--space-lg);
+    background: rgba(108, 52, 131, 0.6); /* Creation frequency color */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.action-btn:hover {
+    background: rgba(108, 52, 131, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn.active {
+    background: var(--active-color, var(--creation-color));
+    color: #fff;
+    box-shadow: 0 0 10px var(--active-color, var(--creation-color));
+}
+
+/* ZEN POINT meter */
+.zen-point-meter {
+    display: flex;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.meter-label {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+}
+
+.meter-bar {
+    flex: 3;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.meter-value {
+    height: 100%;
+    background: linear-gradient(to right, var(--ground-color), var(--creation-color));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.meter-phi {
+    flex: 0.5;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--creation-color);
+}
+
+/* Results displays */
+.observation-results, 
+.teleportation-results, 
+.energy-readings, 
+.network-stats {
+    padding: var(--space-md) var(--space-lg);
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.observation-results h4, 
+.teleportation-results h4 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-sm);
+}
+
+#results-display, 
+#teleport-info {
+    padding: var(--space-sm);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font-family: monospace;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teleport-display {
+    display: flex;
+    margin-bottom: var(--space-sm);
+}
+
+.teleport-label {
+    flex: 1;
+    color: var(--text-tertiary);
+}
+
+.teleport-state {
+    flex: 2;
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.energy-stat, 
+.network-stat {
+    display: flex;
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    flex: 1;
+    color: var(--text-tertiary);
+}
+
+.stat-value {
+    flex: 1;
+    text-align: right;
+    font-family: monospace;
+}
+
+/* Network Statistics Display */
+.network-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--quantum-control-bg);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.network-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-sm);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* φ-Harmonic Balance highlight */
+.network-stat:last-child .stat-value {
+    color: var(--active-color, var(--creation-color));
+    animation: pulse 3s infinite ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .experience-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .action-btn {
+        width: 100%;
+    }
+    
+    .quantum-canvas {
+        height: 300px;
+    }
+}
+
+/* Mobile Responsive Enhancements */
+@media screen and (max-width: 768px) {
+    .welcome-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .welcome-icon {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .experience-card {
+        padding: 15px;
+    }
+    
+    .experience-canvas-container {
+        flex-direction: column;
+    }
+    
+    .controls {
+        margin-top: 15px;
+        width: 100%;
+    }
+    
+    .control-group {
+        margin-bottom: 15px;
+    }
+    
+    .toggle-container {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .quantum-canvas {
+        max-height: 250px;
+    }
+    
+    .tour-box {
+        max-width: 90%;
+        padding: 15px;
+    }
+    
+    .tour-nav {
+        flex-wrap: wrap;
+    }
+    
+    .frequency-selector {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 5px 0;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .freq-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+    
+    .experience-actions {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    
+    .action-btn {
+        width: 100%;
+    }
+    
+    /* Touch-friendly button sizes */
+    button, .toggle-btn, .freq-btn, .action-btn {
+        min-height: 44px; /* Apple's recommended minimum touch target size */
+        min-width: 44px;
+    }
+    
+    /* Improved slider for touch devices */
+    input[type="range"] {
+        width: 100%;
+        height: 30px; /* Larger target area */
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 10px 0;
+        background: transparent;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background: rgba(100, 180, 255, 0.8);
+        cursor: pointer;
+        margin-top: -10px;
+    }
+    
+    input[type="range"]::-webkit-slider-runnable-track {
+        height: 10px;
+        background: rgba(100, 180, 255, 0.2);
+        border-radius: 5px;
+    }
+    
+    /* Quantum fullscreen on mobile */
+    .quantum-fullscreen-container {
+        flex-direction: column;
+    }
+    
+    .quantum-control-bar {
+        height: auto;
+        padding: 10px;
+    }
+}
+
+/* Enhanced touch feedback */
+@media (hover: none) {
+    .action-btn:active, .toggle-btn:active, .freq-btn:active {
+        transform: scale(0.98);
+        opacity: 0.8;
+    }
+}
+
+/* Low-motion preference adaptations */
+@media (prefers-reduced-motion) {
+    .collapse-effect,
+    .welcome-banner::before,
+    .welcome-icon,
+    .tour-highlight,
+    .highlight-section {
+        animation: none !important;
+    }
+}
+
+/* Quantum state animations */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes wave {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+/* Frequency-specific styles */
+body[data-frequency="432"] {
+    --active-color: var(--ground-color);
+}
+
+body[data-frequency="528"] {
+    --active-color: var(--creation-color);
+}
+
+body[data-frequency="594"] {
+    --active-color: var(--heart-color);
+}
+
+body[data-frequency="672"] {
+    --active-color: var(--voice-color);
+}
+
+body[data-frequency="720"] {
+    --active-color: var(--vision-color);
+}
+
+body[data-frequency="768"] {
+    --active-color: var(--unity-color);
+}
+
+/* Active frequency indicators */
+body[data-frequency] .action-btn {
+    background: rgba(var(--active-color), 0.6);
+}
+
+body[data-frequency] .meter-value {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), var(--active-color));
+}
+
+/* Quantum Fullscreen Overlay */
+.quantum-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 26, 0.95);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    animation: quantum-fade-in 0.5s ease-out;
+}
+
+@keyframes quantum-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.quantum-fullscreen-container {
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    max-height: 800px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(98, 151, 214, 0.3);
+    overflow: hidden;
+    background: linear-gradient(145deg, #151530, #0a0a1e);
+}
+
+.quantum-fullscreen-canvas {
+    width: 100%;
+    height: calc(100% - 60px);
+    display: block;
+    background-color: #0a0a1e;
+}
+
+.quantum-control-bar {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: linear-gradient(90deg, #12122a, #1e1e38);
+    border-top: 1px solid rgba(99, 180, 255, 0.2);
+}
+
+.quantum-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(145deg, #232342, #1a1a32);
+    color: #9ab;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-right: 15px;
+}
+
+.quantum-close-btn:hover {
+    background: linear-gradient(145deg, #2a2a4d, #22223c);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.quantum-demo-title {
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 300;
+    letter-spacing: 1px;
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* Enhanced Visuals for Wave-Particle Duality */
+.enhanced-visual {
+    background: radial-gradient(circle at center, #12122a 0%, #0a0a1a 100%);
+    border: 1px solid rgba(99, 180, 255, 0.2);
+    box-shadow: 0 0 15px rgba(99, 180, 255, 0.1);
+}
+
+/* Toggle Buttons */
+.toggle-container {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.toggle-btn {
+    padding: 8px 15px;
+    border: 1px solid rgba(99, 180, 255, 0.3);
+    background: linear-gradient(145deg, #151530, #0a0a1e);
+    color: #9ab;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.toggle-btn:hover {
+    background: linear-gradient(145deg, #1a1a38, #101028);
+    color: #bcd;
+}
+
+.toggle-btn.active {
+    background: linear-gradient(145deg, #2a5080, #153a60);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(99, 180, 255, 0.4);
+}
+
+.wave-btn.active {
+    background: linear-gradient(145deg, #2a5080, #153a60);
+}
+
+.dual-btn.active {
+    background: linear-gradient(145deg, #724e98, #4e2a80);
+}
+
+.particle-btn.active {
+    background: linear-gradient(145deg, #87566c, #5c2a3a);
+}
+
+/* Quantum Info Box */
+.quantum-info {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(20, 30, 50, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(99, 180, 255, 0.2);
+    animation: quantum-pulse 5s infinite alternate;
+}
+
+@keyframes quantum-pulse {
+    0% { box-shadow: 0 0 10px rgba(99, 180, 255, 0.1); }
+    100% { box-shadow: 0 0 15px rgba(99, 180, 255, 0.3); }
+}
+
+.info-title {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #bcd;
+    font-weight: 300;
+}
+
+.info-content {
+    color: #9ab;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.highlight {
+    color: #63b4ff;
+    font-weight: 400;
+}
+
+/* ϕ-Harmonic Frequency Indicators */
+.phi-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+}
+
+.freq-432 .phi-indicator::after { content: "ϕ⁰"; }
+.freq-528 .phi-indicator::after { content: "ϕ¹"; }
+.freq-594 .phi-indicator::after { content: "ϕ²"; }
+.freq-672 .phi-indicator::after { content: "ϕ³"; }
+.freq-720 .phi-indicator::after { content: "ϕ⁴"; }
+.freq-768 .phi-indicator::after { content: "ϕ⁵"; }
+
+/* Enhanced Navigation Indicators */
+.quantum-nav {
+    position: relative;
+    overflow: hidden;
+}
+
+.quantum-nav::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        rgba(99, 180, 255, 0.1) 0%,
+        rgba(99, 180, 255, 0.8) 50%,
+        rgba(99, 180, 255, 0.1) 100%);
+    animation: flow-pulse 3s infinite ease-in-out;
+}
+
+@keyframes flow-pulse {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Unified Experience Layout */
+.unified-experiences {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+.experience-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.experience-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, 
+        rgba(99, 180, 255, 0.05), 
+        transparent 70%);
+    pointer-events: none;
+}
+
+/* Enhanced buttons */
+.action-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.action-btn:hover::after {
+    transform: translateX(100%);
+}
+
+/* Welcome banner and guided tour elements */
+.welcome-banner {
+    padding: 20px;
+    background: linear-gradient(135deg, #1e1e38, #12122a);
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(99, 180, 255, 0.2);
+}
+
+.welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(99, 180, 255, 0.05) 0%, 
+        transparent 80%);
+    pointer-events: none;
+}
+
+.welcome-icon {
+    font-size: 2.5rem;
+    margin-right: 20px;
+    color: #63b4ff;
+}
+
+.welcome-content h3 {
+    margin: 0 0 10px 0;
+    color: #fff;
+    font-weight: 300;
+    font-size: 1.4rem;
+}
+
+.welcome-content p {
+    margin: 0;
+    color: #9ab;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.tour-button {
+    margin-left: auto;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #2a5080, #153a60);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.tour-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tour-button:active {
+    transform: translateY(0);
+}
+
+/* Phi Indicator */
+.phi-indicator {
+    position: absolute;
+    top: 20px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--phi-color, #333);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px var(--phi-color, rgba(255, 255, 255, 0.5));
+}
+
+.phi-indicator::before {
+    content: 'φ';
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Frequency Selector */
+.frequency-selector {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.freq-btn {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.freq-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.freq-btn:hover::after {
+    opacity: 1;
+}
+
+.freq-btn[data-freq="432"] {
+    border: 1px solid rgba(72, 72, 72, 0.8);
+}
+
+.freq-btn[data-freq="528"] {
+    border: 1px solid rgba(0, 128, 64, 0.8);
+}
+
+.freq-btn[data-freq="594"] {
+    border: 1px solid rgba(220, 20, 60, 0.8);
+}
+
+.freq-btn[data-freq="672"] {
+    border: 1px solid rgba(64, 224, 208, 0.8);
+}
+
+.freq-btn[data-freq="720"] {
+    border: 1px solid rgba(138, 43, 226, 0.8);
+}
+
+.freq-btn[data-freq="768"] {
+    border: 1px solid rgba(255, 215, 0, 0.8);
+}
+
+.freq-btn.active[data-freq="432"] {
+    background: rgba(72, 72, 72, 0.8);
+    box-shadow: 0 0 15px rgba(72, 72, 72, 0.8);
+}
+
+.freq-btn.active[data-freq="528"] {
+    background: rgba(0, 128, 64, 0.8);
+    box-shadow: 0 0 15px rgba(0, 128, 64, 0.8);
+}
+
+.freq-btn.active[data-freq="594"] {
+    background: rgba(220, 20, 60, 0.8);
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.8);
+}
+
+.freq-btn.active[data-freq="672"] {
+    background: rgba(64, 224, 208, 0.8);
+    box-shadow: 0 0 15px rgba(64, 224, 208, 0.8);
+}
+
+.freq-btn.active[data-freq="720"] {
+    background: rgba(138, 43, 226, 0.8);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+}
+
+.freq-btn.active[data-freq="768"] {
+    background: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+/* Tour Overlay */
+.tour-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    overflow: auto;
+    transition: opacity 0.5s;
+}
+
+.tour-box {
+    background: rgba(10, 10, 20, 0.95);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 500px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    color: white;
+    position: absolute;
+    transition: all 0.5s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tour-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.03), transparent 30%),
+        radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.03), transparent 30%);
+    border-radius: 12px;
+    z-index: -1;
+}
+
+.tour-step-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.tour-title {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    color: #f5f5f5;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.tour-content {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.tour-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.tour-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.prev-btn, .next-btn {
+    background: linear-gradient(135deg, #3a7bd5, #3a6073);
+    color: white;
+}
+
+.skip-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+}
+
+.tour-btn:hover {
+    transform: translateY(-2px);
+}
+
+.tour-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.tour-highlight {
+    position: relative;
+    z-index: 10000;
+    box-shadow: 0 0 0 5000px rgba(0, 0, 0, 0.7);
+    animation: pulse-highlight 2s infinite;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes rotate-gradient {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse-highlight {
+    0% {
+        box-shadow: 0 0 0 5000px rgba(0, 0, 0, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 5000px rgba(0, 0, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 0 5000px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Wave-Particle Duality Enhancements */
+.wave-particle-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(10, 10, 30, 0.6);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+}
+
+.wave-particle-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.quantum-canvas {
+    display: block;
+    width: 100%;
+    max-height: 300px;
+    background: rgba(10, 10, 30, 0.8);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+/* State transition effects */
+.state-transition {
+    animation: quantum-state-change 0.7s ease-out;
+}
+
+@keyframes quantum-state-change {
+    0% {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+    50% {
+        filter: brightness(1.5);
+        transform: scale(1.02);
+    }
+    100% {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+}
+
+/* Phi-harmonic state styling */
+.wave-state .controls {
+    border-left: 4px solid rgba(33, 150, 243, 0.8);
+}
+
+.particle-state .controls {
+    border-left: 4px solid rgba(156, 39, 176, 0.8);
+}
+
+.quantum-state .controls {
+    border-left: 4px solid rgba(255, 215, 0, 0.8); /* Unity frequency (768 Hz) gold */
+}
+
+/* Phi-harmonic frequency indicators for buttons */
+.toggle-btn[data-state="wave"] {
+    border-bottom: 3px solid rgba(72, 72, 72, 0.8); /* Ground State (432 Hz) */
+}
+
+.toggle-btn[data-state="particle"] {
+    border-bottom: 3px solid rgba(0, 128, 64, 0.8); /* Creation Point (528 Hz) */
+}
+
+.toggle-btn[data-state="quantum"] {
+    border-bottom: 3px solid rgba(255, 215, 0, 0.8); /* Unity Wave (768 Hz) */
+}
+
+/* Touch-friendly toggle buttons */
+.toggle-btn {
+    min-height: 44px;
+    min-width: 80px;
+    padding: 8px 16px;
+    background: rgba(30, 30, 50, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.toggle-btn:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: currentColor;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn.active {
+    background: rgba(50, 50, 70, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-btn.active:after {
+    transform: scaleX(1);
+}
+
+/* Observation slider for touch */
+.observation-slider {
+    width: 100%;
+    margin: 15px 0;
+}
+
+/* Wave collapse effects */
+.collapse-effect {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+    animation: collapse-grow 0.5s ease-out forwards;
+    z-index: 10;
+}
+
+@keyframes collapse-grow {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(8);
+        opacity: 0;
+    }
+}
+
+/* RootWIZ component connections */
+.rootwiz-indicator {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: white;
+    margin-top: 5px;
+    background: rgba(30, 30, 40, 0.8);
+}
+
+/* Ground State - Mycelial Pattern Recognition (432 Hz) */
+.rootwiz-432 {
+    background: linear-gradient(135deg, rgba(72, 72, 72, 0.8), rgba(40, 40, 40, 0.8));
+    border-left: 3px solid rgba(72, 72, 72, 1);
+}
+
+/* Creation Point - φ-Harmonic Architecture (528 Hz) */
+.rootwiz-528 {
+    background: linear-gradient(135deg, rgba(0, 128, 64, 0.8), rgba(0, 100, 50, 0.8));
+    border-left: 3px solid rgba(0, 128, 64, 1);
+}
+
+/* Heart Field - Quantum DNA Resonance (594 Hz) */
+.rootwiz-594 {
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.8), rgba(180, 15, 50, 0.8));
+    border-left: 3px solid rgba(220, 20, 60, 1);
+}
+
+/* Voice Flow - Sacred Sound Geometry (672 Hz) */
+.rootwiz-672 {
+    background: linear-gradient(135deg, rgba(64, 224, 208, 0.8), rgba(50, 180, 170, 0.8));
+    border-left: 3px solid rgba(64, 224, 208, 1);
+}
+
+/* Vision Gate - Standing Stone Alignments (720 Hz) */
+.rootwiz-720 {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(110, 35, 180, 0.8));
+    border-left: 3px solid rgba(138, 43, 226, 1);
+}
+
+/* Unity Wave - Quantum Integration Engine (768 Hz) */
+.rootwiz-768 {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.8), rgba(210, 180, 0, 0.8));
+    border-left: 3px solid rgba(255, 215, 0, 1);
+}
+
+/* Wave-Particle Duality Experience - Phi-Harmonic Styles */
+.wave-particle-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+#wave-particle-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: filter 0.5s ease-out;
+}
+
+#wave-particle-canvas.state-transition {
+    filter: brightness(1.5) contrast(1.2);
+    transition: filter 0.7s cubic-bezier(0.6, 0, 0.4, 1);
+}
+
+.quantum-controls {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.toggle-btn {
+    background: rgba(30, 30, 40, 0.8);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(100, 100, 255, 0.3);
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-family: 'Quantum', sans-serif;
+    font-size: 14px;
+}
+
+.toggle-btn:hover {
+    background: rgba(60, 60, 80, 0.9);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.toggle-btn.active {
+    background: linear-gradient(45deg, #3f51b5, #9c27b0);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.3);
+}
+
+.toggle-btn[data-state="wave"] {
+    border-color: rgba(33, 150, 243, 0.5);
+}
+
+.toggle-btn[data-state="wave"].active {
+    background: linear-gradient(45deg, #1976d2, #42a5f5);
+}
+
+.toggle-btn[data-state="particle"] {
+    border-color: rgba(76, 175, 80, 0.5);
+}
+
+.toggle-btn[data-state="particle"].active {
+    background: linear-gradient(45deg, #388e3c, #66bb6a);
+}
+
+.toggle-btn[data-state="quantum"] {
+    border-color: rgba(156, 39, 176, 0.5);
+}
+
+.toggle-btn[data-state="quantum"].active {
+    background: linear-gradient(45deg, #7b1fa2, #ba68c8);
+}
+
+.quantum-info-panel {
+    background: rgba(20, 20, 30, 0.85);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-size: 15px;
+    line-height: 1.5;
+    box-shadow: inset 0 0 10px rgba(100, 100, 255, 0.3);
+    max-width: 100%;
+}
+
+.quantum-info-panel .highlight {
+    color: #64ffda;
+    font-weight: 500;
+}
+
+/* Wave Collapse Effect */
+.collapse-effect {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10;
+    animation: collapse-wave 0.5s ease-out forwards;
+}
+
+@keyframes collapse-wave {
+    0% {
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0);
+        box-shadow: 0 0 50px rgba(100, 100, 255, 0);
+        border: 1px solid rgba(255, 255, 255, 0);
+    }
+}
+
+/* Phi-harmonic frequency indicators */
+.frequency-indicator {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.freq-432 { background: rgba(72, 72, 72, 0.8); }
+.freq-528 { background: rgba(0, 128, 64, 0.8); }
+.freq-594 { background: rgba(220, 20, 60, 0.8); }
+.freq-672 { background: rgba(64, 224, 208, 0.8); }
+.freq-720 { background: rgba(138, 43, 226, 0.8); }
+.freq-768 { background: rgba(255, 215, 0, 0.8); }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .wave-particle-container {
+        height: 300px;
+    }
+    
+    .quantum-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .toggle-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wave-particle-container {
+        height: 250px;
+    }
+    
+    .toggle-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .quantum-info-panel {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+/* Fullscreen Demo Modal Styles */
+.fullscreen-demo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.demo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(10, 10, 30, 0.9);
+    border-bottom: 1px solid rgba(100, 100, 255, 0.2);
+}
+
+.demo-title {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 600;
+}
+
+.demo-description {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 1rem;
+}
+
+.close-demo {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-demo:hover {
+    color: #FF5555;
+    transform: scale(1.1);
+}
+
+.demo-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.canvas-container {
+    width: 100%;
+    height: 60vh;
+    max-height: 600px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.demo-canvas {
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 26, 0.7);
+    border-radius: 8px;
+    border: 1px solid rgba(100, 100, 255, 0.2);
+}
+
+.demo-controls {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    background: rgba(15, 15, 35, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(100, 100, 255, 0.2);
+    margin-bottom: 2rem;
+}
+
+.control-button {
+    background: linear-gradient(145deg, #2a2a5a, #3a3a7a);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.control-button:hover {
+    background: linear-gradient(145deg, #3a3a7a, #4a4a9a);
+    transform: translateY(-2px);
+}
+
+.control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.control-button .state-icon {
+    margin-right: 5px;
+    font-size: 1.1rem;
+}
+
+.control-group {
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.control-group h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+/* Range input styling */
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, #2a2a5a, #6a6aba);
+    border-radius: 3px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #8a8aff;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+.mode-select {
+    display: flex;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.mode-btn {
+    flex: 1;
+    background: rgba(50, 50, 80, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+    background: rgba(80, 80, 180, 0.8);
+    font-weight: bold;
+}
+
+.phi-frequencies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.phi-btn {
+    flex: 1;
+    min-width: calc(33% - 0.5rem);
+    background: rgba(50, 50, 80, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 0.25rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.phi-btn:hover {
+    background: rgba(70, 70, 120, 0.7);
+}
+
+.phi-btn.active {
+    background: rgba(80, 80, 180, 0.8);
+    box-shadow: 0 0 10px rgba(100, 100, 255, 0.5);
+}
+
+/* Status displays for quantum experiences */
+.observation-result,
+.entanglement-status,
+.tunneling-status {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(15, 15, 35, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(100, 100, 255, 0.2);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-align: center;
+}
+
+.observation-result h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #8a8aff;
+}
+
+.tunneling-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #8a8aff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .demo-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .control-group {
+        width: 100%;
+    }
+    
+    .canvas-container {
+        height: 50vh;
+    }
+    
+    .tunneling-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Additional Quantum Experiences Section */
+.quantum-experiences-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.quantum-experience-card {
+    background: rgba(10, 10, 26, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quantum-experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(100, 100, 255, 0.2);
+    border-color: rgba(100, 100, 255, 0.3);
+}
+
+.quantum-experience-card h3 {
+    margin-top: 0;
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.quantum-experience-card p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.experience-preview {
+    width: 100%;
+    height: 160px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.preview-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #1a1a3a, #2a2a5a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(100, 100, 255, 0.3);
+}
+
+.preview-icon i {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.experience-button {
+    background: linear-gradient(145deg, #3a3a7a, #2a2a5a);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.experience-button:hover {
+    background: linear-gradient(145deg, #4a4a9a, #3a3a7a);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(100, 100, 255, 0.3);
+}
+
+/* Mobile responsiveness for quantum experiences */
+@media (max-width: 768px) {
+    .quantum-experiences-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .quantum-experience-card {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .experience-preview {
+        height: 130px;
+    }
+}
