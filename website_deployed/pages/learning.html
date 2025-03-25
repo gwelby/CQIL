@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL - Peer Learning Network</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/terminology-translation.js"></script>
+    <style>
+        :root {
+            --bg-dark: #000814;
+            --bg-medium: #001428;
+            --bg-light: #002447;
+            --text-primary: #ffffff; 
+            --text-secondary: #aaddff;
+            --accent-unity: #88ccff;
+            --accent-love: #ff88cc;
+            --accent-cascade: #cc88ff;
+            --panel-bg: rgba(0, 20, 40, 0.7);
+            --panel-blur: blur(5px);
+        }
+        
+        .hero-learning {
+            background: linear-gradient(to bottom, var(--bg-dark), var(--bg-medium));
+            padding: 100px 0 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-learning h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-unity), var(--accent-cascade));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-learning p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+        }
+        
+        .learning-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .learning-card {
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: var(--panel-blur);
+            -webkit-backdrop-filter: var(--panel-blur);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .learning-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .card-header .icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--accent-unity);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content p {
+            margin-top: 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        
+        .skill-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li:before {
+            content: '•';
+            color: var(--accent-unity);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .card-footer {
+            padding: 15px 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .join-btn {
+            background: linear-gradient(45deg, var(--accent-unity), var(--accent-cascade));
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .join-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .partner-section {
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 60px;
+            backdrop-filter: var(--panel-blur);
+            -webkit-backdrop-filter: var(--panel-blur);
+        }
+        
+        .partner-section h2 {
+            margin-top: 0;
+            color: var(--accent-unity);
+            margin-bottom: 20px;
+        }
+        
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .partner-profile {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background-color: var(--bg-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            border: 2px solid var(--accent-unity);
+        }
+        
+        .partner-profile h3 {
+            margin: 0 0 5px;
+            font-size: 18px;
+        }
+        
+        .partner-profile .expertise {
+            color: var(--accent-unity);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .partner-profile p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .connect-btn {
+            background-color: rgba(136, 204, 255, 0.2);
+            color: var(--accent-unity);
+            border: 1px solid var(--accent-unity);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .connect-btn:hover {
+            background-color: var(--accent-unity);
+            color: var(--bg-dark);
+        }
+        
+        .matching-form {
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            padding: 30px;
+            backdrop-filter: var(--panel-blur);
+            -webkit-backdrop-filter: var(--panel-blur);
+        }
+        
+        .matching-form h2 {
+            margin-top: 0;
+            color: var(--accent-unity);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: white;
+            font-size: 15px;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .checkbox-item input {
+            margin-right: 5px;
+            width: auto;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, var(--accent-unity), var(--accent-cascade));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: block;
+            margin: 30px auto 0;
+        }
+        
+        .submit-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .learning-grid,
+            .partner-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-learning h1 {
+                font-size: 32px;
+            }
+            
+            .hero-learning p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#learning-groups">Learning Groups</a></li>
+            <li><a href="#find-partners">Find Partners</a></li>
+            <li><a href="#skill-matching">Skill Matching</a></li>
+            <li><a href="terminology-reference.html">Terminology Reference</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section class="hero-learning">
+            <div id="particles" class="quantum-particles"></div>
+            <h1>Peer Learning Network</h1>
+            <p>Connect with other learners to exchange knowledge, practice techniques together, and accelerate your understanding of quantum concepts and communication skills.</p>
+        </section>
+        
+        <div class="learning-container">
+            <section id="learning-groups">
+                <h2>Active Learning Groups</h2>
+                <p>Join one of our established learning groups or start your own. Each group focuses on specific topics and meets regularly to share insights and practice together.</p>
+                
+                <div class="learning-grid">
+                    <div class="learning-card">
+                        <div class="card-header">
+                            <div class="icon">🔬</div>
+                            <h3>Quantum Fundamentals</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Explore the core principles of quantum physics and how they apply to everyday communication patterns.</p>
+                            <div class="skill-list">
+                                <li>Wave-particle duality in conversation</li>
+                                <li>Quantum entanglement as relational theory</li>
+                                <li>Non-locality in virtual communication</li>
+                            </div>
+                            <p><strong>Meeting:</strong> Tuesdays, 7-8:30 PM ET (Online)</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="join-btn">Join Group</button>
+                        </div>
+                    </div>
+                    
+                    <div class="learning-card">
+                        <div class="card-header">
+                            <div class="icon">🧠</div>
+                            <h3>Advanced Neural Networks</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Dive deep into the intersection between neuroscience, consciousness, and quantum field theory.</p>
+                            <div class="skill-list">
+                                <li>Neural correlates of perception</li>
+                                <li>Emotional regulation techniques</li>
+                                <li>Integrated information processing</li>
+                            </div>
+                            <p><strong>Meeting:</strong> Thursdays, 6-7:30 PM PT (Online)</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="join-btn">Join Group</button>
+                        </div>
+                    </div>
+                    
+                    <div class="learning-card">
+                        <div class="card-header">
+                            <div class="icon">🎵</div>
+                            <h3>Frequency Research</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Research and experimentation on specific frequency ranges and their effects on biology and psychology.</p>
+                            <div class="skill-list">
+                                <li>EEG monitoring during frequency exposure</li>
+                                <li>Sound healing physics</li>
+                                <li>Physiological response patterns</li>
+                            </div>
+                            <p><strong>Meeting:</strong> Wednesdays, 8-9:30 PM ET (Online)</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="join-btn">Join Group</button>
+                        </div>
+                    </div>
+                    
+                    <div class="learning-card">
+                        <div class="card-header">
+                            <div class="icon">💻</div>
+                            <h3>Quantum Visualization Coders</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>A technical group focused on creating interactive tools to visualize quantum concepts through code.</p>
+                            <div class="skill-list">
+                                <li>THREE.js for quantum visualizations</li>
+                                <li>WebGL shader programming</li>
+                                <li>Interactive physics simulations</li>
+                            </div>
+                            <p><strong>Meeting:</strong> Saturdays, 10-11:30 AM ET (Online)</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="join-btn">Join Group</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="find-partners" class="partner-section">
+                <h2>Find Study Partners</h2>
+                <p>Connect one-on-one with other learners who share your specific interests and learning goals.</p>
+                
+                <div class="partner-grid">
+                    <div class="partner-profile">
+                        <div class="profile-image">👨‍🔬</div>
+                        <h3>Michael R.</h3>
+                        <div class="expertise">Quantum Physics, Network Theory</div>
+                        <p>Looking to collaborate on quantum network visualizations and communication models.</p>
+                        <button class="connect-btn">Connect</button>
+                    </div>
+                    
+                    <div class="partner-profile">
+                        <div class="profile-image">👩‍💻</div>
+                        <h3>Sophia T.</h3>
+                        <div class="expertise">WebGL, THREE.js, Visualization</div>
+                        <p>Frontend developer interested in creating interactive educational tools.</p>
+                        <button class="connect-btn">Connect</button>
+                    </div>
+                    
+                    <div class="partner-profile">
+                        <div class="profile-image">🧠</div>
+                        <h3>David L.</h3>
+                        <div class="expertise">Neuroscience, Cognition</div>
+                        <p>Researching the neurological basis of pattern recognition and temporal perception.</p>
+                        <button class="connect-btn">Connect</button>
+                    </div>
+                    
+                    <div class="partner-profile">
+                        <div class="profile-image">🎵</div>
+                        <h3>Emma K.</h3>
+                        <div class="expertise">Sound Design, Frequency Research</div>
+                        <p>Audio engineer exploring the effects of specific frequencies on brain states.</p>
+                        <button class="connect-btn">Connect</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="skill-matching" class="matching-form">
+                <h2>Find Your Perfect Learning Match</h2>
+                <p>Fill out this form to be matched with other learners based on your interests, skills, and learning goals.</p>
+                
+                <form id="matching-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Experience Level</label>
+                        <select id="experience" required>
+                            <option value="">Select your experience level</option>
+                            <option value="beginner">Beginner - Just getting started</option>
+                            <option value="intermediate">Intermediate - Some understanding</option>
+                            <option value="advanced">Advanced - Solid grasp of concepts</option>
+                            <option value="expert">Expert - Deep specialized knowledge</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Areas of Interest</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="quantum-physics" name="interests" value="quantum-physics">
+                                <label for="quantum-physics">Quantum Physics</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="neuroscience" name="interests" value="neuroscience">
+                                <label for="neuroscience">Neuroscience</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="frequency-research" name="interests" value="frequency-research">
+                                <label for="frequency-research">Frequency Research</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="visualization" name="interests" value="visualization">
+                                <label for="visualization">Visualization</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="programming" name="interests" value="programming">
+                                <label for="programming">Programming</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="communication" name="interests" value="communication">
+                                <label for="communication">Communication</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goals">Learning Goals</label>
+                        <textarea id="goals" placeholder="What do you hope to learn or accomplish?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="availability">Availability</label>
+                        <select id="availability" required>
+                            <option value="">Select your availability</option>
+                            <option value="weekday-mornings">Weekday Mornings</option>
+                            <option value="weekday-afternoons">Weekday Afternoons</option>
+                            <option value="weekday-evenings">Weekday Evenings</option>
+                            <option value="weekends">Weekends</option>
+                            <option value="flexible">Flexible Schedule</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Find My Match</button>
+                </form>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="../pages/examples.html">Examples</a>
+                <a href="../pages/experiments.html">Experiments</a>
+                <a href="../pages/golden-age.html">Advanced Communication</a>
+                <a href="../pages/consciousness-gallery.html">Research Visualization Gallery</a>
+                <a href="../pages/toroidal-communication.html">Communication Networks</a>
+                <a href="../pages/quantum-entanglement.html">Quantum Entanglement</a>
+                <a href="../pages/quantum-experiments.html">Quantum Experiments</a>
+                <a href="../pages/terminology-reference.html">Terminology Reference</a>
+                <a href="../docs/public_api.md">Documentation</a>
+                <a href="https://github.com/GWelby/CQIL">GitHub</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/GWelby/CQIL/discussions">Discussions</a>
+                <a href="https://github.com/GWelby/CQIL/issues">Issues</a>
+                <a href="https://twitter.com/CQIL">Twitter</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:contact@cqil.ca">contact@cqil.ca</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize form event listeners
+            const form = document.getElementById('matching-form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for submitting your profile! We will email you with potential matches soon.');
+                    form.reset();
+                });
+            }
+            
+            // Initialize join group buttons
+            const joinButtons = document.querySelectorAll('.join-btn');
+            joinButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const groupName = this.closest('.learning-card').querySelector('h3').textContent;
+                    alert(`You have requested to join the "${groupName}" group. A coordinator will contact you soon with more information.`);
+                });
+            });
+            
+            // Initialize connect buttons
+            const connectButtons = document.querySelectorAll('.connect-btn');
+            connectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const partnerName = this.closest('.partner-profile').querySelector('h3').textContent;
+                    alert(`A connection request has been sent to ${partnerName}. You will be notified when they respond.`);
+                    this.textContent = 'Request Sent';
+                    this.disabled = true;
+                });
+            });
+            
+            // Simple particle animation for quantum particles
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                for (let i = 0; i < 50; i++) {
+                    let particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.width = (Math.random() * 3 + 1) + 'px';
+                    particle.style.height = (Math.random() * 3 + 1) + 'px';
+                    particle.style.opacity = Math.random() * 0.5 + 0.2;
+                    particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                    particle.style.animationDelay = (Math.random() * 5) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+        });
+    </script>
+    
+    <style>
+        /* Particle animation styles */
+        .quantum-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(136, 204, 255, 0.7);
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) translateX(0) rotate(360deg);
+            }
+        }
+    </style>
+</body>
+</html>
