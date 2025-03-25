@@ -1,17 +1,20 @@
 /**
- * Toroidal Communication Field Visualization
- * Operating at Creation/Love Frequency (528 Hz - φ²/φ¹)
+ * Communication Network Visualization
+ * Operating at Creative Frequency (528 Hz - φ²/φ¹)
  * 
- * A comprehensive visualization of how authentic communication creates
- * toroidal energy fields between beings, demonstrating heart-centered
+ * A comprehensive visualization demonstrating how meaningful communication creates
+ * network patterns between individuals, illustrating multi-dimensional
  * communication principles.
  * 
  * This visualization system showcases:
- * - Toroidal energy fields between communicating entities
- * - Heart-centered communication versus linear information exchange
- * - Phi-harmonic energy flows and interference patterns
+ * - Network patterns between communicating entities
+ * - Multi-dimensional communication versus linear information exchange
+ * - Golden ratio pattern flows and interference patterns
  * - Resonance quality indicators and coherence visualization
- * - Interactive dialogue energy mapping with real-time feedback
+ * - Interactive dialogue network mapping with real-time feedback
+ * 
+ * Note: This system supports terminology translation between scientific and sacred terms
+ * using the global TERMINOLOGY object.
  */
 
 class ToroidalCommunicationField {
@@ -33,7 +36,7 @@ class ToroidalCommunicationField {
         // Configuration options with defaults
         this.config = {
             participants: config.participants || 2,
-            communicationMode: config.communicationMode || 'heart-centered', // or 'linear'
+            communicationMode: config.communicationMode || 'multi-dimensional', // or 'linear'
             coherenceLevel: config.coherenceLevel || 0.85, // 0 to 1
             resonanceQuality: config.resonanceQuality || 0.9, // 0 to 1
             interactionSpeed: config.interactionSpeed || 1, // multiplier
@@ -154,7 +157,7 @@ class ToroidalCommunicationField {
         this.uiElements.frequencyLabel.className = 'frequency-display';
         this.uiElements.frequencyLabel.innerHTML = `
             <div class="frequency-value">${this.frequency} Hz</div>
-            <div class="frequency-name">Creation/Love Frequency (φ²/φ¹)</div>
+            <div class="frequency-name">Network Communication Frequency</div>
         `;
         this.uiElements.container.appendChild(this.uiElements.frequencyLabel);
         
@@ -162,7 +165,7 @@ class ToroidalCommunicationField {
         const coherenceControl = document.createElement('div');
         coherenceControl.className = 'control-group';
         coherenceControl.innerHTML = `
-            <label>Heart Coherence</label>
+            <label>Network Coherence</label>
             <input type="range" min="0" max="1" step="0.01" value="${this.config.coherenceLevel}" class="slider" id="coherence-slider">
             <span class="value-display">${(this.config.coherenceLevel * 100).toFixed(0)}%</span>
         `;
@@ -205,7 +208,7 @@ class ToroidalCommunicationField {
                 <input type="checkbox" id="mode-toggle" ${this.config.communicationMode === 'heart-centered' ? 'checked' : ''}>
                 <label for="mode-toggle">
                     <span class="toggle-label left">Linear</span>
-                    <span class="toggle-label right">Heart-Centered</span>
+                    <span class="toggle-label right">Multi-dimensional</span>
                 </label>
             </div>
         `;
@@ -213,7 +216,7 @@ class ToroidalCommunicationField {
         
         this.uiElements.modeToggle = modeControl.querySelector('#mode-toggle');
         this.uiElements.modeToggle.addEventListener('change', (e) => {
-            this.setCommunicationMode(e.target.checked ? 'heart-centered' : 'linear');
+            this.setCommunicationMode(e.target.checked ? 'multi-dimensional' : 'linear');
         });
         
         // Create participant count control
@@ -258,18 +261,18 @@ class ToroidalCommunicationField {
         this.uiElements.infoPanel = document.createElement('div');
         this.uiElements.infoPanel.className = 'info-panel';
         this.uiElements.infoPanel.innerHTML = `
-            <h3>Toroidal Communication Field</h3>
+            <h3>Communication Network Visualization</h3>
             <p>
-                Visualization of heart-centered communication at the Creation frequency (528 Hz).
-                The torus is the foundational pattern of energy exchange between conscious beings.
+                This visualization models information exchange patterns at 528 Hz frequency.
+                The torus shape represents a mathematical model of complex information flow between participants.
             </p>
             <p>
-                <strong>Heart-Centered Mode:</strong> Creates phi-harmonic resonance patterns with 
-                bidirectional energy flow through the heart center of each participant.
+                <strong>Multi-dimensional Mode:</strong> Creates complex network patterns with 
+                bidirectional information flow and multiple feedback channels between participants.
             </p>
             <p>
                 <strong>Linear Mode:</strong> Creates direct information exchange without the 
-                integrative heart-centered processing, resulting in lower coherence.
+                feedback channels and network effects, resulting in less efficient communication.
             </p>
         `;
         this.uiElements.container.appendChild(this.uiElements.infoPanel);

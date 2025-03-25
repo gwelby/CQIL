@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Communication Flow Visualization | CQIL</title>
-  <meta name="description" content="Visualization showing the difference between information exchange and meaningful communication patterns.">
+  <title>Communication Network Visualization | CQIL</title>
+  <meta name="description" content="Interactive visualization demonstrating network patterns of information flow and communication dynamics between individuals.">
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/terminology-translation.js"></script>
   <style>
     :root {
       --love-primary: #ff55aa;
@@ -41,8 +42,8 @@
       overflow: hidden;
     }
 
-    /* Sacred Symbols and Accents */
-    .sacred-symbol {
+    /* Floating Interface Elements */
+    .interface-element {
       position: absolute;
       color: var(--love-glow);
       font-size: 24px;
@@ -53,35 +54,35 @@
       z-index: 10;
     }
 
-    .symbol-phi {
+    .element-math {
       top: 20px;
       left: 60px;
       font-size: 28px;
       animation-delay: 0s;
     }
 
-    .symbol-infinity {
+    .element-infinity {
       top: 15%;
       right: 10%;
       font-size: 32px;
       animation-delay: -5s;
     }
 
-    .symbol-om {
+    .element-graph {
       bottom: 20%;
       left: 5%;
       font-size: 36px;
       animation-delay: -10s;
     }
 
-    .symbol-heart {
+    .element-node {
       top: 30%;
       left: 15%;
       font-size: 26px;
       animation-delay: -7s;
     }
 
-    .symbol-spark {
+    .element-network {
       top: 60%;
       right: 8%;
       font-size: 30px;
@@ -188,40 +189,40 @@
       animation: pulse 2s infinite ease-in-out;
     }
 
-    .phi-spinner {
+    .loading-spinner {
       width: 70px;
       height: 70px;
       border: 3px solid transparent;
       border-top-color: var(--love-primary);
       border-radius: 50%;
-      animation: spin 1.618s linear infinite;
+      animation: spin 1.6s linear infinite;
       position: relative;
       margin-bottom: 30px;
     }
 
-    .phi-spinner:before, .phi-spinner:after {
+    .loading-spinner:before, .loading-spinner:after {
       content: '';
       position: absolute;
       border: 3px solid transparent;
       border-radius: 50%;
     }
 
-    .phi-spinner:before {
+    .loading-spinner:before {
       top: 5px;
       left: 5px;
       right: 5px;
       bottom: 5px;
       border-top-color: var(--love-tertiary);
-      animation: spin 3.236s linear infinite;
+      animation: spin 3.2s linear infinite;
     }
 
-    .phi-spinner:after {
+    .loading-spinner:after {
       top: 15px;
       left: 15px;
       right: 15px;
       bottom: 15px;
       border-top-color: var(--love-light);
-      animation: spin 5.236s linear infinite;
+      animation: spin 5.2s linear infinite;
     }
 
     @keyframes spin {
@@ -298,8 +299,8 @@
       font-size: 24px;
     }
 
-    /* Sacred geometry background */
-    .sacred-geometry {
+    /* Geometric background */
+    .geometric-pattern {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -313,7 +314,7 @@
       opacity: 0.15;
     }
 
-    .geometry-circle {
+    .pattern-circle {
       position: absolute;
       border: 1px solid var(--love-glow);
       border-radius: 50%;
@@ -420,42 +421,42 @@
   <!-- Loading Screen -->
   <div id="loading-screen">
     <div class="loading-content">
-      <h2 class="loading-title">Communication Flow Visualization</h2>
-      <div class="phi-spinner"></div>
+      <h2 class="loading-title">Communication Network Visualization</h2>
+      <div class="loading-spinner"></div>
       <p class="loading-text">
-        Preparing visualization of communication patterns
+        Preparing interactive model of communication network dynamics
       </p>
       <p class="loading-info">
-        Loading visualization...
+        Loading 3D visualization components...
       </p>
     </div>
   </div>
 
   <div class="page-container">
-    <!-- Sacred Symbols -->
-    <div class="sacred-symbol symbol-phi">φ</div>
-    <div class="sacred-symbol symbol-infinity">∞</div>
-    <div class="sacred-symbol symbol-om">ॐ</div>
-    <div class="sacred-symbol symbol-heart">♡</div>
-    <div class="sacred-symbol symbol-spark">✧</div>
+    <!-- Interface Elements -->
+    <div class="interface-element element-math">φ</div>
+    <div class="interface-element element-infinity">∞</div>
+    <div class="interface-element element-graph">⬢</div>
+    <div class="interface-element element-node">○</div>
+    <div class="interface-element element-network">⬡</div>
 
     <header>
-      <h1>Communication Flow Visualization</h1>
-      <div class="subtitle">Explore patterns of meaningful communication</div>
+      <h1>Communication Network Visualization</h1>
+      <div class="subtitle">Explore interactive models of information exchange</div>
     </header>
 
     <div class="main-content">
-      <!-- Sacred Geometry Background -->
-      <div class="sacred-geometry">
-        <div class="geometry-circle circle-1"></div>
-        <div class="geometry-circle circle-2"></div>
-        <div class="geometry-circle circle-3"></div>
+      <!-- Geometric Background -->
+      <div class="geometric-pattern">
+        <div class="pattern-circle circle-1"></div>
+        <div class="pattern-circle circle-2"></div>
+        <div class="pattern-circle circle-3"></div>
       </div>
 
       <!-- Visualization Container -->
       <div id="toroidal-container"></div>
 
-      <!-- Begin Journey Button -->
+      <!-- Begin Button -->
       <button id="begin-journey" class="begin-journey">
         <span class="journey-symbol">▶</span>Start Visualization
       </button>
@@ -580,7 +581,7 @@
             loadingScreen.style.display = 'none';
           }, 800);
           
-          // Initialize toroidal field visualization
+          // Initialize network visualization
           const container = document.getElementById('toroidal-container');
           if (container) {
             window.toroidalField = new ToroidalCommunicationField(container, {
@@ -588,7 +589,7 @@
               coherenceLevel: 0.85,
               resonanceQuality: 0.9,
               participants: 2,
-              communicationMode: 'heart-centered',
+              communicationMode: 'multi-dimensional',
               autoRotate: true
             });
           }
