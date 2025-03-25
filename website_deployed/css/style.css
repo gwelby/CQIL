@@ -148,7 +148,6 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
     position: relative;
     padding: 0 2rem;
     background: linear-gradient(145deg, #0a0a1a, #1a1a4a);
@@ -162,12 +161,111 @@ p {
     width: 100%;
     height: 100%;
     z-index: 0;
+    opacity: 0.6;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.hero-text-container {
+    flex: 1;
+    text-align: left;
+    max-width: 650px;
+}
+
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.torus-preview {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    animation: rotateTorusPreview 20s infinite linear;
+}
+
+@keyframes rotateTorusPreview {
+    0% { transform: rotateY(0) rotateX(20deg); }
+    100% { transform: rotateY(360deg) rotateX(20deg); }
+}
+
+.torus-shape {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 85, 170, 0.8);
+    box-shadow: 0 0 30px rgba(255, 85, 170, 0.5),
+                inset 0 0 30px rgba(255, 85, 170, 0.5);
+    transform: rotateX(70deg);
+}
+
+.torus-shape:before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    border: 4px solid rgba(170, 85, 255, 0.8);
+    box-shadow: 0 0 20px rgba(170, 85, 255, 0.5),
+                inset 0 0 20px rgba(170, 85, 255, 0.5);
+}
+
+.torus-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: particleFlow 8s infinite linear;
+    background: radial-gradient(circle, rgba(255,85,170,0) 40%, rgba(255,85,170,0.2) 50%, rgba(255,85,170,0) 60%),
+                radial-gradient(circle, rgba(170,85,255,0) 30%, rgba(170,85,255,0.2) 40%, rgba(170,85,255,0) 50%);
+    filter: blur(8px);
+    transform: rotateX(70deg);
+}
+
+@keyframes particleFlow {
+    0% { transform: rotateX(70deg) rotateZ(0); }
+    100% { transform: rotateX(70deg) rotateZ(360deg); }
+}
+
+.torus-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,85,170,0.3) 0%, rgba(255,85,170,0) 70%);
+    filter: blur(20px);
+    animation: pulseGlow 5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.1); }
 }
 
 .hero h1 {
     position: relative;
     z-index: 1;
-    background: linear-gradient(90deg, var(--quantum-accent), #9c27b0);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #ff55aa, #aa55ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -179,30 +277,48 @@ p {
     z-index: 1;
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    display: inline-block;
+    line-height: 1.4;
+}
+
+.emphasis {
     background: linear-gradient(90deg, #64b5f6, #e91e63);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    display: inline-block;
+    font-weight: bold;
 }
 
 .hero-intro {
     position: relative;
     z-index: 1;
-    max-width: 800px;
     margin-bottom: 2rem;
 }
 
 .hero-intro p {
     font-size: 1.2rem;
-    opacity: 0.9;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-.hero p {
-    position: relative;
+.phi-markers {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    gap: 2rem;
     z-index: 1;
-    font-size: 1.5rem;
-    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+}
+
+.phi-symbol {
+    font-size: 2rem;
+    background: linear-gradient(90deg, #ff55aa, #aa55ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .cta-buttons {
@@ -214,26 +330,76 @@ p {
 
 .cta-primary, .cta-secondary {
     padding: 1rem 2rem;
-    border-radius: 4px;
+    border-radius: 30px;
     text-decoration: none;
     font-weight: 600;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cta-primary {
-    background: var(--quantum-accent);
+    background: linear-gradient(45deg, #ff55aa, #aa55ff);
     color: var(--quantum-text);
+    box-shadow: 0 5px 15px rgba(255, 85, 170, 0.3);
+}
+
+.cta-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 85, 170, 0.5);
 }
 
 .cta-secondary {
     background: transparent;
-    color: var(--quantum-text);
-    border: 2px solid var(--quantum-accent);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
 }
 
-.cta-primary:hover, .cta-secondary:hover {
+.cta-secondary:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(170, 85, 255, 0.2);
+}
+
+/* Media queries for hero section */
+@media (max-width: 1024px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-text-container {
+        text-align: center;
+        max-width: 100%;
+    }
+    
+    .torus-preview {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.4rem;
+    }
+    
+    .torus-preview {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .phi-markers {
+        display: none;
+    }
 }
 
 /* Quantum Flow Section */
@@ -1299,4 +1465,123 @@ footer {
         font-size: 1.2rem;
         margin-bottom: 2rem;
     }
+}
+
+/* Enhanced Quantum Visualization */
+#quantum-visualization {
+    min-height: 600px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: linear-gradient(45deg, rgba(4, 4, 20, 0.9), rgba(20, 4, 30, 0.9));
+    transition: all 0.7s cubic-bezier(0.43, 0.13, 0.23, 0.96);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 40px;
+}
+
+/* Improve module buttons */
+.module-btn {
+    border: none;
+    background: rgba(30, 30, 60, 0.6);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 6px;
+    transition: all 0.4s;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(80, 80, 120, 0.3);
+}
+
+.module-btn:hover, .module-btn.active {
+    background: rgba(60, 60, 120, 0.8);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhance ZEN button */
+.zen-button {
+    position: relative;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, rgba(40, 40, 80, 0.9), rgba(80, 40, 120, 0.9));
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.5s;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.zen-button:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 40px;
+    background: linear-gradient(45deg, rgba(100, 100, 255, 0.5), rgba(255, 100, 255, 0.5));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.zen-button:hover:before, .zen-button.active:before {
+    opacity: 1;
+}
+
+/* Mobile responsiveness for quantum visualization */
+@media (max-width: 768px) {
+    #quantum-visualization {
+        min-height: 450px;
+    }
+    
+    .module-selection {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .module-btn {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        margin: 4px;
+    }
+    
+    .zen-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Ensure the visualization canvas is visible */
+canvas.quantum-canvas {
+    max-width: 100%;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Create smooth transitions for phi-harmonic frequencies */
+.phi-harmonic-transition {
+    transition: all 1.618s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+/* Phi-harmonic frequency colors */
+.phi-ground { --phi-color: rgb(70, 130, 180); } /* 432 Hz */
+.phi-create { --phi-color: rgb(60, 179, 113); } /* 528 Hz */
+.phi-heart { --phi-color: rgb(220, 20, 60); }   /* 594 Hz */
+.phi-voice { --phi-color: rgb(218, 165, 32); }  /* 672 Hz */
+.phi-vision { --phi-color: rgb(138, 43, 226); } /* 720 Hz */
+.phi-unity { --phi-color: rgb(25, 25, 112); }   /* 768 Hz */
+
+/* Highlight active experience */
+.experience-active {
+    transform: scale(1.03);
+    box-shadow: 0 10px 30px rgba(var(--phi-color, 0, 0, 0), 0.3);
 }
