@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Toroidal Communication Field | Quantum Experience</title>
-  <meta name="description" content="Visualization of how authentic communication creates toroidal energy fields between beings at Love frequency (528 Hz).">
+  <title>Communication Flow Visualization | CQIL</title>
+  <meta name="description" content="Visualization showing the difference between information exchange and meaningful communication patterns.">
   <link rel="stylesheet" href="../css/style.css">
   <style>
     :root {
@@ -420,13 +420,13 @@
   <!-- Loading Screen -->
   <div id="loading-screen">
     <div class="loading-content">
-      <h2 class="loading-title">Toroidal Communication Field</h2>
+      <h2 class="loading-title">Communication Flow Visualization</h2>
       <div class="phi-spinner"></div>
       <p class="loading-text">
-        Preparing visualization of heart-centered communication at Creation frequency (528 Hz)
+        Preparing visualization of communication patterns
       </p>
       <p class="loading-info">
-        Initializing toroidal energy fields...
+        Loading visualization...
       </p>
     </div>
   </div>
@@ -440,8 +440,8 @@
     <div class="sacred-symbol symbol-spark">✧</div>
 
     <header>
-      <h1>Toroidal Communication Field</h1>
-      <div class="subtitle">Heart-Centered Dialogue at 528 Hz (Creation/Love Frequency)</div>
+      <h1>Communication Flow Visualization</h1>
+      <div class="subtitle">Explore patterns of meaningful communication</div>
     </header>
 
     <div class="main-content">
@@ -457,7 +457,7 @@
 
       <!-- Begin Journey Button -->
       <button id="begin-journey" class="begin-journey">
-        <span class="journey-symbol">⟡</span>Begin Your Journey
+        <span class="journey-symbol">▶</span>Start Visualization
       </button>
     </div>
   </div>
@@ -476,38 +476,83 @@
       const beginJourneyBtn = document.getElementById('begin-journey');
       
       // Check that THREE.js and other dependencies are loaded
-      let dependenciesLoaded = typeof THREE !== 'undefined' && 
-                             typeof THREE.OrbitControls !== 'undefined';
+      function checkDependencies() {
+        return typeof THREE !== 'undefined' && 
+               typeof THREE.OrbitControls !== 'undefined';
+      }
       
-      if (!dependenciesLoaded) {
-        console.warn('Waiting for script dependencies to load...');
-        // Check again in 1 second
-        setTimeout(() => {
-          dependenciesLoaded = typeof THREE !== 'undefined' && 
-                               typeof THREE.OrbitControls !== 'undefined';
+      function checkToroidalField() {
+        try {
+          // Check if script loaded by dynamically testing it
+          const testElement = document.createElement('div');
+          document.body.appendChild(testElement);
+          const test = new ToroidalCommunicationField(testElement, {});
+          document.body.removeChild(testElement);
+          return true;
+        } catch (e) {
+          console.warn('ToroidalCommunicationField not available yet:', e);
+          return false;
+        }
+      }
+      
+      // Load dependencies
+      function loadDependencies() {
+        if (!checkDependencies()) {
+          console.warn('THREE.js dependencies not loaded, trying again in 1 second...');
+          setTimeout(loadDependencies, 1000);
+          return;
+        }
+        
+        // Now check if the toroidal field class is loaded
+        if (!checkToroidalField()) {
+          console.warn('Toroidal field script not loaded, reloading it...');
           
-          if (!dependenciesLoaded) {
-            // Still not loaded, show error
+          // Try reloading the script
+          const script = document.createElement('script');
+          script.src = '../js/quantum-experience/toroidal-communication-field.js';
+          script.onload = function() {
+            console.log('Toroidal field script loaded successfully');
+            setTimeout(checkAndShowButton, 1000);
+          };
+          script.onerror = function() {
+            console.error('Failed to load toroidal field script');
             const loadingInfo = document.querySelector('.loading-info');
             if (loadingInfo) {
-              loadingInfo.innerHTML = 'Error loading dependencies. Please refresh the page.';
+              loadingInfo.innerHTML = 'Error loading visualization. Please refresh the page.';
               loadingInfo.style.color = '#ff3333';
             }
-          } else {
-            showBeginJourney();
-          }
-        }, 1000);
-      } else {
-        // Dependencies are loaded
-        setTimeout(showBeginJourney, 1500); // Show begin journey after 1.5s
+          };
+          document.body.appendChild(script);
+        } else {
+          showBeginJourney();
+        }
       }
+      
+      function checkAndShowButton() {
+        if (checkToroidalField()) {
+          showBeginJourney();
+        } else {
+          // Still not loaded, show error
+          const loadingInfo = document.querySelector('.loading-info');
+          if (loadingInfo) {
+            loadingInfo.innerHTML = 'Error loading visualization. Please click the button to try again.';
+            loadingInfo.style.color = '#ff9933';
+          }
+          
+          // Show button anyway to give users a chance to try again
+          showBeginJourney();
+        }
+      }
+      
+      // Start checking dependencies
+      setTimeout(loadDependencies, 1000);
       
       // Show begin journey button
       function showBeginJourney() {
         // Update loading text
         const loadingInfo = document.querySelector('.loading-info');
         if (loadingInfo) {
-          loadingInfo.innerHTML = 'Visualization ready. Click "Begin Your Journey" to start.';
+          loadingInfo.innerHTML = 'Visualization ready. Click "Start Visualization" to begin.';
         }
         
         // Show begin journey button with fade-in animation
@@ -523,19 +568,19 @@
       
       // Start visualization
       function startVisualization() {
-        // Hide begin journey button
-        beginJourneyBtn.classList.remove('active');
-        
-        // Fade out loading screen
-        loadingScreen.style.opacity = '0';
-        
-        // Remove loading screen after fade out
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 800);
-        
-        // Initialize toroidal field visualization
-        if (typeof ToroidalCommunicationField !== 'undefined') {
+        try {
+          // Hide begin journey button
+          beginJourneyBtn.classList.remove('active');
+          
+          // Fade out loading screen
+          loadingScreen.style.opacity = '0';
+          
+          // Remove loading screen after fade out
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 800);
+          
+          // Initialize toroidal field visualization
           const container = document.getElementById('toroidal-container');
           if (container) {
             window.toroidalField = new ToroidalCommunicationField(container, {
@@ -547,9 +592,25 @@
               autoRotate: true
             });
           }
-        } else {
-          console.error('ToroidalCommunicationField class not found');
-          alert('Error loading visualization. Please refresh the page.');
+        } catch (error) {
+          console.error('Error starting visualization:', error);
+          
+          // Show error message
+          loadingScreen.style.opacity = '1';
+          loadingScreen.style.display = 'flex';
+          
+          const loadingInfo = document.querySelector('.loading-info');
+          if (loadingInfo) {
+            loadingInfo.innerHTML = 'Error loading visualization. Please refresh the page and try again.';
+            loadingInfo.style.color = '#ff3333';
+          }
+          
+          // Show button again after a delay
+          setTimeout(() => {
+            if (beginJourneyBtn) {
+              beginJourneyBtn.classList.add('active');
+            }
+          }, 1000);
         }
       }
     });

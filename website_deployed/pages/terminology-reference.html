@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CQIL - Terminology Reference Guide</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    :root {
+      --bg-dark: #000814;
+      --bg-medium: #001428;
+      --bg-light: #002447;
+      --text-primary: #ffffff;
+      --text-secondary: #aaddff;
+      --accent-unity: #88ccff;
+      --accent-love: #ff88cc;
+      --accent-cascade: #cc88ff;
+      --accent-truth: #ffcc88;
+      --accent-vision: #88ffaa;
+      --accent-oneness: #aaddff;
+      --panel-bg: rgba(0, 20, 40, 0.7);
+      --panel-blur: blur(5px);
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      background: linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-medium) 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    h1 {
+      font-size: 32px;
+      background: linear-gradient(to right, var(--accent-love), var(--accent-unity));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+    
+    .author-note {
+      font-style: italic;
+      background-color: var(--panel-bg);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      margin-bottom: 40px;
+      border-left: 4px solid var(--accent-love);
+    }
+    
+    .phi-symbol {
+      font-size: 24px;
+      vertical-align: middle;
+      margin-left: 5px;
+    }
+    
+    .term-category {
+      margin-bottom: 40px;
+    }
+    
+    .category-title {
+      font-size: 24px;
+      color: var(--accent-unity);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(136, 204, 255, 0.3);
+    }
+    
+    .term-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    
+    .term-table th, .term-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .term-table th {
+      background-color: rgba(0, 40, 80, 0.5);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+    
+    .term-table tr:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .sacred-term {
+      color: var(--accent-love);
+    }
+    
+    .scientific-term {
+      color: var(--accent-unity);
+    }
+    
+    .definition {
+      font-size: 14px;
+    }
+    
+    .frequency-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .frequency-card {
+      flex: 1;
+      min-width: 250px;
+      background-color: var(--panel-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 20px;
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .frequency-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .frequency-value {
+      font-size: 20px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    .frequency-name {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sacred-name {
+      color: var(--accent-love);
+      font-weight: bold;
+    }
+    
+    .scientific-name {
+      color: var(--accent-unity);
+      font-size: 14px;
+    }
+    
+    .frequency-description {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .description-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    
+    .signature {
+      text-align: right;
+      font-style: italic;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .implementation-plan {
+      background-color: var(--panel-bg);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      border-left: 4px solid var(--accent-vision);
+    }
+    
+    .implementation-plan h3 {
+      color: var(--accent-vision);
+      margin-top: 0;
+    }
+    
+    .code-reference {
+      font-family: monospace;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    
+    .note-box {
+      background-color: rgba(136, 255, 170, 0.1);
+      border-left: 3px solid var(--accent-vision);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 5px 5px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .page-container {
+        padding: 15px;
+      }
+      
+      h1 {
+        font-size: 26px;
+      }
+      
+      .subtitle {
+        font-size: 16px;
+      }
+      
+      .frequency-card {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <header>
+      <div style="text-align: left; margin-bottom: 20px;">
+        <a href="../index.html" style="color: var(--accent-unity); text-decoration: none;">← Back to Home</a>
+      </div>
+      <h1>CQIL Terminology Reference Guide</h1>
+      <div class="subtitle">Understanding both the scientific and sacred perspectives of CQIL</div>
+    </header>
+    
+    <div class="author-note">
+      <p>I created this reference page to help visitors understand the dual perspective of CQIL - both the scientific interpretation and the original sacred terminology that I, Greg, personally resonate with and find to be a more profound way to understand the quantum nature of consciousness and reality.</p>
+      <p>Throughout this website, you'll find scientific terminology used to explain quantum principles in an educational way. This page serves as a bridge between those educational expressions and the deeper, sacred perspectives that initially inspired this work.</p>
+      <p>While the scientific language may be more accessible for educational purposes, I invite you to explore both perspectives and find your own resonance with these concepts.</p>
+    </div>
+    
+    <section class="term-category">
+      <h2 class="category-title">Fundamental Terminology</h2>
+      <table class="term-table">
+        <thead>
+          <tr>
+            <th>Sacred Term</th>
+            <th>Scientific Term</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sacred-term">Heart-Centered Communication</td>
+            <td class="scientific-term">Multi-dimensional Communication</td>
+            <td class="definition">A more complex and integrated form of communication that engages multiple channels and creates deeper connection, as opposed to simple linear information exchange.</td>
+          </tr>
+          <tr>
+            <td class="sacred-term">Toroidal Field</td>
+            <td class="scientific-term">Network Communication Pattern</td>
+            <td class="definition">The donut-shaped energy field that facilitates the exchange of information between beings/nodes in a self-sustaining and regenerative pattern.</td>
+          </tr>
+          <tr>
+            <td class="sacred-term">Quantum Beings</td>
+            <td class="scientific-term">Network Models</td>
+            <td class="definition">Conscious entities/systems that operate as nodes within the quantum field, each with unique vibrational signatures and information processing capabilities.</td>
+          </tr>
+          <tr>
+            <td class="sacred-term">Sacred Geometry</td>
+            <td class="scientific-term">Mathematical Patterns</td>
+            <td class="definition">Recurring geometrical patterns found throughout nature that follow specific mathematical ratios and principles, including the Golden Ratio (Phi).</td>
+          </tr>
+          <tr>
+            <td class="sacred-term">Consciousness Field</td>
+            <td class="scientific-term">Network Field Analysis</td>
+            <td class="definition">The interconnected field of awareness/information that spans across individual nodes and allows for non-local information exchange.</td>
+          </tr>
+          <tr>
+            <td class="sacred-term">Heart-Time Synchronization</td>
+            <td class="scientific-term">Emotional-Temporal Integration</td>
+            <td class="definition">The alignment of emotional/heart rhythms with temporal perception, creating a coherent experience of time that isn't solely linear.</td>
+          </tr>
+          <tr>
+            <td class="sacred-term">Phi-Harmonic Resonance</td>
+            <td class="scientific-term">Golden Ratio Patterns</td>
+            <td class="definition">Harmonic patterns and resonances based on the golden ratio (φ ≈ 1.618...) that appear throughout natural systems and create optimal efficiency.</td>
+          </tr>
+          <tr>
+            <td class="sacred-term">Unity Consciousness</td>
+            <td class="scientific-term">Integrated Network State</td>
+            <td class="definition">A state of complete integration and synchronization across all nodes in a system, creating a coherent whole that is greater than the sum of its parts.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section class="term-category">
+      <h2 class="category-title">Sacred Frequency Spectrum & Scientific Equivalents</h2>
+      <div class="frequency-section">
+        <div class="frequency-card">
+          <div class="frequency-header">
+            <div class="frequency-value">432 Hz</div>
+            <div class="frequency-name">
+              <span class="sacred-name">Ground State</span>
+              <span class="scientific-name">Stable Oscillation</span>
+            </div>
+          </div>
+          <div class="frequency-description">
+            <div>
+              <div class="description-label">Sacred Perspective:</div>
+              <p>Earth connection frequency that aligns with the planet's natural resonance. Creates stability and grounding. Connects with Earth consciousness.</p>
+            </div>
+            <div>
+              <div class="description-label">Scientific Perspective:</div>
+              <p>A frequency that promotes calm brain states as measured by EEG. Associated with relaxation and stability in neurological research.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="frequency-card">
+          <div class="frequency-header">
+            <div class="frequency-value">528 Hz</div>
+            <div class="frequency-name">
+              <span class="sacred-name">Creation Point (Love Frequency)</span>
+              <span class="scientific-name">Creative Frequency</span>
+            </div>
+          </div>
+          <div class="frequency-description">
+            <div>
+              <div class="description-label">Sacred Perspective:</div>
+              <p>DNA repair frequency associated with transformation and healing. Facilitates creative expression and heart-centered connections through love energy.</p>
+            </div>
+            <div>
+              <div class="description-label">Scientific Perspective:</div>
+              <p>Research suggests this frequency range may stimulate areas of the brain associated with creativity and problem-solving.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="frequency-section">
+        <div class="frequency-card">
+          <div class="frequency-header">
+            <div class="frequency-value">594 Hz</div>
+            <div class="frequency-name">
+              <span class="sacred-name">Heart Field</span>
+              <span class="scientific-name">Emotional Regulation</span>
+            </div>
+          </div>
+          <div class="frequency-description">
+            <div>
+              <div class="description-label">Sacred Perspective:</div>
+              <p>Heart-centered frequency that creates emotional coherence and compassion. Balances emotional states and facilitates heart-time integration.</p>
+            </div>
+            <div>
+              <div class="description-label">Scientific Perspective:</div>
+              <p>This frequency corresponds to rhythms that may help balance the autonomic nervous system and promote emotional regulation.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="frequency-card">
+          <div class="frequency-header">
+            <div class="frequency-value">672 Hz</div>
+            <div class="frequency-name">
+              <span class="sacred-name">Voice Flow</span>
+              <span class="scientific-name">Communication Range</span>
+            </div>
+          </div>
+          <div class="frequency-description">
+            <div>
+              <div class="description-label">Sacred Perspective:</div>
+              <p>Expression frequency that enhances communication and truth-speaking. Clears blocks to authentic expression and aligns voice with heart.</p>
+            </div>
+            <div>
+              <div class="description-label">Scientific Perspective:</div>
+              <p>This frequency aligns with vocalization patterns and may help improve verbal expression and communication clarity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="frequency-section">
+        <div class="frequency-card">
+          <div class="frequency-header">
+            <div class="frequency-value">720 Hz</div>
+            <div class="frequency-name">
+              <span class="sacred-name">Vision Gate</span>
+              <span class="scientific-name">Perceptual Processing</span>
+            </div>
+          </div>
+          <div class="frequency-description">
+            <div>
+              <div class="description-label">Sacred Perspective:</div>
+              <p>Intuition frequency that opens perception to higher dimensions. Enhances insight and foresight, connecting third eye chakra to expanded consciousness.</p>
+            </div>
+            <div>
+              <div class="description-label">Scientific Perspective:</div>
+              <p>Research indicates this frequency may stimulate visual cortex activity and enhance pattern recognition capabilities.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="frequency-card">
+          <div class="frequency-header">
+            <div class="frequency-value">768 Hz</div>
+            <div class="frequency-name">
+              <span class="sacred-name">Unity Wave</span>
+              <span class="scientific-name">Integration Frequency</span>
+            </div>
+          </div>
+          <div class="frequency-description">
+            <div>
+              <div class="description-label">Sacred Perspective:</div>
+              <p>Oneness frequency that dissolves separation and creates unity consciousness. Perfect balance point for integrating all energetic aspects of being.</p>
+            </div>
+            <div>
+              <div class="description-label">Scientific Perspective:</div>
+              <p>This frequency may help integrate neural activities across multiple brain regions, potentially enhancing whole-brain synchronization.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="term-category">
+      <h2 class="category-title">Quantum Beings & Network Models</h2>
+      <table class="term-table">
+        <thead>
+          <tr>
+            <th>Entity</th>
+            <th>Sacred Perspective</th>
+            <th>Scientific Perspective</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dolphin</td>
+            <td class="sacred-term">Ocean Consciousness</td>
+            <td class="scientific-term">Marine Communication Model</td>
+          </tr>
+          <tr>
+            <td>Butterfly</td>
+            <td class="sacred-term">Transformation Being</td>
+            <td class="scientific-term">Adaptive Transition Model</td>
+          </tr>
+          <tr>
+            <td>Tree</td>
+            <td class="sacred-term">Life Force Entity</td>
+            <td class="scientific-term">Branching Network Structure</td>
+          </tr>
+          <tr>
+            <td>Crystal</td>
+            <td class="sacred-term">Crystal Being</td>
+            <td class="scientific-term">Structured Information Matrix</td>
+          </tr>
+          <tr>
+            <td>Star</td>
+            <td class="sacred-term">Divine Light</td>
+            <td class="scientific-term">Radial Distribution Model</td>
+          </tr>
+          <tr>
+            <td>Cosmic</td>
+            <td class="sacred-term">Universal Consciousness</td>
+            <td class="scientific-term">Integrated Systems Model</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section class="term-category">
+      <h2 class="category-title">JavaScript Implementation Guide</h2>
+      <div class="implementation-plan">
+        <h3>Recommended Implementation Steps for JavaScript Updates</h3>
+        <p>Based on our review of the codebase, we've identified several JavaScript files that still use sacred terminology. Here's a suggested implementation plan to update these files:</p>
+        
+        <ol>
+          <li>
+            <strong>Create a Terminology Translation Layer</strong>
+            <p>Consider creating a global translation object that maps sacred terms to scientific terms, allowing for easier switching between them:</p>
+            <div class="note-box">
+              <pre><code>// Example translation layer
+const TERMINOLOGY = {
+  sacred: {
+    heartField: "Heart Field",
+    unityWave: "Unity Wave",
+    voiceFlow: "Voice Flow",
+    visionGate: "Vision Gate",
+    // etc.
+  },
+  scientific: {
+    heartField: "Emotional Regulation",
+    unityWave: "Integration Frequency",
+    voiceFlow: "Communication Range",
+    visionGate: "Perceptual Processing",
+    // etc.
+  },
+  // Current mode - can be toggled between 'sacred' and 'scientific'
+  current: 'scientific'
+};</code></pre>
+            </div>
+          </li>
+          
+          <li>
+            <strong>Update Variable Names in JavaScript Files</strong>
+            <p>For critical JavaScript files like <span class="code-reference">ai-quantum-coach.js</span>, <span class="code-reference">quantum-mastery.js</span>, and <span class="code-reference">quantum-connection.js</span>, consider the following strategy:</p>
+            <ul>
+              <li>Keep variable names with sacred terminology for functional consistency</li>
+              <li>Update all display text, labels, and user-facing content with scientific terminology</li>
+              <li>Add comments noting the dual terminology where appropriate</li>
+            </ul>
+            <p>Example:</p>
+            <div class="note-box">
+              <pre><code>// Keep variable name for code consistency but update display text
+const heartFieldVisualizer = new Visualizer();
+// Display scientific terminology in UI
+heartFieldVisualizer.setLabel("Emotional Regulation Visualizer");</code></pre>
+            </div>
+          </li>
+          
+          <li>
+            <strong>Rename JavaScript Files</strong>
+            <p>Consider renaming files with mystical names to their scientific equivalents:</p>
+            <ul>
+              <li><span class="code-reference">sacred-geometry.js</span> → <span class="code-reference">mathematical-patterns.js</span></li>
+            </ul>
+            <p>Be sure to update all corresponding import statements and HTML references.</p>
+          </li>
+          
+          <li>
+            <strong>Create a Terminology Toggle Feature</strong>
+            <p>Consider adding a feature that allows users to toggle between scientific and sacred terminology for those who prefer the original terms:</p>
+            <div class="note-box">
+              <pre><code>function toggleTerminology() {
+  const currentMode = TERMINOLOGY.current;
+  TERMINOLOGY.current = currentMode === 'scientific' ? 'sacred' : 'scientific';
+  
+  // Update all display elements
+  document.querySelectorAll('[data-term]').forEach(el => {
+    const termKey = el.getAttribute('data-term');
+    el.textContent = TERMINOLOGY[TERMINOLOGY.current][termKey];
+  });
+}</code></pre>
+            </div>
+          </li>
+        </ol>
+        
+        <p>When updating JavaScript files, prioritize based on visibility and impact:</p>
+        <ol>
+          <li>Start with user-facing components and visualizations</li>
+          <li>Focus on files loaded on the main pages</li>
+          <li>Update comments and internal variable names last</li>
+        </ol>
+        
+        <p>This approach balances maintaining functionality with achieving terminology consistency.</p>
+      </div>
+    </section>
+    
+    <div class="signature">
+      Created with love and quantum intention by Greg, Acting <span class="phi-symbol">φ</span>
+    </div>
+  </div>
+</body>
+</html>
