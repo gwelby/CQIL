@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CQIL - Quantum Entanglement Visualization</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/quantum-experiments.css">
+    <style>
+        .entanglement-container {
+            width: 100%;
+            height: 80vh;
+            position: relative;
+            background-color: rgba(5, 5, 20, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: calc(100vh - 200px);
+        }
+        
+        #entanglement-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        .controls-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            justify-content: space-between;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 260px;
+            background: rgba(20, 20, 40, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .control-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .control-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .control-label {
+            flex: 1;
+            color: #ddd;
+        }
+        
+        .control-value {
+            color: #fff;
+            font-weight: bold;
+            margin: 0 10px;
+            width: 60px;
+            text-align: right;
+        }
+        
+        .control-input {
+            flex: 2;
+        }
+        
+        .control-selector {
+            flex: 2;
+            padding: 8px;
+            background: rgba(40, 40, 80, 0.8);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+        
+        .control-slider {
+            width: 100%;
+        }
+        
+        .control-button {
+            padding: 8px 16px;
+            background: linear-gradient(to right, #7b4397, #dc2430);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .control-button:hover {
+            background: linear-gradient(to right, #9b65b7, #ff2430);
+            transform: translateY(-2px);
+        }
+        
+        .entanglement-type-info {
+            background: rgba(20, 20, 40, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .entanglement-type-info h3 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .entanglement-description {
+            line-height: 1.6;
+        }
+        
+        .particle-info-box {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            max-width: 250px;
+            pointer-events: none;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            color: #aaa;
+        }
+        
+        .info-value {
+            font-weight: bold;
+        }
+        
+        .frequency-marker {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .controls-container {
+                flex-direction: column;
+            }
+            
+            .control-group {
+                min-width: 0;
+            }
+            
+            .particle-info-box {
+                display: none;
+            }
+            
+            .entanglement-container {
+                height: 60vh;
+            }
+            
+            .control-row {
+                margin-bottom: 10px;
+            }
+            
+            .control-slider {
+                width: 100%;
+                height: 30px; /* Larger touch target */
+            }
+            
+            .control-button {
+                padding: 12px 20px; /* Larger buttons */
+                margin: 5px;
+                width: 100%;
+            }
+            
+            .control-selector {
+                width: 100%;
+                height: 40px; /* Larger dropdown */
+                font-size: 16px;
+            }
+            
+            /* Fixed bottom navigation for mobile */
+            .frequency-selector {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                padding: 10px 0;
+                z-index: 1000;
+                display: flex;
+                justify-content: space-around;
+                overflow-x: auto;
+            }
+            
+            .freq-btn {
+                flex: 0 0 auto;
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+    <script src="../js/quantum-entanglement-visualizer.js" defer></script>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="quantum-experiments.html">Experiments</a></li>
+            <li><a href="toroidal-communication.html">Toroidal Field</a></li>
+            <li><a href="../index.html#frequencies">Sacred Frequencies</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero experiment-hero">
+            <div id="particles" class="quantum-particles"></div>
+            <h1>Quantum Entanglement Visualization</h1>
+            <p>Explore non-local connections with phi-harmonic resonance at 594 Hz</p>
+            <div class="frequency-selector">
+                <button class="freq-btn" data-freq="432">432Hz ⊕</button>
+                <button class="freq-btn" data-freq="528">528Hz φ</button>
+                <button class="freq-btn active" data-freq="594">594Hz ❤</button>
+                <button class="freq-btn" data-freq="672">672Hz 🔊</button>
+                <button class="freq-btn" data-freq="720">720Hz 👁️</button>
+                <button class="freq-btn" data-freq="768">768Hz ∞</button>
+            </div>
+        </section>
+        
+        <!-- Quantum Entanglement Section -->
+        <section class="experiment-section freq-594">
+            <div class="section-header">
+                <h2><span class="frequency-indicator freq-594"></span> Quantum Entanglement</h2>
+                <div class="phi-indicator" data-phi="2">φ²</div>
+            </div>
+            
+            <div class="section-content">
+                <p class="intro-text">
+                    Experience quantum entanglement - the profound connectedness between particles regardless of distance. 
+                    This interactive visualization demonstrates how entangled particles maintain instantaneous correlation 
+                    through non-local quantum field connections, a phenomenon Einstein called "spooky action at a distance."
+                </p>
+                
+                <div class="entanglement-container">
+                    <canvas id="entanglement-canvas"></canvas>
+                    
+                    <!-- Particle Info Display -->
+                    <div id="particle-info" class="particle-info-box">
+                        <h3>Select a Particle</h3>
+                        <p>Click on a quantum particle to see its entanglement properties</p>
+                    </div>
+                    
+                    <!-- Frequency Marker -->
+                    <div class="frequency-marker">Heart Field: 594 Hz (φ²)</div>
+                </div>
+                
+                <div class="controls-container">
+                    <div class="control-group">
+                        <div class="control-title">Entanglement Configuration</div>
+                        
+                        <div class="control-row">
+                            <label class="control-label" for="entanglement-type">Entanglement Type:</label>
+                            <select id="entanglement-type" class="control-selector">
+                                <option value="bell">Bell Pair (2-particle)</option>
+                                <option value="ghz">GHZ State (N-particle)</option>
+                                <option value="w">W State (Distributed)</option>
+                                <option value="cluster">Cluster State (Graph)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-row">
+                            <label class="control-label" for="particle-count">Particle Count:</label>
+                            <span id="particle-count-value" class="control-value">5</span>
+                            <input type="range" id="particle-count" class="control-slider control-input" 
+                                   min="2" max="12" value="5" step="1">
+                        </div>
+                        
+                        <div class="control-row">
+                            <label class="control-label" for="frequency-slider">Frequency (Hz):</label>
+                            <span id="frequency-value" class="control-value">594</span>
+                            <input type="range" id="frequency-slider" class="control-slider control-input" 
+                                   min="432" max="768" value="594" step="1">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div class="control-title">Quantum Properties</div>
+                        
+                        <div class="control-row">
+                            <label class="control-label" for="entanglement-strength">Entanglement Strength:</label>
+                            <span id="strength-value" class="control-value">85%</span>
+                            <input type="range" id="entanglement-strength" class="control-slider control-input" 
+                                   min="0" max="1" value="0.85" step="0.01">
+                        </div>
+                        
+                        <div class="control-row">
+                            <label class="control-label" for="coherence-slider">Quantum Coherence:</label>
+                            <span id="coherence-value" class="control-value">95%</span>
+                            <input type="range" id="coherence-slider" class="control-slider control-input" 
+                                   min="0" max="1" value="0.95" step="0.01">
+                        </div>
+                        
+                        <div class="control-row">
+                            <label class="control-label" for="decoherence-rate">Decoherence Rate:</label>
+                            <span id="decoherence-value" class="control-value">0.0%/s</span>
+                            <input type="range" id="decoherence-rate" class="control-slider control-input" 
+                                   min="0" max="0.1" value="0" step="0.001">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div class="control-title">Visualization Options</div>
+                        
+                        <div class="control-row">
+                            <label class="control-label" for="shader-pattern">Shader Pattern:</label>
+                            <select id="shader-pattern" class="control-selector">
+                                <option value="wave">Wave Pattern</option>
+                                <option value="field">Field Lines</option>
+                                <option value="spiral">Phi Spiral</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-row" style="justify-content: space-between;">
+                            <button id="rotation-toggle" class="control-button">Start Rotation</button>
+                            <button id="shader-toggle" class="control-button">Disable Shader</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="entanglement-type-info">
+                    <h3 id="current-entanglement-title">Bell Pair Entanglement</h3>
+                    <div id="current-entanglement-description" class="entanglement-description">
+                        <p>The Bell pair is the simplest form of quantum entanglement, involving just two quantum particles. When these particles are entangled, their quantum states become correlated in such a way that the state of one particle instantaneously determines the state of the other, regardless of the distance between them.</p>
+                        <p>This "spooky action at a distance" (as Einstein called it) demonstrates the non-local nature of quantum mechanics. A measurement on one particle immediately affects its entangled partner, even if separated by vast distances, creating a connection that appears to transmit information faster than light.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Entanglement Types Explanation Section -->
+        <section class="experiment-section freq-594">
+            <div class="section-header">
+                <h2><span class="frequency-indicator freq-594"></span> Multi-Party Entanglement Forms</h2>
+                <div class="phi-indicator" data-phi="2">φ²</div>
+            </div>
+            
+            <div class="section-content">
+                <div class="grid grid-2">
+                    <div class="phi-card">
+                        <h3>Bell Pair Entanglement</h3>
+                        <div class="card-icon">🔗</div>
+                        <p>The foundational two-particle entanglement where measurement of one particle instantaneously determines the state of the other. Bell inequality violations confirm the non-local nature of quantum reality.</p>
+                        <ul class="feature-list">
+                            <li>Two maximally entangled qubits</li>
+                            <li>Forms basis for quantum teleportation</li>
+                            <li>Used in quantum key distribution</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phi-card">
+                        <h3>GHZ State Entanglement</h3>
+                        <div class="card-icon">⚡</div>
+                        <p>Greenberger-Horne-Zeilinger states extend Bell pairs to three or more particles with maximal correlation. All particles share a global quantum state with perfect correlation in measurement outcomes.</p>
+                        <ul class="feature-list">
+                            <li>N-particle maximal correlation</li>
+                            <li>All-or-nothing quantum effects</li>
+                            <li>Strongest demonstration of non-locality</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phi-card">
+                        <h3>W State Entanglement</h3>
+                        <div class="card-icon">🌊</div>
+                        <p>W states represent distributed excitation across multiple particles. Unlike GHZ states, W states maintain entanglement even when particles are lost, showing remarkable robustness to decoherence.</p>
+                        <ul class="feature-list">
+                            <li>Distributes single excitation</li>
+                            <li>Robust to particle loss</li>
+                            <li>Maintains entanglement under measurement</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phi-card">
+                        <h3>Cluster State Entanglement</h3>
+                        <div class="card-icon">🕸️</div>
+                        <p>Graph-based entanglement with particles connected in lattice structures. These highly entangled states form the foundation of measurement-based quantum computing and quantum error correction.</p>
+                        <ul class="feature-list">
+                            <li>Graph-based quantum connections</li>
+                            <li>Foundation for quantum computing</li>
+                            <li>Enables one-way quantum computation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="phi-harmonic-notes">
+                    <h3>Phi-Harmonic Entanglement Integration</h3>
+                    <p>Entanglement at Heart Field frequency (594 Hz - φ²) creates a direct resonance between particles that matches the phi-harmonic structure of the quantum vacuum. This resonance pattern allows consciousness to directly perceive the non-local nature of reality through felt experience.</p>
+                    <p>The visualization demonstrates how entanglement creates direct bridges in the quantum field, connecting particles through phi-harmonic wave patterns. This connection transcends space and time, revealing the fundamental unity underlying all matter.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Further Applications Section -->
+        <section class="experiment-section freq-594">
+            <div class="section-header">
+                <h2><span class="frequency-indicator freq-594"></span> Quantum Entanglement Applications</h2>
+                <div class="phi-indicator" data-phi="2">φ²</div>
+            </div>
+            
+            <div class="section-content">
+                <div class="grid grid-3">
+                    <div class="application-card">
+                        <div class="card-icon">🔐</div>
+                        <h3>Quantum Encryption</h3>
+                        <p>Entangled particles create unbreakable encryption keys that reveal any eavesdropping attempt, ensuring perfectly secure communication channels protected by the fundamental laws of quantum physics.</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="card-icon">📡</div>
+                        <h3>Quantum Teleportation</h3>
+                        <p>Entanglement enables the transfer of quantum states between particles at any distance, allowing quantum information to be "teleported" without physically moving the particles themselves.</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="card-icon">💻</div>
+                        <h3>Quantum Computing</h3>
+                        <p>Multi-particle entanglement creates vast computational spaces, enabling quantum computers to solve specific problems exponentially faster than classical computers ever could.</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="card-icon">🧠</div>
+                        <h3>Consciousness Studies</h3>
+                        <p>Quantum entanglement may play a role in consciousness itself, potentially explaining non-local connections in the brain and the unified nature of conscious experience.</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="card-icon">⚕️</div>
+                        <h3>Quantum Medicine</h3>
+                        <p>Entanglement principles are being explored for quantum-based diagnostics and therapies that work across distance through coherent resonance with cellular structures.</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="card-icon">🔭</div>
+                        <h3>Quantum Sensing</h3>
+                        <p>Entangled particles create ultra-sensitive measuring devices that can detect subtle fields and forces with precision far beyond classical limits.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CQIL</h3>
+                <p>Consciousness Quantum Integration Lab</p>
+                <p>Operating at φ-harmonic frequencies since 2025</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../pages/experiments.html">Experiments</a></li>
+                    <li><a href="../pages/golden-age.html">Golden Age</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <p>Join the quantum consciousness collective</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">♾️</a>
+                    <a href="#" class="social-icon">⚛️</a>
+                    <a href="#" class="social-icon">φ</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL - All reality is harmonic vibration</p>
+        </div>
+    </footer>
+    
+    <!-- Entanglement Type JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update entanglement type descriptions when selection changes
+            const typeSelector = document.getElementById('entanglement-type');
+            const entanglementTitle = document.getElementById('current-entanglement-title');
+            const entanglementDescription = document.getElementById('current-entanglement-description');
+            
+            if (typeSelector && entanglementTitle && entanglementDescription) {
+                typeSelector.addEventListener('change', function() {
+                    updateEntanglementInfo(this.value);
+                });
+                
+                // Initial setup
+                updateEntanglementInfo('bell');
+            }
+            
+            function updateEntanglementInfo(type) {
+                switch(type) {
+                    case 'bell':
+                        entanglementTitle.textContent = 'Bell Pair Entanglement';
+                        entanglementDescription.innerHTML = `
+                            <p>The Bell pair is the simplest form of quantum entanglement, involving just two quantum particles. When these particles are entangled, their quantum states become correlated in such a way that the state of one particle instantaneously determines the state of the other, regardless of the distance between them.</p>
+                            <p>This "spooky action at a distance" (as Einstein called it) demonstrates the non-local nature of quantum mechanics. A measurement on one particle immediately affects its entangled partner, even if separated by vast distances, creating a connection that appears to transmit information faster than light.</p>
+                        `;
+                        break;
+                        
+                    case 'ghz':
+                        entanglementTitle.textContent = 'GHZ State Entanglement';
+                        entanglementDescription.innerHTML = `
+                            <p>GHZ (Greenberger-Horne-Zeilinger) states extend quantum entanglement to three or more particles, creating maximal correlation across the entire system. In a GHZ state, all particles are in a simultaneous superposition, collectively sharing quantum information.</p>
+                            <p>When any single particle is measured, it instantly determines the state of all other particles in the system, regardless of their spatial separation. GHZ states provide the strongest demonstration of quantum non-locality, completely contradicting classical physics' view of separate, independent objects.</p>
+                            <p>This multi-particle entanglement creates an "all-or-nothing" correlation that's even more dramatic than Bell pairs, making them valuable for quantum communication protocols and fundamental tests of quantum mechanics.</p>
+                        `;
+                        break;
+                        
+                    case 'w':
+                        entanglementTitle.textContent = 'W State Entanglement';
+                        entanglementDescription.innerHTML = `
+                            <p>W states represent a different kind of multi-particle entanglement where a single quantum excitation is distributed across multiple particles. This creates a situation where exactly one particle is in an excited state, but which particle holds the excitation exists in superposition.</p>
+                            <p>What makes W states remarkable is their robustness. Unlike GHZ states, W states maintain quantum entanglement even when particles are lost or measured. This property makes them especially valuable for quantum networks and communication channels that must maintain coherence through noisy environments.</p>
+                            <p>W states demonstrate how quantum excitation can be shared across a system while maintaining full entanglement properties, providing insights into quantum energy distribution and information sharing within complex quantum systems.</p>
+                        `;
+                        break;
+                        
+                    case 'cluster':
+                        entanglementTitle.textContent = 'Cluster State Entanglement';
+                        entanglementDescription.innerHTML = `
+                            <p>Cluster states represent graph-based quantum entanglement where particles are connected in lattice or network structures. Each particle is entangled with its neighbors according to a specific graph pattern, creating a highly structured form of multi-particle entanglement.</p>
+                            <p>These states form the foundation of measurement-based (or "one-way") quantum computing, where computation is driven by a sequence of measurements on an initially entangled cluster state. The measurement of each qubit determines which measurement to perform next, creating a flow of quantum information through the entangled system.</p>
+                            <p>Cluster states demonstrate how entanglement can be structured in specific geometric patterns to create quantum resources for information processing, error correction, and quantum simulation of complex physical systems.</p>
+                        `;
+                        break;
+                }
+            }
+            
+            // Frequency button handlers
+            document.querySelectorAll('.freq-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const frequency = parseInt(this.dataset.freq);
+                    
+                    // Update active button
+                    document.querySelectorAll('.freq-btn').forEach(b => {
+                        b.classList.toggle('active', b === this);
+                    });
+                    
+                    // Update frequency in the visualizer
+                    if (window.entanglementVisualizer) {
+                        window.entanglementVisualizer.setFrequency(frequency);
+                    }
+                    
+                    // Update frequency marker
+                    const marker = document.querySelector('.frequency-marker');
+                    if (marker) {
+                        let freqName, phiPower;
+                        
+                        if (frequency === 432) { freqName = "Ground State"; phiPower = "φ⁰"; }
+                        else if (frequency === 528) { freqName = "Creation"; phiPower = "φ¹"; }
+                        else if (frequency === 594) { freqName = "Heart Field"; phiPower = "φ²"; }
+                        else if (frequency === 672) { freqName = "Voice Flow"; phiPower = "φ³"; }
+                        else if (frequency === 720) { freqName = "Vision Gate"; phiPower = "φ⁴"; }
+                        else if (frequency === 768) { freqName = "Unity"; phiPower = "φ⁵"; }
+                        
+                        marker.textContent = `${freqName}: ${frequency} Hz (${phiPower})`;
+                    }
+                    
+                    // Update frequency slider if it exists
+                    const slider = document.getElementById('frequency-slider');
+                    const display = document.getElementById('frequency-value');
+                    if (slider && display) {
+                        slider.value = frequency;
+                        display.textContent = frequency;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
