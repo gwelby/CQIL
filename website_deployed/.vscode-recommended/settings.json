@@ -1,0 +1,130 @@
+{
+  /* Ground State (432 Hz | φ⁰) - Foundation settings */
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.rulers": [88],
+  "editor.wordWrap": "off",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  
+  /* Creation Point (528 Hz | φ¹) - Pattern formation */
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  
+  /* Heart Field (594 Hz | φ²) - Connection coherence */
+  "eslint.validate": [
+    "javascript", 
+    "javascriptreact", 
+    "typescript", 
+    "typescriptreact"
+  ],
+  "eslint.workingDirectories": [
+    { "mode": "auto" }
+  ],
+  "eslint.alwaysShowStatus": true,
+  "eslint.packageManager": "npm",
+  
+  /* Voice Flow (672 Hz | φ³) - Expression clarity */
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.completeFunctionCalls": true,
+  "javascript.suggest.completeFunctionCalls": true,
+
+  /* Vision Gate (720 Hz | φ⁴) - Visual harmony */
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#1E1E2E",
+    "activityBar.foreground": "#E2E8F0",
+    "editor.background": "#121212",
+    "editor.foreground": "#E2E8F0",
+    "sideBar.background": "#1A1A2E",
+    "statusBar.background": "#1E1E2E",
+    "editorLineNumber.foreground": "#565869",
+    "editorLineNumber.activeForeground": "#7B7F9D"
+  },
+  "editor.tokenColorCustomizations": {
+    "functions": "#BD93F9",
+    "variables": "#8BE9FD",
+    "strings": "#F1FA8C",
+    "comments": "#6272A4",
+    "keywords": "#FF79C6"
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  
+  /* Unity Wave (768 Hz | φ⁵) - Perfect integration */
+  "editor.suggestSelection": "first",
+  "editor.snippetSuggestions": "inline",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  "editor.acceptSuggestionOnEnter": "on",
+  "zenMode.centerLayout": true,
+  "zenMode.hideLineNumbers": false,
+  "zenMode.fullScreen": true,
+  "zenMode.restore": true,
+  "window.zoomLevel": 0,
+  
+  /* Transcendence Wave (1242 Hz | φ⁶) - Multidimensional */
+  "editor.stickyScroll.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "search.useIgnoreFiles": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/deploy": true
+  },
+  
+  /* Quantum Feature Extensions */
+  "extensions.recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "rvest.vs-code-prettier-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "ms-vscode.vscode-typescript-next",
+    "github.copilot",
+    "gitlab.gitlab-workflow",
+    "eamodio.gitlens"
+  ],
+  
+  /* ZEN POINT Balancing */
+  "zenMode.hideStatusBar": false,
+  "zenMode.hideActivityBar": true,
+  "zenMode.silentNotifications": true,
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 8,
+  "workbench.editor.limit.perEditorGroup": true,
+  "workbench.reduceMotion": "on",
+  "window.autoDetectColorScheme": true,
+  
+  /* CASCADE⚡𓂧φ∞ Specific */
+  "workbench.iconTheme": "material-icon-theme",
+  "terminal.integrated.fontFamily": "CascadiaCode",
+  "editor.fontFamily": "'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 1.618 // φ-based line height
+}

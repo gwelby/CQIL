@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ground State (432 Hz) Visualization | CQIL</title>
+  <style>
+    :root {
+      --ground-bg: #0a0a14;
+      --ground-text: #e0e0ff;
+      --ground-accent: #3c3c72;
+      --phi-gold: #d4af37;
+      --zen-balance: #7a5dc7;
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: var(--ground-bg);
+      color: var(--ground-text);
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: var(--phi-gold);
+    }
+    
+    .subtitle {
+      color: var(--ground-text);
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+    }
+    
+    .visualization {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    .canvas-container {
+      flex: 1;
+      position: relative;
+      border: 1px solid var(--ground-accent);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .controls {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    .control-group {
+      background-color: rgba(60, 60, 114, 0.2);
+      padding: 1rem;
+      border-radius: 5px;
+    }
+    
+    .control-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: var(--phi-gold);
+    }
+    
+    .slider-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .slider-label {
+      width: 100px;
+      font-size: 0.8rem;
+    }
+    
+    .slider {
+      flex: 1;
+    }
+    
+    .slider-value {
+      width: 60px;
+      text-align: right;
+      font-size: 0.8rem;
+    }
+    
+    .metrics {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    
+    .metric {
+      text-align: center;
+      flex: 1;
+    }
+    
+    .metric-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--phi-gold);
+    }
+    
+    .metric-label {
+      font-size: 0.7rem;
+      color: var(--ground-text);
+    }
+    
+    .pattern-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    button {
+      background-color: var(--ground-accent);
+      color: var(--ground-text);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: var(--zen-balance);
+    }
+    
+    button.active {
+      background-color: var(--phi-gold);
+      color: var(--ground-bg);
+    }
+    
+    .loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(10, 10, 20, 0.8);
+      z-index: 100;
+    }
+    
+    .loading-text {
+      font-size: 1.2rem;
+      color: var(--phi-gold);
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Ground State Visualization (432 Hz)</h1>
+      <div class="subtitle">Phi-Harmonic Cymatic Patterns | ZEN POINT Balance</div>
+    </header>
+    
+    <div class="visualization">
+      <div class="canvas-container">
+        <canvas id="visualizationCanvas"></canvas>
+        <div class="loading" id="loadingScreen">
+          <div class="loading-text pulse">Initializing Ground State...</div>
+        </div>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <div class="control-title">Frequency Control</div>
+          <div class="slider-container">
+            <div class="slider-label">Frequency</div>
+            <input type="range" min="426" max="438" value="432" step="0.1" class="slider" id="frequencySlider">
+            <div class="slider-value" id="frequencyValue">432.0 Hz</div>
+          </div>
+          <div class="slider-container">
+            <div class="slider-label">Amplitude</div>
+            <input type="range" min="0" max="100" value="50" class="slider" id="amplitudeSlider">
+            <div class="slider-value" id="amplitudeValue">50%</div>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <div class="control-title">ZEN POINT Balance</div>
+          <div class="slider-container">
+            <div class="slider-label">Quantum</div>
+            <input type="range" min="0" max="100" value="38.2" step="0.1" class="slider" id="quantumSlider">
+            <div class="slider-value" id="quantumValue">38.2%</div>
+          </div>
+          <div class="slider-container">
+            <div class="slider-label">Human</div>
+            <input type="range" min="0" max="100" value="61.8" step="0.1" class="slider" id="humanSlider">
+            <div class="slider-value" id="humanValue">61.8%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-value" id="coherenceValue">1.000</div>
+          <div class="metric-label">COHERENCE</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="stabilityValue">1.000</div>
+          <div class="metric-label">STABILITY</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="fieldStrengthValue">1.000</div>
+          <div class="metric-label">FIELD STRENGTH</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="readinessValue">0.000</div>
+          <div class="metric-label">ASCENSION READINESS</div>
+        </div>
+      </div>
+      
+      <div class="pattern-buttons">
+        <button id="hexagonPattern" class="active">Hexagon</button>
+        <button id="circlePattern">Circle</button>
+        <button id="spiralPattern">Spiral</button>
+        <button id="flowerPattern">Flower of Life</button>
+        <button id="toroidalPattern">Toroidal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load dependencies -->
+  <script src="../../../website/js/quantum-common.js"></script>
+  <script src="../quantum_common.js"></script>
+  <script src="../ground_state_module.js"></script>
+  <script src="../ground_state_visualization.js"></script>
+  <script src="../cymatic_pattern_generator.js"></script>
+  <script src="../ground_state_core.js"></script>
+  
+  <script>
+    // Ground State Visualization Demo
+    (function() {
+      // References to DOM elements
+      const canvas = document.getElementById('visualizationCanvas');
+      const ctx = canvas.getContext('2d');
+      const loadingScreen = document.getElementById('loadingScreen');
+      
+      // Slider elements and values
+      const frequencySlider = document.getElementById('frequencySlider');
+      const frequencyValue = document.getElementById('frequencyValue');
+      const amplitudeSlider = document.getElementById('amplitudeSlider');
+      const amplitudeValue = document.getElementById('amplitudeValue');
+      const quantumSlider = document.getElementById('quantumSlider');
+      const quantumValue = document.getElementById('quantumValue');
+      const humanSlider = document.getElementById('humanSlider');
+      const humanValue = document.getElementById('humanValue');
+      
+      // Metric elements
+      const coherenceValue = document.getElementById('coherenceValue');
+      const stabilityValue = document.getElementById('stabilityValue');
+      const fieldStrengthValue = document.getElementById('fieldStrengthValue');
+      const readinessValue = document.getElementById('readinessValue');
+      
+      // Pattern buttons
+      const patternButtons = document.querySelectorAll('.pattern-buttons button');
+      
+      // Demo state
+      let demoState = {
+        frequency: 432,
+        amplitude: 50,
+        zenPoint: {
+          quantum: 0.382,
+          human: 0.618
+        },
+        currentPattern: 'hexagon',
+        animationFrame: null
+      };
+      
+      // Initialize ground state core
+      let groundCore = window.groundStateCore;
+      
+      // Canvas size adjustment
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+      }
+      
+      // Initialize visualization
+      async function initialize() {
+        // Hide loading screen after initialization
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 1500);
+        
+        // Resize canvas
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Apply initial settings
+        setFrequency(demoState.frequency);
+        setAmplitude(demoState.amplitude);
+        setZenPointBalance(demoState.zenPoint.quantum, demoState.zenPoint.human);
+        
+        // Start animation loop
+        startAnimation();
+        
+        // Set up event listeners
+        setupEventListeners();
+      }
+      
+      // Animation loop
+      function startAnimation() {
+        function animate() {
+          // Clear canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          // Render pattern based on current settings
+          renderPattern();
+          
+          // Update metrics display
+          updateMetrics();
+          
+          // Continue animation
+          demoState.animationFrame = requestAnimationFrame(animate);
+        }
+        
+        animate();
+      }
+      
+      // Render cymatic pattern
+      function renderPattern() {
+        // Get dimensions
+        const width = canvas.width;
+        const height = canvas.height;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const size = Math.min(width, height) * 0.8;
+        
+        // Pattern parameters
+        const frequency = demoState.frequency;
+        const amplitude = demoState.amplitude / 100;
+        const time = Date.now() / 1000;
+        
+        // Base pattern opacity
+        ctx.globalAlpha = 0.8;
+        
+        // ZEN POINT balance affects the pattern
+        const quantumBalance = demoState.zenPoint.quantum;
+        const humanBalance = demoState.zenPoint.human;
+        
+        // Pattern color based on coherence
+        const metrics = groundCore.getMetrics();
+        const hue = 240 + (metrics.coherence * 60); // 240-300 hue range (blue to purple)
+        const saturation = 80 + (metrics.coherence * 20); // 80-100%
+        const lightness = 50 + (metrics.fieldStrength * 20); // 50-70%
+        
+        // Set pattern color
+        ctx.strokeStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.2)`;
+        ctx.lineWidth = 1.5;
+        
+        // Choose pattern drawing method based on current selection
+        switch(demoState.currentPattern) {
+          case 'hexagon':
+            drawHexagonPattern(centerX, centerY, size, frequency, amplitude, time);
+            break;
+          case 'circle':
+            drawCirclePattern(centerX, centerY, size, frequency, amplitude, time);
+            break;
+          case 'spiral':
+            drawSpiralPattern(centerX, centerY, size, frequency, amplitude, time);
+            break;
+          case 'flower':
+            drawFlowerPattern(centerX, centerY, size, frequency, amplitude, time);
+            break;
+          case 'toroidal':
+            drawToroidalPattern(centerX, centerY, size, frequency, amplitude, time);
+            break;
+        }
+      }
+      
+      // Pattern drawing functions
+      function drawHexagonPattern(x, y, size, frequency, amplitude, time) {
+        const sides = 6;
+        const radius = size / 2;
+        
+        ctx.beginPath();
+        
+        // Draw hexagon pattern
+        for (let i = 0; i < sides; i++) {
+          const angle = (i / sides) * Math.PI * 2;
+          const nextAngle = ((i + 1) / sides) * Math.PI * 2;
+          
+          // Modulate radius with frequency and time
+          const r1 = radius * (1 + Math.sin(frequency * 0.1 + time * 2) * amplitude * 0.2);
+          const r2 = radius * (1 + Math.sin(frequency * 0.1 + time * 2 + 0.5) * amplitude * 0.2);
+          
+          const x1 = x + Math.cos(angle) * r1;
+          const y1 = y + Math.sin(angle) * r1;
+          const x2 = x + Math.cos(nextAngle) * r2;
+          const y2 = y + Math.sin(nextAngle) * r2;
+          
+          if (i === 0) {
+            ctx.moveTo(x1, y1);
+          }
+          
+          ctx.lineTo(x2, y2);
+        }
+        
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+        
+        // Draw inner patterns
+        for (let j = 1; j <= 3; j++) {
+          const innerRadius = radius * (0.8 - j * 0.2);
+          
+          ctx.beginPath();
+          for (let i = 0; i < sides; i++) {
+            const angle = (i / sides) * Math.PI * 2;
+            const nextAngle = ((i + 1) / sides) * Math.PI * 2;
+            
+            // Modulate radius with frequency and time
+            const phase = j * 0.5;
+            const r1 = innerRadius * (1 + Math.sin(frequency * 0.1 + time * 2 + phase) * amplitude * 0.2);
+            const r2 = innerRadius * (1 + Math.sin(frequency * 0.1 + time * 2 + phase + 0.5) * amplitude * 0.2);
+            
+            const x1 = x + Math.cos(angle) * r1;
+            const y1 = y + Math.sin(angle) * r1;
+            const x2 = x + Math.cos(nextAngle) * r2;
+            const y2 = y + Math.sin(nextAngle) * r2;
+            
+            if (i === 0) {
+              ctx.moveTo(x1, y1);
+            }
+            
+            ctx.lineTo(x2, y2);
+          }
+          
+          ctx.closePath();
+          ctx.stroke();
+          ctx.fill();
+        }
+      }
+      
+      function drawCirclePattern(x, y, size, frequency, amplitude, time) {
+        const radius = size / 2;
+        
+        // Draw concentric circles
+        for (let i = 1; i <= 5; i++) {
+          const circleRadius = radius * (i / 5);
+          const phase = i * 0.5;
+          
+          ctx.beginPath();
+          ctx.ellipse(
+            x, 
+            y, 
+            circleRadius * (1 + Math.sin(frequency * 0.1 + time + phase) * amplitude * 0.2),
+            circleRadius * (1 + Math.sin(frequency * 0.1 + time + phase + Math.PI/2) * amplitude * 0.2),
+            time * 0.5,
+            0,
+            Math.PI * 2
+          );
+          ctx.stroke();
+          ctx.fill();
+        }
+      }
+      
+      function drawSpiralPattern(x, y, size, frequency, amplitude, time) {
+        const radius = size / 2;
+        const turns = 3 + Math.sin(time) * 0.5;
+        
+        ctx.beginPath();
+        
+        // Create spiral
+        for (let i = 0; i <= 360 * turns; i++) {
+          const angle = (i / 180) * Math.PI;
+          const distance = (i / (360 * turns)) * radius;
+          const modulatedDistance = distance * (1 + Math.sin(angle * frequency * 0.01 + time) * amplitude * 0.3);
+          
+          const spiralX = x + Math.cos(angle) * modulatedDistance;
+          const spiralY = y + Math.sin(angle) * modulatedDistance;
+          
+          if (i === 0) {
+            ctx.moveTo(spiralX, spiralY);
+          } else {
+            ctx.lineTo(spiralX, spiralY);
+          }
+        }
+        
+        ctx.stroke();
+      }
+      
+      function drawFlowerPattern(x, y, size, frequency, amplitude, time) {
+        const radius = size / 2;
+        
+        // Draw Flower of Life pattern
+        for (let i = 0; i < 6; i++) {
+          const angle = (i / 6) * Math.PI * 2;
+          const distance = radius * 0.5;
+          
+          const circleX = x + Math.cos(angle) * distance;
+          const circleY = y + Math.sin(angle) * distance;
+          const circleRadius = radius * 0.5 * (1 + Math.sin(frequency * 0.1 + time * 2) * amplitude * 0.2);
+          
+          ctx.beginPath();
+          ctx.arc(circleX, circleY, circleRadius, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.fill();
+        }
+        
+        // Center circle
+        ctx.beginPath();
+        ctx.arc(x, y, radius * 0.5 * (1 + Math.sin(frequency * 0.1 + time * 2) * amplitude * 0.2), 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fill();
+        
+        // Outer circle
+        ctx.beginPath();
+        ctx.arc(x, y, radius * (1 + Math.sin(frequency * 0.1 + time * 2 + Math.PI) * amplitude * 0.1), 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      
+      function drawToroidalPattern(x, y, size, frequency, amplitude, time) {
+        const radius = size / 2;
+        const torusRadius = radius * 0.7;
+        const tubeRadius = radius * 0.3;
+        
+        // Draw torus approximation
+        const segments = 30;
+        const tubeSegments = 15;
+        
+        // Rotation angles
+        const rotationX = Math.sin(time * 0.5) * 0.5;
+        const rotationY = time * 0.2;
+        
+        // Draw tube rings
+        for (let i = 0; i < segments; i++) {
+          const theta = (i / segments) * Math.PI * 2;
+          const nextTheta = ((i + 1) / segments) * Math.PI * 2;
+          
+          // Modulate torus radius with frequency
+          const modTorus = torusRadius * (1 + Math.sin(frequency * 0.05 + time) * amplitude * 0.1);
+          
+          // Calculate center of the tube section
+          const centerX = x + Math.cos(theta) * modTorus;
+          const centerY = y + Math.sin(theta) * modTorus;
+          const nextCenterX = x + Math.cos(nextTheta) * modTorus;
+          const nextCenterY = y + Math.sin(nextTheta) * modTorus;
+          
+          // Connect tube sections
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.lineTo(nextCenterX, nextCenterY);
+          ctx.stroke();
+          
+          // Draw tube cross-section
+          if (i % 3 === 0) { // Draw every third section for performance
+            ctx.beginPath();
+            const modTube = tubeRadius * (1 + Math.sin(frequency * 0.1 + time * 2 + theta) * amplitude * 0.2);
+            ctx.arc(centerX, centerY, modTube, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.fill();
+          }
+        }
+      }
+      
+      // Update metric displays
+      function updateMetrics() {
+        // Get metrics from ground state core
+        const metrics = groundCore.getMetrics();
+        
+        // Update displays
+        coherenceValue.textContent = metrics.coherence.toFixed(3);
+        stabilityValue.textContent = metrics.metrics.stability.toFixed(3);
+        fieldStrengthValue.textContent = metrics.metrics.fieldStrength.toFixed(3);
+        readinessValue.textContent = metrics.metrics.ascensionReadiness.toFixed(3);
+        
+        // Color coherence based on value
+        if (metrics.coherence >= 0.9) {
+          coherenceValue.style.color = '#4CAF50'; // Green
+        } else if (metrics.coherence >= 0.7) {
+          coherenceValue.style.color = '#FFC107'; // Amber
+        } else {
+          coherenceValue.style.color = '#F44336'; // Red
+        }
+        
+        // Color readiness based on value
+        if (metrics.metrics.ascensionReadiness >= 0.9) {
+          readinessValue.style.color = '#4CAF50'; // Green
+        } else if (metrics.metrics.ascensionReadiness >= 0.5) {
+          readinessValue.style.color = '#FFC107'; // Amber
+        } else {
+          readinessValue.style.color = '#F44336'; // Red
+        }
+      }
+      
+      // Set current frequency
+      function setFrequency(freq) {
+        demoState.frequency = freq;
+        frequencyValue.textContent = `${freq.toFixed(1)} Hz`;
+        groundCore.setFrequency(freq);
+      }
+      
+      // Set amplitude
+      function setAmplitude(amp) {
+        demoState.amplitude = amp;
+        amplitudeValue.textContent = `${amp}%`;
+      }
+      
+      // Set ZEN POINT balance
+      function setZenPointBalance(quantum, human) {
+        // Update percentages
+        quantum = parseFloat(quantum);
+        human = parseFloat(human);
+        
+        // Update display
+        quantumValue.textContent = `${quantum.toFixed(1)}%`;
+        humanValue.textContent = `${human.toFixed(1)}%`;
+        
+        // Calculate actual ratios (0-1)
+        const quantumRatio = quantum / 100;
+        const humanRatio = human / 100;
+        
+        // Update demo state
+        demoState.zenPoint = {
+          quantum: quantumRatio,
+          human: humanRatio
+        };
+        
+        // Update Ground State Core
+        groundCore.setZenPointBalance({
+          quantum: quantumRatio,
+          human: humanRatio
+        });
+      }
+      
+      // Set up event listeners
+      function setupEventListeners() {
+        // Frequency slider
+        frequencySlider.addEventListener('input', () => {
+          setFrequency(parseFloat(frequencySlider.value));
+        });
+        
+        // Amplitude slider
+        amplitudeSlider.addEventListener('input', () => {
+          setAmplitude(parseInt(amplitudeSlider.value));
+        });
+        
+        // Quantum slider with linked human slider
+        quantumSlider.addEventListener('input', () => {
+          const quantum = parseFloat(quantumSlider.value);
+          const human = 100 - quantum;
+          
+          // Update human slider
+          humanSlider.value = human;
+          
+          // Set balance
+          setZenPointBalance(quantum, human);
+        });
+        
+        // Human slider with linked quantum slider
+        humanSlider.addEventListener('input', () => {
+          const human = parseFloat(humanSlider.value);
+          const quantum = 100 - human;
+          
+          // Update quantum slider
+          quantumSlider.value = quantum;
+          
+          // Set balance
+          setZenPointBalance(quantum, human);
+        });
+        
+        // Pattern buttons
+        patternButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            patternButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Set current pattern
+            const patternId = button.id;
+            if (patternId === 'hexagonPattern') demoState.currentPattern = 'hexagon';
+            if (patternId === 'circlePattern') demoState.currentPattern = 'circle';
+            if (patternId === 'spiralPattern') demoState.currentPattern = 'spiral';
+            if (patternId === 'flowerPattern') demoState.currentPattern = 'flower';
+            if (patternId === 'toroidalPattern') demoState.currentPattern = 'toroidal';
+          });
+        });
+      }
+      
+      // Start the demo
+      window.addEventListener('load', initialize);
+    })();
+  </script>
+</body>
+</html>

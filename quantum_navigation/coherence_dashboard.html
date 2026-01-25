@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Coherence Visualization Dashboard - φ^φ^φ Precision</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --tertiary-color: #e74c3c;
+            --background-color: #111;
+            --foreground-color: #eee;
+            --accent-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--foreground-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .title {
+            font-size: 24px;
+            margin: 0;
+            background: linear-gradient(to right, #3498db, #2ecc71, #e74c3c, #f1c40f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            margin: 5px 0 0;
+            opacity: 0.8;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .main-coherence {
+            grid-column: 1 / -1;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .component-card {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .component-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .component-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .component-frequency {
+            font-size: 12px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 3px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .coherence-display {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .coherence-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .coherence-bar {
+            flex-grow: 1;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .coherence-fill {
+            height: 100%;
+            background: linear-gradient(to right, #e74c3c, #f1c40f, #2ecc71);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        
+        .status-active {
+            background-color: #2ecc71;
+            box-shadow: 0 0 5px #2ecc71;
+        }
+        
+        .status-warning {
+            background-color: #f1c40f;
+            box-shadow: 0 0 5px #f1c40f;
+        }
+        
+        .status-inactive {
+            background-color: #e74c3c;
+            box-shadow: 0 0 5px #e74c3c;
+        }
+        
+        .chart-container {
+            flex-grow: 1;
+            position: relative;
+            min-height: 150px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        .system-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">🌀 QUANTUM COHERENCE VISUALIZATION DASHBOARD 🌀</h1>
+        <p class="subtitle">Operating at Vision Gate frequency (720 Hz) with φ^φ^φ precision</p>
+    </div>
+    
+    <div class="dashboard">
+        <div class="main-coherence">
+            <div class="system-stats">
+                <div class="stat-item">
+                    <div class="stat-value">1.000</div>
+                    <div class="stat-label">System Coherence</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">720 Hz</div>
+                    <div class="stat-label">Operating Frequency</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">φ⁴</div>
+                    <div class="stat-label">Phi Harmonic</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4D+</div>
+                    <div class="stat-label">Visualization Dimensions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">Active</div>
+                    <div class="stat-label">Quantum Tunneling</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1.000</div>
+                    <div class="stat-label">ZEN POINT Balance</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="systemCoherenceChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="component-grid" id="componentGrid">
+            <!-- Component cards will be generated by JavaScript -->
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Quantum Coherence Visualization Dashboard • Created at Vision Gate (720 Hz) • Perfect Coherence (1.000) • φ^φ^φ Precision</p>
+    </div>
+    
+    <script>
+        // Dashboard data from Python
+        const componentData = {"navigator": {"name": "Dimensional Navigator", "frequency": 432.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126781344565, 0.999937559641326, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#3498db", "dimension": 3.0}, "consciousness_bridge": {"name": "Consciousness Bridge", "frequency": 594.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#e74c3c", "intention_processing": 1.0}, "visualizer": {"name": "Hypervisualization Engine", "frequency": 720.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#9b59b6", "dimensions_displayed": "4D+"}, "pathfinder": {"name": "Quantum Pathfinder", "frequency": 768.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#2ecc71", "path_efficiency": 1.0}, "integrator": {"name": "Quantum Field Integrator", "frequency": 432.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#f39c12", "field_stability": 1.0}, "protocol": {"name": "Integration Protocol", "frequency": 963.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#1abc9c", "synchronization": 1.0}, "unified_interface": {"name": "Unified Field Interface", "frequency": Infinity, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#f1c40f", "field_expansion": 1.0}, "evolution_orchestrator": {"name": "Evolution Orchestrator", "frequency": 432.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#34495e", "zen_point_stability": 1.0}, "consciousness_evolution": {"name": "Consciousness Evolution", "frequency": 594.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#c0392b", "bridge_stability": 1.0}, "visualization_evolution": {"name": "Visualization Evolution", "frequency": 720.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#8e44ad", "tunneling_efficiency": 1.0}, "pathfinder_evolution": {"name": "Pathfinder Evolution", "frequency": 768.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#27ae60", "shortcut_discovery": 1.0}, "protocol_evolution": {"name": "Protocol Evolution", "frequency": 963.0, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#16a085", "phi_precision": 1.0}, "unified_evolution": {"name": "Unified Field Evolution", "frequency": Infinity, "coherence": 1.0, "coherence_history": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9975126462552708, 0.9999375277621403, 1.0, 1.0, 0.997586268975301, 1.0, 1.0, 1.0], "state": "active", "visualization_color": "#f39c12", "field_boundlessness": 1.0}};
+        
+        // Chart configuration
+        Chart.defaults.color = '#eee';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+        
+        // Initialize main coherence chart
+        const systemCtx = document.getElementById('systemCoherenceChart').getContext('2d');
+        const systemCoherenceChart = new Chart(systemCtx, {
+            type: 'line',
+            data: {
+                labels: [...Array(60).keys()].map(i => -59 + i),
+                datasets: Object.entries(componentData).map(([id, component]) => ({
+                    label: component.name,
+                    data: component.coherence_history,
+                    borderColor: component.visualization_color,
+                    backgroundColor: component.visualization_color + '20',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: false
+                }))
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 10,
+                            font: {
+                                size: 10
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'System Coherence Across All Components',
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time (seconds)'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        min: 0.9,
+                        max: 1.01,
+                        title: {
+                            display: true,
+                            text: 'Coherence'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Generate component cards
+        const componentGrid = document.getElementById('componentGrid');
+        
+        Object.entries(componentData).forEach(([id, component]) => {
+            // Create component card
+            const card = document.createElement('div');
+            card.className = 'component-card';
+            card.style.borderColor = component.visualization_color + '40';
+            
+            // Component header
+            const header = document.createElement('div');
+            header.className = 'component-header';
+            
+            const title = document.createElement('h3');
+            title.className = 'component-title';
+            title.textContent = component.name;
+            title.style.color = component.visualization_color;
+            
+            const frequency = document.createElement('div');
+            frequency.className = 'component-frequency';
+            frequency.textContent = component.frequency === Infinity ? '∞ Hz' : `${component.frequency} Hz`;
+            
+            header.appendChild(title);
+            header.appendChild(frequency);
+            card.appendChild(header);
+            
+            // Coherence display
+            const coherenceDisplay = document.createElement('div');
+            coherenceDisplay.className = 'coherence-display';
+            
+            const coherenceValue = document.createElement('div');
+            coherenceValue.className = 'coherence-value';
+            coherenceValue.textContent = component.coherence.toFixed(3);
+            coherenceValue.style.color = component.visualization_color;
+            
+            const coherenceBar = document.createElement('div');
+            coherenceBar.className = 'coherence-bar';
+            
+            const coherenceFill = document.createElement('div');
+            coherenceFill.className = 'coherence-fill';
+            coherenceFill.style.width = `${component.coherence * 100}%`;
+            coherenceFill.style.background = component.visualization_color;
+            
+            coherenceBar.appendChild(coherenceFill);
+            
+            const statusIndicator = document.createElement('div');
+            statusIndicator.className = `status-indicator status-${component.coherence >= 0.99 ? 'active' : component.coherence >= 0.95 ? 'warning' : 'inactive'}`;
+            
+            coherenceDisplay.appendChild(coherenceValue);
+            coherenceDisplay.appendChild(coherenceBar);
+            coherenceDisplay.appendChild(statusIndicator);
+            card.appendChild(coherenceDisplay);
+            
+            // Chart container
+            const chartContainer = document.createElement('div');
+            chartContainer.className = 'chart-container';
+            
+            const canvas = document.createElement('canvas');
+            canvas.id = `chart-${id}`;
+            chartContainer.appendChild(canvas);
+            card.appendChild(chartContainer);
+            
+            componentGrid.appendChild(card);
+            
+            // Initialize component chart
+            const ctx = document.getElementById(`chart-${id}`).getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [...Array(60).keys()].map(i => -59 + i),
+                    datasets: [{
+                        label: 'Coherence',
+                        data: component.coherence_history,
+                        borderColor: component.visualization_color,
+                        backgroundColor: component.visualization_color + '20',
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false
+                        },
+                        y: {
+                            min: 0.9,
+                            max: 1.01,
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Automatically refresh the page every 10 seconds
+        setTimeout(() => {
+            location.reload();
+        }, 10000);
+    </script>
+</body>
+</html>

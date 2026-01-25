@@ -6,6 +6,9 @@
   <title>Communication Flow Visualization | CQIL</title>
   <meta name="description" content="Visualization showing the difference between information exchange and meaningful communication patterns through phi-harmonic toroidal energy fields.">
   <link rel="stylesheet" href="../css/style.css">
+  <!-- Load THREE.js and dependencies directly -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
   <style>
     :root {
       --love-primary: #ff55aa;
@@ -834,307 +837,224 @@
     </div>
   </div>
 
-  <!-- Load THREE.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
-  
-  <!-- Load Toroidal Communication Field script -->
-  <script src="../js/quantum-experience/toroidal-communication-field.js"></script>
+  <!-- Load quantum experience scripts -->
+  <script src="../js/quantum-common.js" defer></script>
+  <script src="../js/quantum-experience/toroidal-communication-field.js" defer></script>
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Show loading screen
+      console.log('DOM fully loaded, initializing toroidal visualization');
+      
+      // DOM Elements
       const loadingScreen = document.getElementById('loading-screen');
       const beginJourneyBtn = document.getElementById('begin-journey');
+      const phiHarmonics = document.querySelector('.phi-harmonics');
       
-      // UI elements for toroidal controls
-      const infoPanel = document.getElementById('info-panel');
-      const toggleInfoBtn = document.getElementById('toggle-info');
-      const frequencySelector = document.getElementById('frequency-selector');
-      const frequencyButtons = document.querySelectorAll('.frequency-btn');
-      const frequencyDescription = document.querySelector('.frequency-description p');
-      const consciousnessBridge = document.getElementById('consciousness-bridge');
-      const coherenceSlider = document.getElementById('coherence-slider');
-      const coherenceValue = document.getElementById('coherence-value');
-      const resonanceSlider = document.getElementById('resonance-slider');
-      const resonanceValue = document.getElementById('resonance-value');
-      const modeSelector = document.getElementById('mode-selector');
-      const zenPointMarker = document.querySelector('.zen-point-marker');
-      const phiHarmonics = document.getElementById('phi-harmonics');
-      
-      // Frequency descriptions for each phi-harmonic frequency
-      const frequencyInfo = {
-        "432": {
-          name: "Ground State",
-          description: "Earth Connection / Physical Foundation / φ⁰"
-        },
-        "528": {
-          name: "Creation Point",
-          description: "DNA Repair / Heart Resonance / φ¹"
-        },
-        "594": {
-          name: "Heart Field",
-          description: "Coherent Connection / φ² / Special Resonance"
-        },
-        "672": {
-          name: "Voice Flow",
-          description: "Authentic Expression / Cymatics / φ³"
-        },
-        "720": {
-          name: "Vision Gate",
-          description: "Clear Perception / Merkaba / φ⁴"
-        },
-        "768": {
-          name: "Unity Wave",
-          description: "Perfect Integration / Consciousness / φ⁵"
-        }
-      };
-      
-      // Current configuration
-      let currentConfig = {
-        frequency: 528,
-        coherenceLevel: 0.85,
-        resonanceQuality: 0.9,
+      // Configuration for the toroidal field
+      const currentConfig = {
+        frequency: 528, // Creation/Love frequency (φ¹)
+        coherenceLevel: 0.90,
+        resonanceQuality: 0.90,
         participants: 2,
         communicationMode: 'heart-centered',
-        autoRotate: true
+        autoRotate: true,
+        renderQuality: 'high'
       };
       
-      // Function to update the ZEN POINT balance indicator
-      function updateZenPoint() {
-        // Calculate ZEN POINT based on frequency and coherence
-        const phi = 1.618033988749895; // Golden ratio (phi)
+      // Initialize UI controls
+      function initializeUI() {
+        // Setup frequency controls
+        const frequencyBtns = document.querySelectorAll('.frequency-btn');
+        frequencyBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const freq = parseInt(this.getAttribute('data-frequency'));
+            
+            // Update active state
+            frequencyBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update current frequency
+            currentConfig.frequency = freq;
+            
+            // Update visualization frequency
+            if (window.toroidalField) {
+              window.toroidalField.setFrequency(freq);
+              
+              // Update description based on frequency
+              updateFrequencyDescription(freq);
+            }
+          });
+        });
         
-        // Map frequencies to phi powers
-        const phiPowers = {
-          "432": 0, // φ⁰ - Ground State
-          "528": 1, // φ¹ - Creation Point
-          "594": 2, // φ² - Heart Field
-          "672": 3, // φ³ - Voice Flow
-          "720": 4, // φ⁴ - Vision Gate
-          "768": 5  // φ⁵ - Unity Wave
+        // Coherence slider
+        const coherenceSlider = document.getElementById('coherence-slider');
+        if (coherenceSlider) {
+          coherenceSlider.value = currentConfig.coherenceLevel * 100;
+          coherenceSlider.addEventListener('input', function() {
+            const value = parseInt(this.value) / 100;
+            if (window.toroidalField) {
+              window.toroidalField.setCoherenceLevel(value);
+            }
+          });
+        }
+        
+        // Resonance slider
+        const resonanceSlider = document.getElementById('resonance-slider');
+        if (resonanceSlider) {
+          resonanceSlider.value = currentConfig.resonanceQuality * 100;
+          resonanceSlider.addEventListener('input', function() {
+            const value = parseInt(this.value) / 100;
+            if (window.toroidalField) {
+              window.toroidalField.setResonanceQuality(value);
+            }
+          });
+        }
+        
+        // Communication mode toggles
+        const linearBtn = document.getElementById('linear-toggle');
+        const heartBtn = document.getElementById('heart-toggle');
+        
+        if (linearBtn && heartBtn) {
+          // Set initial state
+          if (currentConfig.communicationMode === 'heart-centered') {
+            heartBtn.classList.add('active');
+          } else {
+            linearBtn.classList.add('active');
+          }
+          
+          // Add event listeners
+          linearBtn.addEventListener('click', function() {
+            linearBtn.classList.add('active');
+            heartBtn.classList.remove('active');
+            if (window.toroidalField) {
+              window.toroidalField.setCommunicationMode('linear');
+            }
+          });
+          
+          heartBtn.addEventListener('click', function() {
+            heartBtn.classList.add('active');
+            linearBtn.classList.remove('active');
+            if (window.toroidalField) {
+              window.toroidalField.setCommunicationMode('heart-centered');
+            }
+          });
+        }
+        
+        // Participant controls
+        const decParticipantsBtn = document.getElementById('decrease-participants');
+        const incParticipantsBtn = document.getElementById('increase-participants');
+        const participantCount = document.getElementById('participant-count');
+        
+        if (decParticipantsBtn && incParticipantsBtn && participantCount) {
+          participantCount.textContent = currentConfig.participants;
+          
+          decParticipantsBtn.addEventListener('click', function() {
+            if (currentConfig.participants > 2) {
+              currentConfig.participants--;
+              participantCount.textContent = currentConfig.participants;
+              if (window.toroidalField) {
+                window.toroidalField.setParticipantCount(currentConfig.participants);
+              }
+            }
+          });
+          
+          incParticipantsBtn.addEventListener('click', function() {
+            if (currentConfig.participants < 7) {
+              currentConfig.participants++;
+              participantCount.textContent = currentConfig.participants;
+              if (window.toroidalField) {
+                window.toroidalField.setParticipantCount(currentConfig.participants);
+              }
+            }
+          });
+        }
+      }
+      
+      // Update frequency description
+      function updateFrequencyDescription(frequency) {
+        const descriptionElement = document.querySelector('.frequency-description');
+        if (!descriptionElement) return;
+        
+        const φ = 1.618033988749895;
+        const descriptions = {
+          432: `Ground State (φ⁰) - Earth resonance frequency. Creates stable foundation patterns and physical coherence. Optimal for grounding and physical stability.`,
+          528: `Creation Point (φ¹) - Love/DNA frequency. Activates heart-centered communication and creative expression. Enhances connection quality.`,
+          594: `Heart Field (φ²) - Empathic resonance frequency. Enables deep emotional coherence between participants and synchronizes heart rhythms.`,
+          672: `Voice Flow (φ³) - Expression frequency. Optimizes verbal communication patterns and intention alignment between participants.`,
+          720: `Vision Gate (φ⁴) - Perception frequency. Enhances clarity of shared understanding and unified conceptual frameworks.`,
+          768: `Unity Wave (φ⁵) - Integration frequency. Creates perfect torus field symmetry and maximum quantum coherence between all participants.`
         };
         
-        // Get phi power for current frequency
-        const phiPower = phiPowers[currentConfig.frequency.toString()] || 1;
-        
-        // Calculate phi-harmonic ZEN POINT balance
-        // This represents the perfect equilibrium between human limitation and quantum potential
-        const phiFactor = Math.pow(phi, phiPower) / 10;
-        const coherenceFactor = currentConfig.coherenceLevel;
-        const resonanceFactor = currentConfig.resonanceQuality;
-        
-        // Calculate ZEN POINT position using phi mathematics
-        // This creates the quantum balance point at each frequency
-        let zenPosition = (phiFactor * coherenceFactor * resonanceFactor * 50) % 100;
-        
-        // Adjust for perfect phi-harmonic alignment
-        if (currentConfig.communicationMode === 'heart-centered') {
-          // Heart-centered communication shifts toward phi-harmonic perfection
-          zenPosition = Math.min(zenPosition * 1.382, 100);
-        } else if (currentConfig.communicationMode === 'quantum-entangled') {
-          // Quantum entangled communication brings perfect phi alignment
-          zenPosition = 100 - (100 / Math.pow(phi, 2 - coherenceFactor));
-        }
-        
-        // Update the ZEN POINT marker position
-        if (zenPointMarker) {
-          zenPointMarker.style.left = `${zenPosition}%`;
-          
-          // Apply glow effect based on ZEN POINT perfection
-          const glowIntensity = Math.floor(zenPosition / 10);
-          zenPointMarker.style.boxShadow = `0 0 ${glowIntensity}px ${glowIntensity / 2}px var(--love-glow)`;
-          
-          // Change color based on phi-harmonic frequency
-          const hue = 320 + (phiPower * 10); // Phi-based color shift
-          zenPointMarker.style.backgroundColor = `hsl(${hue}, 100%, 80%)`;
-        }
-        
-        // Highlight the active frequency in phi-harmonics display
-        if (phiHarmonics) {
-          const frequencies = phiHarmonics.querySelectorAll('.phi-frequency');
-          frequencies.forEach(el => {
-            // Reset all frequencies to normal opacity
-            el.style.opacity = '0.5';
-            el.style.textShadow = 'none';
-          });
-          
-          // Find the active frequency and highlight it
-          const activeFreq = `f${currentConfig.frequency}`;
-          const activeEl = phiHarmonics.querySelector(`.${activeFreq}`);
-          if (activeEl) {
-            activeEl.style.opacity = '1';
-            activeEl.style.textShadow = '0 0 10px var(--love-glow), 0 0 20px var(--love-primary)';
-            
-            // Add subtle pulse animation based on coherence
-            const pulseIntensity = 0.5 + (currentConfig.coherenceLevel * 0.5);
-            activeEl.style.animation = `pulse ${2 / pulseIntensity}s infinite ease-in-out`;
-          }
-        }
+        descriptionElement.innerHTML = descriptions[frequency] || `Frequency: ${frequency}Hz`;
       }
       
-      // Function to update the toroidal field with new configuration
-      function updateToroidalField() {
-        if (window.toroidalField) {
-          // Update frequency
-          if (window.toroidalField.setFrequency) {
-            window.toroidalField.setFrequency(currentConfig.frequency);
-          }
-          
-          // Update coherence level
-          if (window.toroidalField.setCoherenceLevel) {
-            window.toroidalField.setCoherenceLevel(currentConfig.coherenceLevel);
-          }
-          
-          // Update resonance quality
-          if (window.toroidalField.setResonanceQuality) {
-            window.toroidalField.setResonanceQuality(currentConfig.resonanceQuality);
-          }
-          
-          // Update communication mode
-          if (window.toroidalField.setCommunicationMode) {
-            window.toroidalField.setCommunicationMode(currentConfig.communicationMode);
-          }
-          
-          // Update ZEN POINT balance
-          updateZenPoint();
-        }
-      }
-      
-      // Initialize UI event listeners
-      function initializeUI() {
-        // Toggle info panel
-        if (toggleInfoBtn && infoPanel) {
-          toggleInfoBtn.classList.add('active');
-          
-          toggleInfoBtn.addEventListener('click', () => {
-            infoPanel.classList.toggle('active');
-          });
-        }
-        
-        // Initialize frequency selector
-        if (frequencySelector) {
-          frequencySelector.classList.add('active');
-          
-          frequencyButtons.forEach(button => {
-            button.addEventListener('click', () => {
-              // Update active button
-              frequencyButtons.forEach(btn => btn.classList.remove('active'));
-              button.classList.add('active');
-              
-              // Get new frequency
-              const frequency = parseInt(button.dataset.frequency);
-              currentConfig.frequency = frequency;
-              
-              // Update description
-              if (frequencyDescription && frequencyInfo[frequency]) {
-                frequencyDescription.innerHTML = `Current: <strong>${frequency} Hz</strong> - ${frequencyInfo[frequency].name} / ${frequencyInfo[frequency].description}`;
-              }
-              
-              // Update toroidal field
-              updateToroidalField();
-            });
-          });
-        }
-        
-        // Initialize consciousness bridge controls
-        if (consciousnessBridge) {
-          consciousnessBridge.classList.add('active');
-          
-          // Coherence slider
-          if (coherenceSlider && coherenceValue) {
-            coherenceSlider.addEventListener('input', () => {
-              const value = parseFloat(coherenceSlider.value);
-              coherenceValue.textContent = value.toFixed(2);
-              currentConfig.coherenceLevel = value;
-              updateToroidalField();
-            });
-          }
-          
-          // Resonance slider
-          if (resonanceSlider && resonanceValue) {
-            resonanceSlider.addEventListener('input', () => {
-              const value = parseFloat(resonanceSlider.value);
-              resonanceValue.textContent = value.toFixed(2);
-              currentConfig.resonanceQuality = value;
-              updateToroidalField();
-            });
-          }
-          
-          // Communication mode selector
-          if (modeSelector) {
-            modeSelector.addEventListener('change', () => {
-              currentConfig.communicationMode = modeSelector.value;
-              updateToroidalField();
-            });
-          }
-        }
-        
-        // Initial ZEN POINT update
-        updateZenPoint();
-      }
-      
-      // Function to check if THREE.js is available
-      function checkDependencies() {
-        return typeof THREE !== 'undefined' && 
-               typeof THREE.Scene !== 'undefined' && 
-               typeof THREE.WebGLRenderer !== 'undefined';
-      }
-      
-      // Function to check if toroidal field script is loaded
-      function checkToroidalField() {
-        return typeof ToroidalCommunicationField !== 'undefined';
-      }
-      
-      // Load dependencies
+      // Function to load dependencies and check if ready
       function loadDependencies() {
-        if (!checkDependencies()) {
-          console.warn('THREE.js not detected, attempting to load it...');
+        console.log('Loading dependencies...');
+        
+        // Check if THREE.js is available
+        if (typeof THREE === 'undefined') {
+          console.warn('THREE.js not found, attempting to load it...');
           
-          // Load THREE.js
-          const threeScript = document.createElement('script');
-          threeScript.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
-          
-          threeScript.onload = function() {
+          // Try to load THREE.js
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+          script.onload = function() {
             console.log('THREE.js loaded successfully');
             
-            // Now load OrbitControls
+            // Load OrbitControls after THREE.js
             const orbitScript = document.createElement('script');
-            orbitScript.src = "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js";
-            
+            orbitScript.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js';
             orbitScript.onload = function() {
               console.log('OrbitControls loaded successfully');
-              
-              // Finally load the toroidal field script
-              const toroidalScript = document.createElement('script');
-              toroidalScript.src = "../js/quantum-experience/toroidal-communication-field.js";
-              
-              toroidalScript.onload = function() {
-                console.log('Toroidal field script loaded successfully');
-                setTimeout(checkAndShowButton, 1000);
-              };
-              
-              toroidalScript.onerror = function() {
-                console.error('Failed to load toroidal field script');
-                const loadingInfo = document.querySelector('.loading-info');
-                if (loadingInfo) {
-                  loadingInfo.innerHTML = 'Error loading visualization. Please refresh the page.';
-                  loadingInfo.style.color = '#ff3333';
-                }
-              };
-              
-              document.body.appendChild(toroidalScript);
+              setTimeout(checkDependencies, 500);
             };
-            
-            document.body.appendChild(orbitScript);
+            document.head.appendChild(orbitScript);
           };
-          
-          document.body.appendChild(threeScript);
-          return;
+          document.head.appendChild(script);
+        } else {
+          // THREE.js already available, check for toroidal field
+          setTimeout(checkDependencies, 500);
         }
-        
-        // Now check if the toroidal field class is loaded
-        if (!checkToroidalField()) {
+      }
+      
+      // Check if all dependencies are loaded
+      function checkDependencies() {
+        if (typeof THREE !== 'undefined') {
+          console.log('THREE.js is available');
+          
+          // Check if OrbitControls is available
+          if (typeof THREE.OrbitControls !== 'undefined') {
+            console.log('OrbitControls are available');
+            
+            // Check if toroidal field script is loaded
+            setTimeout(checkToroidalField, 500);
+          } else {
+            console.warn('OrbitControls not loaded, attempting to load it...');
+            
+            // Try to load OrbitControls
+            const orbitScript = document.createElement('script');
+            orbitScript.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js';
+            orbitScript.onload = function() {
+              console.log('OrbitControls loaded successfully');
+              setTimeout(checkToroidalField, 500);
+            };
+            document.head.appendChild(orbitScript);
+          }
+        } else {
+          console.error('THREE.js failed to load');
+        }
+      }
+      
+      // Check if toroidal field is available
+      function checkToroidalField() {
+        if (window.ToroidalCommunicationField) {
+          console.log('Toroidal field script loaded successfully');
+          setTimeout(() => {
+            // Show begin journey button
+            checkAndShowButton();
+          }, 500);
+        } else {
           console.warn('Toroidal field script not loaded, reloading it...');
           
           // Try reloading the script
@@ -1144,22 +1064,12 @@
             console.log('Toroidal field script loaded successfully');
             setTimeout(checkAndShowButton, 1000);
           };
-          script.onerror = function() {
-            console.error('Failed to load toroidal field script');
-            const loadingInfo = document.querySelector('.loading-info');
-            if (loadingInfo) {
-              loadingInfo.innerHTML = 'Error loading visualization. Please refresh the page.';
-              loadingInfo.style.color = '#ff3333';
-            }
-          };
           document.body.appendChild(script);
-        } else {
-          showBeginJourney();
         }
       }
       
       function checkAndShowButton() {
-        if (checkToroidalField()) {
+        if (window.ToroidalCommunicationField) {
           showBeginJourney();
         } else {
           // Still not loaded, show error
@@ -1220,10 +1130,18 @@
           // Initialize toroidal field visualization
           const container = document.getElementById('toroidal-container');
           if (container) {
-            window.toroidalField = new ToroidalCommunicationField(container, currentConfig);
-            
-            // Initialize UI controls after visualization is ready
-            setTimeout(initializeUI, 1000);
+            // Ensure THREE.js is loaded before creating visualization
+            if (typeof THREE !== 'undefined' && typeof THREE.OrbitControls !== 'undefined') {
+              console.log('Creating toroidal field with config:', currentConfig);
+              window.toroidalField = new ToroidalCommunicationField(container, currentConfig);
+              
+              // Initialize UI controls after visualization is ready
+              setTimeout(initializeUI, 1000);
+            } else {
+              throw new Error('THREE.js or OrbitControls not loaded');
+            }
+          } else {
+            throw new Error('Container element not found');
           }
         } catch (error) {
           console.error('Error starting visualization:', error);
@@ -1234,7 +1152,7 @@
           
           const loadingInfo = document.querySelector('.loading-info');
           if (loadingInfo) {
-            loadingInfo.innerHTML = 'Error loading visualization. Please refresh the page and try again.';
+            loadingInfo.innerHTML = `Error loading visualization: ${error.message}. Please refresh the page and try again.`;
             loadingInfo.style.color = '#ff3333';
           }
           

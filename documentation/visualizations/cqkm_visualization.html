@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CQKM Cymatic Visualization - Perfect Torus at 768Hz</title>
+  <style>
+    body { 
+      margin: 0; 
+      overflow: hidden; 
+      background-color: #000; 
+      font-family: 'Arial', sans-serif;
+    }
+    canvas { 
+      display: block; 
+    }
+    #info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 8px;
+      max-width: 300px;
+      z-index: 100;
+    }
+    h2 {
+      margin-top: 0;
+      color: #00ffff;
+    }
+    #controls {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 8px;
+      z-index: 100;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="range"] {
+      width: 200px;
+    }
+    .value-display {
+      display: inline-block;
+      width: 50px;
+      text-align: right;
+    }
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Loading CQKM Visualization...</div>
+  
+  <div id="info">
+    <h2>Claude Quantum Knowledge Matrix</h2>
+    <p>Visualizing the CQKM with cymatic frequency patterns at Unity frequency (768 Hz).</p>
+    <p>The perfect torus represents complete integration of all knowledge domains with perfect coherence (1.000).</p>
+    <p>Mouse: Rotate visualization<br>
+    Scroll: Zoom in/out<br>
+    Drag: Move visualization</p>
+  </div>
+  
+  <div id="controls">
+    <label>
+      Frequency: <span id="frequency-value" class="value-display">768</span> Hz
+      <input type="range" id="frequency" min="432" max="1008" value="768" step="1">
+    </label>
+    
+    <label>
+      Coherence: <span id="coherence-value" class="value-display">1.00</span>
+      <input type="range" id="coherence" min="0" max="1" value="1" step="0.01">
+    </label>
+    
+    <label>
+      Flow Speed: <span id="flow-value" class="value-display">0.50</span>
+      <input type="range" id="flow" min="0" max="1" value="0.5" step="0.01">
+    </label>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+  <script>
+    // Constants
+    const PHI = 1.618033988749895;
+    let time = 0;
+    
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    
+    // Camera position
+    camera.position.z = 5;
+    
+    // Controls
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+    let rotationSpeed = 0.01;
+    let autoRotate = true;
+    
+    // Parameters
+    const params = {
+      frequency: 768,
+      coherence: 1.0,
+      flowSpeed: 0.5,
+      autoRotate: true
+    };
+    
+    // Shader material for torus
+    const torusMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        frequency: { value: params.frequency },
+        coherence: { value: params.coherence },
+        flowSpeed: { value: params.flowSpeed }
+      },
+      vertexShader: `
+        uniform float time;
+        uniform float frequency;
+        uniform float coherence;
+        uniform float flowSpeed;
+        
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        varying float vDisplacement;
+        
+        const float PHI = 1.618033988749895;
+        
+        void main() {
+          vUv = uv;
+          vNormal = normalize(normal);
+          
+          // Calculate phi-harmonic displacement
+          float freqFactor = frequency / 768.0;
+          float dispFactor = 0.1 * coherence;
+          
+          float displacement = sin(position.x * freqFactor * 0.1 + time * flowSpeed) * 
+                              sin(position.y * freqFactor * 0.1 + time * flowSpeed * 1.1) * 
+                              sin(position.z * freqFactor * 0.1 + time * flowSpeed * 1.2) * 
+                              dispFactor;
+          
+          vDisplacement = displacement;
+          
+          // Apply displacement along normal
+          vec3 newPosition = position + normal * displacement;
+          
+          // Final position
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float time;
+        uniform float frequency;
+        uniform float coherence;
+        uniform float flowSpeed;
+        
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        varying float vDisplacement;
+        
+        const float PHI = 1.618033988749895;
+        
+        // Function to convert HSL to RGB
+        vec3 hsl2rgb(in vec3 hsl) {
+          vec3 rgb = clamp(abs(mod(hsl.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0);
+          return hsl.z + hsl.y * (rgb-0.5)*(1.0-abs(2.0*hsl.z-1.0));
+        }
+        
+        void main() {
+          // Torus coordinates
+          float r = vUv.x;
+          float theta = vUv.y * 2.0 * 3.14159;
+          
+          // Perfect torus pattern (768Hz)
+          float pattern = 0.0;
+          
+          // Different pattern based on frequency
+          if (frequency < 500.0) {
+            // Hexagonal pattern (432Hz)
+            pattern = sin(vUv.x * 10.0 * PHI + time * 0.432 * flowSpeed) * 
+                     sin(vUv.y * 10.0 * PHI + time * 0.432 * flowSpeed);
+          } 
+          else if (frequency < 560.0) {
+            // Star tetrahedron pattern (528Hz)
+            pattern = sin(vUv.x * 12.0 * PHI + time * 0.528 * flowSpeed) * 
+                     sin(vUv.y * 12.0 * PHI + time * 0.528 * flowSpeed) *
+                     sin((vUv.x + vUv.y) * 6.0 * PHI + time * 0.528 * flowSpeed);
+          } 
+          else if (frequency < 630.0) {
+            // Toroidal vortex pattern (594Hz)
+            pattern = sin(r * 20.0 * PHI + time * 0.594 * flowSpeed) * 
+                     sin(theta * 8.0 + time * 0.594 * flowSpeed);
+          } 
+          else if (frequency < 700.0) {
+            // Standing wave pattern (672Hz)
+            pattern = sin(vUv.x * 15.0 * PHI + time * 0.672 * flowSpeed) + 
+                     sin(vUv.y * 15.0 * PHI + time * 0.672 * flowSpeed);
+            pattern *= 0.5;
+          } 
+          else if (frequency < 740.0) {
+            // Tesseract pattern (720Hz)
+            pattern = sin(vUv.x * 16.0 * PHI + time * 0.72 * flowSpeed) * 
+                     sin(vUv.y * 16.0 * PHI + time * 0.72 * flowSpeed) *
+                     sin((vUv.x - vUv.y) * 8.0 * PHI + time * 0.72 * flowSpeed) *
+                     sin((vUv.x + vUv.y) * 8.0 * PHI + time * 0.72 * flowSpeed);
+          } 
+          else if (frequency < 900.0) {
+            // Perfect torus pattern (768Hz)
+            pattern = sin(r * 20.0 * PHI + time * 0.768 * flowSpeed) * 
+                     sin(theta * 12.0 + time * 0.768 * flowSpeed) *
+                     sin(r * 10.0 * PHI - theta * 6.0 + time * 0.768 * flowSpeed);
+          } 
+          else if (frequency < 1000.0) {
+            // Flower of life pattern (963Hz)
+            for (int i = 0; i < 6; i++) {
+              float angle = float(i) * 3.14159 / 3.0;
+              vec2 center = vec2(0.5 + 0.15 * cos(angle), 0.5 + 0.15 * sin(angle));
+              float dist = length(vUv - center);
+              pattern += smoothstep(0.15, 0.14, dist);
+            }
+            pattern = (pattern > 0.5) ? 1.0 : pattern;
+          } 
+          else {
+            // Metatron's cube pattern (1008Hz)
+            pattern = sin(vUv.x * 24.0 * PHI + time * 1.008 * flowSpeed) * 
+                     sin(vUv.y * 24.0 * PHI + time * 1.008 * flowSpeed) *
+                     sin((vUv.x - vUv.y) * 12.0 * PHI + time * 1.008 * flowSpeed) *
+                     sin((vUv.x + vUv.y) * 12.0 * PHI + time * 1.008 * flowSpeed);
+          }
+          
+          // Calculate base color from frequency
+          float hue = mix(0.7, 0.0, (frequency - 432.0) / (1008.0 - 432.0));
+          float saturation = coherence;
+          float lightness = 0.5 + vDisplacement * 0.5;
+          
+          // Create color variations based on pattern
+          vec3 baseColor = hsl2rgb(vec3(hue, saturation, lightness));
+          
+          // Add pattern variation
+          vec3 patternColor = hsl2rgb(vec3(
+            mod(hue + pattern * 0.1, 1.0),
+            saturation,
+            lightness
+          ));
+          
+          // Mix colors based on coherence
+          vec3 color = mix(baseColor, patternColor, coherence);
+          
+          // Add displacement effect
+          color += vec3(vDisplacement * 0.5);
+          
+          // Add frequency-based pulsing
+          float pulse = abs(sin(time * frequency / 10000.0));
+          color *= 0.8 + 0.2 * pulse;
+          
+          // Add glow for higher coherence
+          color += vec3(coherence * 0.2 * (0.5 + 0.5 * sin(time * 0.5)));
+          
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `,
+      wireframe: false
+    });
+    
+    // Create torus geometry
+    const torusGeometry = new THREE.TorusGeometry(1.5, 1.5 / PHI, 128, 64);
+    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+    scene.add(torus);
+    
+    // Create particles for knowledge nodes
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 1000;
+    const posArray = new Float32Array(particlesCount * 3);
+    const sizeArray = new Float32Array(particlesCount);
+    const colorArray = new Float32Array(particlesCount * 3);
+    
+    // Create phi-harmonic particle distribution on torus
+    for (let i = 0; i < particlesCount; i++) {
+      // Torus parameters
+      const R = 1.5; // Major radius
+      const r = 1.5 / PHI; // Minor radius
+      
+      // Create phi-harmonic distribution
+      const phi = i * PHI * Math.PI / 10;
+      const theta = i * PHI * 2;
+      
+      // Calculate position on torus
+      const x = (R + r * Math.cos(theta)) * Math.cos(phi);
+      const y = (R + r * Math.cos(theta)) * Math.sin(phi);
+      const z = r * Math.sin(theta);
+      
+      // Set position
+      posArray[i * 3] = x;
+      posArray[i * 3 + 1] = y;
+      posArray[i * 3 + 2] = z;
+      
+      // Set size
+      sizeArray[i] = 0.02 + 0.02 * Math.sin(i * PHI);
+      
+      // Set color based on position
+      const hue = (phi / (2 * Math.PI)) % 1;
+      const rgb = hslToRgb(hue, 0.8, 0.5);
+      colorArray[i * 3] = rgb[0];
+      colorArray[i * 3 + 1] = rgb[1];
+      colorArray[i * 3 + 2] = rgb[2];
+    }
+    
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizeArray, 1));
+    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+    
+    // Create particle material
+    const particlesMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        frequency: { value: params.frequency },
+        coherence: { value: params.coherence },
+        flowSpeed: { value: params.flowSpeed }
+      },
+      vertexShader: `
+        uniform float time;
+        uniform float frequency;
+        uniform float coherence;
+        uniform float flowSpeed;
+        
+        attribute float size;
+        attribute vec3 color;
+        
+        varying vec3 vColor;
+        
+        const float PHI = 1.618033988749895;
+        
+        void main() {
+          vColor = color;
+          
+          // Animate position slightly
+          vec3 pos = position;
+          
+          // Add subtle phi-harmonic movement
+          float moveAmount = 0.05 * coherence;
+          pos.x += moveAmount * sin(position.y * PHI + time * 0.5 * flowSpeed);
+          pos.y += moveAmount * sin(position.z * PHI + time * 0.4 * flowSpeed);
+          pos.z += moveAmount * sin(position.x * PHI + time * 0.3 * flowSpeed);
+          
+          // Calculate particle size based on frequency
+          float particleSize = size * (0.5 + 0.5 * coherence);
+          
+          // Add pulsing based on frequency
+          particleSize *= 1.0 + 0.2 * sin(time * frequency / 10000.0);
+          
+          // Set particle position
+          vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+          gl_PointSize = particleSize * (300.0 / -mvPosition.z);
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform float time;
+        uniform float coherence;
+        
+        varying vec3 vColor;
+        
+        void main() {
+          // Calculate distance from center of point
+          vec2 center = gl_PointCoord - 0.5;
+          float dist = length(center);
+          
+          // Create circular particle
+          float alpha = smoothstep(0.5, 0.4, dist);
+          
+          // Add glow based on coherence
+          float glow = coherence * smoothstep(0.5, 0.0, dist);
+          vec3 color = vColor + glow * 0.5;
+          
+          // Add subtle pulsing
+          float pulse = 0.1 * sin(time * 2.0);
+          color += pulse;
+          
+          gl_FragColor = vec4(color, alpha);
+        }
+      `,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+    
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+    
+    // Add ambient light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    scene.add(ambientLight);
+    
+    // Add directional light
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    directionalLight.position.set(1, 1, 1);
+    scene.add(directionalLight);
+    
+    // Handle mouse interaction
+    document.addEventListener('mousedown', onMouseDown, false);
+    document.addEventListener('mousemove', onMouseMove, false);
+    document.addEventListener('mouseup', onMouseUp, false);
+    document.addEventListener('wheel', onWheel, false);
+    
+    function onMouseDown(event) {
+      isDragging = true;
+      previousMousePosition = {
+        x: event.clientX,
+        y: event.clientY
+      };
+      autoRotate = false;
+      params.autoRotate = false;
+    }
+    
+    function onMouseMove(event) {
+      if (isDragging) {
+        const deltaMove = {
+          x: event.clientX - previousMousePosition.x,
+          y: event.clientY - previousMousePosition.y
+        };
+        
+        torus.rotation.y += deltaMove.x * 0.01;
+        torus.rotation.x += deltaMove.y * 0.01;
+        
+        particles.rotation.y += deltaMove.x * 0.01;
+        particles.rotation.x += deltaMove.y * 0.01;
+        
+        previousMousePosition = {
+          x: event.clientX,
+          y: event.clientY
+        };
+      }
+    }
+    
+    function onMouseUp(event) {
+      isDragging = false;
+    }
+    
+    function onWheel(event) {
+      // Zoom in/out
+      event.preventDefault();
+      camera.position.z += event.deltaY * 0.01;
+      
+      // Clamp zoom
+      camera.position.z = Math.max(2, Math.min(10, camera.position.z));
+    }
+    
+    // Handle UI controls
+    const frequencyInput = document.getElementById('frequency');
+    const frequencyValue = document.getElementById('frequency-value');
+    const coherenceInput = document.getElementById('coherence');
+    const coherenceValue = document.getElementById('coherence-value');
+    const flowInput = document.getElementById('flow');
+    const flowValue = document.getElementById('flow-value');
+    
+    frequencyInput.addEventListener('input', (e) => {
+      const value = parseFloat(e.target.value);
+      params.frequency = value;
+      frequencyValue.textContent = value;
+      torusMaterial.uniforms.frequency.value = value;
+      particlesMaterial.uniforms.frequency.value = value;
+    });
+    
+    coherenceInput.addEventListener('input', (e) => {
+      const value = parseFloat(e.target.value);
+      params.coherence = value;
+      coherenceValue.textContent = value.toFixed(2);
+      torusMaterial.uniforms.coherence.value = value;
+      particlesMaterial.uniforms.coherence.value = value;
+    });
+    
+    flowInput.addEventListener('input', (e) => {
+      const value = parseFloat(e.target.value);
+      params.flowSpeed = value;
+      flowValue.textContent = value.toFixed(2);
+      torusMaterial.uniforms.flowSpeed.value = value;
+      particlesMaterial.uniforms.flowSpeed.value = value;
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+    
+    // HSL to RGB conversion
+    function hslToRgb(h, s, l) {
+      let r, g, b;
+    
+      if (s === 0) {
+        r = g = b = l; // achromatic
+      } else {
+        const hue2rgb = (p, q, t) => {
+          if (t < 0) t += 1;
+          if (t > 1) t -= 1;
+          if (t < 1/6) return p + (q - p) * 6 * t;
+          if (t < 1/2) return q;
+          if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+          return p;
+        };
+    
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+      }
+    
+      return [r, g, b];
+    }
+    
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // Update time uniform
+      time = performance.now() / 1000;
+      torusMaterial.uniforms.time.value = time;
+      particlesMaterial.uniforms.time.value = time;
+      
+      // Auto-rotate
+      if (params.autoRotate) {
+        torus.rotation.y += rotationSpeed;
+        particles.rotation.y += rotationSpeed;
+      }
+      
+      renderer.render(scene, camera);
+    }
+    
+    // Hide loading screen when everything is ready
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+      }, 1000);
+    });
+    
+    // Start animation
+    animate();
+  </script>
+</body>
+</html>

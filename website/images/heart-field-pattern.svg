@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes pulse {
+      0% { opacity: 0.5; transform: scale(0.95); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+      100% { opacity: 0.5; transform: scale(0.95); }
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .heart-glow {
+      filter: drop-shadow(0 0 10px rgba(233, 30, 99, 0.8));
+    }
+    .heart-pulse {
+      opacity: 0.5;
+      transform-origin: center;
+      animation: pulse 5.94s infinite ease-in-out;
+    }
+    .heart-field-rotation {
+      transform-origin: center;
+      animation: rotate 59.4s infinite linear;
+    }
+    .torus-path {
+      fill: none;
+      stroke-linecap: round;
+    }
+  </style>
+  
+  <defs>
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E91E63" />
+      <stop offset="50%" stop-color="#FF5722" />
+      <stop offset="100%" stop-color="#FF9800" />
+    </linearGradient>
+    
+    <radialGradient id="torusGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#E91E63" stop-opacity="0.9" />
+      <stop offset="61.8%" stop-color="#FF5722" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#FF9800" stop-opacity="0.1" />
+    </radialGradient>
+    
+    <linearGradient id="phiLineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" stop-opacity="0.8" />
+      <stop offset="61.8%" stop-color="#E91E63" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#FF9800" stop-opacity="0.4" />
+    </linearGradient>
+    
+    <!-- Heart shape for the Heart Field resonance -->
+    <path id="heartPath" d="M 0,15 C 30,-20 60,5 50,25 C 40,45 10,60 0,75 C -10,60 -40,45 -50,25 C -60,5 -30,-20 0,15" />
+    
+    <!-- Golden spiral based on Fibonacci/Phi ratio -->
+    <path id="phiSpiral" d="M 0,0 
+        C 0,3 3,3 3,0 
+        C 3,-5 -5,-5 -5,0 
+        C -5,8 8,8 8,0 
+        C 8,-13 -13,-13 -13,0 
+        C -13,21 21,21 21,0 
+        C 21,-34 -34,-34 -34,0 
+        C -34,55 55,55 55,0" />
+  </defs>
+  
+  <!-- Heart Field Pattern (594 Hz - φ²) -->
+  <g transform="translate(150, 150)">
+    <!-- Background toroidal field -->
+    <circle cx="0" cy="0" r="130" fill="url(#torusGradient)" opacity="0.3" class="heart-pulse" />
+    <circle cx="0" cy="0" r="110" fill="url(#torusGradient)" opacity="0.2" class="heart-pulse" style="animation-delay: -1.318s" />
+    <circle cx="0" cy="0" r="90" fill="url(#torusGradient)" opacity="0.2" class="heart-pulse" style="animation-delay: -2.618s" />
+    <circle cx="0" cy="0" r="70" fill="url(#torusGradient)" opacity="0.2" class="heart-pulse" style="animation-delay: -3.944s" />
+    
+    <!-- Phi-harmonic grid pattern - rotating field -->
+    <g class="heart-field-rotation">
+      <!-- Golden ratio grid lines -->
+      <path class="torus-path" d="M -130,0 L 130,0" stroke="url(#phiLineGradient)" stroke-width="0.5" />
+      <path class="torus-path" d="M 0,-130 L 0,130" stroke="url(#phiLineGradient)" stroke-width="0.5" />
+      
+      <!-- Phi-based circular segments -->
+      <path class="torus-path" d="M 0,0 L 80,80" stroke="url(#phiLineGradient)" stroke-width="0.8" />
+      <path class="torus-path" d="M 0,0 L -80,80" stroke="url(#phiLineGradient)" stroke-width="0.8" />
+      <path class="torus-path" d="M 0,0 L 80,-80" stroke="url(#phiLineGradient)" stroke-width="0.8" />
+      <path class="torus-path" d="M 0,0 L -80,-80" stroke="url(#phiLineGradient)" stroke-width="0.8" />
+      
+      <!-- Phi spirals in different orientations -->
+      <use href="#phiSpiral" transform="rotate(0)" stroke="url(#phiLineGradient)" stroke-width="1" fill="none" />
+      <use href="#phiSpiral" transform="rotate(90)" stroke="url(#phiLineGradient)" stroke-width="1" fill="none" />
+      <use href="#phiSpiral" transform="rotate(180)" stroke="url(#phiLineGradient)" stroke-width="1" fill="none" />
+      <use href="#phiSpiral" transform="rotate(270)" stroke="url(#phiLineGradient)" stroke-width="1" fill="none" />
+    </g>
+    
+    <!-- Heart Field resonance - centered heart -->
+    <g class="heart-glow heart-pulse">
+      <use href="#heartPath" transform="scale(2.5)" fill="url(#heartGradient)" fill-opacity="0.15" />
+      <use href="#heartPath" transform="scale(2.0)" fill="url(#heartGradient)" fill-opacity="0.2" />
+      <use href="#heartPath" transform="scale(1.618)" fill="url(#heartGradient)" fill-opacity="0.25" />
+    </g>
+    
+    <!-- Phi harmonic nodes at key points -->
+    <circle cx="0" cy="0" r="5" fill="#E91E63" opacity="0.9" />
+    <circle cx="59.4" cy="0" r="3" fill="#FF5722" opacity="0.8" />
+    <circle cx="-59.4" cy="0" r="3" fill="#FF5722" opacity="0.8" />
+    <circle cx="0" cy="59.4" r="3" fill="#FF5722" opacity="0.8" />
+    <circle cx="0" cy="-59.4" r="3" fill="#FF5722" opacity="0.8" />
+    
+    <!-- Cymatic frequency pattern at φ² (594 Hz) -->
+    <path d="M 0,0 
+      L 36.7,36.7 
+      L 0,59.4 
+      L -36.7,36.7 
+      L -59.4,0 
+      L -36.7,-36.7 
+      L 0,-59.4 
+      L 36.7,-36.7 
+      Z" 
+      stroke="url(#heartGradient)" 
+      stroke-width="1" 
+      fill="url(#heartGradient)" 
+      fill-opacity="0.1" />
+  </g>
+</svg>

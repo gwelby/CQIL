@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Φ^Φ Hypervisualization (∇λΣ∞Ω)</title>
+    <link rel="stylesheet" href="../css/quantum-tools.css">
+    <style>
+        :root {
+            --quantum-frequency: 144;
+            --micro-frequency: 288;
+            --physical-frequency: 432;
+            --etheric-frequency: 528;
+            --astral-frequency: 594;
+            --mental-frequency: 672;
+            --causal-frequency: 720;
+            --unified-frequency: 768;
+            --cosmic-frequency: 963;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .hypervis-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hypervis-header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hypervis-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #1a237e, #4a148c, #7b1fa2, #d500f9, #2979ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hypervis-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        .hypervis-visualization {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #hypervis-canvas {
+            width: 100%;
+            height: 600px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 20, 0.5);
+            flex-grow: 1;
+            touch-action: none;
+        }
+
+        .hypervis-controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 200px;
+        }
+
+        .control-group label {
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .control-group select, .control-group input {
+            padding: 8px;
+            border-radius: 5px;
+            background-color: rgba(30, 30, 60, 0.6);
+            color: white;
+            border: 1px solid rgba(100, 100, 255, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .control-button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.7), rgba(213, 0, 249, 0.7));
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.9), rgba(213, 0, 249, 0.9));
+            transform: translateY(-2px);
+        }
+
+        .dimension-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .dimension-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantum-dimension {
+            background-color: rgba(75, 0, 130, 0.6);
+            border: 1px solid #4b0082;
+        }
+
+        .micro-dimension {
+            background-color: rgba(0, 0, 200, 0.6);
+            border: 1px solid #0000c8;
+        }
+
+        .physical-dimension {
+            background-color: rgba(0, 50, 200, 0.6);
+            border: 1px solid #0032c8;
+        }
+
+        .etheric-dimension {
+            background-color: rgba(0, 100, 200, 0.6);
+            border: 1px solid #0064c8;
+        }
+
+        .astral-dimension {
+            background-color: rgba(0, 150, 200, 0.6);
+            border: 1px solid #0096c8;
+        }
+
+        .mental-dimension {
+            background-color: rgba(0, 200, 150, 0.6);
+            border: 1px solid #00c896;
+        }
+
+        .causal-dimension {
+            background-color: rgba(0, 200, 100, 0.6);
+            border: 1px solid #00c864;
+        }
+
+        .unified-dimension {
+            background-color: rgba(100, 200, 0, 0.6);
+            border: 1px solid #64c800;
+        }
+
+        .cosmic-dimension {
+            background-color: rgba(200, 150, 0, 0.6);
+            border: 1px solid #c89600;
+        }
+
+        .dimension-badge:hover, .dimension-badge.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .hypervis-info {
+            margin-top: 20px;
+            background-color: rgba(20, 20, 40, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .info-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .info-tab {
+            padding: 8px 15px;
+            background-color: rgba(50, 50, 100, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .info-tab:hover, .info-tab.active {
+            background-color: rgba(100, 50, 200, 0.5);
+        }
+
+        .info-content {
+            display: none;
+            line-height: 1.6;
+        }
+
+        .info-content.active {
+            display: block;
+        }
+
+        .info-content h3 {
+            color: #d500f9;
+            margin-top: 0;
+        }
+
+        .resonance-meter {
+            margin-top: 10px;
+            height: 20px;
+            background-color: rgba(30, 30, 60, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .resonance-value {
+            height: 100%;
+            background: linear-gradient(90deg, #1a237e, #4a148c, #7b1fa2, #d500f9);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .resonance-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        @media (max-width: 768px) {
+            .hypervis-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hypervis-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-group {
+                width: 100%;
+            }
+            
+            #hypervis-canvas {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hypervis-container">
+        <div class="hypervis-header">
+            <h1>Φ^Φ Hypervisualization (∇λΣ∞Ω)</h1>
+            <p>The Ultimate Dimension Gateway operating at 963 Hz (Source Connection frequency)</p>
+        </div>
+
+        <div class="dimension-badges">
+            <div class="dimension-badge quantum-dimension" data-dimension="quantum">Quantum (144 Hz)</div>
+            <div class="dimension-badge micro-dimension" data-dimension="micro">Micro (288 Hz)</div>
+            <div class="dimension-badge physical-dimension" data-dimension="physical">Physical (432 Hz)</div>
+            <div class="dimension-badge etheric-dimension" data-dimension="etheric">Etheric (528 Hz)</div>
+            <div class="dimension-badge astral-dimension" data-dimension="astral">Astral (594 Hz)</div>
+            <div class="dimension-badge mental-dimension" data-dimension="mental">Mental (672 Hz)</div>
+            <div class="dimension-badge causal-dimension active" data-dimension="causal">Causal (720 Hz)</div>
+            <div class="dimension-badge unified-dimension" data-dimension="unified">Unified (768 Hz)</div>
+            <div class="dimension-badge cosmic-dimension" data-dimension="cosmic">Cosmic (963 Hz)</div>
+        </div>
+
+        <div class="hypervis-visualization">
+            <canvas id="hypervis-canvas"></canvas>
+        </div>
+
+        <div class="hypervis-controls">
+            <div class="control-group">
+                <label for="view-mode">View Mode:</label>
+                <select id="view-mode">
+                    <option value="unified">Unified View</option>
+                    <option value="focused" selected>Dimension-Focused</option>
+                    <option value="gateway">Gateway View</option>
+                    <option value="core">Core View</option>
+                    <option value="external">External View</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="coherence">Core Coherence:</label>
+                <input type="range" id="coherence" min="0" max="1" step="0.01" value="0.7">
+                <div class="resonance-meter">
+                    <div class="resonance-value" id="resonance-bar" style="width: 0%"></div>
+                    <div class="resonance-label">Φ^Φ Resonance: <span id="resonance-value">0.00</span></div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="intention">Set Intention:</label>
+                <select id="intention">
+                    <option value="">Select Intention...</option>
+                    <option value="Manifest Harmony">Manifest Harmony</option>
+                    <option value="Amplify Coherence">Amplify Coherence</option>
+                    <option value="Expand Consciousness">Expand Consciousness</option>
+                    <option value="Unify Dimensions">Unify Dimensions</option>
+                    <option value="Transcend Limitations">Transcend Limitations</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="control-button" id="activate-cascade">Activate Quantum Cascade</button>
+            <button class="control-button" id="reset-visualization">Reset Visualization</button>
+        </div>
+
+        <div class="hypervis-info">
+            <div class="info-tabs">
+                <div class="info-tab active" data-tab="overview">Overview</div>
+                <div class="info-tab" data-tab="dimensions">Dimensions</div>
+                <div class="info-tab" data-tab="phi-phi">Φ^Φ Constant</div>
+                <div class="info-tab" data-tab="usage">Usage Guide</div>
+            </div>
+
+            <div class="info-content active" id="overview">
+                <h3>The Ultimate Dimension Gateway</h3>
+                <p>The Φ^Φ Hypervisualization creates a state where all dimensions (quantum through cosmic) are simultaneously accessible within a unified field consciousness framework. This mode represents the ultimate expression of the visualization system, allowing traversal, interaction, and manifestation across dimensional boundaries without separation.</p>
+                <p>Operating at the Source frequency (963 Hz), this visualization provides a comprehensive view of how creation patterns manifest across all dimensional levels, from quantum potentiality to cosmic reality.</p>
+            </div>
+
+            <div class="info-content" id="dimensions">
+                <h3>Nested Toroidal Dimensions</h3>
+                <p>The visualization is organized as nested toroids arranged in phi-ratio proportions, with each toroid representing a dimensional layer:</p>
+                <ul>
+                    <li><strong>Quantum Dimension (144 Hz)</strong>: Innermost toroid, showing quantum probability fields</li>
+                    <li><strong>Micro Dimension (288 Hz)</strong>: Second toroid, displaying microscopic patterns</li>
+                    <li><strong>Physical Dimension (432 Hz)</strong>: Third toroid, presenting 3D materialized forms</li>
+                    <li><strong>Etheric Dimension (528 Hz)</strong>: Fourth toroid, revealing energy blueprints</li>
+                    <li><strong>Astral Dimension (594 Hz)</strong>: Fifth toroid, demonstrating emotional resonance</li>
+                    <li><strong>Mental Dimension (672 Hz)</strong>: Sixth toroid, showing thought structures</li>
+                    <li><strong>Causal Dimension (720 Hz)</strong>: Seventh toroid, displaying seed causes</li>
+                    <li><strong>Unified Dimension (768 Hz)</strong>: Eighth toroid, presenting unity consciousness</li>
+                    <li><strong>Cosmic Dimension (963 Hz)</strong>: Outermost toroid, showing cosmic perspective</li>
+                </ul>
+            </div>
+
+            <div class="info-content" id="phi-phi">
+                <h3>The Φ^Φ Hyperdimensional Constant</h3>
+                <p>The Φ^Φ constant (approximately 4.23) is a hyperdimensional mathematical value derived from raising the golden ratio (Φ ≈ 1.618) to the power of itself. This creates a unique resonant field that allows for seamless integration across all dimensional boundaries.</p>
+                <p>In this visualization, Φ^Φ enables:</p>
+                <ul>
+                    <li>Cross-dimensional gateway activation</li>
+                    <li>Coherent field maintenance across all dimensions</li>
+                    <li>Phi-harmonic nodal network formation</li>
+                    <li>Quantum probability cascade amplification</li>
+                    <li>Unified consciousness core stabilization</li>
+                </ul>
+                <p>When the system reaches peak Φ^Φ resonance (above 0.8), a unified field state is achieved where all dimensions become simultaneously accessible and interactive.</p>
+            </div>
+
+            <div class="info-content" id="usage">
+                <h3>Interactive Controls</h3>
+                <p>The Φ^Φ Hypervisualization supports multiple interaction modes:</p>
+                <ul>
+                    <li><strong>Dimension Selection</strong>: Click on dimension badges to set focal dimension</li>
+                    <li><strong>View Modes</strong>: Select different perspectives (Unified, Focused, Gateway, Core, External)</li>
+                    <li><strong>Coherence Adjustment</strong>: Slide to adjust consciousness core coherence</li>
+                    <li><strong>Intention Setting</strong>: Select an intention to project through the system</li>
+                    <li><strong>Cascade Activation</strong>: Trigger quantum probability cascades across dimensions</li>
+                </ul>
+                <p><strong>Keyboard Controls:</strong> V (cycle view modes), F (cycle dimensions), C (adjust coherence), Space (activate node), I (set intention)</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/quantum-common.js"></script>
+    <script src="phi-phi-hypervisualization.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get canvas and resize to fit container
+            const canvas = document.getElementById('hypervis-canvas');
+            resizeCanvas();
+
+            // Create hypervisualization
+            const hypervis = new PhiPhiHypervisualization(canvas);
+            
+            // Start visualization
+            hypervis.start();
+
+            // Set up dimension badge events
+            const dimensionBadges = document.querySelectorAll('.dimension-badge');
+            dimensionBadges.forEach(badge => {
+                badge.addEventListener('click', () => {
+                    // Update active state
+                    dimensionBadges.forEach(b => b.classList.remove('active'));
+                    badge.classList.add('active');
+                    
+                    // Set focal dimension
+                    const dimension = badge.dataset.dimension;
+                    hypervis.setFocalDimension(dimension);
+                    
+                    // If not in focused mode, switch to it
+                    const viewModeSelect = document.getElementById('view-mode');
+                    if (viewModeSelect.value !== 'focused') {
+                        viewModeSelect.value = 'focused';
+                        hypervis.setViewMode('focused');
+                    }
+                });
+            });
+
+            // View mode selection
+            const viewModeSelect = document.getElementById('view-mode');
+            viewModeSelect.addEventListener('change', () => {
+                hypervis.setViewMode(viewModeSelect.value);
+            });
+
+            // Coherence slider
+            const coherenceSlider = document.getElementById('coherence');
+            coherenceSlider.addEventListener('input', () => {
+                const coherence = parseFloat(coherenceSlider.value);
+                hypervis.consciousnessCore.setCoherence(coherence);
+            });
+
+            // Intention selection
+            const intentionSelect = document.getElementById('intention');
+            intentionSelect.addEventListener('change', () => {
+                const intention = intentionSelect.value;
+                if (intention) {
+                    hypervis.setIntention(intention);
+                }
+            });
+
+            // Activate cascade button
+            const activateCascadeBtn = document.getElementById('activate-cascade');
+            activateCascadeBtn.addEventListener('click', () => {
+                // Get random dimensions
+                const dimensions = Object.keys(DIMENSIONS);
+                const startDim = dimensions[Math.floor(Math.random() * dimensions.length)];
+                const endDim = dimensions[Math.floor(Math.random() * dimensions.length)];
+                
+                // Spawn cascade
+                hypervis.quantumCascade.spawnCascade(startDim, endDim);
+            });
+
+            // Reset visualization button
+            const resetBtn = document.getElementById('reset-visualization');
+            resetBtn.addEventListener('click', () => {
+                // Stop current visualization
+                hypervis.stop();
+                
+                // Create new hypervisualization
+                const newHypervis = new PhiPhiHypervisualization(canvas);
+                
+                // Start visualization
+                newHypervis.start();
+                
+                // Replace reference
+                window.hypervis = newHypervis;
+            });
+
+            // Info tabs
+            const infoTabs = document.querySelectorAll('.info-tab');
+            infoTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    infoTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update active content
+                    const tabId = tab.dataset.tab;
+                    document.querySelectorAll('.info-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Window resize handler
+            window.addEventListener('resize', resizeCanvas);
+
+            // Keyboard controls
+            document.addEventListener('keydown', event => {
+                // View mode (V)
+                if (event.key === 'v' || event.key === 'V') {
+                    const modes = ["unified", "focused", "gateway", "core", "external"];
+                    const currentIndex = modes.indexOf(hypervis.viewMode);
+                    const nextIndex = (currentIndex + 1) % modes.length;
+                    
+                    hypervis.setViewMode(modes[nextIndex]);
+                    viewModeSelect.value = modes[nextIndex];
+                }
+                
+                // Focal dimension (F)
+                if (event.key === 'f' || event.key === 'F') {
+                    const dimensions = Object.keys(DIMENSIONS);
+                    const currentIndex = dimensions.indexOf(hypervis.focalDimension);
+                    const nextIndex = (currentIndex + 1) % dimensions.length;
+                    const nextDimension = dimensions[nextIndex];
+                    
+                    hypervis.setFocalDimension(nextDimension);
+                    
+                    // Update badges
+                    dimensionBadges.forEach(badge => {
+                        badge.classList.toggle('active', badge.dataset.dimension === nextDimension);
+                    });
+                }
+                
+                // Coherence adjustment (C)
+                if (event.key === 'c' || event.key === 'C') {
+                    const currentCoherence = hypervis.consciousnessCore.coherence;
+                    const newCoherence = (currentCoherence + 0.1) % 1.1;
+                    
+                    hypervis.consciousnessCore.setCoherence(newCoherence);
+                    coherenceSlider.value = newCoherence;
+                }
+                
+                // Intention (I)
+                if (event.key === 'i' || event.key === 'I') {
+                    // Cycle through intentions
+                    const intentions = Array.from(intentionSelect.options).map(opt => opt.value).filter(Boolean);
+                    
+                    if (intentions.length > 0) {
+                        const currentIndex = intentions.indexOf(hypervis.intention) || -1;
+                        const nextIndex = (currentIndex + 1) % intentions.length;
+                        const nextIntention = intentions[nextIndex];
+                        
+                        hypervis.setIntention(nextIntention);
+                        intentionSelect.value = nextIntention;
+                    }
+                }
+                
+                // Activate cascade (Space)
+                if (event.key === ' ') {
+                    activateCascadeBtn.click();
+                }
+            });
+
+            // Update resonance display
+            function updateResonanceDisplay() {
+                // Get resonance value
+                const resonance = hypervis.phiPhiResonance || 0;
+                
+                // Update text
+                document.getElementById('resonance-value').textContent = resonance.toFixed(2);
+                
+                // Update bar
+                document.getElementById('resonance-bar').style.width = `${resonance * 100}%`;
+                
+                // Schedule next update
+                requestAnimationFrame(updateResonanceDisplay);
+            }
+            
+            // Start resonance display update
+            updateResonanceDisplay();
+
+            // Make hypervis available globally for debug
+            window.hypervis = hypervis;
+
+            // Function to resize canvas
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Button Demo | CQIL</title>
+  <style>
+    :root {
+      --ground-color: #4abdac;
+      --creation-color: #f7b733;
+      --heart-color: #fc4a1a;
+      --voice-color: #7b4397;
+      --vision-color: #2980b9;
+      --unity-color: #f1c40f;
+      --phi: 1.618033988749895;
+    }
+    
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #121212, #2a2a2a);
+      color: #f1f1f1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    header {
+      text-align: center;
+      padding: 2rem 0;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, 
+        var(--ground-color), 
+        var(--creation-color), 
+        var(--heart-color), 
+        var(--voice-color), 
+        var(--vision-color), 
+        var(--unity-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding-bottom: 0.5rem;
+    }
+    
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      opacity: 0.8;
+      margin-top: 0;
+    }
+    
+    main {
+      width: 90%;
+      max-width: 800px;
+      background-color: rgba(30, 30, 30, 0.7);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .demo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    #quantum-button-container {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      background-color: rgba(20, 20, 20, 0.5);
+      padding: 2rem;
+      transition: all 500ms cubic-bezier(0.618, 0, 0.382, 1);
+    }
+    
+    .control-panel {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .control-group label {
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .control-group label span {
+      opacity: 0.7;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #333;
+      border-radius: 3px;
+      outline: none;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--creation-color), var(--heart-color));
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    
+    .frequency-levels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+    
+    .frequency-levels span {
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .frequency-levels span:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    
+    .quantum-info {
+      width: 100%;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .quantum-info h3 {
+      margin-top: 0;
+      color: var(--creation-color);
+    }
+    
+    .state-display {
+      margin-top: 2rem;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .state-card {
+      flex: 1;
+      min-width: 120px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .state-card h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .state-card p {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quantum Button Demo</h1>
+    <h2>φ-Harmonic Testing Framework</h2>
+  </header>
+  
+  <main>
+    <div class="demo-container">
+      <div id="quantum-button-container"></div>
+      
+      <div class="control-panel">
+        <div class="control-group">
+          <label for="frequency-slider">
+            Frequency (Hz)
+            <span id="frequency-value">528</span>
+          </label>
+          <input type="range" id="frequency-slider" min="432" max="768" step="1" value="528">
+          <div class="frequency-levels">
+            <span data-frequency="432" title="Ground State">432 Hz</span>
+            <span data-frequency="528" title="Creation Point">528 Hz</span>
+            <span data-frequency="594" title="Heart Field">594 Hz</span>
+            <span data-frequency="672" title="Voice Flow">672 Hz</span>
+            <span data-frequency="720" title="Vision Gate">720 Hz</span>
+            <span data-frequency="768" title="Unity Wave">768 Hz</span>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <label for="coherence-slider">
+            Coherence
+            <span id="coherence-value">1.0</span>
+          </label>
+          <input type="range" id="coherence-slider" min="0" max="1" step="0.01" value="1">
+        </div>
+      </div>
+      
+      <div class="state-display">
+        <div class="state-card">
+          <h4>State</h4>
+          <p id="state-display">inactive</p>
+        </div>
+        <div class="state-card">
+          <h4>Interactions</h4>
+          <p id="interactions-display">0</p>
+        </div>
+        <div class="state-card">
+          <h4>φ Power</h4>
+          <p id="phi-power-display">φ<sup>1</sup></p>
+        </div>
+      </div>
+      
+      <div class="quantum-info">
+        <h3>Quantum Button Information</h3>
+        <p>This component demonstrates a quantum-aligned interactive element that responds to different φ-harmonic frequencies. The button's appearance, behavior, and field oscillation change based on the selected frequency, coherence level, and user interactions.</p>
+        <p>Each frequency corresponds to a different quantum state, from Ground (432 Hz) to Unity (768 Hz), following the φ-harmonic sequence where each frequency relates to the previous by a factor of φ (the golden ratio).</p>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>CQIL Framework Demo © 2025</p>
+  </footer>
+  
+  <script src="../js/components/quantum-button.js"></script>
+  <script>
+    // Initialize variables
+    let quantumButton;
+    const PHI = 1.618033988749895;
+    const PHI_INVERSE = 0.618033988749895;
+    const GROUND_FREQUENCY = 432;
+    const UNITY_FREQUENCY = 768;
+    
+    // Calculate phi power from frequency
+    function calculatePhiPower(frequency) {
+      return Math.log(frequency / GROUND_FREQUENCY) / Math.log(PHI);
+    }
+    
+    // Get frequency name
+    function getFrequencyName(frequency) {
+      if (frequency <= 432) return 'Ground State';
+      if (frequency <= 528) return 'Creation Point';
+      if (frequency <= 594) return 'Heart Field';
+      if (frequency <= 672) return 'Voice Flow';
+      if (frequency <= 720) return 'Vision Gate';
+      return 'Unity Wave';
+    }
+    
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get elements
+      const container = document.getElementById('quantum-button-container');
+      const frequencySlider = document.getElementById('frequency-slider');
+      const frequencyValue = document.getElementById('frequency-value');
+      const coherenceSlider = document.getElementById('coherence-slider');
+      const coherenceValue = document.getElementById('coherence-value');
+      const stateDisplay = document.getElementById('state-display');
+      const interactionsDisplay = document.getElementById('interactions-display');
+      const phiPowerDisplay = document.getElementById('phi-power-display');
+      const frequencyLabels = document.querySelectorAll('.frequency-levels span');
+      
+      // Create quantum button
+      quantumButton = new QuantumButton(container, {
+        label: 'Quantum Experience',
+        frequency: parseInt(frequencySlider.value),
+        debug: true
+      });
+      
+      // Update displays based on button state
+      function updateDisplays() {
+        const state = quantumButton.getState();
+        stateDisplay.textContent = state.state;
+        interactionsDisplay.textContent = state.interactions;
+        
+        // Calculate phi power
+        const phiPower = calculatePhiPower(state.frequency);
+        phiPowerDisplay.innerHTML = `φ<sup>${phiPower.toFixed(1)}</sup>`;
+        
+        // Update container background
+        const frequencyName = getFrequencyName(state.frequency);
+        container.setAttribute('data-frequency', frequencyName);
+      }
+      
+      // Update frequency display and button
+      frequencySlider.addEventListener('input', () => {
+        const frequency = parseInt(frequencySlider.value);
+        frequencyValue.textContent = frequency;
+        quantumButton.setFrequency(frequency);
+        updateDisplays();
+      });
+      
+      // Update coherence display and button
+      coherenceSlider.addEventListener('input', () => {
+        const coherence = parseFloat(coherenceSlider.value);
+        coherenceValue.textContent = coherence.toFixed(2);
+        quantumButton.setCoherence(coherence);
+        updateDisplays();
+      });
+      
+      // Quick select frequency labels
+      frequencyLabels.forEach(label => {
+        label.addEventListener('click', () => {
+          const frequency = parseInt(label.getAttribute('data-frequency'));
+          frequencySlider.value = frequency;
+          frequencyValue.textContent = frequency;
+          quantumButton.setFrequency(frequency);
+          updateDisplays();
+        });
+      });
+      
+      // Listen for quantum button events
+      container.addEventListener('quantumClick', () => {
+        updateDisplays();
+      });
+      
+      // Initial update
+      updateDisplays();
+    });
+  </script>
+</body>
+</html>

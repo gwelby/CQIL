@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decision-Making Visualizer | CQIL</title>
+  <meta name="description" content="Visualize how different decisions create branching paths of possibilities using quantum probability fields.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/visualization.css">
+  
+  <!-- Direct script imports for THREE.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  
+  <style>
+    .decision-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      background: rgba(0, 10, 26, 0.5);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    #decision-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .decision-panel {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 20, 40, 0.8);
+      padding: 15px;
+      border-radius: 8px;
+      width: 250px;
+      backdrop-filter: blur(10px);
+      color: white;
+      border-right: 3px solid #26a69a;
+      z-index: 10;
+    }
+    
+    .decision-input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 4px;
+    }
+    
+    .decision-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .decision-option:hover {
+      background: rgba(38, 166, 154, 0.2);
+    }
+    
+    .decision-option-probability {
+      margin-left: auto;
+      background: rgba(38, 166, 154, 0.3);
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+    
+    .add-option-btn {
+      width: 100%;
+      padding: 8px;
+      background: rgba(38, 166, 154, 0.3);
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 15px;
+    }
+    
+    .add-option-btn:hover {
+      background: rgba(38, 166, 154, 0.5);
+    }
+    
+    .coherence-control {
+      margin-top: 15px;
+    }
+    
+    .coherence-slider {
+      width: 100%;
+      margin-top: 5px;
+    }
+    
+    .frequency-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .frequency-btn {
+      background: rgba(38, 166, 154, 0.2);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .frequency-btn:hover {
+      background: rgba(38, 166, 154, 0.4);
+    }
+    
+    .frequency-btn.active {
+      background: #26a69a;
+      box-shadow: 0 0 10px rgba(38, 166, 154, 0.5);
+    }
+    
+    .outcome-label {
+      position: absolute;
+      color: white;
+      padding: 5px 10px;
+      background: rgba(0, 20, 40, 0.7);
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .reset-btn {
+      width: 100%;
+      padding: 10px;
+      background: rgba(255, 99, 71, 0.3);
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    
+    .reset-btn:hover {
+      background: rgba(255, 99, 71, 0.5);
+    }
+    
+    .timeline-container {
+      width: 100%;
+      height: 80px;
+      background: rgba(0, 20, 40, 0.5);
+      margin-top: 1rem;
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .timeline-indicator {
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background: #26a69a;
+      top: 0;
+      left: 50%;
+      z-index: 5;
+      box-shadow: 0 0 10px #26a69a;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <a href="../index.html">CQIL</a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="consciousness-gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+    <main>
+      <div class="visualization-header">
+        <h1>Decision-Making Visualizer</h1>
+        <p class="subtitle">Exploring quantum probability fields of decision outcomes through φ-harmonic coherence</p>
+      </div>
+      
+      <!-- Main Visualization -->
+      <section class="visualization-section">
+        <div class="decision-container">
+          <canvas id="decision-canvas"></canvas>
+          
+          <div class="decision-panel">
+            <h3>Decision Explorer</h3>
+            <input type="text" class="decision-input" id="decision-question" placeholder="What decision are you considering?">
+            
+            <div id="decision-options">
+              <div class="decision-option" data-id="1">
+                <span class="option-text">Option 1</span>
+                <span class="decision-option-probability">50%</span>
+              </div>
+              <div class="decision-option" data-id="2">
+                <span class="option-text">Option 2</span>
+                <span class="decision-option-probability">50%</span>
+              </div>
+            </div>
+            
+            <button class="add-option-btn" id="add-option">Add Option</button>
+            
+            <div class="coherence-control">
+              <label for="coherence-slider">Coherence Level: <span id="coherence-value">0.8</span></label>
+              <input type="range" id="coherence-slider" class="coherence-slider" min="0" max="100" value="80">
+            </div>
+            
+            <button class="reset-btn" id="reset-visualization">Reset</button>
+          </div>
+        </div>
+        
+        <div class="frequency-controls">
+          <button class="frequency-btn" data-frequency="432">Ground State (432 Hz)</button>
+          <button class="frequency-btn active" data-frequency="528">Creation Point (528 Hz)</button>
+          <button class="frequency-btn" data-frequency="594">Heart Field (594 Hz)</button>
+          <button class="frequency-btn" data-frequency="672">Voice Flow (672 Hz)</button>
+          <button class="frequency-btn" data-frequency="720">Vision Gate (720 Hz)</button>
+          <button class="frequency-btn" data-frequency="768">Unity Wave (768 Hz)</button>
+        </div>
+        
+        <div class="timeline-container">
+          <div class="timeline-indicator"></div>
+        </div>
+      </section>
+      
+      <!-- Description Section -->
+      <section class="visualization-info">
+        <div class="info-card">
+          <h2>About This Visualization</h2>
+          <p>
+            The Decision-Making Visualizer uses quantum probability wave functions to demonstrate how our choices 
+            create branching paths of possibilities. Each decision exists as a superposition of potential outcomes until 
+            we "observe" it by making a choice, similar to how quantum particles exist in multiple states until measured.
+          </p>
+          <p>
+            This visualization uses φ-harmonic principles to demonstrate:
+          </p>
+          <ul>
+            <li><strong>Quantum Superposition:</strong> Multiple potential outcomes exist simultaneously</li>
+            <li><strong>Wave Function Collapse:</strong> How decisions collapse possibilities into actual outcomes</li>
+            <li><strong>Coherence Level:</strong> The clarity and stability of your decision-making field</li>
+            <li><strong>φ-Harmonic Resonance:</strong> How different frequencies affect your decision patterns</li>
+          </ul>
+          <p>
+            Each frequency creates a unique decision field:
+          </p>
+          <ul>
+            <li><strong>432Hz (Ground):</strong> Practical, survival-oriented decisions</li>
+            <li><strong>528Hz (Creation):</strong> Creative, innovative choices</li>
+            <li><strong>594Hz (Heart):</strong> Relationship and emotional decisions</li>
+            <li><strong>672Hz (Voice):</strong> Communication and self-expression choices</li>
+            <li><strong>720Hz (Vision):</strong> Insightful, far-sighted decisions</li>
+            <li><strong>768Hz (Unity):</strong> Harmonious, integrative choices</li>
+          </ul>
+        </div>
+        
+        <div class="info-card">
+          <h2>How To Use</h2>
+          <p>
+            <strong>Enter Your Decision:</strong> Type the decision you're considering in the input field.
+          </p>
+          <p>
+            <strong>Add Options:</strong> Enter different possible choices for your decision.
+          </p>
+          <p>
+            <strong>Adjust Coherence:</strong> Slide the coherence level to see how clarity affects your outcome 
+            probabilities. Higher coherence creates more defined outcome paths.
+          </p>
+          <p>
+            <strong>Select Frequency:</strong> Change the frequency to see how different consciousness states 
+            might influence your decision field.
+          </p>
+          <p>
+            <strong>Explore Outcomes:</strong> Click on decision nodes to follow specific paths and see potential 
+            future outcomes.
+          </p>
+          <p>
+            <strong>Reset:</strong> Click the reset button to start over with a new decision.
+          </p>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="footer-content">
+        <p>CQIL | Decision-Making Visualizer | ©2025</p>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="../js/phi-harmonic-constants.js"></script>
+  <script src="../js/decision-visualizer.js"></script>
+</body>
+</html>

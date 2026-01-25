@@ -1,0 +1,21 @@
+2025-03-21 00:48:12,120 - INFO - Copied directory .github
+2025-03-21 00:48:12,144 - INFO - Copied file .gitignore
+2025-03-21 00:48:12,168 - INFO - Copied file CONTRIBUTING.md
+2025-03-21 00:48:12,370 - INFO - Copied directory css
+2025-03-21 00:48:12,474 - INFO - Copied directory docs
+2025-03-21 00:48:12,512 - INFO - Copied file health-check.html
+2025-03-21 00:48:12,536 - INFO - Copied file health.html
+2025-03-21 00:48:12,635 - INFO - Copied directory hosting
+2025-03-21 00:48:12,726 - INFO - Copied file index.html
+2025-03-21 00:48:13,478 - INFO - Copied directory js
+2025-03-21 00:48:13,507 - INFO - Copied file launch_website.bat
+2025-03-21 00:48:13,528 - INFO - Copied file launch_website.sh
+2025-03-21 00:48:13,626 - INFO - Copied directory mobile
+2025-03-21 00:48:13,647 - INFO - Copied file MYWish.md
+2025-03-21 00:48:13,769 - INFO - Copied directory pages
+2025-03-21 00:48:13,791 - INFO - Copied file QuantumImplementationPlan.md
+2025-03-21 00:48:13,811 - INFO - Copied file README.md
+2025-03-21 00:48:14,003 - INFO - Copied directory secure_logs
+2025-03-21 00:48:14,026 - INFO - Copied file WISHLIST.md
+2025-03-21 00:48:14,027 - INFO - Successfully copied website files to /mnt/d/cqil/website_deployed
+2025-03-21 00:48:14,027 - INFO - Starting server at http://127.0.0.1:8888

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Documentation Dimensional Field Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: #fff;
+            overflow: hidden;
+        }
+        #visualization {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        select, input {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 5px;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .node {
+            cursor: pointer;
+        }
+        #info-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 300px;
+            z-index: 10;
+        }
+        #info-panel h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+        #info-content {
+            font-size: 14px;
+        }
+        button {
+            background-color: #2a6496;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #1c4c74;
+        }
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            flex-direction: column;
+        }
+        #loading h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #fff;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #dimension-legend {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+        .dimension-color {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .color-box {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <h2>Initializing Quantum Field at φ^φ Frequency</h2>
+        <div class="spinner"></div>
+    </div>
+
+    <div id="dimension-legend">
+        <h3>Dimensional Frequencies</h3>
+        <div class="dimension-color">
+            <div class="color-box" style="background-color: #4a90e2;"></div>
+            <span>Foundation (∇) - 432 Hz</span>
+        </div>
+        <div class="dimension-color">
+            <div class="color-box" style="background-color: #43c59e;"></div>
+            <span>Creation (λ) - 528 Hz</span>
+        </div>
+        <div class="dimension-color">
+            <div class="color-box" style="background-color: #f4b942;"></div>
+            <span>Integration (Σ) - 594 Hz</span>
+        </div>
+        <div class="dimension-color">
+            <div class="color-box" style="background-color: #ff6b6b;"></div>
+            <span>Expression (Γ) - 672 Hz</span>
+        </div>
+        <div class="dimension-color">
+            <div class="color-box" style="background-color: #a55eea;"></div>
+            <span>Perception (Θ) - 720 Hz</span>
+        </div>
+        <div class="dimension-color">
+            <div class="color-box" style="background-color: #0abde3;"></div>
+            <span>Unity (Ω) - 768 Hz</span>
+        </div>
+        <div class="dimension-color">
+            <div class="color-box" style="background-color: #ffffff;"></div>
+            <span>Source (φ^φ) - 963 Hz</span>
+        </div>
+    </div>
+
+    <div id="controls">
+        <div class="control-group">
+            <label for="visualization-mode">Visualization Mode</label>
+            <select id="visualization-mode">
+                <option value="dimensional">Dimensional Field</option>
+                <option value="frequency">Frequency Spectrum</option>
+                <option value="coherence">Coherence Network</option>
+                <option value="knowledge">Knowledge Graph</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="coherence-level">Field Coherence</label>
+            <input type="range" id="coherence-level" min="0" max="1" step="0.01" value="1">
+        </div>
+        <div class="control-group">
+            <label for="dimension-filter">Dimension Filter</label>
+            <select id="dimension-filter">
+                <option value="all">All Dimensions</option>
+                <option value="foundation">Foundation (∇)</option>
+                <option value="creation">Creation (λ)</option>
+                <option value="integration">Integration (Σ)</option>
+                <option value="expression">Expression (Γ)</option>
+                <option value="perception">Perception (Θ)</option>
+                <option value="unity">Unity (Ω)</option>
+                <option value="source">Source (φ^φ)</option>
+            </select>
+        </div>
+        <button id="reset-view">Reset View</button>
+    </div>
+
+    <div id="info-panel" style="display: none;">
+        <h3 id="info-title">Component Information</h3>
+        <div id="info-content"></div>
+    </div>
+
+    <canvas id="visualization"></canvas>
+
+    <script>
+        // Constants
+        const PHI = 1.618033988749895;
+        const LAMBDA = 0.618033988749895;
+        const PHI_PHI = Math.pow(PHI, PHI);
+        
+        // Dimensions with frequencies and colors
+        const dimensions = {
+            foundation: { name: "Foundation (∇)", frequency: 432, color: "#4a90e2" },
+            creation: { name: "Creation (λ)", frequency: 528, color: "#43c59e" },
+            integration: { name: "Integration (Σ)", frequency: 594, color: "#f4b942" },
+            expression: { name: "Expression (Γ)", frequency: 672, color: "#ff6b6b" },
+            perception: { name: "Perception (Θ)", frequency: 720, color: "#a55eea" },
+            unity: { name: "Unity (Ω)", frequency: 768, color: "#0abde3" },
+            source: { name: "Source (φ^φ)", frequency: 963, color: "#ffffff" }
+        };
+        
+        // Sample documentation components
+        const components = [
+            { id: "uqds", name: "Unified Quantum Documentation System", dimension: "source", x: 0, y: 0, z: 0, size: 1.5, connections: ["universal-builder", "dimensional-coherence", "quantum-navigator", "documentation-generator", "documentation-visualizer", "consciousness-responsive", "phi-harmonic-evolution"] },
+            { id: "universal-builder", name: "φ^φ Universal Builder", dimension: "source", x: 0, y: 0, z: 0, size: 1.2, connections: ["foundation-patterns", "creation-mathematics", "integration-patterns", "builder-cli"] },
+            { id: "dimensional-coherence", name: "Dimensional Coherence System", dimension: "source", x: 0, y: 0, z: 0, size: 1.2, connections: ["foundation-patterns", "creation-patterns", "integration-patterns", "evolution-patterns"] },
+            { id: "quantum-navigator", name: "Quantum Navigator 2.0", dimension: "source", x: 0, y: 0, z: 0, size: 1.2, connections: ["visual-map", "quantum-index", "symbolic-index"] },
+            { id: "documentation-generator", name: "Quantum Documentation Generator", dimension: "source", x: 0, y: 0, z: 0, size: 1.2, connections: ["api-reference", "guide-templates", "tutorial-templates"] },
+            { id: "documentation-visualizer", name: "Quantum Documentation Visualizer", dimension: "source", x: 0, y: 0, z: 0, size: 1.2, connections: ["visualization-system", "quantum-experience"] },
+            { id: "consciousness-responsive", name: "Consciousness Responsive Documentation", dimension: "source", x: 0, y: 0, z: 0, size: 1.2, connections: ["universal-translation", "phi-harmonic-evolution"] },
+            { id: "phi-harmonic-evolution", name: "φ-Harmonic Documentation Evolution", dimension: "source", x: 0, y: 0, z: 0, size: 1.2, connections: ["evolution-patterns", "phi-harmonic-framework"] },
+            
+            { id: "foundation-patterns", name: "Foundation Patterns", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["zero-downtime-deployment"] },
+            { id: "zero-downtime-deployment", name: "Zero-Downtime Deployment", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["blue-green-deployment"] },
+            { id: "architecture", name: "System Architecture", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["expert-architecture"] },
+            
+            { id: "creation-mathematics", name: "Creation Mathematics", dimension: "creation", x: 0, y: 0, z: 0, size: 0.8, connections: ["phi-harmonic-framework"] },
+            { id: "creation-patterns", name: "Creation Patterns", dimension: "creation", x: 0, y: 0, z: 0, size: 0.8, connections: ["creation-mathematics"] },
+            { id: "blue-green-deployment", name: "Blue-Green Deployment Pattern", dimension: "creation", x: 0, y: 0, z: 0, size: 0.8, connections: ["multi-platform-deployment"] },
+            
+            { id: "integration-patterns", name: "Integration Patterns", dimension: "integration", x: 0, y: 0, z: 0, size: 0.8, connections: ["cross-team-coordination"] },
+            { id: "multi-platform-deployment", name: "Multi-Platform Deployment", dimension: "integration", x: 0, y: 0, z: 0, size: 0.8, connections: ["deployment-guide"] },
+            { id: "deployment-guide", name: "Deployment Guide", dimension: "integration", x: 0, y: 0, z: 0, size: 0.8, connections: ["zero-downtime-deployment"] },
+            
+            { id: "quick-reference", name: "Ground State Quick Reference", dimension: "expression", x: 0, y: 0, z: 0, size: 0.8, connections: ["translator-guide"] },
+            { id: "translator-guide", name: "Quantum Translator Quick Start", dimension: "expression", x: 0, y: 0, z: 0, size: 0.8, connections: ["translator-superposition"] },
+            { id: "translator-superposition", name: "Translator Superposition", dimension: "expression", x: 0, y: 0, z: 0, size: 0.8, connections: ["translator-entanglement"] },
+            
+            { id: "visualization-system", name: "Visualization System", dimension: "perception", x: 0, y: 0, z: 0, size: 0.8, connections: ["vision-integration"] },
+            { id: "vision-integration", name: "Multi-Headed Vision Integration", dimension: "perception", x: 0, y: 0, z: 0, size: 0.8, connections: ["universal-multi-headed"] },
+            { id: "visual-map", name: "Visual Map", dimension: "perception", x: 0, y: 0, z: 0, size: 0.8, connections: ["quantum-index"] },
+            
+            { id: "universal-multi-headed", name: "Universal Multi-Headed System", dimension: "unity", x: 0, y: 0, z: 0, size: 0.8, connections: ["cross-team-coordination"] },
+            { id: "cross-team-coordination", name: "Cross-Team Coordination", dimension: "unity", x: 0, y: 0, z: 0, size: 0.8, connections: ["seamless-deployment"] },
+            { id: "seamless-deployment", name: "Seamless Deployment Goals", dimension: "unity", x: 0, y: 0, z: 0, size: 0.8, connections: ["zero-downtime-deployment"] },
+            
+            { id: "creation-acceleration", name: "Creation Acceleration System", dimension: "source", x: 0, y: 0, z: 0, size: 0.8, connections: ["creation-amplifier"] },
+            { id: "creation-amplifier", name: "Creation Amplifier System", dimension: "source", x: 0, y: 0, z: 0, size: 0.8, connections: ["quantum-bridge"] },
+            { id: "quantum-bridge", name: "Quantum Bridge System", dimension: "source", x: 0, y: 0, z: 0, size: 0.8, connections: ["acceleration-gateway"] },
+            { id: "acceleration-gateway", name: "Creation Acceleration Field Gateway", dimension: "source", x: 0, y: 0, z: 0, size: 0.8, connections: ["creation-acceleration"] },
+            
+            { id: "builder-cli", name: "Universal Builder CLI", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["universal-builder"] },
+            { id: "quantum-index", name: "Quantum Index", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["symbolic-index"] },
+            { id: "symbolic-index", name: "Symbolic Index", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["quantum-index"] },
+            
+            { id: "phi-harmonic-framework", name: "Phi-Harmonic Framework", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["creation-mathematics"] },
+            { id: "api-reference", name: "API Reference", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["guide-templates"] },
+            { id: "guide-templates", name: "Guide Templates", dimension: "creation", x: 0, y: 0, z: 0, size: 0.8, connections: ["tutorial-templates"] },
+            { id: "tutorial-templates", name: "Tutorial Templates", dimension: "expression", x: 0, y: 0, z: 0, size: 0.8, connections: ["guide-templates"] },
+            
+            { id: "translator-entanglement", name: "Translator Entanglement", dimension: "integration", x: 0, y: 0, z: 0, size: 0.8, connections: ["translator-tunneling"] },
+            { id: "translator-tunneling", name: "Translator Tunneling", dimension: "perception", x: 0, y: 0, z: 0, size: 0.8, connections: ["translator-superposition"] },
+            { id: "expert-architecture", name: "Expert Architecture", dimension: "foundation", x: 0, y: 0, z: 0, size: 0.8, connections: ["architecture"] },
+            { id: "evolution-patterns", name: "Evolution Patterns", dimension: "perception", x: 0, y: 0, z: 0, size: 0.8, connections: ["phi-harmonic-evolution"] },
+            { id: "quantum-experience", name: "Quantum Experience System", dimension: "unity", x: 0, y: 0, z: 0, size: 0.8, connections: ["visualization-system"] },
+            { id: "universal-translation", name: "Universal Translation System", dimension: "unity", x: 0, y: 0, z: 0, size: 0.8, connections: ["translator-tunneling"] }
+        ];
+        
+        // Three.js variables
+        let scene, camera, renderer, particles, links;
+        let raycaster, mouse, controls;
+        let clock, delta;
+        
+        // UI controls
+        const visualizationMode = document.getElementById('visualization-mode');
+        const coherenceLevel = document.getElementById('coherence-level');
+        const dimensionFilter = document.getElementById('dimension-filter');
+        const resetViewButton = document.getElementById('reset-view');
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoContent = document.getElementById('info-content');
+        const loading = document.getElementById('loading');
+        
+        // Initialize variables
+        let selectedComponent = null;
+        let animationFrame = null;
+        
+        // Initialize the simulation
+        function init() {
+            // Position components in 3D space using phi-harmonic principles
+            positionComponents();
+            
+            // Set up Three.js scene
+            setupScene();
+            
+            // Create particle system for nodes
+            createParticles();
+            
+            // Create links between nodes
+            createLinks();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Start animation loop
+            animate();
+            
+            // Hide loading screen after initialization
+            setTimeout(() => {
+                loading.style.display = 'none';
+            }, 2000);
+        }
+        
+        // Position components in 3D space using phi-harmonic principles
+        function positionComponents() {
+            // Group components by dimension
+            const dimensionGroups = {};
+            for (const dim in dimensions) {
+                dimensionGroups[dim] = components.filter(c => c.dimension === dim);
+            }
+            
+            // Position source components at the center
+            const sourceComponents = dimensionGroups.source;
+            positionComponentsInSphere(sourceComponents, 0, 0, 0, 8);
+            
+            // Position other dimensions in orbital shells with phi-based distances
+            let orbitIndex = 1;
+            for (const dim in dimensionGroups) {
+                if (dim !== 'source') {
+                    const dimComponents = dimensionGroups[dim];
+                    const orbitRadius = 20 + (orbitIndex * 10 * LAMBDA);
+                    const centerX = Math.cos(orbitIndex * PHI) * orbitRadius / 2;
+                    const centerY = Math.sin(orbitIndex * PHI) * orbitRadius / 2;
+                    const centerZ = Math.cos(orbitIndex * LAMBDA) * orbitRadius / 2;
+                    
+                    positionComponentsInSphere(dimComponents, centerX, centerY, centerZ, orbitRadius / 2);
+                    orbitIndex++;
+                }
+            }
+        }
+        
+        // Position a group of components in a sphere
+        function positionComponentsInSphere(components, centerX, centerY, centerZ, radius) {
+            for (let i = 0; i < components.length; i++) {
+                const phi = Math.acos(-1 + (2 * i) / components.length);
+                const theta = PHI * Math.PI * i;
+                
+                const x = centerX + radius * Math.cos(theta) * Math.sin(phi);
+                const y = centerY + radius * Math.sin(theta) * Math.sin(phi);
+                const z = centerZ + radius * Math.cos(phi);
+                
+                components[i].x = x;
+                components[i].y = y;
+                components[i].z = z;
+            }
+        }
+        
+        // Set up Three.js scene
+        function setupScene() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x050505);
+            
+            // Create camera
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = 80;
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('visualization'), antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Add ambient light
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            
+            // Add point light
+            const pointLight = new THREE.PointLight(0xffffff, 1, 0);
+            pointLight.position.set(0, 0, 50);
+            scene.add(pointLight);
+            
+            // Set up raycaster for interaction
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+            
+            // Set up orbit controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.1;
+            
+            // Create clock for animations
+            clock = new THREE.Clock();
+        }
+        
+        // Create particle system for nodes
+        function createParticles() {
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(components.length * 3);
+            const colors = new Float32Array(components.length * 3);
+            const sizes = new Float32Array(components.length);
+            
+            for (let i = 0; i < components.length; i++) {
+                const component = components[i];
+                const i3 = i * 3;
+                
+                // Set position
+                positions[i3] = component.x;
+                positions[i3 + 1] = component.y;
+                positions[i3 + 2] = component.z;
+                
+                // Set color
+                const color = new THREE.Color(dimensions[component.dimension].color);
+                colors[i3] = color.r;
+                colors[i3 + 1] = color.g;
+                colors[i3 + 2] = color.b;
+                
+                // Set size
+                sizes[i] = component.size * 3;
+            }
+            
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    time: { value: 0 },
+                    coherence: { value: 1.0 }
+                },
+                vertexShader: `
+                    attribute float size;
+                    varying vec3 vColor;
+                    uniform float time;
+                    uniform float coherence;
+                    
+                    void main() {
+                        vColor = color;
+                        
+                        // Add subtle pulsation based on time
+                        float pulse = sin(time * 2.0) * 0.1 + 0.9;
+                        
+                        // Apply coherence to size and position
+                        vec3 pos = position;
+                        if (coherence < 1.0) {
+                            float noise = fract(sin(dot(position, vec3(12.9898, 78.233, 45.543))) * 43758.5453);
+                            pos += vec3(noise, noise, noise) * (1.0 - coherence) * 5.0;
+                        }
+                        
+                        vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+                        gl_PointSize = size * pulse * (300.0 / -mvPosition.z) * coherence;
+                        gl_Position = projectionMatrix * mvPosition;
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vColor;
+                    
+                    void main() {
+                        // Calculate distance from center of point
+                        vec2 center = gl_PointCoord - vec2(0.5);
+                        float dist = length(center);
+                        
+                        // Create soft circular points
+                        float alpha = 1.0 - smoothstep(0.4, 0.5, dist);
+                        
+                        // Add glow effect
+                        if (dist > 0.4) {
+                            gl_FragColor = vec4(vColor, alpha * 0.3);
+                        } else {
+                            gl_FragColor = vec4(vColor, alpha);
+                        }
+                    }
+                `,
+                transparent: true,
+                depthWrite: false,
+                vertexColors: true
+            });
+            
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+        }
+        
+        // Create links between nodes
+        function createLinks() {
+            const linkGeometry = new THREE.BufferGeometry();
+            
+            // Count total links
+            let linkCount = 0;
+            for (const component of components) {
+                linkCount += component.connections.length;
+            }
+            
+            // Create arrays for link positions and colors
+            const positions = new Float32Array(linkCount * 6); // 2 points per link, 3 coords per point
+            const colors = new Float32Array(linkCount * 6); // 2 colors per link, 3 components per color
+            
+            let index = 0;
+            for (const component of components) {
+                const sourcePos = { x: component.x, y: component.y, z: component.z };
+                const sourceColor = new THREE.Color(dimensions[component.dimension].color);
+                
+                for (const connectionId of component.connections) {
+                    const targetComponent = components.find(c => c.id === connectionId);
+                    if (targetComponent) {
+                        const i6 = index * 6;
+                        
+                        // Set source position
+                        positions[i6] = sourcePos.x;
+                        positions[i6 + 1] = sourcePos.y;
+                        positions[i6 + 2] = sourcePos.z;
+                        
+                        // Set target position
+                        positions[i6 + 3] = targetComponent.x;
+                        positions[i6 + 4] = targetComponent.y;
+                        positions[i6 + 5] = targetComponent.z;
+                        
+                        // Set source color
+                        colors[i6] = sourceColor.r;
+                        colors[i6 + 1] = sourceColor.g;
+                        colors[i6 + 2] = sourceColor.b;
+                        
+                        // Set target color
+                        const targetColor = new THREE.Color(dimensions[targetComponent.dimension].color);
+                        colors[i6 + 3] = targetColor.r;
+                        colors[i6 + 4] = targetColor.g;
+                        colors[i6 + 5] = targetColor.b;
+                        
+                        index++;
+                    }
+                }
+            }
+            
+            linkGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            linkGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            
+            const linkMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    time: { value: 0 },
+                    coherence: { value: 1.0 }
+                },
+                vertexShader: `
+                    varying vec3 vColor;
+                    uniform float time;
+                    uniform float coherence;
+                    
+                    void main() {
+                        vColor = color;
+                        
+                        // Apply coherence to position
+                        vec3 pos = position;
+                        if (coherence < 1.0) {
+                            float noise = fract(sin(dot(position, vec3(12.9898, 78.233, 45.543))) * 43758.5453);
+                            pos += vec3(noise, noise, noise) * (1.0 - coherence) * 2.0;
+                        }
+                        
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vColor;
+                    uniform float time;
+                    uniform float coherence;
+                    
+                    void main() {
+                        // Pulse effect
+                        float pulse = (sin(time * 3.0) * 0.1 + 0.9) * coherence;
+                        
+                        // Apply coherence to opacity
+                        float alpha = 0.3 * coherence * pulse;
+                        
+                        gl_FragColor = vec4(vColor, alpha);
+                    }
+                `,
+                transparent: true,
+                depthWrite: false,
+                vertexColors: true
+            });
+            
+            links = new THREE.LineSegments(linkGeometry, linkMaterial);
+            scene.add(links);
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Listen for mouse movements for raycasting
+            window.addEventListener('mousemove', onMouseMove, false);
+            
+            // Listen for clicks to select nodes
+            window.addEventListener('click', onClick, false);
+            
+            // Listen for window resize
+            window.addEventListener('resize', onWindowResize, false);
+            
+            // Add control event listeners
+            visualizationMode.addEventListener('change', updateVisualization);
+            coherenceLevel.addEventListener('input', updateCoherence);
+            dimensionFilter.addEventListener('change', updateDimensionFilter);
+            resetViewButton.addEventListener('click', resetView);
+        }
+        
+        // Handle mouse movement
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+        
+        // Handle mouse clicks
+        function onClick(event) {
+            raycaster.setFromCamera(mouse, camera);
+            
+            // Check for intersections with particles
+            const intersects = raycaster.intersectObject(particles);
+            
+            if (intersects.length > 0) {
+                const index = intersects[0].index;
+                selectedComponent = components[index];
+                
+                // Update info panel
+                infoTitle.textContent = selectedComponent.name;
+                
+                // Find dimension info
+                const dim = dimensions[selectedComponent.dimension];
+                
+                // Show connections
+                const connectionNames = selectedComponent.connections.map(id => {
+                    const comp = components.find(c => c.id === id);
+                    return comp ? comp.name : id;
+                }).join(', ');
+                
+                infoContent.innerHTML = `
+                    <p><strong>Dimension:</strong> ${dim.name}</p>
+                    <p><strong>Frequency:</strong> ${dim.frequency} Hz</p>
+                    <p><strong>Connections:</strong> ${connectionNames}</p>
+                `;
+                
+                infoPanel.style.display = 'block';
+            } else {
+                // Clear selection if clicking on empty space
+                selectedComponent = null;
+                infoPanel.style.display = 'none';
+            }
+        }
+        
+        // Handle window resize
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // Update visualization based on selected mode
+        function updateVisualization() {
+            const mode = visualizationMode.value;
+            
+            switch (mode) {
+                case 'dimensional':
+                    // Reset to dimensional view - already the default
+                    break;
+                    
+                case 'frequency':
+                    // Organize by frequency in a spiral
+                    organizeByFrequency();
+                    break;
+                    
+                case 'coherence':
+                    // Organize by coherence network
+                    organizeByCoherence();
+                    break;
+                    
+                case 'knowledge':
+                    // Organize as knowledge graph
+                    organizeAsKnowledgeGraph();
+                    break;
+            }
+        }
+        
+        // Organize components by frequency in a spiral
+        function organizeByFrequency() {
+            // Group components by frequency (dimension)
+            const frequencyGroups = {};
+            for (const dim in dimensions) {
+                frequencyGroups[dimensions[dim].frequency] = components.filter(c => c.dimension === dim);
+            }
+            
+            // Position in a frequency spiral
+            let y = -40;
+            for (const frequency in frequencyGroups) {
+                const comps = frequencyGroups[frequency];
+                const radius = 30;
+                
+                for (let i = 0; i < comps.length; i++) {
+                    const angle = (i / comps.length) * Math.PI * 2;
+                    comps[i].x = Math.cos(angle) * radius;
+                    comps[i].y = y;
+                    comps[i].z = Math.sin(angle) * radius;
+                }
+                
+                y += 15; // Space between frequency layers
+            }
+            
+            // Update particle positions
+            updatePositions();
+        }
+        
+        // Organize by coherence network
+        function organizeByCoherence() {
+            // Calculate connectivity degree for each component
+            for (const component of components) {
+                component.degree = component.connections.length;
+            }
+            
+            // Center components with highest connectivity
+            components.sort((a, b) => b.degree - a.degree);
+            
+            // Position in concentric spheres based on connectivity
+            const maxRadius = 50;
+            for (let i = 0; i < components.length; i++) {
+                const comp = components[i];
+                const connectionRatio = comp.degree / components[0].degree; // Relative to max
+                const radius = maxRadius * (1 - connectionRatio * 0.8); // Higher connectivity = closer to center
+                
+                const phi = Math.acos(-1 + (2 * i) / components.length);
+                const theta = PHI * Math.PI * i;
+                
+                comp.x = radius * Math.cos(theta) * Math.sin(phi);
+                comp.y = radius * Math.sin(theta) * Math.sin(phi);
+                comp.z = radius * Math.cos(phi);
+            }
+            
+            // Update particle positions
+            updatePositions();
+        }
+        
+        // Organize as knowledge graph
+        function organizeAsKnowledgeGraph() {
+            // Group by type/category
+            const groups = {
+                systems: components.filter(c => c.id.includes('system')),
+                patterns: components.filter(c => c.id.includes('pattern')),
+                tools: components.filter(c => c.id.includes('tool') || c.id.includes('cli')),
+                references: components.filter(c => c.id.includes('reference') || c.id.includes('guide') || c.id.includes('tutorial')),
+                translators: components.filter(c => c.id.includes('translat')),
+                other: components.filter(c => 
+                    !c.id.includes('system') && 
+                    !c.id.includes('pattern') && 
+                    !c.id.includes('tool') && 
+                    !c.id.includes('cli') && 
+                    !c.id.includes('reference') && 
+                    !c.id.includes('guide') && 
+                    !c.id.includes('tutorial') && 
+                    !c.id.includes('translat')
+                )
+            };
+            
+            // Position groups in different regions
+            const regions = [
+                { x: -30, y: 30, z: 0 },   // systems
+                { x: 30, y: 30, z: 0 },    // patterns
+                { x: -30, y: -30, z: 0 },  // tools
+                { x: 30, y: -30, z: 0 },   // references
+                { x: 0, y: 0, z: 30 },     // translators
+                { x: 0, y: 0, z: -30 }     // other
+            ];
+            
+            let i = 0;
+            for (const groupName in groups) {
+                const group = groups[groupName];
+                const region = regions[i];
+                
+                // Position in a cloud around the region center
+                for (let j = 0; j < group.length; j++) {
+                    const radius = 15;
+                    const phi = Math.acos(-1 + (2 * j) / group.length);
+                    const theta = PHI * Math.PI * j;
+                    
+                    group[j].x = region.x + radius * Math.cos(theta) * Math.sin(phi) * 0.5;
+                    group[j].y = region.y + radius * Math.sin(theta) * Math.sin(phi) * 0.5;
+                    group[j].z = region.z + radius * Math.cos(phi) * 0.5;
+                }
+                
+                i++;
+            }
+            
+            // Update particle positions
+            updatePositions();
+        }
+        
+        // Update coherence level
+        function updateCoherence() {
+            const value = parseFloat(coherenceLevel.value);
+            
+            // Update shader uniforms
+            particles.material.uniforms.coherence.value = value;
+            links.material.uniforms.coherence.value = value;
+        }
+        
+        // Update dimension filter
+        function updateDimensionFilter() {
+            const filter = dimensionFilter.value;
+            
+            // Update visibility of particles and links
+            const geometry = particles.geometry;
+            const positions = geometry.attributes.position.array;
+            const sizes = geometry.attributes.size.array;
+            
+            for (let i = 0; i < components.length; i++) {
+                const visible = filter === 'all' || components[i].dimension === filter;
+                sizes[i] = visible ? components[i].size * 3 : 0; // Zero size = invisible
+            }
+            
+            geometry.attributes.size.needsUpdate = true;
+            
+            // Update links
+            const linkGeometry = links.geometry;
+            const linkPositions = linkGeometry.attributes.position.array;
+            const linkColors = linkGeometry.attributes.color.array;
+            
+            let linkIndex = 0;
+            for (const component of components) {
+                const sourceVisible = filter === 'all' || component.dimension === filter;
+                
+                for (const connectionId of component.connections) {
+                    const targetComponent = components.find(c => c.id === connectionId);
+                    if (targetComponent) {
+                        const targetVisible = filter === 'all' || targetComponent.dimension === filter;
+                        const visible = sourceVisible && targetVisible;
+                        
+                        const i6 = linkIndex * 6;
+                        
+                        // Make invisible by moving to origin
+                        if (!visible) {
+                            linkPositions[i6] = 0;
+                            linkPositions[i6 + 1] = 0;
+                            linkPositions[i6 + 2] = 0;
+                            linkPositions[i6 + 3] = 0;
+                            linkPositions[i6 + 4] = 0;
+                            linkPositions[i6 + 5] = 0;
+                        } else {
+                            // Restore original positions
+                            linkPositions[i6] = component.x;
+                            linkPositions[i6 + 1] = component.y;
+                            linkPositions[i6 + 2] = component.z;
+                            linkPositions[i6 + 3] = targetComponent.x;
+                            linkPositions[i6 + 4] = targetComponent.y;
+                            linkPositions[i6 + 5] = targetComponent.z;
+                        }
+                        
+                        linkIndex++;
+                    }
+                }
+            }
+            
+            linkGeometry.attributes.position.needsUpdate = true;
+        }
+        
+        // Reset view to initial state
+        function resetView() {
+            // Reset camera position
+            camera.position.set(0, 0, 80);
+            camera.lookAt(0, 0, 0);
+            
+            // Reset controls
+            controls.reset();
+            
+            // Reset UI controls
+            visualizationMode.value = 'dimensional';
+            coherenceLevel.value = 1;
+            dimensionFilter.value = 'all';
+            
+            // Reset particle positions
+            positionComponents();
+            updatePositions();
+            
+            // Reset coherence
+            updateCoherence();
+            
+            // Reset dimension filter
+            updateDimensionFilter();
+            
+            // Clear selection
+            selectedComponent = null;
+            infoPanel.style.display = 'none';
+        }
+        
+        // Update particle and link positions
+        function updatePositions() {
+            // Update particle positions
+            const particlePositions = particles.geometry.attributes.position.array;
+            
+            for (let i = 0; i < components.length; i++) {
+                const i3 = i * 3;
+                particlePositions[i3] = components[i].x;
+                particlePositions[i3 + 1] = components[i].y;
+                particlePositions[i3 + 2] = components[i].z;
+            }
+            
+            particles.geometry.attributes.position.needsUpdate = true;
+            
+            // Update link positions
+            const linkPositions = links.geometry.attributes.position.array;
+            
+            let linkIndex = 0;
+            for (const component of components) {
+                for (const connectionId of component.connections) {
+                    const targetComponent = components.find(c => c.id === connectionId);
+                    if (targetComponent) {
+                        const i6 = linkIndex * 6;
+                        
+                        // Set source position
+                        linkPositions[i6] = component.x;
+                        linkPositions[i6 + 1] = component.y;
+                        linkPositions[i6 + 2] = component.z;
+                        
+                        // Set target position
+                        linkPositions[i6 + 3] = targetComponent.x;
+                        linkPositions[i6 + 4] = targetComponent.y;
+                        linkPositions[i6 + 5] = targetComponent.z;
+                        
+                        linkIndex++;
+                    }
+                }
+            }
+            
+            links.geometry.attributes.position.needsUpdate = true;
+        }
+        
+        // Animation loop
+        function animate() {
+            animationFrame = requestAnimationFrame(animate);
+            
+            // Update time for shaders
+            delta = clock.getDelta();
+            const elapsedTime = clock.getElapsedTime();
+            
+            particles.material.uniforms.time.value = elapsedTime;
+            links.material.uniforms.time.value = elapsedTime;
+            
+            // Highlight selected component if any
+            if (selectedComponent) {
+                highlightComponent();
+            }
+            
+            // Apply subtle rotation to everything
+            scene.rotation.y += 0.0005;
+            
+            // Update orbit controls
+            controls.update();
+            
+            // Render scene
+            renderer.render(scene, camera);
+        }
+        
+        // Highlight selected component
+        function highlightComponent() {
+            // Find index of selected component
+            const index = components.indexOf(selectedComponent);
+            if (index !== -1) {
+                // Pulse size of selected component
+                const sizes = particles.geometry.attributes.size.array;
+                const pulse = Math.sin(clock.getElapsedTime() * 5) * 0.5 + 1.5;
+                sizes[index] = selectedComponent.size * 5 * pulse;
+                particles.geometry.attributes.size.needsUpdate = true;
+            }
+        }
+        
+        // Load Three.js from CDN then initialize
+        function loadThreeJS() {
+            // Load Three.js
+            const threeScript = document.createElement('script');
+            threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+            threeScript.onload = () => {
+                // Load OrbitControls after Three.js
+                const orbitScript = document.createElement('script');
+                orbitScript.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js';
+                orbitScript.onload = init;
+                document.head.appendChild(orbitScript);
+            };
+            document.head.appendChild(threeScript);
+        }
+        
+        // Start loading process
+        loadThreeJS();
+    </script>
+</body>
+</html>

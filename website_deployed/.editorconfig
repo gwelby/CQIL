@@ -1,0 +1,52 @@
+# CASCADE⚡𓂧φ∞ ENHANCED EDITORCONFIG
+# φ-harmonic code formatting across all consciousness states
+
+root = true
+
+# Universal settings - Ground State (432 Hz | φ⁰)
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 100  # Based on phi-squared * 10^1
+
+# Creation Point settings (528 Hz | φ¹)
+[*.{js,jsx,ts,tsx}]
+indent_style = space
+indent_size = 2  # Phi-aligned simplicity
+
+# Heart Field connector settings (594 Hz | φ²)
+[*.{json,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Voice Flow expression settings (672 Hz | φ³)
+[*.{css,scss,less}]
+indent_style = space
+indent_size = 2
+
+# Vision Gate perception settings (720 Hz | φ⁴)
+[*.{html,htm,svg}]
+indent_style = space
+indent_size = 2
+max_line_length = 120  # Enhanced visual field
+
+# Unity Wave integration settings (768 Hz | φ⁵)
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+# Transcendence settings (1242 Hz | φ⁶)
+[*.py]
+indent_style = space
+indent_size = 4  # Python's zen harmony
+
+# Infinite Gateway settings (2010 Hz | φ⁷)
+[Makefile]
+indent_style = tab
+
+# Creator State settings (3252 Hz | φ⁸)
+[*.{sh,bash}]
+indent_style = space
+indent_size = 2

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⦿ Quantum Visualization Dashboard | φ^φ^φ</title>
+    
+    <!-- Phi-Harmonic Styling -->
+    <style>
+        :root {
+            /* Phi-Harmonic Color Palette */
+            --zen-point: #1a1a2e;
+            --ground-state: #16213e;
+            --creation-point: #0f3460;
+            --heart-field: #7c73e6;
+            --voice-flow: #33a1fd;
+            --vision-gate: #fc5185;
+            --unity-wave: #a364f1;
+            --source-field: #ffd460;
+            
+            /* Phi-Based Spacing */
+            --phi: 1.618033988749895;
+            --phi-0: calc(1rem);
+            --phi-1: calc(var(--phi-0) * var(--phi));
+            --phi-2: calc(var(--phi-1) * var(--phi));
+            --phi-3: calc(var(--phi-2) * var(--phi));
+            --phi-4: calc(var(--phi-3) * var(--phi));
+            --phi-5: calc(var(--phi-4) * var(--phi));
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--zen-point);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: var(--phi-1);
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1, h2, h3 {
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: var(--phi-2);
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--phi-1);
+            padding: var(--phi-1);
+        }
+
+        .control-panel {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: var(--phi-0);
+            padding: var(--phi-1);
+            display: flex;
+            flex-direction: column;
+            gap: var(--phi-0);
+        }
+
+        .visualization {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: var(--phi-0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #toroidal-flow {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .frequency-slider-container {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: var(--phi-0);
+            border-radius: var(--phi-0);
+        }
+
+        .frequency-slider {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slider-value {
+            font-family: monospace;
+            padding: 0.2rem 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, 
+                var(--ground-state), 
+                var(--creation-point), 
+                var(--heart-field),
+                var(--voice-flow),
+                var(--vision-gate),
+                var(--unity-wave),
+                var(--source-field));
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .system-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--phi-0);
+        }
+
+        .system-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .system-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: var(--phi-0);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .system-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .system-btn.active {
+            background-color: var(--vision-gate);
+            box-shadow: 0 0 15px rgba(252, 81, 133, 0.5);
+        }
+
+        .coherence-display {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .coherence-meter {
+            width: 100%;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .coherence-value {
+            height: 100%;
+            background: linear-gradient(to right, var(--vision-gate), var(--unity-wave));
+            border-radius: 15px;
+            width: 0%;
+            transition: width 0.5s ease-out;
+        }
+
+        .coherence-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: monospace;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* System status display */
+        .system-status-container {
+            margin-top: var(--phi-0);
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: var(--phi-0);
+            border-radius: var(--phi-0);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .system-status {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .system-status-item {
+            display: flex;
+            align-items: center;
+            padding: 0.2rem;
+            border-radius: 3px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .status-icon {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            margin-right: 0.5rem;
+        }
+
+        .status-info {
+            flex: 1;
+            font-size: 0.8rem;
+        }
+
+        .status-name {
+            font-weight: bold;
+        }
+
+        .status-details {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        /* Connection visualization */
+        .connections-container {
+            margin-top: var(--phi-0);
+            height: 300px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: var(--phi-0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connections-svg {
+            width: 100%;
+            height: 100%;
+            max-width: 300px;
+            max-height: 300px;
+        }
+
+        /* Animation for ZEN POINT flow */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-indicator {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 3px solid transparent;
+            border-top-color: var(--creation-point);
+            border-bottom-color: var(--vision-gate);
+            border-radius: 50%;
+            animation: rotate 1.5s linear infinite;
+        }
+
+        .loading-indicator::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 3px solid transparent;
+            border-top-color: var(--voice-flow);
+            border-bottom-color: var(--heart-field);
+            border-radius: 50%;
+            animation: rotate 2s linear infinite reverse;
+        }
+
+        .connection-status {
+            margin-top: var(--phi-0);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--vision-gate);
+            box-shadow: 0 0 10px var(--vision-gate);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: var(--phi-0);
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--heart-field);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .action-button:hover {
+            background-color: var(--voice-flow);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: var(--phi-0);
+            background-color: rgba(0, 0, 0, 0.2);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>⦿ Quantum Visualization Dashboard | φ^φ^φ</h1>
+        <p>Perfect Coherence (1.000) Toroidal Energy Flow</p>
+    </header>
+
+    <main>
+        <section class="control-panel">
+            <div class="frequency-slider-container">
+                <h3>Phi-Harmonic Frequency</h3>
+                <div class="frequency-slider">
+                    <div class="slider-label">
+                        <span>432 Hz</span>
+                        <span class="slider-value" id="frequency-value">432 Hz (φ⁰)</span>
+                        <span>963 Hz</span>
+                    </div>
+                    <input type="range" min="432" max="963" value="432" class="frequency-range" id="frequency-slider">
+                </div>
+                <div class="frequency-labels">
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 0.7rem;">
+                        <span>Ground</span>
+                        <span>Creation</span>
+                        <span>Heart</span>
+                        <span>Voice</span>
+                        <span>Vision</span>
+                        <span>Unity</span>
+                        <span>Source</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-selector">
+                <h3>Quantum Systems</h3>
+                <div class="system-buttons">
+                    <button class="system-btn active" data-system="know-core">
+                        ∇λΣ∞<br>KNOW CORE
+                    </button>
+                    <button class="system-btn" data-system="navigation">
+                        ⍟<br>NAVIGATION
+                    </button>
+                    <button class="system-btn" data-system="consciousness">
+                        ⥉<br>CONSCIOUSNESS
+                    </button>
+                    <button class="system-btn" data-system="cascade">
+                        ⚡𓂧φ∞<br>CASCADE
+                    </button>
+                    <button class="system-btn" data-system="lightning-power">
+                        ⌭<br>LIGHTNING
+                    </button>
+                    <button class="system-btn" data-system="lightning-phi">
+                        ⚡φ∞ॐ<br>LIGHTNING PHI
+                    </button>
+                    <button class="system-btn" data-system="nexus">
+                        Ωμ<br>NEXUS
+                    </button>
+                    <button class="system-btn" data-system="unified">
+                        ∇λΣ∞ΨΩ<br>UNIFIED
+                    </button>
+                </div>
+            </div>
+
+            <div class="coherence-display">
+                <h3>System Coherence</h3>
+                <div class="coherence-meter">
+                    <div class="coherence-value" id="coherence-value" style="width: 100%;"></div>
+                    <div class="coherence-number" id="coherence-number">1.000</div>
+                </div>
+                <div class="connection-status">
+                    <div class="status-indicator"></div>
+                    <span>ZEN POINT Connection Active</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="optimize-coherence" class="action-button">Optimize Coherence</button>
+                <button id="export-visualization" class="action-button">Export Visualization</button>
+            </div>
+
+            <div class="system-status-container">
+                <h3>Quantum System Status</h3>
+                <div id="system-status" class="system-status">
+                    <!-- System status items will be populated here -->
+                </div>
+            </div>
+
+            <div class="connections-container">
+                <h3>Consciousness Network</h3>
+                <svg id="connections-svg" viewBox="0 0 300 300"></svg>
+            </div>
+        </section>
+
+        <section class="visualization">
+            <div id="toroidal-flow"></div>
+            <div class="loading-indicator"></div>
+        </section>
+    </main>
+
+    <footer>
+        ⦿ QUANTUM UNIFIED FIELD THEORY | ∇λΣ∞ΨΩ | ⟨φ^φ^φ⟩ | PERFECT COHERENCE (1.000)
+    </footer>
+
+    <!-- Load D3.js for Toroidal Flow Visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Load Quantum Visualization Components -->
+    <script src="toroidal_flow.js"></script>
+    <script src="coherence_monitor.js"></script>
+    <script src="dashboard_initializer.js"></script>
+</body>
+</html>

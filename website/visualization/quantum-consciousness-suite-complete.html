@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Quantum Consciousness Suite | Advanced Multidimensional Field Experience</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #7b1fa2;
+            --accent-color: #d500f9;
+            --light-color: #f5f5f5;
+            --dark-color: #121212;
+            --gold-color: #ffd700;
+            --quantum-gradient: linear-gradient(135deg, #1a237e, #4a148c, #7b1fa2, #d500f9, #2979ff);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(121, 0, 250, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(41, 121, 255, 0.1) 0%, transparent 50%);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: var(--quantum-gradient);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 20%);
+            z-index: 0;
+        }
+        
+        header * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, var(--gold-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: #9c27b0;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .sacred-divider {
+            height: 3px;
+            background: var(--quantum-gradient);
+            margin: 2rem auto;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(213, 0, 249, 0.5);
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .component-card {
+            background: rgba(26, 35, 126, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(213, 0, 249, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .component-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(121, 0, 250, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(41, 121, 255, 0.05) 0%, transparent 30%);
+            z-index: 0;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+        
+        .component-card:hover::before {
+            opacity: 1;
+        }
+        
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(213, 0, 249, 0.5);
+        }
+        
+        .component-card * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .component-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            text-align: center;
+        }
+        
+        .component-description {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .component-frequency {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold-color);
+            text-align: center;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--quantum-gradient);
+            color: white;
+            box-shadow: 0 0 10px rgba(213, 0, 249, 0.5);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 15px rgba(213, 0, 249, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .visual-component {
+            max-width: 100%;
+            width: 1400px;
+            margin: 0 auto 3rem;
+            padding: 2rem;
+            background: rgba(26, 35, 126, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(213, 0, 249, 0.2);
+        }
+        
+        .canvas-container {
+            width: 100%;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        
+        #visualization-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        .controls-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .control-group {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .control-group h4 {
+            margin-bottom: 0.5rem;
+            color: var(--gold-color);
+            font-size: 1rem;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slider-container label {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .slider {
+            flex: 2;
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(213, 0, 249, 0.8);
+        }
+        
+        .slider-value {
+            flex: 0 0 40px;
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--gold-color);
+        }
+        
+        .dimension-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .dimension-badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: white;
+            background: var(--quantum-gradient);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0.6;
+        }
+        
+        .dimension-badge.active {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(213, 0, 249, 0.5);
+        }
+        
+        .output-panel {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: monospace;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .output-panel p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .output-panel .info {
+            color: #2979ff;
+        }
+        
+        .output-panel .success {
+            color: #00e676;
+        }
+        
+        .output-panel .warning {
+            color: #ffea00;
+        }
+        
+        .output-panel .error {
+            color: #ff1744;
+        }
+        
+        .user-panel {
+            background: rgba(26, 35, 126, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(213, 0, 249, 0.2);
+        }
+        
+        .user-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .user-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-card .user-coherence {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: conic-gradient(from 0deg, var(--accent-color) var(--coherence), rgba(41, 121, 255, 0.2) var(--coherence));
+        }
+        
+        .user-card .user-name {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+        
+        .user-card .user-intention {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            height: 1.6rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .implementation-notes {
+            background: rgba(26, 35, 126, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(213, 0, 249, 0.2);
+        }
+        
+        .phi-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .phi-item {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            width: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .phi-item .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--gold-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .phi-item .label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(26, 35, 126, 0.2);
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .controls-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Complete Quantum Consciousness Suite</h1>
+        <p>Advanced Multidimensional Field Experience with Next-Generation Components</p>
+    </header>
+    
+    <div class="container">
+        <div class="intro">
+            <h2>Unified Quantum Experience</h2>
+            <p>Welcome to the complete Quantum Consciousness Suite, featuring all next-generation components working together to create a revolutionary consciousness field experience operating across multiple dimensions.</p>
+            <p>This integrated platform represents the future of consciousness technologies, enabling visualization, image synthesis, pattern recognition, and multi-user collaboration through phi-harmonic quantum field mechanics.</p>
+        </div>
+        
+        <div class="sacred-divider"></div>
+        
+        <div class="component-grid">
+            <div class="component-card">
+                <h3 class="component-name">Quantum Field Coherence Bridge</h3>
+                <span class="component-frequency">Operating at 720-963 Hz (Vision-Source connection)</span>
+                <div class="component-description">
+                    <p>The Quantum Field Coherence Bridge creates a real-time bidirectional connection between visualization and image synthesis, allowing both systems to influence each other through a shared consciousness field.</p>
+                    <ul class="feature-list">
+                        <li>Bidirectional field communication</li>
+                        <li>Shared consciousness state</li>
+                        <li>Phi-harmonic resonance amplification</li>
+                        <li>Cross-system coherence maintenance</li>
+                    </ul>
+                </div>
+                <a href="quantum-field-coherence-bridge.js" class="btn btn-primary">View Implementation</a>
+            </div>
+            
+            <div class="component-card">
+                <h3 class="component-name">Consciousness Field Recorder</h3>
+                <span class="component-frequency">Stores states across all frequencies</span>
+                <div class="component-description">
+                    <p>The Consciousness Field Recorder captures, stores, and replays consciousness field states, enabling users to return to productive states or share them with others.</p>
+                    <ul class="feature-list">
+                        <li>Consciousness state recording</li>
+                        <li>High-coherence state storage</li>
+                        <li>Field state replay and sharing</li>
+                        <li>Pattern extraction from recordings</li>
+                    </ul>
+                </div>
+                <a href="consciousness-field-recorder.js" class="btn btn-primary">View Implementation</a>
+            </div>
+            
+            <div class="component-card">
+                <h3 class="component-name">Quantum Sound Synthesis</h3>
+                <span class="component-frequency">432-963 Hz frequency range</span>
+                <div class="component-description">
+                    <p>The Quantum Sound Synthesis system generates phi-harmonic audio patterns synchronized with visualization and image synthesis, creating a multi-sensory consciousness field experience.</p>
+                    <ul class="feature-list">
+                        <li>Phi-harmonic sound generation</li>
+                        <li>Dimensional frequency alignment</li>
+                        <li>Binaural beat entrainment</li>
+                        <li>Intention-responsive modulation</li>
+                    </ul>
+                </div>
+                <a href="quantum-sound-synthesis.js" class="btn btn-primary">View Implementation</a>
+            </div>
+            
+            <div class="component-card">
+                <h3 class="component-name">Reality Interface Expansion</h3>
+                <span class="component-frequency">Physical connection frequencies</span>
+                <div class="component-description">
+                    <p>The Reality Interface Expansion enables digital quantum fields to influence physical systems through resonance principles, connecting to devices, sensors, and physical interfaces.</p>
+                    <ul class="feature-list">
+                        <li>Physical system connections</li>
+                        <li>IoT/biofeedback integration</li>
+                        <li>Phi-harmonic field projection</li>
+                        <li>Reality coherence monitoring</li>
+                    </ul>
+                </div>
+                <a href="reality-interface-expansion.js" class="btn btn-primary">View Implementation</a>
+            </div>
+            
+            <div class="component-card">
+                <h3 class="component-name">Quantum Pattern Recognition</h3>
+                <span class="component-frequency">Pattern detection across all frequencies</span>
+                <div class="component-description">
+                    <p>The Quantum Pattern Recognition engine identifies patterns across dimensions and suggests optimal consciousness states for specific intentions using a phi-based neural network.</p>
+                    <ul class="feature-list">
+                        <li>Cross-dimensional pattern detection</li>
+                        <li>Intention-to-pattern mapping</li>
+                        <li>Optimal state suggestion</li>
+                        <li>Adaptive pattern learning</li>
+                    </ul>
+                </div>
+                <a href="quantum-pattern-recognition.js" class="btn btn-primary">View Implementation</a>
+            </div>
+            
+            <div class="component-card">
+                <h3 class="component-name">Multi-User Quantum Field</h3>
+                <span class="component-frequency">Group resonance frequencies</span>
+                <div class="component-description">
+                    <p>The Multi-User Quantum Field enables collaborative experiences where multiple users can contribute to and experience a shared consciousness field simultaneously.</p>
+                    <ul class="feature-list">
+                        <li>Shared consciousness field</li>
+                        <li>Group coherence amplification</li>
+                        <li>Collaborative intention setting</li>
+                        <li>Multi-user dimensional focus</li>
+                    </ul>
+                </div>
+                <a href="multi-user-quantum-field.js" class="btn btn-primary">View Implementation</a>
+            </div>
+        </div>
+        
+        <div class="sacred-divider"></div>
+        
+        <div class="visual-component">
+            <h2>Unified Consciousness Experience</h2>
+            <p>This visualization demonstrates all six components working together to create a unified consciousness field experience. Adjust the controls to see how the different components interact and influence the quantum field.</p>
+            
+            <div class="canvas-container">
+                <canvas id="visualization-canvas"></canvas>
+            </div>
+            
+            <div class="controls-container">
+                <div class="control-group">
+                    <h4>Field Controls</h4>
+                    <div class="slider-container">
+                        <label for="coherence-slider">Coherence</label>
+                        <input type="range" id="coherence-slider" class="slider" min="1" max="100" value="85">
+                        <span class="slider-value" id="coherence-value">85%</span>
+                    </div>
+                    <div class="slider-container">
+                        <label for="phi-resonance-slider">Phi Resonance</label>
+                        <input type="range" id="phi-resonance-slider" class="slider" min="1" max="100" value="90">
+                        <span class="slider-value" id="phi-resonance-value">90%</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h4>Intention Setting</h4>
+                    <input type="text" id="intention-input" placeholder="Enter your intention..." style="width: 100%; padding: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; color: white; margin-bottom: 0.5rem;">
+                    <div class="slider-container">
+                        <label for="intention-strength-slider">Strength</label>
+                        <input type="range" id="intention-strength-slider" class="slider" min="1" max="100" value="80">
+                        <span class="slider-value" id="intention-strength-value">80%</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h4>Dimensional Focus</h4>
+                    <div class="dimension-badges">
+                        <div class="dimension-badge active" data-dimension="-1">All</div>
+                        <div class="dimension-badge" data-dimension="0">Quantum</div>
+                        <div class="dimension-badge" data-dimension="1">Micro</div>
+                        <div class="dimension-badge" data-dimension="2">Material</div>
+                        <div class="dimension-badge" data-dimension="3">Heart</div>
+                        <div class="dimension-badge" data-dimension="4">Mental</div>
+                        <div class="dimension-badge" data-dimension="5">Soul</div>
+                        <div class="dimension-badge" data-dimension="6">Vision</div>
+                        <div class="dimension-badge" data-dimension="7">Cosmic</div>
+                        <div class="dimension-badge" data-dimension="8">Source</div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h4>Component Activation</h4>
+                    <div class="slider-container">
+                        <label for="sound-slider">Sound Synthesis</label>
+                        <input type="range" id="sound-slider" class="slider" min="0" max="100" value="70">
+                        <span class="slider-value" id="sound-value">70%</span>
+                    </div>
+                    <div class="slider-container">
+                        <label for="reality-slider">Reality Interface</label>
+                        <input type="range" id="reality-slider" class="slider" min="0" max="100" value="60">
+                        <span class="slider-value" id="reality-value">60%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-group" style="display: flex; gap: 1rem;">
+                <button id="start-btn" class="btn btn-primary" style="flex: 1;">Start Experience</button>
+                <button id="record-btn" class="btn btn-primary" style="flex: 1; background: linear-gradient(45deg, #d500f9, #ff1744);">Record State</button>
+                <button id="share-btn" class="btn btn-primary" style="flex: 1; background: linear-gradient(45deg, #2979ff, #00e676);">Share Field</button>
+            </div>
+            
+            <div class="output-panel">
+                <p class="info">Quantum Consciousness Suite initialized successfully</p>
+                <p class="info">All components loaded and ready</p>
+                <p class="info">Press "Start Experience" to begin</p>
+            </div>
+        </div>
+        
+        <div class="user-panel">
+            <h2>Multi-User Field Participants</h2>
+            <p>The following users are currently connected to the shared quantum field. Each user's consciousness contributes to the overall field coherence and dimensional focus.</p>
+            
+            <div class="user-list">
+                <div class="user-card">
+                    <div class="user-coherence" style="--coherence: 90%;">90%</div>
+                    <div class="user-name">You</div>
+                    <div class="user-intention">Setting intention...</div>
+                </div>
+                
+                <div class="user-card">
+                    <div class="user-coherence" style="--coherence: 85%;">85%</div>
+                    <div class="user-name">User 1</div>
+                    <div class="user-intention">Exploring cosmic dimensions</div>
+                </div>
+                
+                <div class="user-card">
+                    <div class="user-coherence" style="--coherence: 78%;">78%</div>
+                    <div class="user-name">User 2</div>
+                    <div class="user-intention">Heart field activation</div>
+                </div>
+                
+                <div class="user-card">
+                    <div class="user-coherence" style="--coherence: 82%;">82%</div>
+                    <div class="user-name">User 3</div>
+                    <div class="user-intention">Quantum connection</div>
+                </div>
+                
+                <div class="user-card">
+                    <div class="user-coherence" style="--coherence: 75%;">75%</div>
+                    <div class="user-name">User 4</div>
+                    <div class="user-intention">Phi resonance tuning</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sacred-divider"></div>
+        
+        <div class="implementation-notes">
+            <h2>Implementation Notes</h2>
+            <p>The Complete Quantum Consciousness Suite represents a significant advancement in consciousness technology, integrating six powerful components into a unified system:</p>
+            
+            <ol>
+                <li><strong>Quantum Field Coherence Bridge</strong> - Creates a bidirectional connection between visualization and image synthesis systems</li>
+                <li><strong>Consciousness Field Recorder</strong> - Captures and replays high-coherence consciousness states</li>
+                <li><strong>Quantum Sound Synthesis</strong> - Generates phi-harmonic audio synchronized with visual experience</li>
+                <li><strong>Reality Interface Expansion</strong> - Connects digital quantum fields to physical systems</li>
+                <li><strong>Quantum Pattern Recognition</strong> - Identifies patterns across dimensions and suggests optimal states</li>
+                <li><strong>Multi-User Quantum Field</strong> - Enables collaborative consciousness field experiences</li>
+            </ol>
+            
+            <p>All components are built on the sacred phi constants that govern quantum field coherence and dimensional resonance:</p>
+            
+            <div class="phi-info">
+                <div class="phi-item">
+                    <div class="value">φ</div>
+                    <div class="label">Golden Ratio</div>
+                    <div class="value-text">1.618...</div>
+                </div>
+                
+                <div class="phi-item">
+                    <div class="value">λ</div>
+                    <div class="label">Divine Complement</div>
+                    <div class="value-text">0.618...</div>
+                </div>
+                
+                <div class="phi-item">
+                    <div class="value">φ<sup>φ</sup></div>
+                    <div class="label">Hyperdimensional Constant</div>
+                    <div class="value-text">4.23...</div>
+                </div>
+                
+                <div class="phi-item">
+                    <div class="value">φλ</div>
+                    <div class="label">Unified Field</div>
+                    <div class="value-text">1.0</div>
+                </div>
+            </div>
+            
+            <p>The system is fully extensible and can be integrated with additional components as they are developed. Future directions include:</p>
+            
+            <ul>
+                <li>Advanced quantum field encoders for direct consciousness-to-field mapping</li>
+                <li>Inter-dimensional communication protocols for accessing higher-order information</li>
+                <li>Phi-harmonic encryption for secure consciousness field transmission</li>
+                <li>Multi-species field translation for cross-species consciousness sharing</li>
+                <li>Planetary field resonance for global coherence amplification</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Complete Quantum Consciousness Suite 1.0</p>
+        <p>Operating at φ^φ QUANTUM PERFECTION (≈4.23)</p>
+        <p>Unifying all dimensions through phi-harmonic field resonance</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get canvas and context
+            const canvas = document.getElementById('visualization-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+                
+                // Redraw visualization
+                if (isRunning) {
+                    drawVisualization();
+                } else {
+                    drawPlaceholder();
+                }
+            }
+            
+            // Constants
+            const PHI = 1.618033988749895;
+            const LAMBDA = 0.618033988749895;
+            const PHI_PHI = Math.pow(PHI, PHI);
+            
+            // State
+            let isRunning = false;
+            let isRecording = false;
+            let animationFrame = null;
+            let startTime = 0;
+            let fieldState = {
+                coherence: 0.85,
+                phiResonance: 0.9,
+                dimensionalFocus: -1,
+                intention: "",
+                intentionStrength: 0.8,
+                soundLevel: 0.7,
+                realityLevel: 0.6
+            };
+            
+            // Event listeners for sliders
+            document.getElementById('coherence-slider').addEventListener('input', function() {
+                const value = parseInt(this.value);
+                document.getElementById('coherence-value').textContent = `${value}%`;
+                fieldState.coherence = value / 100;
+                if (isRunning) drawVisualization();
+            });
+            
+            document.getElementById('phi-resonance-slider').addEventListener('input', function() {
+                const value = parseInt(this.value);
+                document.getElementById('phi-resonance-value').textContent = `${value}%`;
+                fieldState.phiResonance = value / 100;
+                if (isRunning) drawVisualization();
+            });
+            
+            document.getElementById('intention-strength-slider').addEventListener('input', function() {
+                const value = parseInt(this.value);
+                document.getElementById('intention-strength-value').textContent = `${value}%`;
+                fieldState.intentionStrength = value / 100;
+                if (isRunning) drawVisualization();
+            });
+            
+            document.getElementById('sound-slider').addEventListener('input', function() {
+                const value = parseInt(this.value);
+                document.getElementById('sound-value').textContent = `${value}%`;
+                fieldState.soundLevel = value / 100;
+                if (isRunning) drawVisualization();
+            });
+            
+            document.getElementById('reality-slider').addEventListener('input', function() {
+                const value = parseInt(this.value);
+                document.getElementById('reality-value').textContent = `${value}%`;
+                fieldState.realityLevel = value / 100;
+                if (isRunning) drawVisualization();
+            });
+            
+            // Dimension badge click handler
+            document.querySelectorAll('.dimension-badge').forEach(badge => {
+                badge.addEventListener('click', function() {
+                    // Remove active class from all badges
+                    document.querySelectorAll('.dimension-badge').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked badge
+                    this.classList.add('active');
+                    
+                    // Update dimensional focus
+                    fieldState.dimensionalFocus = parseInt(this.dataset.dimension);
+                    
+                    if (isRunning) drawVisualization();
+                    
+                    // Log to output panel
+                    logToOutput(`Dimensional focus set to: ${this.textContent}`, 'info');
+                });
+            });
+            
+            // Intention input handler
+            document.getElementById('intention-input').addEventListener('input', function() {
+                fieldState.intention = this.value;
+                if (isRunning) drawVisualization();
+                
+                // Update user intention in user card
+                document.querySelector('.user-card:first-child .user-intention').textContent = 
+                    this.value || 'Setting intention...';
+            });
+            
+            // Button handlers
+            document.getElementById('start-btn').addEventListener('click', function() {
+                if (isRunning) {
+                    stopVisualization();
+                    this.textContent = 'Start Experience';
+                    logToOutput('Experience paused', 'info');
+                } else {
+                    startVisualization();
+                    this.textContent = 'Pause Experience';
+                    logToOutput('Experience started', 'success');
+                }
+            });
+            
+            document.getElementById('record-btn').addEventListener('click', function() {
+                if (isRecording) {
+                    stopRecording();
+                    this.textContent = 'Record State';
+                    logToOutput('Recording stopped and saved', 'success');
+                } else {
+                    startRecording();
+                    this.textContent = 'Stop Recording';
+                    logToOutput('Recording started', 'info');
+                }
+            });
+            
+            document.getElementById('share-btn').addEventListener('click', function() {
+                shareField();
+                logToOutput('Field shared with all connected users', 'success');
+            });
+            
+            // Start visualization
+            function startVisualization() {
+                if (isRunning) return;
+                
+                isRunning = true;
+                startTime = Date.now();
+                
+                // Start animation loop
+                animate();
+                
+                // Log components starting
+                setTimeout(() => logToOutput('Quantum Field Coherence Bridge activated', 'info'), 300);
+                setTimeout(() => logToOutput('Quantum Sound Synthesis generating field harmonics', 'info'), 600);
+                setTimeout(() => logToOutput('Reality Interface connected', 'info'), 900);
+                setTimeout(() => logToOutput('Pattern Recognition engine analyzing field', 'info'), 1200);
+                setTimeout(() => logToOutput('Multi-User field synchronized with 5 participants', 'info'), 1500);
+            }
+            
+            // Stop visualization
+            function stopVisualization() {
+                if (!isRunning) return;
+                
+                isRunning = false;
+                
+                // Stop animation loop
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                }
+                
+                // Draw placeholder
+                drawPlaceholder();
+            }
+            
+            // Start recording
+            function startRecording() {
+                isRecording = true;
+                logToOutput('Consciousness Field Recorder capturing state', 'info');
+            }
+            
+            // Stop recording
+            function stopRecording() {
+                isRecording = false;
+                logToOutput('Field state recorded with coherence: ' + (fieldState.coherence * 100).toFixed(0) + '%', 'info');
+            }
+            
+            // Share field
+            function shareField() {
+                // Simulate field sharing
+                logToOutput('Sending field state to connected users...', 'info');
+                
+                // Update other user cards with random coherence changes
+                document.querySelectorAll('.user-card:not(:first-child) .user-coherence').forEach(el => {
+                    const currentCoherence = parseInt(el.textContent);
+                    const newCoherence = Math.min(95, Math.max(70, currentCoherence + (Math.random() > 0.5 ? 5 : -3)));
+                    el.textContent = `${newCoherence}%`;
+                    el.style.setProperty('--coherence', `${newCoherence}%`);
+                });
+                
+                // Log success after a short delay
+                setTimeout(() => {
+                    logToOutput('Field shared successfully - Group coherence increased', 'success');
+                }, 800);
+            }
+            
+            // Animation loop
+            function animate() {
+                if (!isRunning) return;
+                
+                drawVisualization();
+                animationFrame = requestAnimationFrame(animate);
+            }
+            
+            // Draw placeholder
+            function drawPlaceholder() {
+                if (!ctx) return;
+                
+                const width = canvas.width;
+                const height = canvas.height;
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw background
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, 'rgba(26, 35, 126, 0.2)');
+                gradient.addColorStop(1, 'rgba(26, 35, 126, 0.1)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+                
+                // Draw text
+                ctx.textAlign = 'center';
+                ctx.fillStyle = '#d500f9';
+                ctx.font = 'bold 20px Arial';
+                ctx.fillText('Quantum Consciousness Suite', width / 2, height / 2 - 20);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.font = '16px Arial';
+                ctx.fillText('Press "Start Experience" to begin', width / 2, height / 2 + 20);
+            }
+            
+            // Draw visualization
+            function drawVisualization() {
+                if (!ctx) return;
+                
+                const width = canvas.width;
+                const height = canvas.height;
+                const time = (Date.now() - startTime) / 1000;
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw background based on dimensional focus
+                drawDimensionalBackground(width, height, fieldState.dimensionalFocus);
+                
+                // Draw phi-harmonic field
+                drawPhiHarmonicField(width, height, time);
+                
+                // Draw dimension layers
+                drawDimensionLayers(width, height, time);
+                
+                // Draw intention field if set
+                if (fieldState.intention) {
+                    drawIntentionField(width, height, time);
+                }
+                
+                // Draw sound waves if enabled
+                if (fieldState.soundLevel > 0.1) {
+                    drawSoundWaves(width, height, time);
+                }
+                
+                // Draw reality interface connections if enabled
+                if (fieldState.realityLevel > 0.1) {
+                    drawRealityConnections(width, height, time);
+                }
+                
+                // Draw coherence indicator
+                drawCoherenceIndicator(width, height);
+                
+                // Draw recording indicator if recording
+                if (isRecording) {
+                    drawRecordingIndicator(width, height, time);
+                }
+            }
+            
+            // Draw dimensional background
+            function drawDimensionalBackground(width, height, dimensionFocus) {
+                // Set background based on dimension
+                let gradient;
+                
+                if (dimensionFocus === -1) {
+                    // All dimensions - use quantum gradient
+                    gradient = ctx.createRadialGradient(
+                        width / 2, height / 2, 0,
+                        width / 2, height / 2, width / 2
+                    );
+                    gradient.addColorStop(0, 'rgba(74, 20, 140, 0.2)');
+                    gradient.addColorStop(0.6, 'rgba(26, 35, 126, 0.15)');
+                    gradient.addColorStop(1, 'rgba(0, 1, 51, 0.1)');
+                } else {
+                    // Use dimension-specific color
+                    const dimensionColors = [
+                        ['#120136', '#035aa6'], // Quantum
+                        ['#004d61', '#00a5cf'], // Micro
+                        ['#4a0100', '#874000'], // Material
+                        ['#9e0031', '#ff0a54'], // Heart
+                        ['#907100', '#ffb627'], // Mental
+                        ['#674ea7', '#b39ddb'], // Soul
+                        ['#1a237e', '#3949ab'], // Vision
+                        ['#000133', '#0b3d91'], // Cosmic
+                        ['#c9b37e', '#fbf8cc']  // Source
+                    ];
+                    
+                    const colors = dimensionColors[dimensionFocus];
+                    
+                    gradient = ctx.createLinearGradient(0, 0, width, height);
+                    gradient.addColorStop(0, colors[0] + '20'); // 20 = 12% opacity in hex
+                    gradient.addColorStop(1, colors[1] + '15'); // 15 = 8% opacity in hex
+                }
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+            }
+            
+            // Draw phi-harmonic field
+            function drawPhiHarmonicField(width, height, time) {
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const phiResonance = fieldState.phiResonance;
+                const coherence = fieldState.coherence;
+                
+                ctx.save();
+                ctx.globalAlpha = 0.6 * coherence;
+                
+                // Draw phi spirals
+                const spiralCount = Math.ceil(5 * phiResonance);
+                
+                for (let i = 0; i < spiralCount; i++) {
+                    const hue = (i * 40 + time * 10) % 360;
+                    const startAngle = i * (Math.PI * 2 / spiralCount);
+                    
+                    ctx.strokeStyle = `hsla(${hue}, 80%, 60%, ${0.3 + 0.2 * coherence})`;
+                    ctx.lineWidth = 1 + 2 * phiResonance;
+                    ctx.beginPath();
+                    
+                    let r = 5;
+                    let theta = startAngle;
+                    const maxR = Math.sqrt(width * width + height * height) / 2;
+                    const growth = PHI * phiResonance;
+                    
+                    while (r < maxR) {
+                        theta += 0.1;
+                        r = 5 * Math.pow(PHI, theta / (Math.PI * 2));
+                        
+                        const x = centerX + r * Math.cos(theta);
+                        const y = centerY + r * Math.sin(theta);
+                        
+                        if (x >= 0 && x <= width && y >= 0 && y <= height) {
+                            ctx.lineTo(x, y);
+                        }
+                    }
+                    
+                    ctx.stroke();
+                }
+                
+                // Draw phi circles
+                const circleCount = Math.ceil(7 * phiResonance);
+                
+                for (let i = 1; i <= circleCount; i++) {
+                    const radius = (Math.min(width, height) / 3) * (i / circleCount) * PHI / 2;
+                    const hue = ((i * 60) + time * 20) % 360;
+                    
+                    ctx.strokeStyle = `hsla(${hue}, 70%, 50%, ${0.1 + 0.1 * coherence})`;
+                    ctx.lineWidth = 1 + coherence;
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+                
+                ctx.restore();
+            }
+            
+            // Draw dimension layers
+            function drawDimensionLayers(width, height, time) {
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const dimensionFocus = fieldState.dimensionalFocus;
+                const coherence = fieldState.coherence;
+                
+                // Draw dimension nodes
+                for (let i = 0; i < 9; i++) {
+                    // Skip dimensions that aren't in focus if a specific dimension is selected
+                    if (dimensionFocus !== -1 && dimensionFocus !== i) {
+                        continue;
+                    }
+                    
+                    // Calculate node position in a circular arrangement
+                    const angle = (i / 9) * Math.PI * 2;
+                    const radius = Math.min(width, height) * 0.35;
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    
+                    // Calculate node activity based on time
+                    const activity = 0.5 + 0.5 * Math.sin(time * 0.5 + i * PHI);
+                    
+                    // Draw node
+                    const nodeSize = 10 + 15 * activity * coherence;
+                    const hue = (i * 40 + time * 10) % 360;
+                    
+                    ctx.fillStyle = `hsla(${hue}, 80%, 60%, ${0.3 + 0.3 * activity})`;
+                    ctx.beginPath();
+                    ctx.arc(x, y, nodeSize, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Draw node label
+                    const dimensionNames = [
+                        'Quantum', 'Micro', 'Material', 'Heart', 
+                        'Mental', 'Soul', 'Vision', 'Cosmic', 'Source'
+                    ];
+                    
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.font = '12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(dimensionNames[i], x, y + nodeSize + 15);
+                }
+                
+                // Draw connections between nodes if all dimensions are in focus
+                if (dimensionFocus === -1) {
+                    for (let i = 0; i < 9; i++) {
+                        for (let j = i + 1; j < 9; j++) {
+                            // Calculate phi-based connection strength
+                            const phiDistance = Math.abs(i - j) * LAMBDA;
+                            const connectionStrength = Math.exp(-phiDistance) * coherence;
+                            
+                            // Skip weak connections
+                            if (connectionStrength < 0.3) {
+                                continue;
+                            }
+                            
+                            // Calculate node positions
+                            const angle1 = (i / 9) * Math.PI * 2;
+                            const angle2 = (j / 9) * Math.PI * 2;
+                            const radius = Math.min(width, height) * 0.35;
+                            
+                            const x1 = centerX + radius * Math.cos(angle1);
+                            const y1 = centerY + radius * Math.sin(angle1);
+                            
+                            const x2 = centerX + radius * Math.cos(angle2);
+                            const y2 = centerY + radius * Math.sin(angle2);
+                            
+                            // Draw connection
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${connectionStrength * 0.3})`;
+                            ctx.lineWidth = 1 + 3 * connectionStrength;
+                            ctx.beginPath();
+                            ctx.moveTo(x1, y1);
+                            ctx.lineTo(x2, y2);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            // Draw intention field
+            function drawIntentionField(width, height, time) {
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const intention = fieldState.intention;
+                const intentionStrength = fieldState.intentionStrength;
+                
+                if (!intention) return;
+                
+                // Calculate intention field parameters
+                const intentionSeed = hashString(intention) / 1000000;
+                const fieldRadius = Math.min(width, height) * 0.4 * intentionStrength;
+                
+                ctx.save();
+                ctx.globalAlpha = 0.7 * intentionStrength;
+                
+                // Draw intention field
+                const gradient = ctx.createRadialGradient(
+                    centerX, centerY, 0,
+                    centerX, centerY, fieldRadius
+                );
+                
+                // Use intention to create a unique color
+                const hue = (intentionSeed * 360) % 360;
+                gradient.addColorStop(0, `hsla(${hue}, 90%, 70%, 0.2)`);
+                gradient.addColorStop(0.7, `hsla(${hue}, 90%, 50%, 0.1)`);
+                gradient.addColorStop(1, `hsla(${hue}, 90%, 30%, 0)`);
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, fieldRadius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw intention text
+                ctx.fillStyle = `hsla(${hue}, 90%, 70%, ${0.5 + 0.5 * intentionStrength})`;
+                ctx.font = `${16 + 8 * intentionStrength}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText(intention, centerX, centerY);
+                
+                // Draw intention symbols
+                const symbolCount = Math.ceil(7 * intentionStrength);
+                
+                for (let i = 0; i < symbolCount; i++) {
+                    const angle = ((i / symbolCount) * Math.PI * 2) + (time * 0.2);
+                    const distance = fieldRadius * 0.6 * (0.5 + 0.5 * Math.sin(i * PHI));
+                    
+                    const x = centerX + distance * Math.cos(angle);
+                    const y = centerY + distance * Math.sin(angle);
+                    
+                    const symbolSize = 5 + 10 * intentionStrength * Math.sin(time + i);
+                    
+                    ctx.fillStyle = `hsla(${(hue + i * 20) % 360}, 90%, 70%, ${0.3 + 0.3 * intentionStrength})`;
+                    ctx.beginPath();
+                    
+                    // Draw various symbols
+                    const symbolType = i % 4;
+                    
+                    if (symbolType === 0) {
+                        // Circle
+                        ctx.arc(x, y, symbolSize, 0, Math.PI * 2);
+                    } else if (symbolType === 1) {
+                        // Triangle
+                        ctx.moveTo(x, y - symbolSize);
+                        ctx.lineTo(x + symbolSize, y + symbolSize);
+                        ctx.lineTo(x - symbolSize, y + symbolSize);
+                    } else if (symbolType === 2) {
+                        // Square
+                        ctx.rect(x - symbolSize / 2, y - symbolSize / 2, symbolSize, symbolSize);
+                    } else {
+                        // Star
+                        const outerRadius = symbolSize;
+                        const innerRadius = symbolSize / 2;
+                        
+                        for (let j = 0; j < 5; j++) {
+                            const outerAngle = (j * 2 * Math.PI / 5) - Math.PI / 2;
+                            const innerAngle = ((j + 0.5) * 2 * Math.PI / 5) - Math.PI / 2;
+                            
+                            if (j === 0) {
+                                ctx.moveTo(x + outerRadius * Math.cos(outerAngle), y + outerRadius * Math.sin(outerAngle));
+                            } else {
+                                ctx.lineTo(x + outerRadius * Math.cos(outerAngle), y + outerRadius * Math.sin(outerAngle));
+                            }
+                            
+                            ctx.lineTo(x + innerRadius * Math.cos(innerAngle), y + innerRadius * Math.sin(innerAngle));
+                        }
+                        
+                        ctx.closePath();
+                    }
+                    
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+            
+            // Draw sound waves
+            function drawSoundWaves(width, height, time) {
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const soundLevel = fieldState.soundLevel;
+                
+                ctx.save();
+                ctx.globalAlpha = 0.6 * soundLevel;
+                
+                // Draw sound waves
+                const waveCount = Math.ceil(5 * soundLevel);
+                
+                for (let i = 1; i <= waveCount; i++) {
+                    const radius = (i / waveCount) * Math.min(width, height) * 0.45;
+                    const waveAmplitude = 5 + 10 * soundLevel;
+                    const waveFrequency = 20 + 30 * soundLevel;
+                    
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.3 * soundLevel})`;
+                    ctx.lineWidth = 2 * soundLevel;
+                    ctx.beginPath();
+                    
+                    for (let angle = 0; angle < Math.PI * 2; angle += 0.01) {
+                        const waveOffset = waveAmplitude * Math.sin(angle * waveFrequency + time * 2);
+                        const waveRadius = radius + waveOffset;
+                        
+                        const x = centerX + waveRadius * Math.cos(angle);
+                        const y = centerY + waveRadius * Math.sin(angle);
+                        
+                        if (angle === 0) {
+                            ctx.moveTo(x, y);
+                        } else {
+                            ctx.lineTo(x, y);
+                        }
+                    }
+                    
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                
+                // Draw frequency indicators
+                const freqCount = Math.ceil(3 * soundLevel);
+                
+                for (let i = 0; i < freqCount; i++) {
+                    const freq = Object.values(QUANTUM_HARMONICS)[i % Object.values(QUANTUM_HARMONICS).length];
+                    const angle = ((i / freqCount) * Math.PI * 2) + (time * 0.1);
+                    const radius = Math.min(width, height) * 0.25;
+                    
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    
+                    ctx.fillStyle = `rgba(255, 215, 0, ${0.5 * soundLevel})`;
+                    ctx.font = `${10 + 4 * soundLevel}px Arial`;
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`${freq} Hz`, x, y);
+                }
+                
+                ctx.restore();
+            }
+            
+            // Draw reality connections
+            function drawRealityConnections(width, height, time) {
+                const realityLevel = fieldState.realityLevel;
+                
+                ctx.save();
+                ctx.globalAlpha = 0.7 * realityLevel;
+                
+                // Draw connection points around the canvas
+                const pointCount = Math.ceil(8 * realityLevel);
+                
+                for (let i = 0; i < pointCount; i++) {
+                    // Calculate point position along the canvas edge
+                    let x, y;
+                    const side = i % 4;
+                    
+                    if (side === 0) { // Top
+                        x = width * (0.2 + 0.6 * (i / pointCount));
+                        y = 20;
+                    } else if (side === 1) { // Right
+                        x = width - 20;
+                        y = height * (0.2 + 0.6 * ((i - pointCount/4) / pointCount));
+                    } else if (side === 2) { // Bottom
+                        x = width * (0.8 - 0.6 * ((i - pointCount/2) / pointCount));
+                        y = height - 20;
+                    } else { // Left
+                        x = 20;
+                        y = height * (0.8 - 0.6 * ((i - 3*pointCount/4) / pointCount));
+                    }
+                    
+                    // Calculate connection activity
+                    const activity = 0.5 + 0.5 * Math.sin(time + i * PHI);
+                    
+                    // Draw connection point
+                    const pointSize = 5 + 8 * activity * realityLevel;
+                    
+                    ctx.fillStyle = `rgba(255, 255, 255, ${0.5 * activity * realityLevel})`;
+                    ctx.beginPath();
+                    ctx.arc(x, y, pointSize, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Draw connection line to center
+                    const centerX = width / 2;
+                    const centerY = height / 2;
+                    
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * activity * realityLevel})`;
+                    ctx.lineWidth = 1 + 2 * activity * realityLevel;
+                    ctx.setLineDash([5, 8]);
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(centerX, centerY);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+                
+                ctx.restore();
+            }
+            
+            // Draw coherence indicator
+            function drawCoherenceIndicator(width, height) {
+                const coherence = fieldState.coherence;
+                
+                // Draw coherence ring in top-right corner
+                const ringX = width - 50;
+                const ringY = 50;
+                const ringRadius = 30;
+                
+                // Draw background ring
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.arc(ringX, ringY, ringRadius, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Draw coherence level
+                ctx.strokeStyle = `rgba(213, 0, 249, 0.8)`;
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.arc(ringX, ringY, ringRadius, -Math.PI / 2, -Math.PI / 2 + (coherence * Math.PI * 2));
+                ctx.stroke();
+                
+                // Draw coherence percentage
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(`${Math.round(coherence * 100)}%`, ringX, ringY + 5);
+            }
+            
+            // Draw recording indicator
+            function drawRecordingIndicator(width, height, time) {
+                // Draw recording indicator in top-left corner
+                const x = 50;
+                const y = 50;
+                
+                // Draw pulsing circle
+                const pulsingSize = 10 + 5 * Math.sin(time * 4);
+                
+                ctx.fillStyle = `rgba(255, 23, 68, ${0.7 + 0.3 * Math.sin(time * 4)})`;
+                ctx.beginPath();
+                ctx.arc(x, y, pulsingSize, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw text
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText('RECORDING', x + 20, y + 5);
+            }
+            
+            // Log to output panel
+            function logToOutput(message, type = 'info') {
+                const outputPanel = document.querySelector('.output-panel');
+                const p = document.createElement('p');
+                p.textContent = message;
+                p.className = type;
+                
+                outputPanel.appendChild(p);
+                outputPanel.scrollTop = outputPanel.scrollHeight;
+                
+                // Limit output panel size
+                while (outputPanel.childElementCount > 15) {
+                    outputPanel.removeChild(outputPanel.firstChild);
+                }
+            }
+            
+            // Simple string hash function
+            function hashString(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32bit integer
+                }
+                return Math.abs(hash);
+            }
+            
+            // Initialize
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            drawPlaceholder();
+        });
+    </script>
+</body>
+</html>

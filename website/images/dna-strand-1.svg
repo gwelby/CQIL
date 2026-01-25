@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .strand {
+      stroke: url(#gradientStrand1);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .node {
+      fill: url(#gradientNode1);
+    }
+  </style>
+  
+  <defs>
+    <linearGradient id="gradientStrand1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#E91E63" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="gradientNode1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" />
+      <stop offset="100%" stop-color="#E91E63" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Single DNA strand - Ground State (432 Hz) -->
+  <g transform="translate(150, 150)">
+    <!-- Helix backbone -->
+    <path class="strand" d="M 0,-100 C 30,-80 -30,-60 0,-40 C 30,-20 -30,0 0,20 C 30,40 -30,60 0,80 C 30,100 -30,120 0,100" />
+    
+    <!-- DNA base pairs -->
+    <circle class="node" cx="0" cy="-100" r="5" />
+    <circle class="node" cx="0" cy="-40" r="5" />
+    <circle class="node" cx="0" cy="20" r="5" />
+    <circle class="node" cx="0" cy="80" r="5" />
+  </g>
+</svg>

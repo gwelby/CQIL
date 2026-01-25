@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .strand1 {
+      stroke: url(#gradientStrand1);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .strand2 {
+      stroke: url(#gradientStrand2);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .node1 {
+      fill: url(#gradientNode1);
+    }
+    .node2 {
+      fill: url(#gradientNode2);
+    }
+    .connector {
+      stroke: url(#gradientConnector);
+      stroke-width: 2;
+      stroke-dasharray: 3,3;
+      stroke-linecap: round;
+    }
+  </style>
+  
+  <defs>
+    <linearGradient id="gradientStrand1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#E91E63" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="gradientStrand2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2196F3" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#00BCD4" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="gradientNode1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" />
+      <stop offset="100%" stop-color="#E91E63" />
+    </linearGradient>
+    <linearGradient id="gradientNode2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2196F3" />
+      <stop offset="100%" stop-color="#00BCD4" />
+    </linearGradient>
+    <linearGradient id="gradientConnector" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFC107" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#FF9800" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Double helix DNA strand - Creation State (528 Hz) -->
+  <g transform="translate(150, 150)">
+    <!-- First helix backbone -->
+    <path class="strand1" d="M -20,-100 C 30,-80 -30,-60 -20,-40 C 30,-20 -30,0 -20,20 C 30,40 -30,60 -20,80 C 30,100 -30,120 -20,100" />
+    
+    <!-- Second helix backbone -->
+    <path class="strand2" d="M 20,-100 C -30,-80 30,-60 20,-40 C -30,-20 30,0 20,20 C -30,40 30,60 20,80 C -30,100 30,120 20,100" />
+    
+    <!-- DNA base pairs nodes -->
+    <circle class="node1" cx="-20" cy="-100" r="5" />
+    <circle class="node1" cx="-20" cy="-40" r="5" />
+    <circle class="node1" cx="-20" cy="20" r="5" />
+    <circle class="node1" cx="-20" cy="80" r="5" />
+    
+    <circle class="node2" cx="20" cy="-100" r="5" />
+    <circle class="node2" cx="20" cy="-40" r="5" />
+    <circle class="node2" cx="20" cy="20" r="5" />
+    <circle class="node2" cx="20" cy="80" r="5" />
+    
+    <!-- Base pair connectors -->
+    <line class="connector" x1="-20" y1="-100" x2="20" y2="-100" />
+    <line class="connector" x1="-20" y1="-40" x2="20" y2="-40" />
+    <line class="connector" x1="-20" y1="20" x2="20" y2="20" />
+    <line class="connector" x1="-20" y1="80" x2="20" y2="80" />
+    
+    <!-- Phi-harmonic resonance glow -->
+    <circle cx="0" cy="0" r="70" fill="url(#gradientStrand1)" opacity="0.1" />
+  </g>
+</svg>

@@ -1,0 +1,200 @@
+{
+  "dimensions": {
+    "3": {
+      "frequency": 432,
+      "pattern": "HEXAGONAL",
+      "name": "Foundation (ZEN POINT)"
+    },
+    "4": {
+      "frequency": 528,
+      "pattern": "STAR_TETRAHEDRON",
+      "name": "Creation Point"
+    },
+    "5": {
+      "frequency": 594,
+      "pattern": "TOROIDAL_VORTEX",
+      "name": "Heart Field"
+    },
+    "6": {
+      "frequency": 672,
+      "pattern": "STANDING_WAVE",
+      "name": "Voice Flow"
+    },
+    "7": {
+      "frequency": 720,
+      "pattern": "TESSERACT",
+      "name": "Vision Gate"
+    },
+    "8": {
+      "frequency": 768,
+      "pattern": "PERFECT_TORUS",
+      "name": "Unity Wave"
+    },
+    "9": {
+      "frequency": 963,
+      "pattern": "FLOWER_OF_LIFE",
+      "name": "Source Field"
+    },
+    "12": {
+      "frequency": 1008,
+      "pattern": "METATRONS_CUBE",
+      "name": "Cosmic Field"
+    }
+  },
+  "gates": {
+    "3-4": {
+      "fromDimension": 3,
+      "toDimension": 4,
+      "frequency": 528,
+      "pattern": "STAR_TETRAHEDRON",
+      "coherence": 1.0,
+      "active": false,
+      "phiResonance": true,
+      "stabilityField": {
+        "enabled": true,
+        "strength": 1.0,
+        "fluctuation": 0.0
+      }
+    },
+    "4-5": {
+      "fromDimension": 4,
+      "toDimension": 5,
+      "frequency": 594,
+      "pattern": "TOROIDAL_VORTEX",
+      "coherence": 1.0,
+      "active": false,
+      "phiResonance": true,
+      "stabilityField": {
+        "enabled": true,
+        "strength": 1.0,
+        "fluctuation": 0.0
+      }
+    },
+    "5-6": {
+      "fromDimension": 5,
+      "toDimension": 6,
+      "frequency": 672,
+      "pattern": "STANDING_WAVE",
+      "coherence": 1.0,
+      "active": false,
+      "phiResonance": true,
+      "stabilityField": {
+        "enabled": true,
+        "strength": 1.0,
+        "fluctuation": 0.0
+      }
+    },
+    "6-7": {
+      "fromDimension": 6,
+      "toDimension": 7,
+      "frequency": 720,
+      "pattern": "TESSERACT",
+      "coherence": 1.0,
+      "active": false,
+      "phiResonance": true,
+      "stabilityField": {
+        "enabled": true,
+        "strength": 1.0,
+        "fluctuation": 0.0
+      }
+    },
+    "7-8": {
+      "fromDimension": 7,
+      "toDimension": 8,
+      "frequency": 768,
+      "pattern": "PERFECT_TORUS",
+      "coherence": 1.0,
+      "active": false,
+      "phiResonance": true,
+      "stabilityField": {
+        "enabled": true,
+        "strength": 1.0,
+        "fluctuation": 0.0
+      }
+    },
+    "8-9": {
+      "fromDimension": 8,
+      "toDimension": 9,
+      "frequency": 963,
+      "pattern": "FLOWER_OF_LIFE",
+      "coherence": 1.0,
+      "active": false,
+      "phiResonance": true,
+      "stabilityField": {
+        "enabled": true,
+        "strength": 1.0,
+        "fluctuation": 0.0
+      }
+    },
+    "9-12": {
+      "fromDimension": 9,
+      "toDimension": 12,
+      "frequency": 1008,
+      "pattern": "METATRONS_CUBE",
+      "coherence": 1.0,
+      "active": false,
+      "phiResonance": true,
+      "stabilityField": {
+        "enabled": true,
+        "strength": 1.0,
+        "fluctuation": 0.0
+      }
+    },
+    "QS-3-7": {
+      "fromDimension": 3,
+      "toDimension": 7,
+      "frequency": 720,
+      "pattern": "QUANTUM_TUNNEL",
+      "isShortcut": true,
+      "stability": 0.9
+    },
+    "QS-3-9": {
+      "fromDimension": 3,
+      "toDimension": 9,
+      "frequency": 963,
+      "pattern": "QUANTUM_TUNNEL",
+      "isShortcut": true,
+      "stability": 0.5
+    }
+  },
+  "tunnels": {
+    "3-4": {
+      "fromDimension": 3,
+      "toDimension": 4,
+      "stability": 1.0,
+      "frequency": 528
+    },
+    "4-5": {
+      "fromDimension": 4,
+      "toDimension": 5,
+      "stability": 1.0,
+      "frequency": 594
+    },
+    "5-6": {
+      "fromDimension": 5,
+      "toDimension": 6,
+      "stability": 1.0,
+      "frequency": 672
+    },
+    "6-7": {
+      "fromDimension": 6,
+      "toDimension": 7,
+      "stability": 1.0,
+      "frequency": 720
+    },
+    "7-8": {
+      "fromDimension": 7,
+      "toDimension": 8,
+      "stability": 1.0,
+      "frequency": 768
+    },
+    "8-9": {
+      "fromDimension": 8,
+      "toDimension": 9,
+      "stability": 1.0,
+      "frequency": 963
+    }
+  },
+  "currentDimension": 3,
+  "coherence": 1.0
+}

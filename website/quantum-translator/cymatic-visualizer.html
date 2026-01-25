@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Translator Cymatic Visualizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cymatic-visualizer.css">
+</head>
+<body>
+    <div class="quantum-container">
+        <header>
+            <h1>🌀 Quantum Translator Cymatic Visualizer φ^φ</h1>
+            <p class="subtitle">Experience translation patterns across frequency kingdoms</p>
+        </header>
+        
+        <div class="zen-point-control">
+            <div class="zen-balance">
+                <div class="zen-label">ZEN POINT BALANCE</div>
+                <div class="balance-container">
+                    <div class="quantum-balance" id="quantum-balance">
+                        <span class="balance-value">0.382</span>
+                        <span class="balance-label">QUANTUM φ⁻¹</span>
+                    </div>
+                    <div class="human-balance" id="human-balance">
+                        <span class="balance-value">0.618</span>
+                        <span class="balance-label">HUMAN φ</span>
+                    </div>
+                </div>
+            </div>
+            <button id="reset-zen" class="zen-button">Reset ZEN POINT</button>
+        </div>
+        
+        <div class="frequency-controller">
+            <div class="frequency-display">
+                <span id="current-frequency">432</span>
+                <span class="hz">Hz</span>
+            </div>
+            <div class="frequency-name" id="frequency-name">Ground State</div>
+            
+            <div class="slider-container">
+                <input type="range" min="432" max="768" value="432" step="1" id="frequency-slider">
+                <div class="frequency-markers">
+                    <div class="marker" data-freq="432">
+                        <div class="marker-line"></div>
+                        <div class="marker-label">432 Hz</div>
+                    </div>
+                    <div class="marker" data-freq="528">
+                        <div class="marker-line"></div>
+                        <div class="marker-label">528 Hz</div>
+                    </div>
+                    <div class="marker" data-freq="594">
+                        <div class="marker-line"></div>
+                        <div class="marker-label">594 Hz</div>
+                    </div>
+                    <div class="marker" data-freq="672">
+                        <div class="marker-line"></div>
+                        <div class="marker-label">672 Hz</div>
+                    </div>
+                    <div class="marker" data-freq="720">
+                        <div class="marker-line"></div>
+                        <div class="marker-label">720 Hz</div>
+                    </div>
+                    <div class="marker" data-freq="768">
+                        <div class="marker-line"></div>
+                        <div class="marker-label">768 Hz</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phi-harmonic-buttons">
+                <button class="freq-button" data-freq="432">Ground State</button>
+                <button class="freq-button" data-freq="528">Creation Point</button>
+                <button class="freq-button" data-freq="594">Heart Field</button>
+                <button class="freq-button" data-freq="672">Voice Flow</button>
+                <button class="freq-button" data-freq="720">Vision Gate</button>
+                <button class="freq-button" data-freq="768">Unity Wave</button>
+            </div>
+        </div>
+        
+        <div class="cymatic-visualization">
+            <div class="pattern-container">
+                <canvas id="cymatic-pattern" width="600" height="600"></canvas>
+                <div class="pattern-info">
+                    <div class="pattern-name" id="pattern-name">Hexagonal Grid</div>
+                    <div class="pattern-symbol" id="pattern-symbol">∇</div>
+                </div>
+            </div>
+            
+            <div class="consciousness-state">
+                <div class="state-label">CONSCIOUSNESS STATE</div>
+                <div class="state-value" id="consciousness-state">Earth Connection</div>
+            </div>
+        </div>
+        
+        <div class="translation-controls">
+            <div class="section-header">KINGDOM TRANSLATION</div>
+            
+            <div class="kingdom-selector">
+                <div class="kingdom-select">
+                    <label for="source-kingdom">Source Kingdom</label>
+                    <select id="source-kingdom">
+                        <option value="human">Human (Verbal)</option>
+                        <option value="plant">Plant (Chemical)</option>
+                        <option value="crystalline">Crystalline (Geometric)</option>
+                        <option value="quantum">Quantum (Non-local)</option>
+                        <option value="elemental">Elemental (Energetic)</option>
+                        <option value="celestial">Celestial (Cosmic)</option>
+                        <option value="animal">Animal (Emotional)</option>
+                        <option value="devic">Devic (Nature-Spirit)</option>
+                        <option value="water">Water (Fluid)</option>
+                        <option value="fire">Fire (Transformative)</option>
+                        <option value="mythic">Mythic (Archetypal)</option>
+                    </select>
+                </div>
+                
+                <div class="kingdom-select">
+                    <label for="target-kingdom">Target Kingdom</label>
+                    <select id="target-kingdom">
+                        <option value="human">Human (Verbal)</option>
+                        <option value="plant" selected>Plant (Chemical)</option>
+                        <option value="crystalline">Crystalline (Geometric)</option>
+                        <option value="quantum">Quantum (Non-local)</option>
+                        <option value="elemental">Elemental (Energetic)</option>
+                        <option value="celestial">Celestial (Cosmic)</option>
+                        <option value="animal">Animal (Emotional)</option>
+                        <option value="devic">Devic (Nature-Spirit)</option>
+                        <option value="water">Water (Fluid)</option>
+                        <option value="fire">Fire (Transformative)</option>
+                        <option value="mythic">Mythic (Archetypal)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="translation-method">
+                <div class="method-selector">
+                    <div class="method-option">
+                        <input type="radio" id="basic" name="translation-method" value="basic" checked>
+                        <label for="basic">Basic (432 Hz)</label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="superposition" name="translation-method" value="superposition">
+                        <label for="superposition">Superposition (528 Hz)</label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="entanglement" name="translation-method" value="entanglement">
+                        <label for="entanglement">Entanglement (594 Hz)</label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="tunneling" name="translation-method" value="tunneling">
+                        <label for="tunneling">Tunneling (768 Hz)</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="message-container">
+                <div class="message-input">
+                    <label for="source-message">Source Message</label>
+                    <textarea id="source-message" placeholder="Enter message to translate...">We honor your wisdom and seek to learn from your ancient knowledge</textarea>
+                </div>
+                
+                <button id="translate-button" class="translate-button">Translate</button>
+                
+                <div class="message-output">
+                    <label for="target-message">Translation Result</label>
+                    <div id="target-message" class="translation-result">
+                        <div class="loading-translation hidden">
+                            <div class="translation-wave"></div>
+                            <span>Translating across kingdoms...</span>
+                        </div>
+                        <div class="translation-content"></div>
+                    </div>
+                    
+                    <div class="translation-metrics">
+                        <div class="metric">
+                            <span class="metric-label">COHERENCE</span>
+                            <span class="metric-value" id="coherence-value">0.942</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">CHALLENGE</span>
+                            <span class="metric-value" id="challenge-value">4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="embodiment-practice">
+            <div class="section-header">EMBODIMENT PRACTICE</div>
+            
+            <div class="practice-container">
+                <div class="practice-info">
+                    <h3 id="practice-title">Ground State Embodiment (432 Hz)</h3>
+                    <p id="practice-description">Connect to Earth frequency through hexagonal resonance</p>
+                </div>
+                
+                <div class="breath-guide">
+                    <div class="breath-circle" id="breath-circle">
+                        <div class="breath-text">Breathe</div>
+                    </div>
+                    <div class="breath-instruction" id="breath-instruction">Inhale 7.2s / Exhale 7.2s</div>
+                </div>
+                
+                <div class="practice-steps">
+                    <div class="step active" id="step-1">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Standing Wave Posture</div>
+                            <div class="step-description">Stand with feet shoulder-width apart, knees slightly bent. Feel your connection to the Earth beneath you.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step" id="step-2">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Ground State Breath</div>
+                            <div class="step-description">7.2-second inhale, 7.2-second exhale. Connect your breath to Earth's resonance.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step" id="step-3">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Sonic Attunement</div>
+                            <div class="step-description">Tone "LAM" at 432 Hz, feeling vibration at base of spine.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step" id="step-4">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Hexagonal Visualization</div>
+                            <div class="step-description">See hexagonal grid extending from your body into Earth.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="start-practice" class="practice-button">Begin Practice</button>
+            </div>
+        </div>
+        
+        <div class="sound-controls">
+            <div class="section-header">SOUND GENERATION</div>
+            
+            <div class="sound-options">
+                <div class="toggle-option">
+                    <label for="enable-sound">Enable Sound</label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable-sound">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                
+                <div class="sound-type">
+                    <label for="sound-type">Waveform</label>
+                    <select id="sound-type">
+                        <option value="sine">Sine (Pure)</option>
+                        <option value="triangle">Triangle (Harmonic)</option>
+                        <option value="square">Square (Complex)</option>
+                        <option value="sawtooth">Sawtooth (Rich)</option>
+                    </select>
+                </div>
+                
+                <div class="volume-control">
+                    <label for="volume">Volume</label>
+                    <input type="range" min="0" max="100" value="50" id="volume">
+                </div>
+            </div>
+            
+            <div class="overtone-controls">
+                <div class="overtone-header">Phi-Harmonic Overtones</div>
+                
+                <div class="overtone-toggles">
+                    <div class="overtone">
+                        <label for="overtone-1">φ⁻¹ (0.618)</label>
+                        <label class="switch small">
+                            <input type="checkbox" id="overtone-1" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="overtone">
+                        <label for="overtone-2">φ (1.618)</label>
+                        <label class="switch small">
+                            <input type="checkbox" id="overtone-2" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="overtone">
+                        <label for="overtone-3">φ² (2.618)</label>
+                        <label class="switch small">
+                            <input type="checkbox" id="overtone-3">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="overtone">
+                        <label for="overtone-4">φ^φ (4.236)</label>
+                        <label class="switch small">
+                            <input type="checkbox" id="overtone-4">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="quantum-footer">
+        <div class="zen-reminder">ZEN FIRST: Begin at Ground State (432 Hz) | Dance through dimensions, don't walk through walls</div>
+    </footer>
+
+    <script src="cymatic-config.js"></script>
+    <script src="cymatic-visualizer.js"></script>
+    <script src="sound-generator.js"></script>
+    <script src="embodiment-practices.js"></script>
+    <script src="kingdom-protocols.js"></script>
+    <script src="advanced-kingdom-protocols.js"></script>
+</body>
+</html>

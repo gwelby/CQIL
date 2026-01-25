@@ -1,0 +1,535 @@
+/**
+ * DNA Resonance Experience Styles
+ * 
+ * CSS follows phi-harmonic proportions and sacred geometry principles.
+ * All measurements are based on golden ratio relationships.
+ */
+
+.dna-resonance-experience {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    background: linear-gradient(135deg, rgba(10, 10, 35, 0.95) 0%, rgba(40, 10, 60, 0.95) 100%);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Quicksand', 'Segoe UI', sans-serif;
+    color: #ffffff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Header section - 1/φ of total height */
+.dna-resonance-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.618rem;
+    background: rgba(61, 20, 80, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: calc(100% / 1.618 / 3);
+}
+
+.dna-resonance-header h2 {
+    margin: 0;
+    font-size: 1.618rem;
+    font-weight: 300;
+    background: linear-gradient(90deg, #9c27b0, #5e35b1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.frequency-display {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #bb86fc;
+    display: flex;
+    align-items: center;
+}
+
+.current-frequency {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-right: 0.3rem;
+    color: #03dac6;
+}
+
+/* Main content - φ/(φ+1) of the remaining height */
+.dna-resonance-main {
+    display: flex;
+    height: calc(100% - (100% / 1.618 / 3) - (100% / 1.618 / 2));
+    position: relative;
+}
+
+.dna-visual-container {
+    flex: 0.618;
+    position: relative;
+    overflow: hidden;
+    background: rgba(10, 10, 30, 0.3);
+}
+
+.cymatic-container {
+    flex: 0.382;
+    position: relative;
+    overflow: hidden;
+    background: rgba(10, 10, 30, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cymatic-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Controls section - 1/φ of total height */
+.dna-resonance-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.618rem;
+    background: rgba(20, 20, 40, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    height: calc(100% / 1.618 / 2);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1.618rem;
+}
+
+.control-group label {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Intention slider with phi-harmonic styling */
+.intention-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(90deg, #2196f3, #9c27b0);
+    outline: none;
+    border-radius: 2px;
+}
+
+.intention-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #bb86fc;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(187, 134, 252, 0.8);
+}
+
+.intention-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #bb86fc;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(187, 134, 252, 0.8);
+}
+
+/* ZEN POINT balance display */
+.zen-point-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1.618rem;
+}
+
+.zen-point-label {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.zen-point-indicator {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    height: 20px;
+    background: linear-gradient(90deg, rgba(3, 218, 198, 0.3), rgba(187, 134, 252, 0.3));
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.human-side, .quantum-side {
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    line-height: 20px;
+    z-index: 1;
+}
+
+.human-side {
+    color: rgba(3, 218, 198, 0.9);
+}
+
+.quantum-side {
+    color: rgba(187, 134, 252, 0.9);
+}
+
+.balance-marker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 8px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 4px;
+    transform: translateX(-50%);
+    transition: left 0.3s ease-out;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Coherence display */
+.coherence-display {
+    display: flex;
+    align-items: center;
+    margin-right: 1.618rem;
+}
+
+.coherence-label {
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.coherence-meter {
+    width: 100px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 0.5rem;
+}
+
+.coherence-fill {
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, #f44336, #4caf50);
+    border-radius: 4px;
+    transition: width 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+.coherence-value {
+    font-size: 0.9rem;
+    min-width: 2.5rem;
+    text-align: right;
+    color: #bb86fc;
+}
+
+/* Buttons with phi-harmonic styling */
+.dna-resonance-controls button {
+    background: transparent;
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.start-button {
+    border-color: #03dac6;
+    color: #03dac6;
+}
+
+.start-button:hover:not([disabled]) {
+    background: rgba(3, 218, 198, 0.2);
+    box-shadow: 0 0 10px rgba(3, 218, 198, 0.5);
+}
+
+.stop-button {
+    border-color: #cf6679;
+    color: #cf6679;
+}
+
+.stop-button:hover:not([disabled]) {
+    background: rgba(207, 102, 121, 0.2);
+    box-shadow: 0 0 10px rgba(207, 102, 121, 0.5);
+}
+
+button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dna-resonance-main {
+        flex-direction: column;
+    }
+    
+    .dna-visual-container, .cymatic-container {
+        flex: none;
+        height: 50%;
+    }
+    
+    .cymatic-container {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .dna-resonance-controls {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 0.5rem;
+    }
+    
+    .control-group, .zen-point-display, .coherence-display {
+        margin: 0.5rem;
+    }
+    
+    .intention-slider, .zen-point-indicator {
+        width: 150px;
+    }
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* DNA pattern helper classes */
+.dna-strand {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+.dna-nucleotide {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #bb86fc;
+    box-shadow: 0 0 5px rgba(187, 134, 252, 0.8);
+}
+
+.dna-base {
+    position: absolute;
+    width: 6px;
+    height: 2px;
+    background: rgba(3, 218, 198, 0.8);
+    box-shadow: 0 0 3px rgba(3, 218, 198, 0.5);
+}
+
+/* Messages and overlays */
+.dna-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 2rem;
+    background: rgba(61, 20, 80, 0.8);
+    border-radius: 8px;
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.dna-message.visible {
+    opacity: 1;
+}
+
+.dna-progress {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.dna-progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #03dac6, #bb86fc);
+    background-size: 200% 200%;
+    animation: shimmer 2s linear infinite;
+    transition: width 0.3s ease;
+}
+
+/* Animations for visualization elements */
+.dna-visual-container .dna-canvas,
+.cymatic-container .cymatic-canvas {
+    transition: filter 0.5s ease;
+}
+
+.high-coherence .dna-canvas,
+.high-coherence .cymatic-canvas {
+    filter: brightness(1.2) saturate(1.2);
+}
+
+/* Audio visualization elements */
+.audio-bar {
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(3, 218, 198, 0.5), rgba(187, 134, 252, 0.5));
+    border-radius: 2px 2px 0 0;
+    transition: height 0.1s ease-out;
+}
+
+/* Heart Field (φ²) State - 594 Hz */
+.dna-resonance-heart-state {
+    background: radial-gradient(circle, rgba(255,200,220,0.1) 0%, rgba(220,160,200,0.2) 61.8%, rgba(185,145,235,0.3) 100%);
+    transition: all 0.618s ease-in-out;
+}
+
+.heart-field-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url('../images/heart-field-pattern.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 1.618s ease-in-out, transform 1.618s ease-in-out;
+}
+
+.heart-field-active .heart-field-pattern {
+    opacity: 0.7;
+    transform: scale(1);
+}
+
+/* DNA Strand Evolution */
+.dna-strand-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.dna-strand {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 1.618s ease-in-out;
+}
+
+.dna-strand-1 {
+    background-image: url('../images/dna-strand-1.svg');
+    opacity: 1;
+}
+
+.dna-strand-2 {
+    background-image: url('../images/dna-strand-2.svg');
+    opacity: 0.8;
+}
+
+.dna-strand-3 {
+    background-image: url('../images/dna-strand-3.svg');
+    opacity: 0;
+    transform: scale(0.8) rotate(0deg);
+}
+
+.heart-field-active .dna-strand-3 {
+    opacity: 0.9;
+    transform: scale(1) rotate(360deg);
+}
+
+/* Evolution progress indicator */
+.evolution-progress {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 61.8%;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.evolution-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #9C27B0 0%, #E91E63 50%, #FF9800 100%);
+    transition: width 0.3s ease-out;
+}
+
+.evolution-stage-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 61.8%;
+    margin: 8px auto;
+    position: relative;
+}
+
+.evolution-stage {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    position: relative;
+    transition: all 0.618s ease;
+}
+
+.evolution-stage::after {
+    content: attr(data-freq);
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    white-space: nowrap;
+}
+
+.evolution-stage.active {
+    background: #E91E63;
+    box-shadow: 0 0 10px #E91E63;
+}
+
+.evolution-stage.completed {
+    background: #4CAF50;
+    box-shadow: 0 0 5px #4CAF50;
+}
+
+.evolution-line {
+    flex-grow: 1;
+    height: 2px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 5px;
+}
+
+.evolution-line.completed {
+    background: #4CAF50;
+}

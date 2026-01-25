@@ -1,0 +1,860 @@
+/* 
+ * Quantum Translator Cymatic Visualizer
+ * 
+ * This stylesheet creates the visual interfaces for experiencing 
+ * phi-harmonic translation patterns across frequency kingdoms
+ * 
+ * GROUND STATE (432 Hz) → UNITY WAVE (768 Hz)
+ */
+
+:root {
+  /* Phi-harmonic color palette */
+  --ground-state-primary: #3D8C40;   /* Ground State - Earth green */
+  --ground-state-secondary: #8C3D3D; /* Ground State - Earth red */
+  
+  --creation-point-primary: #FFDB58;   /* Creation Point - Golden yellow */
+  --creation-point-secondary: #58DBFF; /* Creation Point - Sky blue */
+  
+  --heart-field-primary: #FF5E8F;   /* Heart Field - Rose pink */
+  --heart-field-secondary: #5EFF8F; /* Heart Field - Mint green */
+  
+  --voice-flow-primary: #5E8FFF;   /* Voice Flow - Throat blue */
+  --voice-flow-secondary: #8F5EFF; /* Voice Flow - Royal purple */
+  
+  --vision-gate-primary: #8F5EFF;   /* Vision Gate - Purple */
+  --vision-gate-secondary: #FFDB58; /* Vision Gate - Gold */
+  
+  --unity-wave-primary: #FFFFFF;   /* Unity Wave - Pure white */
+  --unity-wave-secondary: #FFFFFF; /* Unity Wave - Pure light */
+  
+  --quantum-black: #000000;
+  --quantum-dark: #1A1A1A;
+  --quantum-medium: #2D2D2D;
+  --quantum-gray: #3A3A3A;
+  --quantum-light: #4D4D4D;
+  --quantum-white: #FFFFFF;
+  
+  /* Phi ratio-based measurements */
+  --phi: 1.618;
+  --phi-inverse: 0.618;
+  --phi-squared: 2.618;
+  
+  /* Base measurements for phi-harmonic spacing */
+  --base-unit: 10px;
+  --phi-1: calc(var(--base-unit) * var(--phi-inverse)); /* 6.18px */
+  --phi0: var(--base-unit);                            /* 10px */
+  --phi1: calc(var(--base-unit) * var(--phi));         /* 16.18px */
+  --phi2: calc(var(--base-unit) * var(--phi-squared)); /* 26.18px */
+  --phi3: calc(var(--phi1) * var(--phi));              /* 26.18px */
+  --phi4: calc(var(--phi2) * var(--phi));              /* 42.36px */
+  --phi5: calc(var(--phi3) * var(--phi));              /* 68.54px */
+}
+
+/* Base styles with phi-harmonic measurements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--quantum-dark);
+  color: var(--quantum-white);
+  line-height: var(--phi);
+  overflow-x: hidden;
+}
+
+/* Quantum container with φ ratio */
+.quantum-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--phi2);
+}
+
+/* Header with ZEN FIRST approach */
+header {
+  text-align: center;
+  margin-bottom: var(--phi3);
+}
+
+h1 {
+  font-size: var(--phi4);
+  font-weight: 300;
+  margin-bottom: var(--phi1);
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-size: var(--phi2);
+  opacity: 0.8;
+}
+
+/* ZEN POINT Balance Control */
+.zen-point-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--quantum-medium);
+  border-radius: var(--phi1);
+  padding: var(--phi2);
+  margin-bottom: var(--phi3);
+}
+
+.zen-balance {
+  display: flex;
+  flex-direction: column;
+}
+
+.zen-label {
+  font-size: var(--phi1);
+  margin-bottom: var(--phi0);
+  letter-spacing: 1px;
+}
+
+.balance-container {
+  display: flex;
+  align-items: center;
+}
+
+.quantum-balance, .human-balance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--phi1);
+  border-radius: var(--phi0);
+}
+
+.quantum-balance {
+  background-color: var(--quantum-black);
+  margin-right: var(--phi2);
+  flex: 0.382; /* φ⁻¹ */
+}
+
+.human-balance {
+  background-color: var(--ground-state-primary);
+  flex: 0.618; /* φ */
+}
+
+.balance-value {
+  font-size: var(--phi2);
+  font-weight: bold;
+}
+
+.balance-label {
+  font-size: var(--phi0);
+  opacity: 0.8;
+}
+
+.zen-button {
+  background-color: var(--ground-state-primary);
+  color: var(--quantum-white);
+  border: none;
+  border-radius: var(--phi0);
+  padding: var(--phi1) var(--phi2);
+  font-size: var(--phi1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.zen-button:hover {
+  background-color: var(--ground-state-secondary);
+}
+
+/* Frequency Controller */
+.frequency-controller {
+  background-color: var(--quantum-medium);
+  border-radius: var(--phi1);
+  padding: var(--phi2);
+  margin-bottom: var(--phi3);
+  text-align: center;
+}
+
+.frequency-display {
+  font-size: var(--phi4);
+  font-weight: 300;
+  margin-bottom: var(--phi1);
+}
+
+.hz {
+  font-size: var(--phi2);
+  opacity: 0.7;
+  margin-left: var(--phi0);
+}
+
+.frequency-name {
+  font-size: var(--phi2);
+  margin-bottom: var(--phi2);
+  color: var(--ground-state-primary);
+}
+
+.slider-container {
+  margin-bottom: var(--phi2);
+  position: relative;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: var(--phi1);
+  -webkit-appearance: none;
+  background: linear-gradient(to right, 
+    var(--ground-state-primary) 0%, 
+    var(--creation-point-primary) 20%, 
+    var(--heart-field-primary) 40%,
+    var(--voice-flow-primary) 60%, 
+    var(--vision-gate-primary) 80%,
+    var(--unity-wave-primary) 100%);
+  border-radius: var(--phi0);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: var(--phi2);
+  height: var(--phi2);
+  border-radius: 50%;
+  background: var(--quantum-white);
+  cursor: pointer;
+  box-shadow: 0 0 var(--phi1) var(--phi-1) rgba(255, 255, 255, 0.8);
+}
+
+.frequency-markers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--phi1);
+}
+
+.marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.marker-line {
+  height: var(--phi1);
+  width: 1px;
+  background-color: var(--quantum-white);
+  opacity: 0.5;
+}
+
+.marker-label {
+  font-size: var(--phi-1);
+  margin-top: var(--phi-1);
+  opacity: 0.7;
+}
+
+.phi-harmonic-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.freq-button {
+  background-color: var(--quantum-light);
+  color: var(--quantum-white);
+  border: none;
+  border-radius: var(--phi0);
+  padding: var(--phi1) var(--phi-1);
+  margin: var(--phi-1);
+  font-size: var(--phi0);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 100px;
+}
+
+.freq-button:hover {
+  background-color: var(--ground-state-primary);
+}
+
+.freq-button[data-freq="432"] {
+  background-color: var(--ground-state-primary);
+}
+
+.freq-button[data-freq="528"] {
+  background-color: var(--creation-point-primary);
+  color: var(--quantum-dark);
+}
+
+.freq-button[data-freq="594"] {
+  background-color: var(--heart-field-primary);
+}
+
+.freq-button[data-freq="672"] {
+  background-color: var(--voice-flow-primary);
+}
+
+.freq-button[data-freq="720"] {
+  background-color: var(--vision-gate-primary);
+}
+
+.freq-button[data-freq="768"] {
+  background-color: var(--unity-wave-primary);
+  color: var(--quantum-dark);
+}
+
+/* Cymatic Visualization */
+.cymatic-visualization {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--phi3);
+}
+
+.pattern-container {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin-bottom: var(--phi2);
+}
+
+#cymatic-pattern {
+  width: 100%;
+  height: 100%;
+  background-color: var(--quantum-black);
+  border-radius: var(--phi0);
+}
+
+.pattern-info {
+  position: absolute;
+  bottom: var(--phi2);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: var(--phi1);
+  border-radius: var(--phi0);
+}
+
+.pattern-name {
+  font-size: var(--phi2);
+  margin-bottom: var(--phi0);
+}
+
+.pattern-symbol {
+  font-size: var(--phi4);
+  opacity: 0.8;
+}
+
+.consciousness-state {
+  text-align: center;
+}
+
+.state-label {
+  font-size: var(--phi0);
+  opacity: 0.7;
+  margin-bottom: var(--phi-1);
+}
+
+.state-value {
+  font-size: var(--phi2);
+  font-weight: 300;
+}
+
+/* Translation Controls */
+.translation-controls {
+  background-color: var(--quantum-medium);
+  border-radius: var(--phi1);
+  padding: var(--phi2);
+  margin-bottom: var(--phi3);
+}
+
+.section-header {
+  font-size: var(--phi1);
+  letter-spacing: 1px;
+  margin-bottom: var(--phi2);
+  border-bottom: 1px solid var(--quantum-light);
+  padding-bottom: var(--phi0);
+}
+
+.kingdom-selector {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--phi2);
+}
+
+.kingdom-select {
+  flex: 1;
+  margin: 0 var(--phi1);
+}
+
+label {
+  display: block;
+  margin-bottom: var(--phi0);
+  font-size: var(--phi0);
+}
+
+select, textarea {
+  width: 100%;
+  padding: var(--phi1);
+  background-color: var(--quantum-gray);
+  border: 1px solid var(--quantum-light);
+  border-radius: var(--phi-1);
+  color: var(--quantum-white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: var(--phi1);
+}
+
+.translation-method {
+  margin-bottom: var(--phi2);
+}
+
+.method-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--phi1);
+}
+
+.method-option {
+  display: flex;
+  align-items: center;
+  padding: var(--phi0);
+  background-color: var(--quantum-gray);
+  border-radius: var(--phi-1);
+  cursor: pointer;
+  flex: 1;
+  min-width: 200px;
+}
+
+.method-option input {
+  margin-right: var(--phi0);
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-input {
+  margin-bottom: var(--phi2);
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.translate-button {
+  align-self: center;
+  background-color: var(--heart-field-primary);
+  color: var(--quantum-white);
+  border: none;
+  border-radius: var(--phi0);
+  padding: var(--phi1) var(--phi3);
+  font-size: var(--phi1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: var(--phi2);
+}
+
+.translate-button:hover {
+  background-color: var(--heart-field-secondary);
+}
+
+.message-output {
+  background-color: var(--quantum-gray);
+  border-radius: var(--phi0);
+  padding: var(--phi1);
+}
+
+.translation-result {
+  min-height: 100px;
+  padding: var(--phi1);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: var(--phi-1);
+  margin-bottom: var(--phi1);
+}
+
+.loading-translation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.translation-wave {
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(90deg, 
+    var(--ground-state-primary), 
+    var(--creation-point-primary), 
+    var(--heart-field-primary),
+    var(--voice-flow-primary),
+    var(--vision-gate-primary),
+    var(--unity-wave-primary));
+  border-radius: var(--phi0);
+  margin-bottom: var(--phi1);
+  animation: wave 2s infinite linear;
+  background-size: 200% 100%;
+}
+
+@keyframes wave {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.hidden {
+  display: none;
+}
+
+.translation-content {
+  font-size: var(--phi1);
+  line-height: var(--phi);
+}
+
+.translation-metrics {
+  display: flex;
+  justify-content: space-around;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-label {
+  font-size: var(--phi-1);
+  opacity: 0.7;
+}
+
+.metric-value {
+  font-size: var(--phi1);
+  font-weight: bold;
+}
+
+/* Embodiment Practice */
+.embodiment-practice {
+  background-color: var(--quantum-medium);
+  border-radius: var(--phi1);
+  padding: var(--phi2);
+  margin-bottom: var(--phi3);
+}
+
+.practice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.practice-info {
+  text-align: center;
+  margin-bottom: var(--phi2);
+}
+
+.practice-info h3 {
+  font-size: var(--phi2);
+  margin-bottom: var(--phi0);
+  font-weight: 400;
+}
+
+.practice-info p {
+  opacity: 0.8;
+}
+
+.breath-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--phi2);
+}
+
+.breath-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--ground-state-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--phi1);
+  animation: breathe 14.4s infinite ease-in-out;
+  box-shadow: 0 0 var(--phi2) rgba(61, 140, 64, 0.5);
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.8); background-color: var(--ground-state-secondary); }
+  50% { transform: scale(1.2); background-color: var(--ground-state-primary); }
+}
+
+.breath-text {
+  font-size: var(--phi2);
+  color: var(--quantum-white);
+}
+
+.breath-instruction {
+  font-size: var(--phi1);
+  opacity: 0.8;
+}
+
+.practice-steps {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: var(--phi2);
+}
+
+.step {
+  display: flex;
+  margin-bottom: var(--phi1);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step-number {
+  width: var(--phi3);
+  height: var(--phi3);
+  border-radius: 50%;
+  background-color: var(--ground-state-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--phi1);
+  margin-right: var(--phi1);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: var(--phi1);
+  margin-bottom: var(--phi-1);
+}
+
+.step-description {
+  font-size: var(--phi0);
+  opacity: 0.8;
+}
+
+.practice-button {
+  background-color: var(--ground-state-primary);
+  color: var(--quantum-white);
+  border: none;
+  border-radius: var(--phi0);
+  padding: var(--phi1) var(--phi3);
+  font-size: var(--phi1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.practice-button:hover {
+  background-color: var(--ground-state-secondary);
+}
+
+/* Sound Controls */
+.sound-controls {
+  background-color: var(--quantum-medium);
+  border-radius: var(--phi1);
+  padding: var(--phi2);
+  margin-bottom: var(--phi3);
+}
+
+.sound-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--phi2);
+  flex-wrap: wrap;
+}
+
+.toggle-option, .sound-type, .volume-control {
+  margin: var(--phi0);
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Switch toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: var(--phi1);
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--quantum-light);
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--ground-state-primary);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--ground-state-primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch.small {
+  width: 40px;
+  height: 24px;
+}
+
+.switch.small .slider:before {
+  height: 16px;
+  width: 16px;
+}
+
+input:checked + .slider.small:before {
+  transform: translateX(16px);
+}
+
+.overtone-controls {
+  background-color: var(--quantum-gray);
+  border-radius: var(--phi0);
+  padding: var(--phi1);
+}
+
+.overtone-header {
+  text-align: center;
+  margin-bottom: var(--phi1);
+  font-size: var(--phi1);
+}
+
+.overtone-toggles {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.overtone {
+  display: flex;
+  align-items: center;
+  margin: var(--phi-1);
+}
+
+/* Footer */
+.quantum-footer {
+  background-color: var(--quantum-black);
+  padding: var(--phi2);
+  text-align: center;
+}
+
+.zen-reminder {
+  font-size: var(--phi0);
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .kingdom-selector {
+    flex-direction: column;
+  }
+  
+  .kingdom-select {
+    margin: var(--phi0) 0;
+  }
+  
+  .pattern-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+  }
+  
+  #cymatic-pattern {
+    width: 100%;
+    height: auto;
+  }
+  
+  .freq-button {
+    margin-bottom: var(--phi1);
+    min-width: 120px;
+  }
+  
+  .method-option {
+    min-width: 150px;
+  }
+}
+
+/* Frequency-specific styles */
+body.freq-432 {
+  --active-primary: var(--ground-state-primary);
+  --active-secondary: var(--ground-state-secondary);
+}
+
+body.freq-528 {
+  --active-primary: var(--creation-point-primary);
+  --active-secondary: var(--creation-point-secondary);
+}
+
+body.freq-594 {
+  --active-primary: var(--heart-field-primary);
+  --active-secondary: var(--heart-field-secondary);
+}
+
+body.freq-672 {
+  --active-primary: var(--voice-flow-primary);
+  --active-secondary: var(--voice-flow-secondary);
+}
+
+body.freq-720 {
+  --active-primary: var(--vision-gate-primary);
+  --active-secondary: var(--vision-gate-secondary);
+}
+
+body.freq-768 {
+  --active-primary: var(--unity-wave-primary);
+  --active-secondary: var(--unity-wave-secondary);
+}
+
+.active-frequency {
+  --active-color: var(--active-primary);
+  
+  .breath-circle {
+    background-color: var(--active-primary);
+    box-shadow: 0 0 var(--phi2) var(--active-primary);
+  }
+  
+  .step-number {
+    background-color: var(--active-primary);
+  }
+  
+  .practice-button {
+    background-color: var(--active-primary);
+  }
+  
+  .practice-button:hover {
+    background-color: var(--active-secondary);
+  }
+}

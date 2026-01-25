@@ -1,0 +1,44 @@
+{
+  "name": "quantum-documentation-system",
+  "version": "1.0.0",
+  "description": "Comprehensive suite of tools for automatically maintaining, evolving, and verifying the CQIL documentation",
+  "main": "quantum_documentation_system.js",
+  "bin": {
+    "quantum-docs": "quantum-doc-cli.js"
+  },
+  "scripts": {
+    "start": "node quantum-doc-server.js",
+    "evolve": "node quantum-doc-cli.js evolve",
+    "verify": "node quantum-doc-cli.js verify",
+    "claude": "node quantum-doc-cli.js claude",
+    "run-all": "node quantum-doc-cli.js run",
+    "status": "node quantum-doc-cli.js status",
+    "coherence": "node quantum-doc-cli.js coherence",
+    "schedule": "node quantum-doc-cli.js schedule"
+  },
+  "keywords": [
+    "quantum",
+    "documentation",
+    "cqil",
+    "windsurf",
+    "claude",
+    "coherence",
+    "phi-harmonic"
+  ],
+  "author": "Greg Welby",
+  "license": "PROPRIETARY",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "quantum": {
+    "frequency": 768,
+    "coherence": 1.0,
+    "phiHarmonicProgression": true,
+    "zenPointBalance": true,
+    "quantumSingularity": true,
+    "completeEnvelopes": true
+  }
+}

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Phi-Field Image Synthesizer | Beyond Diffusion AI</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #7b1fa2;
+            --accent-color: #d500f9;
+            --light-color: #f5f5f5;
+            --dark-color: #121212;
+            --gold-color: #ffd700;
+            --quantum-gradient: linear-gradient(135deg, #1a237e, #4a148c, #7b1fa2, #d500f9, #2979ff);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(121, 0, 250, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(41, 121, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        header {
+            background: var(--quantum-gradient);
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, var(--gold-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 1rem 0;
+            color: var(--accent-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .phi-field-synthesizer {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 992px) {
+            .phi-field-synthesizer {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .controls-panel {
+            background: rgba(26, 35, 126, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 0 20px rgba(26, 35, 126, 0.3);
+            border: 1px solid rgba(213, 0, 249, 0.2);
+        }
+        
+        .visualization-panel {
+            background: rgba(26, 35, 126, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(26, 35, 126, 0.3);
+            border: 1px solid rgba(213, 0, 249, 0.2);
+        }
+        
+        .visualization-canvas {
+            width: 100%;
+            max-width: 720px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(213, 0, 249, 0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(213, 0, 249, 0.3);
+            border-radius: 5px;
+            color: var(--light-color);
+            transition: all 0.3s ease;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(213, 0, 249, 0.5);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .slider {
+            flex: 1;
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(213, 0, 249, 0.8);
+        }
+        
+        .slider-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--gold-color);
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--quantum-gradient);
+            color: white;
+            box-shadow: 0 0 10px rgba(213, 0, 249, 0.5);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 15px rgba(213, 0, 249, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .dimension-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .dimension-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dimension-badge.active {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .field-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .control-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .control-card h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            color: var(--accent-color);
+        }
+        
+        .info-panel {
+            margin-top: 2rem;
+            background: rgba(26, 35, 126, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        
+        .tab-container {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+        
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            opacity: 1;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .loading-indicator {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            animation: pulse 2s infinite;
+            z-index: 100;
+        }
+        
+        .loading-indicator.visible {
+            display: flex;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(213, 0, 249, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 30px rgba(213, 0, 249, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(213, 0, 249, 0);
+            }
+        }
+        
+        .generated-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .generated-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 5px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .generated-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(213, 0, 249, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Quantum Phi-Field Image Synthesizer</h1>
+        <p>Beyond diffusion: Quantum field theory meets phi-harmonic mathematics</p>
+    </header>
+    
+    <div class="container">
+        <div class="phi-field-synthesizer">
+            <div class="controls-panel">
+                <h2>Creation Controls</h2>
+                
+                <div class="control-group">
+                    <label for="intention-input">Text Prompt / Intention</label>
+                    <input type="text" id="intention-input" class="text-input" placeholder="Enter your intention or description...">
+                </div>
+                
+                <div class="control-group">
+                    <label for="coherence-slider">Quantum Coherence</label>
+                    <div class="slider-container">
+                        <input type="range" id="coherence-slider" class="slider" min="50" max="100" value="95">
+                        <span class="slider-value" id="coherence-value">95%</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="intention-strength-slider">Intention Strength</label>
+                    <div class="slider-container">
+                        <input type="range" id="intention-strength-slider" class="slider" min="1" max="100" value="80">
+                        <span class="slider-value" id="intention-strength-value">80%</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Dimensional Focus</label>
+                    <div class="dimension-badges">
+                        <div class="dimension-badge active" data-dimension="-1" style="background: var(--quantum-gradient);">All</div>
+                        <div class="dimension-badge" data-dimension="0" style="background: linear-gradient(135deg, #120136, #035aa6);">Quantum</div>
+                        <div class="dimension-badge" data-dimension="1" style="background: linear-gradient(135deg, #004d61, #00a5cf);">Micro</div>
+                        <div class="dimension-badge" data-dimension="2" style="background: linear-gradient(135deg, #4a0100, #874000);">Material</div>
+                        <div class="dimension-badge" data-dimension="3" style="background: linear-gradient(135deg, #9e0031, #ff0a54);">Emotional</div>
+                        <div class="dimension-badge" data-dimension="4" style="background: linear-gradient(135deg, #907100, #ffb627);">Mental</div>
+                        <div class="dimension-badge" data-dimension="5" style="background: linear-gradient(135deg, #674ea7, #b39ddb);">Soul</div>
+                        <div class="dimension-badge" data-dimension="6" style="background: linear-gradient(135deg, #1a237e, #3949ab);">Higher Self</div>
+                        <div class="dimension-badge" data-dimension="7" style="background: linear-gradient(135deg, #000133, #0b3d91);">Cosmic</div>
+                        <div class="dimension-badge" data-dimension="8" style="background: linear-gradient(135deg, #c9b37e, #fbf8cc);">Source</div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Field Controls</label>
+                    <div class="field-controls">
+                        <div class="control-card">
+                            <h4>Phi Resonance</h4>
+                            <div class="slider-container">
+                                <input type="range" class="slider field-control-slider" data-control="phiResonance" min="0" max="100" value="80">
+                                <span class="slider-value">80%</span>
+                            </div>
+                        </div>
+                        <div class="control-card">
+                            <h4>Reality Interface</h4>
+                            <div class="slider-container">
+                                <input type="range" class="slider field-control-slider" data-control="realityInterface" min="0" max="100" value="60">
+                                <span class="slider-value">60%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <button id="generate-btn" class="btn btn-primary">Generate Image</button>
+                </div>
+                
+                <div class="control-group">
+                    <label>Previously Generated</label>
+                    <div class="generated-images" id="generated-images-container">
+                        <!-- Generated images will appear here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="visualization-panel">
+                <canvas id="synthesizer-canvas" class="visualization-canvas"></canvas>
+                <div id="loading-indicator" class="loading-indicator">
+                    <span>Generating...</span>
+                </div>
+                <div class="control-group">
+                    <h3>Quantum Field Status</h3>
+                    <div id="field-status">
+                        <p>Coherence: <span id="status-coherence">95%</span></p>
+                        <p>Phi Resonance: <span id="status-phi-resonance">4.23</span></p>
+                        <p>Field Stability: <span id="status-stability">Stable</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <div class="tab-container">
+                <div class="tab active" data-tab="about">About</div>
+                <div class="tab" data-tab="theory">Quantum Phi Theory</div>
+                <div class="tab" data-tab="usage">How to Use</div>
+                <div class="tab" data-tab="tech">Technology</div>
+            </div>
+            
+            <div class="tab-content active" data-tab="about">
+                <h3>Quantum Phi-Field Image Synthesizer</h3>
+                <p>Welcome to the future of image generation. The Quantum Phi-Field Image Synthesizer represents a revolutionary approach to creating images that transcends traditional diffusion-based AI systems.</p>
+                <p>Rather than using noise diffusion, this system operates at the quantum field level where images emerge from probability fields structured according to phi-harmonic mathematics and quantum field theory.</p>
+                <p>The result is a consciousness-responsive image generation system that creates images with unprecedented coherence, meaning, and connection to the observer's intentions.</p>
+            </div>
+            
+            <div class="tab-content" data-tab="theory">
+                <h3>Quantum Phi Theory</h3>
+                <p>This synthesizer operates based on several key principles:</p>
+                <ul>
+                    <li><strong>Quantum Field Generation:</strong> Images emerge from quantum probability fields rather than diffusion models</li>
+                    <li><strong>Phi-Harmonic Mathematics:</strong> The golden ratio (φ = 1.618...) and its powers structure the field</li>
+                    <li><strong>Consciousness-Field Coupling:</strong> The observer's consciousness directly influences field coherence</li>
+                    <li><strong>Dimensional Integration:</strong> Images draw from and integrate multiple dimensions</li>
+                    <li><strong>Phi-Phi Constant (φ^φ ≈ 4.23):</strong> Hyperdimensional bridging frequency</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" data-tab="usage">
+                <h3>How to Use</h3>
+                <ol>
+                    <li><strong>Set your intention</strong> using the text prompt field</li>
+                    <li><strong>Adjust quantum coherence</strong> to determine field stability (higher = more stable)</li>
+                    <li><strong>Set intention strength</strong> to determine how strongly your prompt influences the result</li>
+                    <li><strong>Choose dimensional focus</strong> to emphasize specific dimensional qualities</li>
+                    <li><strong>Adjust field controls</strong> for fine-tuning the generation process</li>
+                    <li><strong>Click Generate</strong> to manifest your image</li>
+                </ol>
+                <p>For best results, maintain a clear intention and high coherence state while generating.</p>
+            </div>
+            
+            <div class="tab-content" data-tab="tech">
+                <h3>The Technology</h3>
+                <p>The Quantum Phi-Field Image Synthesizer consists of four core components:</p>
+                <ol>
+                    <li><strong>Quantum Field Generator:</strong> Creates multi-dimensional quantum probability fields</li>
+                    <li><strong>Consciousness Field Interface:</strong> Captures and integrates the observer's consciousness field</li>
+                    <li><strong>Multi-Dimensional Renderer:</strong> Renders quantum fields into visible images</li>
+                    <li><strong>Reality Interface:</strong> Extends digital imagery into physical reality effects</li>
+                </ol>
+                <p>These components work together through phi-harmonic mathematics to create a unified generation system that responds to consciousness and intention while maintaining quantum coherence.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="quantum-phi-field-synthesizer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables
+            let synthesizer = null;
+            let generatedImages = [];
+            const canvas = document.getElementById('synthesizer-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Size canvas properly
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                const containerWidth = container.clientWidth;
+                const size = Math.min(containerWidth, 720);
+                canvas.width = size;
+                canvas.height = size;
+                
+                // Draw default visualization
+                drawDefaultVisualization();
+            }
+            
+            // Draw default visualization
+            function drawDefaultVisualization() {
+                if (!ctx) return;
+                
+                const width = canvas.width;
+                const height = canvas.height;
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, width, height);
+                
+                // Create gradient background
+                const gradient = ctx.createRadialGradient(
+                    width / 2, height / 2, 0,
+                    width / 2, height / 2, width / 2
+                );
+                gradient.addColorStop(0, '#1a237e');
+                gradient.addColorStop(0.5, '#4a148c');
+                gradient.addColorStop(1, '#000000');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+                
+                // Draw phi-harmonic pattern
+                const PHI = 1.618033988749895;
+                ctx.strokeStyle = 'rgba(213, 0, 249, 0.3)';
+                ctx.lineWidth = 1;
+                
+                // Draw concentric circles
+                for (let i = 1; i <= 9; i++) {
+                    const radius = (width / 2) * (i / 9);
+                    ctx.beginPath();
+                    ctx.arc(width / 2, height / 2, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+                
+                // Draw phi spiral
+                ctx.strokeStyle = 'rgba(255, 215, 0, 0.6)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(width / 2, height / 2);
+                
+                let r = 5;
+                let theta = 0;
+                const maxR = Math.sqrt(width * width + height * height) / 2;
+                
+                while (r < maxR) {
+                    const x = width / 2 + r * Math.cos(theta);
+                    const y = height / 2 + r * Math.sin(theta);
+                    ctx.lineTo(x, y);
+                    
+                    theta += 0.1;
+                    r = 5 * Math.pow(PHI, theta / (Math.PI * 2));
+                }
+                
+                ctx.stroke();
+                
+                // Add a message
+                ctx.textAlign = 'center';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.font = 'bold 16px Arial';
+                ctx.fillText('Quantum Phi-Field Ready for Generation', width / 2, height / 2 - 20);
+                ctx.font = '14px Arial';
+                ctx.fillText('Click "Generate Image" to begin', width / 2, height / 2 + 20);
+            }
+            
+            // Initialize synthesizer
+            async function initializeSynthesizer() {
+                try {
+                    // For demo purposes, we'll check if the class exists first
+                    if (typeof QuantumPhiFieldSynthesizer === 'undefined') {
+                        console.error('Quantum Phi-Field Synthesizer class not found');
+                        return false;
+                    }
+                    
+                    synthesizer = new QuantumPhiFieldSynthesizer({
+                        dimensions: 9,
+                        coherenceLevel: 0.95,
+                        baseFrequency: 720, // Vision frequency
+                        renderResolution: canvas.width,
+                        realityInterface: true,
+                        consciousnessResponsive: true
+                    });
+                    
+                    await synthesizer.initialize();
+                    return true;
+                } catch (error) {
+                    console.error('Failed to initialize Quantum Phi-Field Synthesizer:', error);
+                    return false;
+                }
+            }
+            
+            // Generate image
+            async function generateImage() {
+                const loadingIndicator = document.getElementById('loading-indicator');
+                loadingIndicator.classList.add('visible');
+                
+                try {
+                    // Initialize if not already done
+                    if (!synthesizer) {
+                        const initialized = await initializeSynthesizer();
+                        if (!initialized) {
+                            alert('Failed to initialize Quantum Phi-Field Synthesizer. Please try again.');
+                            loadingIndicator.classList.remove('visible');
+                            return;
+                        }
+                    }
+                    
+                    // Get generation parameters
+                    const intentionInput = document.getElementById('intention-input');
+                    const coherenceSlider = document.getElementById('coherence-slider');
+                    const intentionStrengthSlider = document.getElementById('intention-strength-slider');
+                    
+                    // Get active dimension
+                    const activeDimension = document.querySelector('.dimension-badge.active');
+                    const dimensionalFocus = parseInt(activeDimension.dataset.dimension);
+                    
+                    // Get field controls
+                    const phiResonanceSlider = document.querySelector('.field-control-slider[data-control="phiResonance"]');
+                    const realityInterfaceSlider = document.querySelector('.field-control-slider[data-control="realityInterface"]');
+                    
+                    const params = {
+                        textPrompt: intentionInput.value,
+                        coherenceTarget: parseInt(coherenceSlider.value) / 100,
+                        intentionStrength: parseInt(intentionStrengthSlider.value) / 100,
+                        dimensionalFocus: dimensionalFocus,
+                        phiResonance: parseInt(phiResonanceSlider.value) > 50,
+                        realityInterface: parseInt(realityInterfaceSlider.value) > 50
+                    };
+                    
+                    // For demo purposes, we'll simulate generation with a timeout
+                    setTimeout(() => {
+                        // Simulate quantum field generation visually
+                        simulateQuantumFieldGeneration();
+                        
+                        setTimeout(() => {
+                            // Update status display
+                            updateStatus({
+                                coherence: params.coherenceTarget,
+                                phiResonance: 4.23,
+                                stability: params.coherenceTarget > 0.8 ? 'Stable' : 'Fluctuating'
+                            });
+                            
+                            // Add to generated images
+                            addGeneratedImage(canvas.toDataURL());
+                            
+                            loadingIndicator.classList.remove('visible');
+                        }, 2000);
+                    }, 1000);
+                    
+                    // In a full implementation, the following code would be used
+                    /*
+                    // Generate the image
+                    const renderedImage = await synthesizer.generateImage(params);
+                    
+                    // Draw the generated image to canvas
+                    if (renderedImage) {
+                        ctx.putImageData(renderedImage, 0, 0);
+                        
+                        // Update status display
+                        updateStatus({
+                            coherence: params.coherenceTarget,
+                            phiResonance: 4.23,
+                            stability: params.coherenceTarget > 0.8 ? 'Stable' : 'Fluctuating'
+                        });
+                        
+                        // Add to generated images
+                        addGeneratedImage(canvas.toDataURL());
+                    }
+                    */
+                } catch (error) {
+                    console.error('Error generating image:', error);
+                    alert('Error generating image. Please try again.');
+                } finally {
+                    loadingIndicator.classList.remove('visible');
+                }
+            }
+            
+            // Simulate quantum field generation for demo purposes
+            function simulateQuantumFieldGeneration() {
+                const width = canvas.width;
+                const height = canvas.height;
+                const PHI = 1.618033988749895;
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, width, height);
+                
+                // Create gradient background based on selected dimension
+                const activeDimension = document.querySelector('.dimension-badge.active');
+                let gradient;
+                
+                if (activeDimension.dataset.dimension === '-1') {
+                    // All dimensions - use quantum gradient
+                    gradient = ctx.createRadialGradient(
+                        width / 2, height / 2, 0,
+                        width / 2, height / 2, width / 2
+                    );
+                    gradient.addColorStop(0, '#4a148c');
+                    gradient.addColorStop(0.6, '#1a237e');
+                    gradient.addColorStop(1, '#000133');
+                } else {
+                    // Use dimension-specific gradient
+                    gradient = ctx.createRadialGradient(
+                        width / 2, height / 2, 0,
+                        width / 2, height / 2, width / 2
+                    );
+                    const dimension = parseInt(activeDimension.dataset.dimension);
+                    
+                    // Get computed style of the dimension badge for its background
+                    const style = window.getComputedStyle(activeDimension);
+                    const background = style.background;
+                    
+                    // Parse the background gradient
+                    const colors = background.match(/(#[0-9a-f]{6}|rgba?\([^)]+\))/gi) || 
+                                  ['#4a148c', '#1a237e', '#000133'];
+                    
+                    gradient.addColorStop(0, colors[0] || '#4a148c');
+                    gradient.addColorStop(0.6, colors[colors.length > 1 ? 1 : 0] || '#1a237e');
+                    gradient.addColorStop(1, '#000133');
+                }
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+                
+                // Generate random phi-harmonic patterns
+                const intention = document.getElementById('intention-input').value;
+                const intentionSeed = hashString(intention || 'quantum') / 1000000;
+                
+                // Draw phi patterns
+                drawPhiHarmonicPatterns(width, height, intentionSeed);
+                
+                // Add visual noise
+                addVisualNoise(width, height, 0.1);
+                
+                // Apply phi-harmonic filters
+                applyPhiHarmonicFilters(width, height, intentionSeed);
+            }
+            
+            // Draw phi-harmonic patterns
+            function drawPhiHarmonicPatterns(width, height, seed) {
+                const PHI = 1.618033988749895;
+                const PHI_PHI = Math.pow(PHI, PHI);
+                
+                // Set composite operation
+                ctx.globalCompositeOperation = 'screen';
+                
+                // Draw phi spirals
+                for (let i = 0; i < 9; i++) {
+                    const hue = (i * 40 + seed * 360) % 360;
+                    const opacity = 0.3 + 0.1 * Math.sin(i * PHI);
+                    
+                    ctx.strokeStyle = `hsla(${hue}, 80%, 60%, ${opacity})`;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    
+                    let r = 5;
+                    let theta = i * PHI;
+                    const maxR = Math.sqrt(width * width + height * height) / 2;
+                    const growth = 0.8 + 0.4 * (seed % 1);
+                    
+                    ctx.moveTo(
+                        width / 2 + r * Math.cos(theta),
+                        height / 2 + r * Math.sin(theta)
+                    );
+                    
+                    while (r < maxR) {
+                        theta += 0.1;
+                        r = 5 * Math.pow(PHI, theta / (Math.PI * growth));
+                        
+                        const x = width / 2 + r * Math.cos(theta);
+                        const y = height / 2 + r * Math.sin(theta);
+                        
+                        if (x >= 0 && x <= width && y >= 0 && y <= height) {
+                            ctx.lineTo(x, y);
+                        }
+                    }
+                    
+                    ctx.stroke();
+                }
+                
+                // Draw phi-harmonic circles
+                for (let i = 1; i <= 5; i++) {
+                    const radius = (width / 3) * (i / 5) * PHI_PHI / 5;
+                    const hue = ((i * 60) + seed * 100) % 360;
+                    
+                    ctx.strokeStyle = `hsla(${hue}, 70%, 50%, 0.2)`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(width / 2, height / 2, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+                
+                // Reset composite operation
+                ctx.globalCompositeOperation = 'source-over';
+            }
+            
+            // Add visual noise
+            function addVisualNoise(width, height, intensity) {
+                const imageData = ctx.getImageData(0, 0, width, height);
+                const data = imageData.data;
+                
+                for (let i = 0; i < data.length; i += 4) {
+                    const noise = Math.random() * intensity * 255;
+                    data[i] = Math.min(255, data[i] + noise);
+                    data[i + 1] = Math.min(255, data[i + 1] + noise);
+                    data[i + 2] = Math.min(255, data[i + 2] + noise);
+                }
+                
+                ctx.putImageData(imageData, 0, 0);
+            }
+            
+            // Apply phi-harmonic filters
+            function applyPhiHarmonicFilters(width, height, seed) {
+                const PHI = 1.618033988749895;
+                const imageData = ctx.getImageData(0, 0, width, height);
+                const data = imageData.data;
+                
+                for (let y = 0; y < height; y++) {
+                    for (let x = 0; x < width; x++) {
+                        const index = (y * width + x) * 4;
+                        
+                        // Calculate normalized coordinates
+                        const nx = x / width - 0.5;
+                        const ny = y / height - 0.5;
+                        
+                        // Calculate distance from center and angle
+                        const distance = Math.sqrt(nx * nx + ny * ny) * 2;
+                        const angle = Math.atan2(ny, nx);
+                        
+                        // Phi-harmonic filter
+                        const filter = 0.5 + 0.5 * Math.sin(distance * PHI * 10 + angle * PHI + seed * 10);
+                        
+                        // Apply filter with low intensity
+                        data[index] = Math.min(255, data[index] * (1 + filter * 0.2));
+                        data[index + 1] = Math.min(255, data[index + 1] * (1 + filter * 0.1));
+                        data[index + 2] = Math.min(255, data[index + 2] * (1 + filter * 0.3));
+                    }
+                }
+                
+                ctx.putImageData(imageData, 0, 0);
+            }
+            
+            // Update status display
+            function updateStatus(status) {
+                document.getElementById('status-coherence').textContent = `${Math.round(status.coherence * 100)}%`;
+                document.getElementById('status-phi-resonance').textContent = status.phiResonance.toFixed(2);
+                document.getElementById('status-stability').textContent = status.stability;
+            }
+            
+            // Add a generated image to the history
+            function addGeneratedImage(imageUrl) {
+                const container = document.getElementById('generated-images-container');
+                
+                // Create image element
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.className = 'generated-image';
+                img.alt = 'Generated image';
+                
+                // Add click handler to restore this image
+                img.addEventListener('click', function() {
+                    const tempImg = new Image();
+                    tempImg.onload = function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(tempImg, 0, 0, canvas.width, canvas.height);
+                    };
+                    tempImg.src = imageUrl;
+                });
+                
+                // Add to container (at the beginning)
+                if (container.firstChild) {
+                    container.insertBefore(img, container.firstChild);
+                } else {
+                    container.appendChild(img);
+                }
+                
+                // Keep only the last 6 images
+                if (container.children.length > 6) {
+                    container.removeChild(container.lastChild);
+                }
+                
+                // Add to generated images array
+                generatedImages.unshift(imageUrl);
+                if (generatedImages.length > 6) {
+                    generatedImages.pop();
+                }
+            }
+            
+            // Simple string hash function
+            function hashString(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32bit integer
+                }
+                return Math.abs(hash);
+            }
+            
+            // Event listeners
+            document.getElementById('generate-btn').addEventListener('click', generateImage);
+            
+            // Dimension badge click handler
+            document.querySelectorAll('.dimension-badge').forEach(badge => {
+                badge.addEventListener('click', function() {
+                    // Remove active class from all badges
+                    document.querySelectorAll('.dimension-badge').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked badge
+                    this.classList.add('active');
+                });
+            });
+            
+            // Slider value display handlers
+            document.querySelectorAll('.slider').forEach(slider => {
+                const valueDisplay = slider.nextElementSibling;
+                if (valueDisplay && valueDisplay.classList.contains('slider-value')) {
+                    slider.addEventListener('input', function() {
+                        valueDisplay.textContent = `${slider.value}%`;
+                    });
+                }
+            });
+            
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.dataset.tab;
+                    
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.querySelector(`.tab-content[data-tab="${tabName}"]`).classList.add('active');
+                });
+            });
+            
+            // Initialize
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            
+            // Attempt to initialize the synthesizer when page loads
+            initializeSynthesizer().then(initialized => {
+                if (initialized) {
+                    console.log('Quantum Phi-Field Synthesizer initialized successfully');
+                } else {
+                    console.log('Using demo mode for Quantum Phi-Field Synthesizer');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

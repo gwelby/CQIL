@@ -833,6 +833,8 @@ footer {
 }
 
 .content-visual {
+    width: 100%;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -840,15 +842,18 @@ footer {
 
 .interactive-canvas {
     width: 100%;
-    height: 300px;
-    background: rgba(0, 0, 0, 0.2);
+    height: 350px;
+    background-color: rgba(10, 10, 26, 0.5);
     border-radius: 8px;
     margin-bottom: 1rem;
+    display: block;
+    border: 1px solid rgba(156, 39, 176, 0.3);
+    box-shadow: 0 0 15px rgba(156, 39, 176, 0.2);
 }
 
 .canvas-controls {
     display: flex;
-    gap: 1rem;
+    gap: 10px;
     margin-top: 1rem;
     flex-wrap: wrap;
     justify-content: center;
@@ -866,6 +871,11 @@ footer {
 
 .canvas-controls button:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+.canvas-controls button.active {
+    background: var(--quantum-accent);
+    box-shadow: 0 0 12px var(--quantum-accent);
 }
 
 /* Experience Section */

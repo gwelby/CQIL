@@ -1,6 +1,9 @@
 /**
  * Enhanced Wave-Particle Duality Visualization Demo
  * For Quantum Tools Suite
+ * 
+ * Integrates φ-harmonic frequencies (432Hz-768Hz) to demonstrate
+ * quantum state coherence at different consciousness levels
  */
 class WaveParticleDemo {
     constructor(canvasId) {
@@ -19,11 +22,35 @@ class WaveParticleDemo {
         this.waveAmplitude = 30;
         this.waveLength = 0.02;
         this.waveSpeed = 0.01;
+        
+        // Phi-harmonic properties
+        this.φ = 1.618033988749895; // Golden ratio (phi)
+        this.φInverse = 0.618033988749895;
+        this.frequency = 528; // Default to Creation frequency (528 Hz - φ¹)
+        this.coherenceLevel = 0.9; // 0 to 1
+        
+        // φ-harmonic frequencies
+        this.frequencies = {
+            ground: 432, // Ground State (φ⁰)
+            creation: 528, // Creation Point (φ¹)
+            heart: 594, // Heart Field (φ²)
+            voice: 672, // Voice Flow (φ³)
+            vision: 720, // Vision Gate (φ⁴)
+            unity: 768  // Unity Wave (φ⁵)
+        };
+        
+        // Colors based on quantum states and frequencies
         this.colors = {
             particle: '#29b6f6',
             wave: '#ec407a',
             quantum: '#9c27b0',
-            background: 'rgba(10, 10, 26, 0.3)'
+            background: 'rgba(10, 10, 26, 0.3)',
+            ground: '#3d5afe', // 432 Hz
+            creation: '#ec407a', // 528 Hz
+            heart: '#7e57c2', // 594 Hz
+            voice: '#26a69a', // 672 Hz
+            vision: '#ffb300', // 720 Hz
+            unity: '#9c27b0'  // 768 Hz
         };
         
         // Dynamic properties
@@ -36,6 +63,9 @@ class WaveParticleDemo {
         this.init();
         this.setupEventListeners();
         this.animate();
+        
+        // Set initial active state for button
+        this.updateButtonState();
     }
     
     resize() {
@@ -53,26 +83,31 @@ class WaveParticleDemo {
         this.particles = [];
         this.waves = [];
         
-        // Create particles
+        // Calculate phi-harmonic adjustments based on frequency
+        const freqFactor = this.getPhiFactorForFrequency();
+        
+        // Create particles with phi-harmonic properties
         for (let i = 0; i < this.particleCount; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                size: this.particleSize * (Math.random() * 0.5 + 0.75),
+                size: this.particleSize * (Math.random() * 0.5 + 0.75) * freqFactor,
                 speed: Math.random() * 0.5 + 0.5,
                 direction: Math.random() * Math.PI * 2,
                 opacity: Math.random() * 0.5 + 0.5,
                 pulse: 0,
-                pulseSpeed: Math.random() * 0.05 + 0.02
+                pulseSpeed: Math.random() * 0.05 + 0.02,
+                phi: Math.random() < 0.5 // Determine if particle follows phi or inverse-phi path
             });
         }
         
-        // Create waves
+        // Create waves with phi-harmonic properties
         for (let i = 0; i < this.waveCount; i++) {
+            const harmonic = i === 0 ? 1 : Math.pow(this.φ, i % 3);
             this.waves.push({
-                frequency: this.waveLength * (i + 1),
-                amplitude: this.waveAmplitude / (i + 1),
-                speed: this.waveSpeed * (i + 1),
+                frequency: this.waveLength * harmonic,
+                amplitude: this.waveAmplitude / harmonic * freqFactor,
+                speed: this.waveSpeed * harmonic,
                 phase: Math.random() * Math.PI * 2,
                 color: this.getWaveColor(i)
             });
@@ -114,47 +149,125 @@ class WaveParticleDemo {
     }
     
     getWaveColor(index) {
-        // Generate colors for different waves in a gradient
-        const baseColor = this.state === 'quantum' ? 
-            this.colors.quantum : 
-            (this.state === 'wave' ? this.colors.wave : this.colors.particle);
+        // Generate colors based on current frequency and state
+        let baseColor;
         
-        // Convert hex to RGB and adjust based on index
-        const r = parseInt(baseColor.slice(1, 3), 16);
-        const g = parseInt(baseColor.slice(3, 5), 16);
-        const b = parseInt(baseColor.slice(5, 7), 16);
+        // Determine base color by frequency
+        switch(this.frequency) {
+            case this.frequencies.ground:
+                baseColor = this.colors.ground;
+                break;
+            case this.frequencies.creation:
+                baseColor = this.colors.creation;
+                break;
+            case this.frequencies.heart:
+                baseColor = this.colors.heart;
+                break;
+            case this.frequencies.voice:
+                baseColor = this.colors.voice;
+                break;
+            case this.frequencies.vision:
+                baseColor = this.colors.vision;
+                break;
+            case this.frequencies.unity:
+                baseColor = this.colors.unity;
+                break;
+            default:
+                // Fall back to state-based color
+                baseColor = this.state === 'quantum' ? 
+                    this.colors.quantum : 
+                    (this.state === 'wave' ? this.colors.wave : this.colors.particle);
+        }
         
-        const adjustFactor = 0.1 * index;
+        // Convert hex to RGB for manipulation
+        const r = parseInt(baseColor.substring(1, 3), 16);
+        const g = parseInt(baseColor.substring(3, 5), 16);
+        const b = parseInt(baseColor.substring(5, 7), 16);
         
-        return `rgba(${r}, ${g}, ${b}, ${0.8 - adjustFactor})`;
+        // Adjust color based on wave index using phi
+        const phiAdjust = Math.pow(this.φ, index % 3) / 5;
+        const adjustedR = Math.min(255, Math.floor(r * (1 + phiAdjust)));
+        const adjustedG = Math.min(255, Math.floor(g * (1 + phiAdjust * 0.7)));
+        const adjustedB = Math.min(255, Math.floor(b * (1 + phiAdjust * 0.5)));
+        
+        return `rgba(${adjustedR}, ${adjustedG}, ${adjustedB}, 0.8)`;
     }
     
     setState(state) {
-        // Valid states: 'wave', 'particle', 'quantum'
         if (['wave', 'particle', 'quantum'].includes(state)) {
             this.state = state;
-            
-            // Update wave colors
             this.waves.forEach((wave, index) => {
                 wave.color = this.getWaveColor(index);
+            });
+            
+            // Update button active state
+            this.updateButtonState();
+        }
+    }
+    
+    updateButtonState() {
+        // Update button active state if buttons exist
+        const buttons = document.querySelectorAll('.canvas-controls button');
+        if (buttons.length > 0) {
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(this.state)) {
+                    btn.classList.add('active');
+                }
             });
         }
     }
     
+    setFrequency(freq) {
+        // Ensure frequency is one of the phi-harmonic values
+        if (Object.values(this.frequencies).includes(freq)) {
+            this.frequency = freq;
+            // Reinitialize with new frequency settings
+            this.init();
+        }
+    }
+    
+    getPhiFactorForFrequency() {
+        // Calculate phi-harmonic factor based on current frequency
+        switch(this.frequency) {
+            case this.frequencies.ground:
+                return Math.pow(this.φ, 0); // φ⁰ = 1
+            case this.frequencies.creation:
+                return Math.pow(this.φ, 1); // φ¹ = 1.618...
+            case this.frequencies.heart:
+                return Math.pow(this.φ, 2); // φ² = 2.618...
+            case this.frequencies.voice:
+                return Math.pow(this.φ, 3) / 4; // Scaled down for visualization
+            case this.frequencies.vision:
+                return Math.pow(this.φ, 4) / 6; // Scaled down for visualization
+            case this.frequencies.unity:
+                return Math.pow(this.φ, 5) / 10; // Scaled down for visualization
+            default:
+                return 1;
+        }
+    }
+    
     applyQuantumUncertainty(value, range = 0.2) {
-        // Add quantum uncertainty effect
-        return value * (1 + (Math.random() * range * 2 - range));
+        // Add quantum uncertainty to a value based on coherence level
+        const uncertainty = (Math.random() * 2 - 1) * range * (1 - this.coherenceLevel);
+        return value * (1 + uncertainty);
     }
     
     animate() {
-        requestAnimationFrame(() => this.animate());
+        if (!this.ctx) return;
         
-        // Clear canvas with slight fade for trail effect
+        // Request next frame
+        this.isAnimating = true;
+        if (this.isAnimating) {
+            requestAnimationFrame(() => this.animate());
+        }
+        
+        // Clear canvas with semi-transparent background for trail effect
         this.ctx.fillStyle = this.colors.background;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Increment time
-        this.time += 0.01;
+        // Update time
+        this.time += 0.016; // Approximately 60fps
         
         // Draw based on current state
         if (this.state === 'particle' || this.state === 'quantum') {
@@ -165,96 +278,110 @@ class WaveParticleDemo {
             this.drawWaves();
         }
         
-        // Draw quantum field effect if in quantum state
         if (this.state === 'quantum') {
             this.drawQuantumField();
         }
         
-        // Draw state label
+        // Draw state and frequency label
         this.drawStateLabel();
     }
     
     drawParticles() {
+        // Get phi factor for current frequency
+        const phiFactor = this.getPhiFactorForFrequency();
+        
         this.particles.forEach(particle => {
-            // Update particle position
-            if (this.state === 'quantum') {
-                // Add quantum uncertainty to movement
-                particle.direction += (Math.random() - 0.5) * 0.2;
-                particle.speed = this.applyQuantumUncertainty(particle.speed);
+            // Update particle position with phi-harmonic motion
+            if (particle.phi) {
+                // Phi path - golden spiral movement
+                particle.direction += 0.01 * this.φInverse * phiFactor;
+            } else {
+                // Inverse phi path
+                particle.direction += 0.01 * (-this.φInverse) * phiFactor;
             }
             
             particle.x += Math.cos(particle.direction) * particle.speed;
             particle.y += Math.sin(particle.direction) * particle.speed;
             
-            // Bounce off edges
-            if (particle.x < 0 || particle.x > this.canvas.width) {
-                particle.direction = Math.PI - particle.direction;
-            }
-            if (particle.y < 0 || particle.y > this.canvas.height) {
-                particle.direction = -particle.direction;
-            }
-            
-            // Pulse effect
-            particle.pulse += particle.pulseSpeed;
-            const pulseFactor = Math.sin(particle.pulse) * 0.2 + 1;
-            
-            // Mouse interaction
-            let interactionFactor = 1;
-            if (this.mouseInteraction) {
-                const dx = particle.x - this.mousePosition.x;
-                const dy = particle.y - this.mousePosition.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+            // Apply quantum effects when in quantum state
+            if (this.state === 'quantum') {
+                // Update pulse effect - simulates quantum probability
+                particle.pulse += particle.pulseSpeed;
                 
-                if (distance < 100) {
-                    // Particles react to mouse proximity
-                    const repel = this.state === 'particle' ? 1 : -1;
-                    particle.direction = Math.atan2(dy, dx) + (repel * Math.PI);
-                    particle.speed = Math.max(particle.speed, 2);
-                    interactionFactor = 1.5;
+                // Apply quantum uncertainty to position if in quantum state
+                if (Math.random() < 0.1) {
+                    particle.x = this.applyQuantumUncertainty(particle.x, 0.01);
+                    particle.y = this.applyQuantumUncertainty(particle.y, 0.01);
                 }
             }
             
+            // Wrap around edges
+            if (particle.x < 0) particle.x = this.canvas.width;
+            if (particle.x > this.canvas.width) particle.x = 0;
+            if (particle.y < 0) particle.y = this.canvas.height;
+            if (particle.y > this.canvas.height) particle.y = 0;
+            
             // Draw particle
-            const size = particle.size * pulseFactor * interactionFactor;
-            const color = this.state === 'quantum' ? this.colors.quantum : this.colors.particle;
+            const size = this.state === 'quantum' ? 
+                particle.size * (1 + 0.3 * Math.sin(particle.pulse)) : 
+                particle.size;
             
-            // Glow effect
-            const glow = this.ctx.createRadialGradient(
-                particle.x, particle.y, size * 0.2,
-                particle.x, particle.y, size * 2
-            );
-            glow.addColorStop(0, color);
-            glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            // Determine particle color based on frequency and state
+            let particleColor;
+            if (this.state === 'quantum') {
+                // In quantum state, use frequency-based color
+                switch(this.frequency) {
+                    case this.frequencies.ground:
+                        particleColor = this.colors.ground;
+                        break;
+                    case this.frequencies.creation:
+                        particleColor = this.colors.creation;
+                        break;
+                    case this.frequencies.heart:
+                        particleColor = this.colors.heart;
+                        break;
+                    case this.frequencies.voice:
+                        particleColor = this.colors.voice;
+                        break;
+                    case this.frequencies.vision:
+                        particleColor = this.colors.vision;
+                        break;
+                    case this.frequencies.unity:
+                        particleColor = this.colors.unity;
+                        break;
+                    default:
+                        particleColor = this.colors.quantum;
+                }
+            } else {
+                // In particle state, use default particle color
+                particleColor = this.colors.particle;
+            }
             
+            // Draw glow effect
+            const glow = this.state === 'quantum' ? 15 : 8;
+            this.ctx.shadowColor = particleColor;
+            this.ctx.shadowBlur = glow;
+            
+            // Draw particle
             this.ctx.beginPath();
-            this.ctx.fillStyle = glow;
-            this.ctx.arc(particle.x, particle.y, size * 2, 0, Math.PI * 2);
-            this.ctx.fill();
-            
-            // Core
-            this.ctx.beginPath();
-            this.ctx.fillStyle = color;
             this.ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+            this.ctx.fillStyle = particleColor;
             this.ctx.fill();
             
-            // Highlight
-            this.ctx.beginPath();
-            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            this.ctx.arc(
-                particle.x - size * 0.3,
-                particle.y - size * 0.3,
-                size * 0.2, 0, Math.PI * 2
-            );
-            this.ctx.fill();
+            // Reset shadow for other drawing operations
+            this.ctx.shadowBlur = 0;
         });
     }
     
     drawWaves() {
         const centerY = this.canvas.height / 2;
         
+        // Get phi factor for current frequency
+        const phiFactor = this.getPhiFactorForFrequency();
+        
         this.waves.forEach(wave => {
-            // Update wave phase
-            wave.phase += wave.speed;
+            // Update wave phase with phi-harmonic progression
+            wave.phase += wave.speed * phiFactor;
             
             // Mouse interaction affects waves
             let interactionAmplitude = wave.amplitude;
@@ -268,10 +395,23 @@ class WaveParticleDemo {
             this.ctx.strokeStyle = wave.color;
             this.ctx.lineWidth = 2;
             
-            // Create wave path
+            // Create wave path with phi-harmonic adjustments
             for (let x = 0; x < this.canvas.width; x += 2) {
-                const y = centerY + interactionAmplitude * 
-                    Math.sin(x * wave.frequency + wave.phase + this.time);
+                // Calculate y position with phi-harmonic wave pattern
+                let y = centerY;
+                
+                // Basic sine wave
+                y += interactionAmplitude * Math.sin(x * wave.frequency + wave.phase + this.time);
+                
+                // Add phi-harmonic complexity for higher frequencies
+                if (this.frequency >= this.frequencies.heart) {
+                    y += interactionAmplitude * 0.3 * Math.sin(x * wave.frequency * this.φ + wave.phase * 1.5 + this.time * 1.2);
+                }
+                
+                // Add quantum uncertainty for quantum state
+                if (this.state === 'quantum') {
+                    y = this.applyQuantumUncertainty(y, 0.05);
+                }
                 
                 if (x === 0) {
                     this.ctx.moveTo(x, y);
@@ -282,19 +422,73 @@ class WaveParticleDemo {
             
             this.ctx.stroke();
             
-            // Add glow effect
+            // Add glow effect - intensity based on frequency
+            const glowIntensity = this.frequency / 768 * 20;
             this.ctx.shadowColor = wave.color;
-            this.ctx.shadowBlur = 10;
+            this.ctx.shadowBlur = glowIntensity;
             this.ctx.stroke();
             this.ctx.shadowBlur = 0;
         });
     }
     
     drawQuantumField() {
-        // Draw quantum field visualization - connects waves and particles
+        // Only execute in quantum state
+        if (this.state !== 'quantum') return;
         if (this.particles.length < 2) return;
         
-        // Only connect particles that are close enough
+        // Get phi factor for current frequency
+        const phiFactor = this.getPhiFactorForFrequency();
+        
+        // Connection threshold based on frequency
+        // Higher frequencies create more connections
+        let connectionThreshold = 100;
+        switch(this.frequency) {
+            case this.frequencies.ground:
+                connectionThreshold = 80;
+                break;
+            case this.frequencies.creation:
+                connectionThreshold = 100;
+                break;
+            case this.frequencies.heart:
+                connectionThreshold = 130; // Heart field creates more connections
+                break;
+            case this.frequencies.voice:
+                connectionThreshold = 120;
+                break;
+            case this.frequencies.vision:
+                connectionThreshold = 110;
+                break;
+            case this.frequencies.unity:
+                connectionThreshold = 150; // Unity creates most connections
+                break;
+        }
+        
+        // Get color based on current frequency
+        let fieldColor;
+        switch(this.frequency) {
+            case this.frequencies.ground:
+                fieldColor = this.colors.ground;
+                break;
+            case this.frequencies.creation:
+                fieldColor = this.colors.creation;
+                break;
+            case this.frequencies.heart:
+                fieldColor = this.colors.heart;
+                break;
+            case this.frequencies.voice:
+                fieldColor = this.colors.voice;
+                break;
+            case this.frequencies.vision:
+                fieldColor = this.colors.vision;
+                break;
+            case this.frequencies.unity:
+                fieldColor = this.colors.unity;
+                break;
+            default:
+                fieldColor = this.colors.quantum;
+        }
+        
+        // Connect particles that are close enough
         for (let i = 0; i < this.particles.length; i++) {
             for (let j = i + 1; j < this.particles.length; j++) {
                 const p1 = this.particles[i];
@@ -304,17 +498,18 @@ class WaveParticleDemo {
                 const dy = p1.y - p2.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 100) {
+                if (distance < connectionThreshold) {
                     // Draw quantum entanglement line
-                    const opacity = (1 - distance / 100) * 0.5;
+                    const opacity = (1 - distance / connectionThreshold) * 0.5;
                     
                     this.ctx.beginPath();
-                    this.ctx.strokeStyle = `rgba(156, 39, 176, ${opacity})`;
+                    // Use color based on frequency
+                    this.ctx.strokeStyle = fieldColor.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
                     this.ctx.lineWidth = 1;
                     
-                    // Create wavy line between particles
+                    // Create wavy line between particles based on phi
                     const segments = 12;
-                    const waveHeight = 5;
+                    const waveHeight = 5 * phiFactor;
                     
                     this.ctx.moveTo(p1.x, p1.y);
                     
@@ -334,11 +529,46 @@ class WaveParticleDemo {
     }
     
     drawStateLabel() {
-        // Draw current state label
+        // Draw current state and frequency labels
         this.ctx.font = '14px Arial';
         this.ctx.fillStyle = '#fff';
         this.ctx.textAlign = 'left';
-        this.ctx.fillText(`State: ${this.state.charAt(0).toUpperCase() + this.state.slice(1)}`, 10, 20);
+        
+        // Get phi power for current frequency
+        let phiPower = '0';
+        let frequencyName = 'Custom';
+        
+        switch(this.frequency) {
+            case this.frequencies.ground:
+                phiPower = '0';
+                frequencyName = 'Ground State';
+                break;
+            case this.frequencies.creation:
+                phiPower = '1';
+                frequencyName = 'Creation Point';
+                break;
+            case this.frequencies.heart:
+                phiPower = '2';
+                frequencyName = 'Heart Field';
+                break;
+            case this.frequencies.voice:
+                phiPower = '3';
+                frequencyName = 'Voice Flow';
+                break;
+            case this.frequencies.vision:
+                phiPower = '4';
+                frequencyName = 'Vision Gate';
+                break;
+            case this.frequencies.unity:
+                phiPower = '5';
+                frequencyName = 'Unity Wave';
+                break;
+        }
+        
+        const capitalizedState = this.state.charAt(0).toUpperCase() + this.state.slice(1);
+        
+        this.ctx.fillText(`State: ${capitalizedState}`, 10, 20);
+        this.ctx.fillText(`Frequency: ${this.frequency} Hz (φ${phiPower} - ${frequencyName})`, 10, 40);
     }
 }
 
@@ -346,18 +576,22 @@ class WaveParticleDemo {
 document.addEventListener('DOMContentLoaded', () => {
     // Create wave-particle demo
     window.waveParticleDemo = new WaveParticleDemo('wave-particle-canvas');
-    
-    // Handle control buttons
-    document.querySelectorAll('.canvas-controls button').forEach(button => {
-        button.addEventListener('click', () => {
-            const state = button.textContent.toLowerCase().split(' ')[0];
-            window.waveParticleDemo.setState(state);
-            
-            // Update button active state
-            document.querySelectorAll('.canvas-controls button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-        });
-    });
 });
+
+// Global toggleState function to connect HTML buttons with the visualization
+function toggleState(state) {
+    if (window.waveParticleDemo) {
+        window.waveParticleDemo.setState(state);
+    } else {
+        // If the demo hasn't initialized yet, create it
+        window.waveParticleDemo = new WaveParticleDemo('wave-particle-canvas');
+        window.waveParticleDemo.setState(state);
+    }
+}
+
+// Global function to change frequency
+function setQuantumFrequency(frequency) {
+    if (window.waveParticleDemo) {
+        window.waveParticleDemo.setFrequency(parseInt(frequency));
+    }
+}

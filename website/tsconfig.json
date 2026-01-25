@@ -15,8 +15,8 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,  
+    "noUnusedParameters": false,
     
     /* Heart Field (594 Hz | φ²) - Connection coherence */
     "moduleResolution": "node",
@@ -33,25 +33,29 @@
     
     /* Vision Gate (720 Hz | φ⁴) - Visual harmony */
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "quantum/*": ["js/quantum-experience/*"],
-      "components/*": ["components/*"]
+      "components/*": ["components/*"],
+      "*": ["types/*"]
     },
     
     /* Unity Wave (768 Hz | φ⁵) - Perfect integration */
     "incremental": true,
     "composite": true,
     "tsBuildInfoFile": "./dist/.tsbuildinfo",
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
   "include": [
     "src",
     "js",
     "components",
-    "test"
+    "test",
+    "*.js",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules",

@@ -13,8 +13,9 @@ import argparse
 
 class WebsiteManager:
     def __init__(self):
-        self.source_dir = Path('/mnt/d/cqil/website')
-        self.deploy_dir = Path('/mnt/d/cqil/website_deployed')
+        # Updated paths for Windows
+        self.source_dir = Path('d:/CQIL/website')
+        self.deploy_dir = Path('d:/CQIL/website_deployed')
         self.port = 8888
         self.http_server = None
         self.server_thread = None

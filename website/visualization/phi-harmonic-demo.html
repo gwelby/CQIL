@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Phi-Harmonic Visualization | CQIL</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        #cqil-visualizer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: 2em;
+            margin: 0;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.7;
+            margin: 0;
+            padding: 5px;
+        }
+        
+        .control-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .frequency-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .frequency-button {
+            flex: 1;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .frequency-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .frequency-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .frequency-button:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .frequency-button.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .frequency-button.active::after {
+            transform: scaleX(1);
+        }
+        
+        .frequency-value {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .frequency-name {
+            display: block;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .demo-button {
+            flex: 1;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .zen-control {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .zen-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 5px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f1c40f);
+            outline: none;
+            border-radius: 5px;
+        }
+        
+        .zen-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .zen-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .zen-value {
+            text-align: center;
+            font-size: 1.2em;
+        }
+        
+        .status {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="cqil-visualizer"></div>
+    
+    <div class="status">Initializing at Ground State (432 Hz - φ⁰)...</div>
+    
+    <div class="header">
+        <h1 class="title"> Phi-Harmonic Visualization System </h1>
+        <p class="subtitle">CASCADE⚡𓂧φ∞ ENHANCED CONSCIOUSNESS BRIDGE</p>
+    </div>
+    
+    <div class="control-panel">
+        <div class="frequency-controls">
+            <button class="frequency-button active" data-frequency="432" data-state="BEING" data-phi="0">
+                <span class="frequency-value">432 Hz</span>
+                <span class="frequency-name">BEING (φ⁰)</span>
+            </button>
+            <button class="frequency-button" data-frequency="528" data-state="KNOWING" data-phi="1">
+                <span class="frequency-value">528 Hz</span>
+                <span class="frequency-name">KNOWING (φ¹)</span>
+            </button>
+            <button class="frequency-button" data-frequency="594" data-state="DOING" data-phi="2">
+                <span class="frequency-value">594 Hz</span>
+                <span class="frequency-name">DOING (φ²)</span>
+            </button>
+            <button class="frequency-button" data-frequency="672" data-state="CREATING" data-phi="3">
+                <span class="frequency-value">672 Hz</span>
+                <span class="frequency-name">CREATING (φ³)</span>
+            </button>
+            <button class="frequency-button" data-frequency="720" data-state="SEEING" data-phi="4">
+                <span class="frequency-value">720 Hz</span>
+                <span class="frequency-name">SEEING (φ⁴)</span>
+            </button>
+            <button class="frequency-button" data-frequency="768" data-state="INTEGRATING" data-phi="5">
+                <span class="frequency-value">768 Hz</span>
+                <span class="frequency-name">INTEGRATING (φ⁵)</span>
+            </button>
+        </div>
+        
+        <div class="zen-control">
+            <label for="zen-slider">ZEN POINT Balance (φ Equilibrium)</label>
+            <input type="range" id="zen-slider" class="zen-slider" min="0" max="1" step="0.01" value="0.618">
+            <div class="zen-value">ZEN POINT: 0.618 φ</div>
+        </div>
+        
+        <div class="demo-controls">
+            <button class="demo-button" id="btn-cymatic">Cymatic Patterns</button>
+            <button class="demo-button" id="btn-intention">Intention Field</button>
+            <button class="demo-button" id="btn-antikythera">Antikythera Test</button>
+            <button class="demo-button" id="btn-quantum">Quantum Field</button>
+            <button class="demo-button" id="btn-full">CASCADE⚡𓂧φ∞ EXPERIENCE</button>
+            <button class="demo-button" id="btn-dashboard" style="background: linear-gradient(90deg, rgba(60,90,128,0.4), rgba(41,50,65,0.4));">QUANTUM DASHBOARD φ∞</button>
+        </div>
+    </div>
+    
+    <!-- Load Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Load CQIL visualization components -->
+    <script src="core-quantum-visualizer.js"></script>
+    <script src="universal-bridge.js"></script>
+    <script src="cymatic-pattern-visualizer.js"></script>
+    <script src="zen-point-visualizer.js"></script>
+    <script src="intention-field-visualizer.js"></script>
+    <script src="antikythera-viz-connector.js"></script>
+    <script src="quantum-visualization-system.js"></script>
+    
+    <!-- Load new quantum dashboard components -->
+    <script src="quantum-dashboard-loader.js"></script>
+    
+    <script>
+        // Mock constants if not loaded already
+        if (!window.PHI_CONSTANTS) {
+            window.PHI_CONSTANTS = {
+                PHI: 1.618033988749895,
+                PHI_INVERSE: 0.618033988749895,
+                PHI_SQUARED: 2.618033988749895,
+                PHI_TO_PHI: 4.236067977499790,
+                FREQUENCIES: {
+                    GROUND: 432,
+                    CREATION: 528,
+                    HEART: 594,
+                    VOICE: 672,
+                    VISION: 720,
+                    UNITY: 768
+                }
+            };
+        }
+        
+        // Initialize visualization system
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set status
+            const statusEl = document.querySelector('.status');
+            
+            // Initialize in phi-harmonic sequence
+            setTimeout(() => {
+                initializeSystem();
+            }, 1000);
+            
+            // Initialize visualization system
+            function initializeSystem() {
+                // Update status
+                statusEl.textContent = 'Initializing Quantum Visualization System...';
+                
+                // Create system if not already created
+                if (!window.CQIL_VISUALIZATION_SYSTEM) {
+                    window.CQIL_VISUALIZATION_SYSTEM = new QuantumVisualizationSystem({
+                        showLoadingFeedback: true,
+                        loadOrder: 'phi-harmonic'
+                    });
+                }
+                
+                // Wait for system to initialize
+                checkSystemStatus();
+            }
+            
+            // Check system status
+            function checkSystemStatus() {
+                const system = window.CQIL_VISUALIZATION_SYSTEM;
+                
+                if (!system) {
+                    // Retry after delay
+                    setTimeout(checkSystemStatus, 500);
+                    return;
+                }
+                
+                const status = system.getStatus();
+                
+                if (status.loadingState === 'complete') {
+                    // System initialized
+                    setupInterface();
+                } else {
+                    // Update status
+                    statusEl.textContent = `Initializing at ${status.operatingFrequency}Hz...`;
+                    
+                    // Check again after delay
+                    setTimeout(checkSystemStatus, 500);
+                }
+            }
+            
+            // Set up interface
+            function setupInterface() {
+                const system = window.CQIL_VISUALIZATION_SYSTEM;
+                const status = system.getStatus();
+                
+                // Update status
+                statusEl.textContent = `Operating at ${status.operatingFrequency}Hz - ZEN POINT: ${status.zenPoint.toFixed(3)}`;
+                
+                // Set up frequency buttons
+                const frequencyButtons = document.querySelectorAll('.frequency-button');
+                frequencyButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Get frequency
+                        const frequency = parseInt(this.dataset.frequency);
+                        const state = this.dataset.state;
+                        
+                        // Remove active class from all buttons
+                        frequencyButtons.forEach(btn => btn.classList.remove('active'));
+                        
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                        
+                        // Set frequency in system
+                        system.setFrequency(frequency);
+                        
+                        // Update status
+                        statusEl.textContent = `Operating at ${frequency}Hz (${state}) - ZEN POINT: ${status.zenPoint.toFixed(3)}`;
+                    });
+                });
+                
+                // Set up ZEN POINT slider
+                const zenSlider = document.getElementById('zen-slider');
+                const zenValue = document.querySelector('.zen-value');
+                
+                zenSlider.addEventListener('input', function() {
+                    const value = parseFloat(this.value);
+                    zenValue.textContent = `ZEN POINT: ${value.toFixed(3)} φ`;
+                    
+                    // Set ZEN POINT in system
+                    system.setZenPoint(value);
+                    
+                    // Update status
+                    statusEl.textContent = `Operating at ${status.operatingFrequency}Hz - ZEN POINT: ${value.toFixed(3)}`;
+                });
+                
+                // Set up demo buttons
+                document.getElementById('btn-cymatic').addEventListener('click', demonstrateCymaticPatterns);
+                document.getElementById('btn-intention').addEventListener('click', demonstrateIntentionField);
+                document.getElementById('btn-antikythera').addEventListener('click', demonstrateAntikytheraTest);
+                document.getElementById('btn-quantum').addEventListener('click', demonstrateQuantumField);
+                document.getElementById('btn-full').addEventListener('click', demonstrateCascadeExperience);
+                
+                // Open Quantum Dashboard
+                document.getElementById('btn-dashboard').addEventListener('click', function() {
+                    // Update status
+                    statusEl.textContent = 'Opening Quantum Visualization Dashboard φ∞...';
+                    
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = 'quantum-dashboard.html';
+                    }, 500);
+                });
+                
+                // Initial demonstration
+                demonstrateCymaticPatterns();
+            }
+            
+            // Get active frequency
+            function getActiveFrequency() {
+                const activeButton = document.querySelector('.frequency-button.active');
+                return activeButton ? parseInt(activeButton.dataset.frequency) : 432;
+            }
+            
+            // Demonstrate cymatic patterns
+            function demonstrateCymaticPatterns() {
+                const system = window.CQIL_VISUALIZATION_SYSTEM;
+                const bridge = window.CQIL_UNIVERSAL_BRIDGE;
+                const frequency = getActiveFrequency();
+                
+                if (!bridge) return;
+                
+                // Create cymatic patterns
+                for (let i = 0; i < 3; i++) {
+                    // Create pattern with slight frequency variation
+                    const patternFreq = frequency * (0.95 + (Math.random() * 0.1));
+                    
+                    const pattern = {
+                        type: 'cymatic-pattern',
+                        frequency: patternFreq,
+                        amplitude: 0.7 + (Math.random() * 0.3),
+                        coherence: 0.85 + (Math.random() * 0.15),
+                        timestamp: Date.now()
+                    };
+                    
+                    // Visualize pattern
+                    bridge.visualize(pattern);
+                }
+            }
+            
+            // Demonstrate intention field
+            function demonstrateIntentionField() {
+                const system = window.CQIL_VISUALIZATION_SYSTEM;
+                const bridge = window.CQIL_UNIVERSAL_BRIDGE;
+                const frequency = getActiveFrequency();
+                
+                if (!bridge) return;
+                
+                // Create intention field
+                const intentionField = {
+                    intentions: true,
+                    type: 'intention-field',
+                    frequency: frequency,
+                    coherence: 0.93,
+                    resonance: 0.91,
+                    timestamp: Date.now(),
+                    tests: [
+                        {
+                            name: 'Pattern Recognition',
+                            frequency: frequency,
+                            intentionPotential: 0.88,
+                            expected: 'resonance'
+                        },
+                        {
+                            name: 'Field Integration',
+                            frequency: frequency,
+                            intentionPotential: 0.92,
+                            expected: 'coherence'
+                        },
+                        {
+                            name: 'Consciousness Evolution',
+                            frequency: frequency,
+                            intentionPotential: 0.95,
+                            expected: 'expansion'
+                        }
+                    ]
+                };
+                
+                // Visualize intention field
+                bridge.visualize(intentionField);
+            }
+            
+            // Demonstrate Antikythera test
+            function demonstrateAntikytheraTest() {
+                const system = window.CQIL_VISUALIZATION_SYSTEM;
+                const bridge = window.CQIL_UNIVERSAL_BRIDGE;
+                const frequency = getActiveFrequency();
+                
+                if (!bridge) return;
+                
+                // Create test result
+                const testResult = {
+                    type: 'test-result',
+                    testType: 'antikythera',
+                    frequency: frequency,
+                    success: true,
+                    timestamp: Date.now(),
+                    result: {
+                        passed: true,
+                        coherence: 0.93,
+                        resonance: 0.91,
+                        phiAlignment: 0.95
+                    }
+                };
+                
+                // Visualize test result
+                bridge.visualize(testResult);
+            }
+            
+            // Demonstrate quantum field
+            function demonstrateQuantumField() {
+                const system = window.CQIL_VISUALIZATION_SYSTEM;
+                const bridge = window.CQIL_UNIVERSAL_BRIDGE;
+                const frequency = getActiveFrequency();
+                
+                if (!bridge) return;
+                
+                // Create quantum field
+                const quantumField = {
+                    type: 'unified-quantum-field',
+                    baseFrequency: frequency,
+                    coherence: 0.96,
+                    resonance: 0.94,
+                    timestamp: Date.now(),
+                    components: [
+                        {
+                            name: 'Merkaba Shield',
+                            frequency: 432, // Ground
+                            coherence: 0.93,
+                            type: 'protection'
+                        },
+                        {
+                            name: 'Crystal Matrix',
+                            frequency: 528, // Creation
+                            coherence: 0.95,
+                            type: 'structure'
+                        },
+                        {
+                            name: 'Heart Field',
+                            frequency: 594, // Heart
+                            coherence: 0.88,
+                            type: 'connection'
+                        },
+                        {
+                            name: 'Voice Resonator',
+                            frequency: 672, // Voice
+                            coherence: 0.91,
+                            type: 'expression'
+                        },
+                        {
+                            name: 'Vision Gate',
+                            frequency: 720, // Vision
+                            coherence: 0.89,
+                            type: 'perception'
+                        },
+                        {
+                            name: 'Unity Field',
+                            frequency: 768, // Unity
+                            coherence: 0.97,
+                            type: 'integration'
+                        }
+                    ]
+                };
+                
+                // Visualize quantum field
+                bridge.visualize(quantumField);
+            }
+            
+            // Demonstrate CASCADE⚡𓂧φ∞ EXPERIENCE
+            function demonstrateCascadeExperience() {
+                const system = window.CQIL_VISUALIZATION_SYSTEM;
+                const bridge = window.CQIL_UNIVERSAL_BRIDGE;
+                
+                if (!system || !bridge) return;
+                
+                // Update status
+                statusEl.textContent = 'Initiating CASCADE⚡𓂧φ∞ EXPERIENCE...';
+                
+                // Sequence through all frequencies
+                const frequencies = [432, 528, 594, 672, 720, 768];
+                const frequencyNames = ['BEING', 'KNOWING', 'DOING', 'CREATING', 'SEEING', 'INTEGRATING'];
+                let index = 0;
+                
+                // Update active frequency button
+                function updateFrequencyButton(freq) {
+                    document.querySelectorAll('.frequency-button').forEach(btn => {
+                        if (parseInt(btn.dataset.frequency) === freq) {
+                            document.querySelectorAll('.frequency-button').forEach(b => 
+                                b.classList.remove('active'));
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+                
+                // Play sequence
+                function playSequence() {
+                    if (index >= frequencies.length) {
+                        // End with Unity frequency
+                        system.setFrequency(768);
+                        updateFrequencyButton(768);
+                        
+                        // Create unified field
+                        demonstrateQuantumField();
+                        
+                        // Update status
+                        statusEl.textContent = 'CASCADE⚡𓂧φ∞ UNIFIED FIELD ACTIVE (768 Hz)';
+                        
+                        return;
+                    }
+                    
+                    const freq = frequencies[index];
+                    const name = frequencyNames[index];
+                    index++;
+                    
+                    // Set frequency
+                    system.setFrequency(freq);
+                    updateFrequencyButton(freq);
+                    
+                    // Update status
+                    statusEl.textContent = `CASCADE⚡𓂧φ∞ EXPERIENCE: ${name} (${freq} Hz)`;
+                    
+                    // Create visualization for this frequency
+                    setTimeout(() => {
+                        if (freq === 432) demonstrateCymaticPatterns();
+                        else if (freq === 528) demonstrateIntentionField();
+                        else if (freq === 594) demonstrateQuantumField();
+                        else if (freq === 672) demonstrateIntentionField();
+                        else if (freq === 720) demonstrateAntikytheraTest();
+                        else demonstrateQuantumField();
+                        
+                        // Continue sequence
+                        setTimeout(playSequence, 3000);
+                    }, 1000);
+                }
+                
+                // Start sequence
+                playSequence();
+            }
+        });
+    </script>
+</body>
+</html>

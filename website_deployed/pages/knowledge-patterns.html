@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Patterns Through History | CQIL</title>
+  <meta name="description" content="Explore how knowledge and wisdom have been preserved and transmitted across cultures and time periods.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/visualization.css">
+  
+  <!-- Direct script imports for THREE.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  
+  <style>
+    .knowledge-spiral-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      background: rgba(0, 10, 26, 0.5);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    #knowledge-spiral-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .info-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 20, 40, 0.8);
+      padding: 15px;
+      border-radius: 8px;
+      max-width: 300px;
+      backdrop-filter: blur(10px);
+      color: white;
+      border-left: 3px solid #ffb300;
+      z-index: 10;
+    }
+    
+    .time-period-marker {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffb300;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 5;
+      transition: all 0.3s ease;
+    }
+    
+    .time-period-marker:hover {
+      transform: translate(-50%, -50%) scale(1.5);
+      box-shadow: 0 0 15px #ffb300;
+    }
+    
+    .knowledge-controls {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .knowledge-controls button {
+      background: rgba(255, 179, 0, 0.2);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .knowledge-controls button:hover {
+      background: rgba(255, 179, 0, 0.4);
+    }
+    
+    .knowledge-controls button.active {
+      background: #ffb300;
+      box-shadow: 0 0 10px rgba(255, 179, 0, 0.5);
+    }
+    
+    .civilization-label {
+      position: absolute;
+      color: white;
+      padding: 5px 10px;
+      background: rgba(0, 20, 40, 0.7);
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .time-period-selector {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      background: rgba(0, 20, 40, 0.8);
+      padding: 10px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .time-slider {
+      width: 200px;
+      margin-top: 5px;
+    }
+    
+    .frequency-visualizer {
+      width: 100%;
+      height: 60px;
+      background: rgba(0, 20, 40, 0.5);
+      margin-top: 1rem;
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .frequency-wave {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <a href="../index.html">CQIL</a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="consciousness-gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+    <main>
+      <div class="visualization-header">
+        <h1>Knowledge Patterns Through History</h1>
+        <p class="subtitle">Exploring wisdom transmission across time and cultures through φ-harmonic relationships</p>
+      </div>
+      
+      <!-- Main Visualization -->
+      <section class="visualization-section">
+        <div class="knowledge-spiral-container">
+          <canvas id="knowledge-spiral-canvas"></canvas>
+          
+          <div class="info-panel">
+            <h3 id="info-title">Knowledge Transmission</h3>
+            <p id="info-description">This visualization demonstrates how knowledge flows through civilizations in φ-harmonic patterns. Select a time period or knowledge type to explore.</p>
+          </div>
+          
+          <div class="time-period-selector">
+            <label for="time-slider">Time Period: <span id="time-value">3000 BCE - Present</span></label>
+            <input type="range" id="time-slider" class="time-slider" min="0" max="100" value="100">
+          </div>
+        </div>
+        
+        <div class="knowledge-controls">
+          <button class="knowledge-type-btn active" data-frequency="432">Foundation Knowledge (432 Hz)</button>
+          <button class="knowledge-type-btn" data-frequency="528">Creation Knowledge (528 Hz)</button>
+          <button class="knowledge-type-btn" data-frequency="594">Heart Knowledge (594 Hz)</button>
+          <button class="knowledge-type-btn" data-frequency="672">Communication Knowledge (672 Hz)</button>
+          <button class="knowledge-type-btn" data-frequency="720">Insight Knowledge (720 Hz)</button>
+          <button class="knowledge-type-btn" data-frequency="768">Unity Knowledge (768 Hz)</button>
+        </div>
+        
+        <div class="frequency-visualizer">
+          <canvas id="frequency-canvas" class="frequency-wave"></canvas>
+        </div>
+      </section>
+      
+      <!-- Description Section -->
+      <section class="visualization-info">
+        <div class="info-card">
+          <h2>About This Visualization</h2>
+          <p>
+            Knowledge doesn't simply progress linearly - it flows through civilizations in patterns that follow the 
+            golden ratio (φ). This visualization maps historical knowledge traditions at φ-harmonic intervals, 
+            showing how certain fundamental insights have emerged independently across different cultures.
+          </p>
+          <p>
+            By using φ-harmonic frequencies, we can categorize different types of knowledge:
+          </p>
+          <ul>
+            <li><strong>432Hz (Ground):</strong> Foundation knowledge - agriculture, construction, basic survival</li>
+            <li><strong>528Hz (Creation):</strong> Creative knowledge - art, music, invention, innovation</li>
+            <li><strong>594Hz (Heart):</strong> Ethical knowledge - philosophy, ethics, social organization</li>
+            <li><strong>672Hz (Voice):</strong> Communication knowledge - language, writing, information transmission</li>
+            <li><strong>720Hz (Vision):</strong> Insight knowledge - mathematics, science, systematic understanding</li>
+            <li><strong>768Hz (Unity):</strong> Unity knowledge - spiritual traditions, mystical understanding</li>
+          </ul>
+          <p>
+            Notice how similar patterns of knowledge emerge at different times in history, often following 
+            φ-harmonic relationships in their timing and development.
+          </p>
+        </div>
+        
+        <div class="info-card">
+          <h2>How To Use</h2>
+          <p>
+            <strong>Explore Time Periods:</strong> Use the time slider to travel through history, from ancient 
+            civilizations to the present day.
+          </p>
+          <p>
+            <strong>Select Knowledge Types:</strong> Click on the different knowledge type buttons to filter 
+            the visualization by knowledge domain.
+          </p>
+          <p>
+            <strong>Discover Connections:</strong> Hover over knowledge nodes to see how they connect to other 
+            traditions across time and space.
+          </p>
+          <p>
+            <strong>Observe Patterns:</strong> Notice how the spiraling pattern of knowledge transmission follows 
+            φ-harmonic principles, with similar insights emerging at mathematically related intervals.
+          </p>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="footer-content">
+        <p>CQIL | Knowledge Patterns Through History | ©2025</p>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="../js/phi-harmonic-constants.js"></script>
+  <script src="../js/knowledge-patterns.js"></script>
+</body>
+</html>

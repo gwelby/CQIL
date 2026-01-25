@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .strand1 {
+      stroke: url(#gradientStrand1);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .strand2 {
+      stroke: url(#gradientStrand2);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .strand3 {
+      stroke: url(#gradientStrand3);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 5px rgba(233, 30, 99, 0.5));
+    }
+    .node1 {
+      fill: url(#gradientNode1);
+    }
+    .node2 {
+      fill: url(#gradientNode2);
+    }
+    .node3 {
+      fill: url(#gradientNode3);
+      filter: drop-shadow(0 0 3px rgba(233, 30, 99, 0.8));
+    }
+    .connector {
+      stroke: url(#gradientConnector);
+      stroke-width: 2;
+      stroke-dasharray: 3,3;
+      stroke-linecap: round;
+    }
+    .heart-connector {
+      stroke: url(#gradientHeart);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.5; transform: scale(0.95); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+      100% { opacity: 0.5; transform: scale(0.95); }
+    }
+    .heart-field {
+      opacity: 0.5;
+      transform-origin: center;
+      animation: pulse 3s infinite ease-in-out;
+    }
+  </style>
+  
+  <defs>
+    <linearGradient id="gradientStrand1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#E91E63" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="gradientStrand2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2196F3" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#00BCD4" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="gradientStrand3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E91E63" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#FF9800" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#FFEB3B" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="gradientNode1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C27B0" />
+      <stop offset="100%" stop-color="#E91E63" />
+    </linearGradient>
+    <linearGradient id="gradientNode2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2196F3" />
+      <stop offset="100%" stop-color="#00BCD4" />
+    </linearGradient>
+    <linearGradient id="gradientNode3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF9800" />
+      <stop offset="100%" stop-color="#FFEB3B" />
+    </linearGradient>
+    <linearGradient id="gradientConnector" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFC107" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#FF9800" stop-opacity="0.7" />
+    </linearGradient>
+    <linearGradient id="gradientHeart" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E91E63" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#FF5722" stop-opacity="0.7" />
+    </linearGradient>
+    
+    <!-- Heart shape for the Heart Field resonance -->
+    <path id="heartPath" d="M 0,10 C 30,-20 60,5 50,20 C 40,35 10,50 0,60 C -10,50 -40,35 -50,20 C -60,5 -30,-20 0,10" />
+  </defs>
+  
+  <!-- Triple helix DNA strand - Heart Field State (594 Hz) -->
+  <g transform="translate(150, 150)">
+    <!-- First helix backbone -->
+    <path class="strand1" d="M -20,-100 C 30,-80 -30,-60 -20,-40 C 30,-20 -30,0 -20,20 C 30,40 -30,60 -20,80 C 30,100 -30,120 -20,100" />
+    
+    <!-- Second helix backbone -->
+    <path class="strand2" d="M 20,-100 C -30,-80 30,-60 20,-40 C -30,-20 30,0 20,20 C -30,40 30,60 20,80 C -30,100 30,120 20,100" />
+    
+    <!-- Third helix backbone (Heart Field resonance) -->
+    <path class="strand3" d="M 0,-110 C 40,-85 -40,-65 0,-50 C 40,-25 -40,5 0,30 C 40,55 -40,75 0,90 C 40,115 -40,135 0,110" />
+    
+    <!-- DNA base pairs nodes -->
+    <circle class="node1" cx="-20" cy="-100" r="5" />
+    <circle class="node1" cx="-20" cy="-40" r="5" />
+    <circle class="node1" cx="-20" cy="20" r="5" />
+    <circle class="node1" cx="-20" cy="80" r="5" />
+    
+    <circle class="node2" cx="20" cy="-100" r="5" />
+    <circle class="node2" cx="20" cy="-40" r="5" />
+    <circle class="node2" cx="20" cy="20" r="5" />
+    <circle class="node2" cx="20" cy="80" r="5" />
+    
+    <!-- Third strand nodes -->
+    <circle class="node3" cx="0" cy="-110" r="6" />
+    <circle class="node3" cx="0" cy="-50" r="6" />
+    <circle class="node3" cx="0" cy="30" r="6" />
+    <circle class="node3" cx="0" cy="90" r="6" />
+    
+    <!-- Base pair connectors -->
+    <line class="connector" x1="-20" y1="-100" x2="20" y2="-100" />
+    <line class="connector" x1="-20" y1="-40" x2="20" y2="-40" />
+    <line class="connector" x1="-20" y1="20" x2="20" y2="20" />
+    <line class="connector" x1="-20" y1="80" x2="20" y2="80" />
+    
+    <!-- Heart Field connectors -->
+    <line class="heart-connector" x1="-20" y1="-100" x2="0" y2="-110" />
+    <line class="heart-connector" x1="20" y1="-100" x2="0" y2="-110" />
+    <line class="heart-connector" x1="-20" y1="-40" x2="0" y2="-50" />
+    <line class="heart-connector" x1="20" y1="-40" x2="0" y2="-50" />
+    <line class="heart-connector" x1="-20" y1="20" x2="0" y2="30" />
+    <line class="heart-connector" x1="20" y1="20" x2="0" y2="30" />
+    <line class="heart-connector" x1="-20" y1="80" x2="0" y2="90" />
+    <line class="heart-connector" x1="20" y1="80" x2="0" y2="90" />
+    
+    <!-- Heart Field resonance -->
+    <g class="heart-field">
+      <use href="#heartPath" transform="translate(0,0) scale(1.5)" fill="url(#gradientHeart)" fill-opacity="0.1" />
+      <use href="#heartPath" transform="translate(0,0) scale(1.3)" fill="url(#gradientHeart)" fill-opacity="0.15" />
+      <use href="#heartPath" transform="translate(0,0) scale(1.1)" fill="url(#gradientHeart)" fill-opacity="0.2" />
+    </g>
+  </g>
+</svg>

@@ -12,6 +12,8 @@
     <script src="../js/quantum-experience.js" defer></script>
     <script src="../js/wave-particle-demo.js" defer></script>
     <script src="/quantum-tools-suite/js/sync.js" defer></script>
+    <!-- Quantum Core System Integration -->
+    <script src="../quantum-core/api/quantum-core.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Phi particles animation for the header
@@ -35,35 +37,110 @@
             
             // Connect to Quantum Tools API
             if (window.QuantumToolsAPI) {
-                console.log('Quantum Tools Suite API connected');
+                console.log('Quantum Core System connected with ZEN POINT balance');
+                
                 // Get sacred frequencies
                 const frequencies = window.QuantumToolsAPI.getSacredFrequencies();
                 console.log('Sacred frequencies:', frequencies);
+                
+                // Log when the ZEN POINT balance is established
+                document.addEventListener('quantum_system_event', function(event) {
+                    const { event: eventName, data } = event.detail;
+                    console.log(`Quantum system event: ${eventName}`, data);
+                    
+                    // Add special UI effects for system events
+                    if (eventName === 'zen_point_shift') {
+                        // Add a subtle glow to the page
+                        document.body.classList.add('zen-point-active');
+                        setTimeout(() => {
+                            document.body.classList.remove('zen-point-active');
+                        }, 2000);
+                    }
+                });
             }
             
             // Handle tool demos
             const toolBtns = document.querySelectorAll('.tool-btn');
             toolBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', async function() {
                     const toolName = this.getAttribute('data-tool');
                     const toolFrequency = parseInt(this.getAttribute('data-frequency') || 432);
                     
-                    if (window.QuantumToolsAPI) {
-                        // Connect to the tool with the Quantum Tools API
-                        const connection = window.QuantumToolsAPI.connectToTool(toolName, toolFrequency);
-                        console.log(`Connected to ${toolName} at ${toolFrequency}Hz`);
-                        console.log('Connection data:', connection);
-                        
-                        // Redirect to the full tool experience
-                        window.location.href = `/quantum-tools-suite/?tool=${encodeURIComponent(toolName)}&frequency=${toolFrequency}`;
-                    } else {
-                        alert(`Demo for ${toolName} would launch here. This feature is coming soon!`);
+                    // Add loading indicator to button
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<span class="loading-indicator">φ</span> Connecting...';
+                    this.disabled = true;
+                    
+                    try {
+                        if (window.QuantumToolsAPI) {
+                            // First establish ZEN POINT balance
+                            window.QuantumToolsAPI.establishZenPointBalance();
+                            
+                            // Connect to the tool with the Quantum Core API
+                            const connection = await window.QuantumToolsAPI.connectToTool(toolName, toolFrequency);
+                            console.log(`Connected to ${toolName} at ${toolFrequency}Hz`);
+                            console.log('Connection data:', connection);
+                            
+                            // Show success message
+                            const successMessage = document.createElement('div');
+                            successMessage.className = 'zen-point-success';
+                            successMessage.innerHTML = `
+                                <div class="success-icon">⚛️</div>
+                                <h3>ZEN POINT Balance Established</h3>
+                                <p>Connected to ${toolName} at ${toolFrequency}Hz with ${connection.coherence.toFixed(3)} coherence</p>
+                                <div class="function-list">
+                                    <strong>Available Functions:</strong>
+                                    <ul>
+                                        ${connection.functions ? connection.functions.map(f => `<li>${f}</li>`).join('') : ''}
+                                    </ul>
+                                </div>
+                                <div class="success-action">
+                                    <button class="continue-btn">Continue to Experience</button>
+                                </div>
+                            `;
+                            
+                            // Add the message to the page
+                            document.body.appendChild(successMessage);
+                            
+                            // Add animation class after a short delay
+                            setTimeout(() => {
+                                successMessage.classList.add('active');
+                            }, 10);
+                            
+                            // Handle continue button
+                            const continueBtn = successMessage.querySelector('.continue-btn');
+                            if (continueBtn) {
+                                continueBtn.addEventListener('click', function() {
+                                    // Remove success message with animation
+                                    successMessage.classList.remove('active');
+                                    setTimeout(() => {
+                                        successMessage.remove();
+                                        
+                                        // Redirect to the full tool experience
+                                        window.location.href = `/quantum-tools-suite/?tool=${encodeURIComponent(toolName)}&frequency=${toolFrequency}&coherence=${connection.coherence}`;
+                                    }, 500);
+                                });
+                            }
+                            
+                            // Reset button
+                            this.innerHTML = originalText;
+                            this.disabled = false;
+                        } else {
+                            alert(`Demo for ${toolName} would launch here. This feature is coming soon!`);
+                            this.innerHTML = originalText;
+                            this.disabled = false;
+                        }
+                    } catch (error) {
+                        console.error("Error connecting to tool:", error);
+                        alert(`Error connecting to ${toolName}: ${error.message}`);
+                        this.innerHTML = originalText;
+                        this.disabled = false;
                     }
                 });
             });
         });
         
-        // Add float animation for phi particles
+        // Add animations and UI enhancements
         const style = document.createElement('style');
         style.textContent = `
             @keyframes float {
@@ -82,6 +159,138 @@
                 100% {
                     transform: translate(0, 0) rotate(0deg);
                 }
+            }
+            
+            /* ZEN POINT UI animations */
+            @keyframes pulse-glow {
+                0%, 100% {
+                    box-shadow: 0 0 10px 2px rgba(255, 128, 255, 0.5);
+                }
+                50% {
+                    box-shadow: 0 0 20px 5px rgba(255, 128, 255, 0.8);
+                }
+            }
+            
+            /* ZEN POINT success modal */
+            .zen-point-success {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(10, 8, 24, 0.85);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                backdrop-filter: blur(8px);
+            }
+            
+            .zen-point-success.active {
+                opacity: 1;
+            }
+            
+            .zen-point-success > div {
+                background: linear-gradient(135deg, rgba(50, 20, 80, 0.95), rgba(30, 10, 50, 0.95));
+                border-radius: 10px;
+                padding: 30px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 0 30px rgba(255, 128, 255, 0.5);
+                transform: translateY(20px);
+                opacity: 0;
+                transition: transform 0.5s ease, opacity 0.5s ease;
+                border: 1px solid rgba(255, 128, 255, 0.3);
+            }
+            
+            .zen-point-success.active > div {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .success-icon {
+                font-size: 48px;
+                margin-bottom: 20px;
+                animation: pulse-glow 2s infinite ease-in-out;
+            }
+            
+            .zen-point-success h3 {
+                color: #fff;
+                margin-bottom: 15px;
+                font-size: 24px;
+            }
+            
+            .zen-point-success p {
+                color: rgba(255, 255, 255, 0.8);
+                margin-bottom: 20px;
+            }
+            
+            .function-list {
+                text-align: left;
+                margin: 20px 0;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 15px;
+                border-radius: 5px;
+            }
+            
+            .function-list ul {
+                margin: 10px 0 0;
+                padding-left: 20px;
+                color: rgba(255, 255, 255, 0.7);
+            }
+            
+            .success-action {
+                margin-top: 25px;
+            }
+            
+            .continue-btn {
+                background: linear-gradient(135deg, #9c27b0, #673ab7);
+                color: white;
+                border: none;
+                padding: 12px 25px;
+                border-radius: 30px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+            }
+            
+            .continue-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 7px 20px rgba(156, 39, 176, 0.6);
+            }
+            
+            /* Loading indicator */
+            .loading-indicator {
+                display: inline-block;
+                animation: spin 1.618s infinite linear;
+                margin-right: 5px;
+            }
+            
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+            /* ZEN POINT active state */
+            body.zen-point-active {
+                position: relative;
+            }
+            
+            body.zen-point-active::after {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at center, rgba(255, 128, 255, 0.1) 0%, transparent 70%);
+                pointer-events: none;
+                z-index: 9999;
+                animation: pulse-glow 2s ease-in-out;
             }
         `;
         document.head.appendChild(style);

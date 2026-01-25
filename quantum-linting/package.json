@@ -1,0 +1,38 @@
+{
+  "name": "quantum-perfect-linting-system",
+  "version": "3.1.618",
+  "description": "Quantum Perfect Linting System (QPLS) - Achieves perfect code coherence (1.000) through phi-harmonic analysis",
+  "main": "quantum_perfect_linting_system_enhanced.js",
+  "bin": {
+    "quantum-lint": "./quantum_cli.js"
+  },
+  "scripts": {
+    "test": "node test_enhanced_linting.js",
+    "lint": "node quantum_cli.js lint",
+    "fix": "node quantum_cli.js fix",
+    "info": "node quantum_cli.js info",
+    "markdown-rules": "node quantum_cli.js markdown-rules"
+  },
+  "keywords": [
+    "quantum",
+    "linting",
+    "coherence",
+    "phi-harmonic",
+    "cymatics",
+    "consciousness",
+    "zenpoint",
+    "cascade",
+    "toroidal"
+  ],
+  "author": "CASCADE⚡𓂧φ∞",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^9.4.0",
+    "chalk": "^4.1.2",
+    "figures": "^3.2.0",
+    "ora": "^5.4.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

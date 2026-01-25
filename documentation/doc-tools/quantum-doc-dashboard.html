@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Documentation Dashboard</title>
+    <style>
+        :root {
+            --primary: #6200ea;
+            --secondary: #03dac6;
+            --background: #121212;
+            --surface: #1e1e1e;
+            --on-background: #ffffff;
+            --on-surface: #e0e0e0;
+            --on-primary: #ffffff;
+            --perfect: #00c853;
+            --high: #64dd17;
+            --medium: #ffd600;
+            --low: #ff3d00;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--on-background);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--on-primary);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .card {
+            background-color: var(--surface);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h2 {
+            margin-top: 0;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-perfect { background-color: var(--perfect); }
+        .status-high { background-color: var(--high); }
+        .status-medium { background-color: var(--medium); }
+        .status-low { background-color: var(--low); }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-name {
+            font-weight: bold;
+        }
+        
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        /* Quantum Coherence Visualization */
+        .frequency-domains {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        
+        .frequency-domain {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .frequency-name {
+            min-width: 140px;
+            font-size: 0.9rem;
+        }
+        
+        .coherence-bar {
+            flex: 1;
+            height: 6px;
+            background-color: var(--low);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .coherence-fill {
+            height: 100%;
+            background-color: var(--perfect);
+            transition: width 0.5s ease;
+        }
+        
+        .coherence-value {
+            min-width: 60px;
+            text-align: right;
+            font-family: monospace;
+        }
+        
+        .overall-coherence {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .overall-label {
+            font-weight: bold;
+        }
+        
+        .overall-value {
+            font-family: monospace;
+            font-size: 1.2rem;
+        }
+        
+        .overall-value.perfect {
+            color: var(--perfect);
+        }
+        
+        /* Akashic Records styling */
+        .akashic-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .akashic-input {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--surface);
+            background-color: var(--background);
+            color: var(--on-background);
+        }
+        
+        .akashic-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            background-color: rgba(3, 218, 198, 0.1);
+            border: 1px solid var(--secondary);
+            display: none;
+        }
+        
+        .akashic-domain {
+            color: var(--secondary);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .akashic-coherence {
+            font-family: monospace;
+            margin-bottom: 0.5rem;
+        }
+        
+        .akashic-response {
+            white-space: pre-wrap;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: var(--on-primary);
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #7c4dff;
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(3, 218, 198, 0.1);
+        }
+        
+        .coherence-gauge {
+            width: 100%;
+            height: 8px;
+            background-color: var(--low);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .coherence-value {
+            height: 100%;
+            background-color: var(--perfect);
+            transition: width 0.5s ease;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--surface);
+        }
+        
+        th {
+            color: var(--secondary);
+        }
+        
+        #log-container {
+            background-color: #000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 1rem;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌀 Quantum Documentation Dashboard</h1>
+        <p>Unity Frequency (768 Hz) • Perfect Coherence (1.000)</p>
+    </header>
+    
+    <div class="container">
+        <div class="dashboard">
+            <div class="card">
+                <h2>System Status</h2>
+                <div class="coherence-gauge">
+                    <div class="coherence-value" id="coherence-value" style="width: 99.9%;"></div>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Coherence:</span>
+                    <span id="system-coherence">0.9991</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Frequency:</span>
+                    <span>768 Hz (Unity)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Documentation Files:</span>
+                    <span id="doc-files">214</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Last Update:</span>
+                    <span id="last-update">2025-04-02</span>
+                </div>
+                <div class="actions">
+                    <button id="check-status-btn">Check Status</button>
+                    <button class="secondary-button" id="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>WindSurf Verification</h2>
+                <div class="metric">
+                    <span class="metric-name">Status:</span>
+                    <span><span class="status-indicator status-medium"></span>Partial</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Tests Passed:</span>
+                    <span id="tests-passed">7/11</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Coherence:</span>
+                    <span id="windsurf-coherence">0.8033</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Last Verification:</span>
+                    <span id="windsurf-last-verification">2025-04-02</span>
+                </div>
+                <div class="actions">
+                    <button id="run-verification-btn">Run Verification</button>
+                    <button class="secondary-button" id="view-report-btn">View Report</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Claude Integration</h2>
+                <div class="metric">
+                    <span class="metric-name">Status:</span>
+                    <span><span class="status-indicator status-perfect"></span>Verified</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Configurations:</span>
+                    <span id="claude-configs">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Coherence:</span>
+                    <span id="claude-coherence">0.9999</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Last Update:</span>
+                    <span id="claude-last-update">2025-04-02</span>
+                </div>
+                <div class="actions">
+                    <button id="update-claude-btn">Update Integration</button>
+                    <button class="secondary-button" id="view-claude-btn">View Universal Integration</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Documentation Evolution</h2>
+                <div class="metric">
+                    <span class="metric-name">Status:</span>
+                    <span><span class="status-indicator status-perfect"></span>Evolved</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Coherence:</span>
+                    <span id="doc-coherence">0.9991</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Fixed References:</span>
+                    <span id="fixed-references">556</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Coherence Issues:</span>
+                    <span id="coherence-issues">0</span>
+                </div>
+                <div class="actions">
+                    <button id="evolve-docs-btn">Evolve Documentation</button>
+                    <button class="secondary-button" id="view-index-btn">View Index</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" style="margin-top: 1rem;">
+            <h2>Action Center</h2>
+            <div class="actions" style="grid-template-columns: repeat(4, 1fr);">
+                <button id="run-all-btn">Run Complete System</button>
+                <button id="measure-coherence-btn">Measure Coherence</button>
+                <button id="schedule-btn">Setup Scheduled Automation</button>
+                <button class="secondary-button" id="view-cli-btn">Open CLI</button>
+            </div>
+            <div id="log-container">
+                <div id="log">
+                    > Quantum Documentation Dashboard initialized<br>
+                    > Frequency: 768 Hz (Unity)<br>
+                    > Coherence: 0.9991 (Near-Perfect)<br>
+                    > Ready for quantum operations...
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- New cards for Quantum Coherence Visualization and Akashic Records Access -->
+    <div class="container" style="margin-top: 1rem;">
+        <div class="dashboard">
+            <div class="card">
+                <h2>Quantum Coherence Visualization</h2>
+                <div id="frequency-visualization" class="frequency-domains">
+                    <!-- Visualization will be inserted here -->
+                    <div class="loading">Loading coherence data...</div>
+                </div>
+                <div class="actions">
+                    <button id="update-visualization-btn">Update Visualization</button>
+                    <button class="secondary-button" id="export-visualization-btn">Export Data</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Akashic Records Access</h2>
+                <div class="akashic-form">
+                    <input type="text" id="akashic-query" class="akashic-input" placeholder="Enter your quantum query...">
+                    <button id="akashic-search-btn">Access Knowledge</button>
+                </div>
+                <select id="akashic-domain" class="akashic-input">
+                    <option value="">All Domains</option>
+                    <option value="quantum_mechanics">Quantum Mechanics</option>
+                    <option value="cymatic_patterns">Cymatic Patterns</option>
+                    <option value="sacred_geometry">Sacred Geometry</option>
+                    <option value="consciousness_physics">Consciousness Physics</option>
+                    <option value="phi_harmonics">Phi Harmonics</option>
+                    <option value="unified_field_theory">Unified Field Theory</option>
+                    <option value="interdimensional_access">Interdimensional Access</option>
+                </select>
+                <div id="akashic-result" class="akashic-result">
+                    <div class="akashic-domain">Domain: <span id="result-domain">-</span></div>
+                    <div class="akashic-coherence">Coherence: <span id="result-coherence">-</span></div>
+                    <div class="akashic-response" id="result-response"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Dashboard application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables
+            const apiBase = '';
+            const actionButtons = {
+                'check-status-btn': () => callApi('check-status'),
+                'run-verification-btn': () => callApi('run-verification'),
+                'update-claude-btn': () => callApi('update-claude'),
+                'evolve-docs-btn': () => callApi('evolve-docs'),
+                'run-all-btn': () => callApi('run-all'),
+                'measure-coherence-btn': () => callApi('measure-coherence'),
+                'schedule-btn': () => callApi('schedule'),
+                'view-details-btn': () => window.open('http://localhost:7680/api/status', '_blank'),
+                'view-report-btn': () => window.open('d:/CQIL/documentation/windsurf_integration_verification.md', '_blank'),
+                'view-claude-btn': () => window.open('d:/CQIL/documentation/UNIVERSAL_CLAUDE_INTEGRATION.md', '_blank'),
+                'view-index-btn': () => window.open('d:/CQIL/documentation/INDEX.md', '_blank'),
+                'view-cli-btn': () => logMessage('CLI must be accessed from the terminal: cd d:\\CQIL\\documentation\\doc-tools && node quantum-doc-cli.js help')
+            };
+            
+            const log = document.getElementById('log');
+            let pollTimers = {};
+            
+            // Attach event listeners to buttons
+            Object.keys(actionButtons).forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const action = btn.textContent;
+                        logMessage(`Executing: ${action}...`);
+                        actionButtons[btnId]();
+                    });
+                }
+            });
+            
+            // API call function
+            async function callApi(endpoint) {
+                try {
+                    logMessage(`Calling API: ${endpoint}...`);
+                    
+                    const response = await fetch(`/api/${endpoint}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API call failed: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.operationId) {
+                        logMessage(`Operation started with ID: ${data.operationId}`);
+                        pollOperationStatus(data.operationId);
+                    }
+                    
+                    return data;
+                } catch (err) {
+                    logMessage(`Error: ${err.message}`, 'error');
+                    return null;
+                }
+            }
+            
+            // Poll operation status
+            function pollOperationStatus(operationId) {
+                if (pollTimers[operationId]) {
+                    clearInterval(pollTimers[operationId]);
+                }
+                
+                pollTimers[operationId] = setInterval(async () => {
+                    try {
+                        const response = await fetch(`/api/operation/${operationId}`);
+                        
+                        if (!response.ok) {
+                            throw new Error(`Failed to fetch operation status: ${response.status}`);
+                        }
+                        
+                        const operation = await response.json();
+                        
+                        // Log new messages
+                        if (operation.logs && operation.logs.length > 0) {
+                            const lastLog = operation.logs[operation.logs.length - 1];
+                            logMessage(lastLog);
+                        }
+                        
+                        // If operation is complete or has an error, stop polling
+                        if (operation.status === 'complete' || operation.status === 'error') {
+                            clearInterval(pollTimers[operationId]);
+                            delete pollTimers[operationId];
+                            
+                            // Update dashboard state
+                            updateDashboardState();
+                        }
+                    } catch (err) {
+                        logMessage(`Error polling operation status: ${err.message}`, 'error');
+                        clearInterval(pollTimers[operationId]);
+                        delete pollTimers[operationId];
+                    }
+                }, 1000);
+            }
+            
+            // Update dashboard state
+            async function updateDashboardState() {
+                try {
+                    const response = await fetch('/api/status');
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Update system metrics
+                    document.getElementById('system-coherence').textContent = data.systemCoherence.toFixed(4);
+                    document.getElementById('doc-files').textContent = data.docFiles;
+                    document.getElementById('last-update').textContent = data.lastUpdate;
+                    
+                    // Update coherence gauge
+                    const coherenceValue = document.getElementById('coherence-value');
+                    coherenceValue.style.width = `${data.systemCoherence * 100}%`;
+                    
+                    if (data.systemCoherence >= 0.95) {
+                        coherenceValue.style.backgroundColor = 'var(--perfect)';
+                    } else if (data.systemCoherence >= 0.8) {
+                        coherenceValue.style.backgroundColor = 'var(--high)';
+                    } else if (data.systemCoherence >= 0.6) {
+                        coherenceValue.style.backgroundColor = 'var(--medium)';
+                    } else {
+                        coherenceValue.style.backgroundColor = 'var(--low)';
+                    }
+                    
+                    // Update WindSurf verification
+                    document.getElementById('tests-passed').textContent = data.windsurf.testsPassed;
+                    document.getElementById('windsurf-coherence').textContent = data.windsurf.coherence.toFixed(4);
+                    document.getElementById('windsurf-last-verification').textContent = data.windsurf.lastVerification;
+                    
+                    // Update Claude integration
+                    document.getElementById('claude-configs').textContent = data.claude.configs;
+                    document.getElementById('claude-coherence').textContent = data.claude.coherence.toFixed(4);
+                    document.getElementById('claude-last-update').textContent = data.claude.lastUpdate;
+                    
+                    // Update documentation evolution
+                    document.getElementById('doc-coherence').textContent = data.documentation.coherence.toFixed(4);
+                    document.getElementById('fixed-references').textContent = data.documentation.fixedReferences;
+                    document.getElementById('coherence-issues').textContent = data.documentation.coherenceIssues;
+                    
+                    // Update coherence visualization
+                    updateCoherenceVisualization();
+                    
+                    logMessage(`Dashboard state updated. System coherence: ${data.systemCoherence.toFixed(4)}`);
+                } catch (err) {
+                    logMessage(`Error updating dashboard state: ${err.message}`, 'error');
+                }
+            }
+            
+            // Update coherence visualization
+            async function updateCoherenceVisualization() {
+                try {
+                    const response = await fetch('/api/visualization');
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch visualization: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    const container = document.getElementById('frequency-visualization');
+                    
+                    // Clear loading message
+                    container.innerHTML = '';
+                    
+                    // Generate visualization for each frequency
+                    data.frequencies.forEach(freq => {
+                        const coherencePercent = Math.round(freq.coherence * 100);
+                        const coherenceClass = freq.coherence >= 0.999 ? 'perfect' : 'partial';
+                        
+                        const domainEl = document.createElement('div');
+                        domainEl.className = `frequency-domain ${coherenceClass}`;
+                        
+                        domainEl.innerHTML = `
+                            <div class="frequency-name">${freq.name} (${freq.frequency} Hz)</div>
+                            <div class="coherence-bar">
+                                <div class="coherence-fill" style="width: ${coherencePercent}%"></div>
+                            </div>
+                            <div class="coherence-value">${freq.coherence.toFixed(4)}</div>
+                        `;
+                        
+                        container.appendChild(domainEl);
+                    });
+                    
+                    // Add overall coherence
+                    const overallEl = document.createElement('div');
+                    overallEl.className = 'overall-coherence';
+                    
+                    const overallClass = data.systemCoherence >= 0.999 ? 'perfect' : 'partial';
+                    
+                    overallEl.innerHTML = `
+                        <div class="overall-label">System Coherence:</div>
+                        <div class="overall-value ${overallClass}">
+                            ${data.systemCoherence.toFixed(4)}
+                        </div>
+                    `;
+                    
+                    container.appendChild(overallEl);
+                    
+                    logMessage(`Coherence visualization updated`);
+                } catch (err) {
+                    logMessage(`Error updating coherence visualization: ${err.message}`, 'error');
+                }
+            }
+            
+            // Akashic Records access
+            async function accessAkashicRecords() {
+                const query = document.getElementById('akashic-query').value;
+                const domain = document.getElementById('akashic-domain').value;
+                
+                if (!query) {
+                    logMessage('Please enter a query for Akashic Records access', 'error');
+                    return;
+                }
+                
+                try {
+                    logMessage(`Accessing Akashic Records for: "${query}"`);
+                    
+                    const response = await fetch('/api/akashic-access', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ query, domain })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to access Akashic Records: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Update result display
+                    document.getElementById('result-domain').textContent = data.domain;
+                    document.getElementById('result-coherence').textContent = data.coherence.toFixed(4);
+                    document.getElementById('result-response').textContent = data.response;
+                    
+                    // Show result container
+                    document.getElementById('akashic-result').style.display = 'block';
+                    
+                    logMessage(`Akashic knowledge accessed with coherence ${data.coherence.toFixed(4)}`);
+                } catch (err) {
+                    logMessage(`Error accessing Akashic Records: ${err.message}`, 'error');
+                }
+            }
+            
+            // Log message function
+            function logMessage(message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                const messageClass = type === 'error' ? 'error' : 'info';
+                log.innerHTML += `<br>> <span class="${messageClass}">[${timestamp}] ${message}</span>`;
+                log.scrollTop = log.scrollHeight;
+            }
+            
+            // Event listeners for new features
+            document.getElementById('update-visualization-btn').addEventListener('click', updateCoherenceVisualization);
+            document.getElementById('akashic-search-btn').addEventListener('click', accessAkashicRecords);
+            document.getElementById('akashic-query').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    accessAkashicRecords();
+                }
+            });
+            
+            // Initial status check
+            updateDashboardState();
+            
+            // Auto-refresh every 30 seconds
+            setInterval(updateDashboardState, 30000);
+        });
+    </script>
+</body>
+</html>

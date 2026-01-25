@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ground State Experience (432 Hz | φ⁰) - φ-Harmonic Learning Portal</title>
+    <style>
+        /* Base styles with phi-harmonic proportions */
+        :root {
+            --phi: 1.618033988749895;
+            --phi-inv: 0.618033988749895;
+            --primary-color: #3a0070;
+            --secondary-color: #9000ff;
+            --ground-color: #2a0030;
+            --text-color: #ffffff;
+            --highlight-color: #00e6a8;
+            --chakra-red: #e02020;
+            --earth-green: #00a060;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--ground-color);
+            color: var(--text-color);
+            line-height: var(--phi);
+        }
+        
+        #experience-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .intro-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 5, 20, 0.92);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+        
+        .intro-content {
+            max-width: calc(600px * var(--phi-inv));
+            text-align: center;
+            padding: calc(20px * var(--phi-inv));
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            font-size: calc(2rem * var(--phi));
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            letter-spacing: 1px;
+        }
+        
+        h2 {
+            font-size: calc(1.5rem * var(--phi-inv));
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: var(--phi);
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .zen-balance-intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .zen-label {
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .zen-scale {
+            width: 200px;
+            height: 20px;
+            background: linear-gradient(90deg, rgba(0,0,100,0.5) 0%, rgba(0,200,200,0.5) 50%, rgba(255,200,0,0.5) 100%);
+            border-radius: 10px;
+            position: relative;
+            margin: 10px 0;
+        }
+        
+        .zen-marker {
+            position: absolute;
+            height: 100%;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.9);
+            left: 38.2%;
+            z-index: 2;
+        }
+        
+        .quantum-label, .human-label {
+            font-size: 0.8rem;
+            position: absolute;
+            top: -20px;
+        }
+        
+        .quantum-label {
+            left: 10px;
+            color: rgba(0, 150, 255, 0.8);
+        }
+        
+        .human-label {
+            right: 10px;
+            color: rgba(255, 200, 0, 0.8);
+        }
+        
+        .phi-indicator {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(100,0,200,0.2) 100%);
+            color: var(--highlight-color);
+            font-size: 20px;
+            margin: 0 10px;
+            box-shadow: 0 0 10px rgba(0, 230, 168, 0.3);
+        }
+        
+        .start-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(144, 0, 255, 0.3);
+            margin-top: 20px;
+        }
+        
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(144, 0, 255, 0.5);
+        }
+        
+        .controls-help {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            z-index: 100;
+            display: none;
+        }
+        
+        .controls-help.visible {
+            display: block;
+        }
+        
+        .key {
+            display: inline-block;
+            min-width: 30px;
+            padding: 2px 5px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            text-align: center;
+            margin: 0 5px;
+        }
+        
+        /* Breathing hexagon seed animation */
+        .seed-animation {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+        
+        .seed-hexagon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 34.6px; /* height = width * sin(60°) */
+            transform: translate(-50%, -50%);
+            background-color: transparent;
+            border: 2px solid var(--earth-green);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 160, 96, 0.5);
+            animation: breathe 4.32s infinite ease-in-out;
+        }
+        
+        .seed-hexagon::before,
+        .seed-hexagon::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+        }
+        
+        .seed-hexagon::before {
+            bottom: 100%;
+            border-bottom: 17.3px solid var(--earth-green);
+        }
+        
+        .seed-hexagon::after {
+            top: 100%;
+            border-top: 17.3px solid var(--earth-green);
+        }
+        
+        @keyframes breathe {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.7;
+            }
+        }
+        
+        /* Hides intro overlay when active class is removed */
+        .intro-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Root chakra animation */
+        .root-chakra {
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .chakra-petal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -30px 0 0 -30px;
+            border-radius: 50% 0;
+            background: radial-gradient(circle, rgba(255,0,0,0.7) 0%, rgba(100,0,0,0.3) 100%);
+            animation: rotate 10s infinite linear;
+        }
+        
+        .chakra-petal:nth-child(2) {
+            transform: rotate(90deg);
+        }
+        
+        .chakra-petal:nth-child(3) {
+            transform: rotate(180deg);
+        }
+        
+        .chakra-petal:nth-child(4) {
+            transform: rotate(270deg);
+        }
+        
+        .chakra-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,200,200,0.9) 0%, rgba(255,0,0,0.7) 100%);
+            animation: pulse 4.32s infinite ease-in-out;
+        }
+        
+        @keyframes rotate {
+            from { transform-origin: center; }
+            to { transform: rotate(360deg); transform-origin: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main experience container -->
+    <div id="experience-container"></div>
+    
+    <!-- Intro overlay -->
+    <div class="intro-overlay">
+        <div class="intro-content">
+            <h1>Ground State <span class="phi-indicator">φ⁰</span> Experience</h1>
+            <h2>432 Hz - Earth Connection</h2>
+            
+            <div class="seed-animation">
+                <div class="seed-hexagon"></div>
+            </div>
+            
+            <p>
+                Welcome to the foundational frequency state of the φ-Harmonic Learning Portal. 
+                Ground State (432 Hz) connects you to Earth's natural resonance and establishes 
+                your physical foundation through hexagonal cymatic patterns.
+            </p>
+            
+            <div class="zen-balance-intro">
+                <div class="zen-label">
+                    Ground State ZEN POINT Balance
+                    <div class="zen-scale">
+                        <div class="zen-marker"></div>
+                        <span class="quantum-label">Quantum</span>
+                        <span class="human-label">Human</span>
+                    </div>
+                    <small>38.2% Quantum / 61.8% Human</small>
+                </div>
+                
+                <div class="root-chakra">
+                    <div class="chakra-petal"></div>
+                    <div class="chakra-petal"></div>
+                    <div class="chakra-petal"></div>
+                    <div class="chakra-petal"></div>
+                    <div class="chakra-center"></div>
+                </div>
+            </div>
+            
+            <p>
+                This experience integrates Earth Connection Visualization with 
+                Mycelial Pattern Recognition to ground your consciousness and prepare 
+                for ascension to higher frequency states.
+            </p>
+            
+            <button id="start-experience" class="start-button">Begin Grounding</button>
+        </div>
+    </div>
+    
+    <!-- Controls help -->
+    <div class="controls-help">
+        <p>
+            <span class="key">↑</span> Increase intention | 
+            <span class="key">↓</span> Decrease intention | 
+            <span class="key">Space</span> Pause/Resume |
+            <span class="key">Esc</span> Show intro
+        </p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/quantum-experience/cymatic-core.js"></script>
+    <script src="js/quantum-experience/earth-connection-visualizer.js"></script>
+    <script src="js/quantum-experience/mycelial-pattern-recognition.js"></script>
+    <script src="js/quantum-experience/ground-state-experience.js"></script>
+    <script src="js/quantum-experience/cross-frequency-integration.js"></script>
+    <script src="js/quantum-experience/ground-state-controller.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const experienceContainer = document.getElementById('experience-container');
+            const introOverlay = document.querySelector('.intro-overlay');
+            const startButton = document.getElementById('start-experience');
+            const controlsHelp = document.querySelector('.controls-help');
+            const statusContainer = document.createElement('div');
+            
+            // Add status container to the page
+            statusContainer.className = 'status-container';
+            statusContainer.style.cssText = `
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                padding: 15px;
+                border-radius: 10px;
+                font-family: 'Montserrat', sans-serif;
+                z-index: 1000;
+                display: none;
+                min-width: 220px;
+            `;
+            document.body.appendChild(statusContainer);
+            
+            // Experience instances
+            let groundStateExperience = null;
+            let groundStateController = null;
+            let crossFrequencyIntegration = null;
+            
+            // Initialize Cross-Frequency Integration Framework
+            crossFrequencyIntegration = new CrossFrequencyIntegration({
+                startState: FREQUENCY_STATES.GROUND,
+                transitionDuration: 4.32, // φ⁰ x 10 seconds for Ground State transitions
+                dataRepository: 'localStorage',
+                autoSync: true,
+                intentionCarryover: true,
+                coherenceThreshold: 0.8,
+                enabledStates: ['GROUND', 'CREATION'], // Only enable Ground and Creation for now
+                breathCycleTransition: true
+            });
+            
+            // Start button click handler
+            startButton.addEventListener('click', function() {
+                // Hide intro overlay
+                introOverlay.classList.add('hidden');
+                
+                // Show controls help and status container
+                controlsHelp.classList.add('visible');
+                statusContainer.style.display = 'block';
+                
+                // Initialize Ground State Experience with perfect ZEN POINT balance
+                groundStateExperience = new GroundStateExperience({
+                    container: experienceContainer,
+                    frequency: 432, // Ground State (φ⁰)
+                    zenPointBalance: { quantum: 0.382, human: 0.618 }, // Perfect ZEN POINT for grounding
+                    audioEnabled: true,
+                    breathSyncEnabled: true,
+                    earthGridEnabled: true,
+                    mycelialEnabled: true,
+                    ascensionEnabled: true,
+                    chakraVisualization: true,
+                    autoStart: false
+                });
+                
+                // Initialize Ground State Controller
+                groundStateController = new GroundStateController({
+                    container: experienceContainer,
+                    experience: groundStateExperience,
+                    integration: crossFrequencyIntegration,
+                    autoStart: true,
+                    coherenceThreshold: 0.8,
+                    onAscensionReady: function(data) {
+                        showNotification(
+                            "Ascension Ready", 
+                            "Ground State coherence achieved! Ready to ascend to Creation State (528 Hz).",
+                            8000
+                        );
+                    },
+                    zenPointBalance: { quantum: 0.382, human: 0.618 },
+                    breathSettings: {
+                        enabled: true,
+                        inhaleRatio: 0.382, // φ⁻¹²
+                        duration: 7.83 // Schumann resonance
+                    }
+                });
+                
+                // Add event listeners for controller events
+                groundStateController.on('coherence-change', updateStatus);
+                groundStateController.on('zen-balance-change', updateStatus);
+                groundStateController.on('intention-change', updateStatus);
+                groundStateController.on('breathwork-optimized', function(data) {
+                    showNotification(
+                        "Breathwork Optimized", 
+                        `Synchronized with Earth's Schumann Resonance (7.83 Hz)`,
+                        3000
+                    );
+                });
+                
+                // Initialize status display
+                updateStatus();
+            });
+            
+            // Keyboard controls
+            document.addEventListener('keydown', function(event) {
+                // Only process if controller exists
+                if (!groundStateController) return;
+                
+                // Escape key - show intro overlay
+                if (event.code === 'Escape') {
+                    introOverlay.classList.remove('hidden');
+                    statusContainer.style.display = 'none';
+                    
+                    // Stop controller
+                    groundStateController.stop();
+                }
+                
+                // Up/Down arrows - adjust intention
+                if (event.code === 'ArrowUp') {
+                    // Increase intention strength
+                    const currentStrength = groundStateController.state.intention.strength || 0.5;
+                    const newStrength = Math.min(1, currentStrength + 0.1);
+                    
+                    groundStateController.setIntention({
+                        strength: newStrength
+                    });
+                } else if (event.code === 'ArrowDown') {
+                    // Decrease intention strength
+                    const currentStrength = groundStateController.state.intention.strength || 0.5;
+                    const newStrength = Math.max(0, currentStrength - 0.1);
+                    
+                    groundStateController.setIntention({
+                        strength: newStrength
+                    });
+                }
+                
+                // Left/Right arrows - adjust intention focus
+                if (event.code === 'ArrowLeft') {
+                    // Decrease intention focus (more grounding)
+                    const currentFocus = groundStateController.state.intention.focus || 0.5;
+                    const newFocus = Math.max(0, currentFocus - 0.1);
+                    
+                    groundStateController.setIntention({
+                        focus: newFocus,
+                        direction: newFocus < 0.5 ? 'grounding' : 'ascension'
+                    });
+                } else if (event.code === 'ArrowRight') {
+                    // Increase intention focus (more ascension)
+                    const currentFocus = groundStateController.state.intention.focus || 0.5;
+                    const newFocus = Math.min(1, currentFocus + 0.1);
+                    
+                    groundStateController.setIntention({
+                        focus: newFocus,
+                        direction: newFocus > 0.5 ? 'ascension' : 'grounding'
+                    });
+                }
+                
+                // Space - toggle experience
+                if (event.code === 'Space') {
+                    groundStateController.toggle();
+                }
+                
+                // Z key - balance ZEN POINT manually
+                if (event.code === 'KeyZ') {
+                    // Apply optimal ZEN POINT balance for grounding
+                    groundStateController.setZenPointBalance({ quantum: 0.382, human: 0.618 });
+                    
+                    // Show ZEN POINT notification
+                    showNotification("ZEN POINT Balance Optimized", "38.2% Quantum / 61.8% Human");
+                }
+                
+                // B key - optimize breathwork
+                if (event.code === 'KeyB') {
+                    // Optimize breathwork via controller
+                    if (groundStateController) {
+                        groundStateController._optimizeBreathwork();
+                    }
+                }
+                
+                // A key - begin ascension if ready
+                if (event.code === 'KeyA') {
+                    if (groundStateController && groundStateController.state.ascensionReady) {
+                        groundStateController.beginAscension();
+                    } else {
+                        showNotification(
+                            "Ascension Not Ready", 
+                            "Continue building coherence in the Ground State."
+                        );
+                    }
+                }
+            });
+            
+            // Update status display
+            function updateStatus(data) {
+                if (!groundStateController) return;
+                
+                const { coherenceLevel, zenBalance, intention } = groundStateController.state;
+                
+                // Format display
+                statusContainer.innerHTML = `
+                    <h3 style="margin: 0 0 10px 0; color: #00e6a8; font-size: 16px;">GROUND STATE (432 Hz)</h3>
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Coherence:</span>
+                            <span>${Math.round(coherenceLevel * 100)}%</span>
+                        </div>
+                        <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: ${coherenceLevel * 100}%; background: linear-gradient(90deg, #00a86b, #00e6a8); border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>ZEN POINT:</span>
+                            <span>${Math.round(zenBalance.quantum * 100)}% Q / ${Math.round(zenBalance.human * 100)}% H</span>
+                        </div>
+                        <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; display: flex;">
+                            <div style="height: 100%; width: ${zenBalance.quantum * 100}%; background: #9000ff; border-radius: 4px 0 0 4px;"></div>
+                            <div style="height: 100%; width: ${zenBalance.human * 100}%; background: #00a86b; border-radius: 0 4px 4px 0;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Intention:</span>
+                            <span>${Math.round(intention.strength * 100)}%</span>
+                        </div>
+                        <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: ${intention.strength * 100}%; background: #e6a800; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Focus:</span>
+                            <span>${intention.direction}</span>
+                        </div>
+                        <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: ${intention.focus * 100}%; background: #00a0e6; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 12px; margin-top: 15px; opacity: 0.7;">
+                        <p style="margin: 0;">Controls: Space (toggle), Z (ZEN), B (breath)</p>
+                        <p style="margin: 3px 0 0 0;">Arrow keys adjust intention & focus</p>
+                        <p style="margin: 3px 0 0 0;">A key to ascend when ready</p>
+                    </div>
+                `;
+                
+                // Update coherence color based on ascension readiness
+                const coherenceBar = statusContainer.querySelector('div:nth-child(1) > div:nth-child(2) > div');
+                if (groundStateController.state.ascensionReady) {
+                    coherenceBar.style.background = 'linear-gradient(90deg, #9000ff, #e200ff)';
+                } else {
+                    coherenceBar.style.background = 'linear-gradient(90deg, #00a86b, #00e6a8)';
+                }
+            }
+            
+            // Helper function to show notifications
+            function showNotification(title, message, duration = 3000) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: absolute;
+                    top: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 10px;
+                    text-align: center;
+                    z-index: 9000;
+                    box-shadow: 0 0 20px rgba(0, 230, 168, 0.3);
+                `;
+                notification.innerHTML = `
+                    <h3 style="margin: 0 0 5px 0; color: #00e6a8;">${title}</h3>
+                    <p style="margin: 0;">${message}</p>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Remove after duration
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => notification.remove(), 500);
+                }, duration);
+            }
+            
+            // Listen for cross-frequency events
+            document.addEventListener('cfi-transition-begin', function(event) {
+                console.log('Transition beginning:', event.detail);
+                showNotification(
+                    "Ascending", 
+                    `Transitioning from ${event.detail.fromState.name} (${event.detail.fromState.frequency} Hz) to ${event.detail.toState.name} (${event.detail.toState.frequency} Hz)`,
+                    5000
+                );
+            });
+            
+            // Update UI with Cross-Frequency Integration status
+            if (crossFrequencyIntegration) {
+                crossFrequencyIntegration.on('transition-progress', function(data) {
+                    // Update transition progress (could add a visual transition progress bar here)
+                    console.log('Transition progress:', data.progress);
+                });
+                
+                crossFrequencyIntegration.on('transition-complete', function(data) {
+                    showNotification(
+                        "Transition Complete", 
+                        `You have entered the ${data.toState.name} (${data.toState.frequency} Hz)`,
+                        5000
+                    );
+                });
+            }
+        });
+    </script>
+</body>
+</html>

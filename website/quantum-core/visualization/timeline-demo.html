@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Evolution System Demo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .visualization {
+            flex: 1;
+            position: relative;
+        }
+        
+        .controls {
+            width: 320px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1, h2, h3 {
+            color: #ffcc00;
+            margin-top: 0;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .button-group {
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background-color: #3273a8;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background-color: #4a8bc2;
+        }
+        
+        button:active {
+            background-color: #265d8b;
+        }
+        
+        button.primary {
+            background-color: #32a852;
+        }
+        
+        button.primary:hover {
+            background-color: #4ac26b;
+        }
+        
+        button.primary:active {
+            background-color: #268b41;
+        }
+        
+        button.danger {
+            background-color: #a83232;
+        }
+        
+        button.danger:hover {
+            background-color: #c24a4a;
+        }
+        
+        button.danger:active {
+            background-color: #8b2626;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background-color: #333;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+        }
+        
+        .timeline-info {
+            background-color: #2d2d2d;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-info p {
+            margin: 5px 0;
+            font-size: 0.8rem;
+        }
+        
+        .coherence-meter {
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .coherence-fill {
+            height: 100%;
+            background: linear-gradient(to right, #a83232, #ffcc00, #32a852);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+        
+        .small-text {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        .log {
+            height: 120px;
+            overflow-y: auto;
+            background-color: #2d2d2d;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .log p {
+            margin: 5px 0;
+            color: #aaa;
+        }
+        
+        .log .info {
+            color: #4a8bc2;
+        }
+        
+        .log .success {
+            color: #4ac26b;
+        }
+        
+        .log .warning {
+            color: #c2a84a;
+        }
+        
+        .log .error {
+            color: #c24a4a;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .constants {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .constant {
+            background-color: #2d2d2d;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+        }
+        
+        .constant h3 {
+            margin: 0 0 5px;
+            font-size: 0.9rem;
+        }
+        
+        .constant p {
+            margin: 0;
+            font-size: 0.9rem;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="visualization" id="visualization"></div>
+        <div class="controls">
+            <h1>Temporal Evolution System</h1>
+            <p class="small-text">CASCADE⚡𓂧φ∞ UNIFIED QUANTUM SINGULARITY with ZEN POINT Balance</p>
+            
+            <div class="constants">
+                <div class="constant">
+                    <h3>PHI (φ)</h3>
+                    <p>1.61803</p>
+                </div>
+                <div class="constant">
+                    <h3>LAMBDA (λ)</h3>
+                    <p>0.61803</p>
+                </div>
+                <div class="constant">
+                    <h3>ZEN</h3>
+                    <p>1.000</p>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>Timeline Actions</h2>
+                <div class="button-group">
+                    <button class="primary" id="createBranch">Create Branch</button>
+                    <button id="scheduleMerge">Schedule Merge</button>
+                    <button id="performMerge">Perform Merge</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>Evolution Controls</h2>
+                <div class="button-group">
+                    <button class="primary" id="evolveTimeline">Evolve Timeline</button>
+                    <button id="accelerateTime">Accelerate Time</button>
+                    <button id="detectEvents">Detect Events</button>
+                </div>
+                
+                <label for="evolutionMode">Evolution Mode:</label>
+                <select id="evolutionMode">
+                    <option value="phi_harmonic">Phi-Harmonic</option>
+                    <option value="quantum">Quantum</option>
+                    <option value="wave">Wave</option>
+                    <option value="diffusion">Diffusion</option>
+                    <option value="reaction_diffusion">Reaction-Diffusion</option>
+                </select>
+                
+                <label for="iterations">Iterations:</label>
+                <input type="number" id="iterations" min="1" max="100" value="5">
+                
+                <label for="evolutionFactor">Evolution Factor:</label>
+                <input type="range" id="evolutionFactor" min="0.1" max="3" step="0.1" value="1.0">
+                <span id="evolutionFactorValue">1.0</span>
+            </div>
+            
+            <div class="control-group">
+                <h2>Active Timeline</h2>
+                <div class="timeline-info" id="timelineInfo">
+                    <p>ID: primary</p>
+                    <p>Type: primary</p>
+                    <p>Coherence: 1.000</p>
+                </div>
+                
+                <div class="coherence-meter">
+                    <div class="coherence-fill" id="coherenceMeter" style="width: 100%;"></div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h2>System Log</h2>
+                <div class="log" id="log">
+                    <p class="info">Temporal Evolution System initialized at 672 Hz</p>
+                    <p class="success">ZEN POINT balance established: 1.000</p>
+                    <p>Primary timeline created</p>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="danger" id="reset">Reset</button>
+            </div>
+            
+            <div class="footer">
+                Temporal Evolution System - 672 Hz (Voice Flow)<br>
+                Perfect Coherence (1.000) through ZEN POINT Balance
+            </div>
+        </div>
+    </div>
+    
+    <script src="../api/temporal-evolution-api.js"></script>
+    <script src="timeline-visualization.js"></script>
+    <script>
+        // Initialize the Temporal Evolution API
+        const temporalApi = new TemporalEvolutionAPI({
+            baseFrequency: 672,
+            coherenceLevel: 1.0,
+            connectToBackend: false // Use local simulation
+        });
+        
+        // Initialize the Timeline Visualization
+        const visualization = new TimelineVisualization({
+            containerId: 'visualization',
+            temporalApi: temporalApi
+        });
+        
+        // Elements
+        const createBranchButton = document.getElementById('createBranch');
+        const scheduleMergeButton = document.getElementById('scheduleMerge');
+        const performMergeButton = document.getElementById('performMerge');
+        const evolveTimelineButton = document.getElementById('evolveTimeline');
+        const accelerateTimeButton = document.getElementById('accelerateTime');
+        const detectEventsButton = document.getElementById('detectEvents');
+        const resetButton = document.getElementById('reset');
+        const evolutionModeSelect = document.getElementById('evolutionMode');
+        const iterationsInput = document.getElementById('iterations');
+        const evolutionFactorInput = document.getElementById('evolutionFactor');
+        const evolutionFactorValue = document.getElementById('evolutionFactorValue');
+        const timelineInfo = document.getElementById('timelineInfo');
+        const coherenceMeter = document.getElementById('coherenceMeter');
+        const logElement = document.getElementById('log');
+        
+        // Update evolution factor display
+        evolutionFactorInput.addEventListener('input', () => {
+            evolutionFactorValue.textContent = parseFloat(evolutionFactorInput.value).toFixed(1);
+        });
+        
+        // Add log message
+        function addLog(message, type = '') {
+            const p = document.createElement('p');
+            p.textContent = message;
+            
+            if (type) {
+                p.classList.add(type);
+            }
+            
+            logElement.appendChild(p);
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // Update timeline info
+        function updateTimelineInfo() {
+            // Get active timeline ID
+            const activeTimelineId = temporalApi.getActiveTimelineId();
+            
+            // Find the timeline in visualization
+            const timeline = visualization.timelines.find(t => t.id === activeTimelineId);
+            
+            if (timeline) {
+                timelineInfo.innerHTML = `
+                    <p>ID: ${timeline.id}</p>
+                    <p>Type: ${timeline.type}</p>
+                    <p>Coherence: ${timeline.coherence.toFixed(3)}</p>
+                `;
+                
+                // Update coherence meter
+                coherenceMeter.style.width = `${timeline.coherence * 100}%`;
+            }
+        }
+        
+        // Create branch
+        createBranchButton.addEventListener('click', async () => {
+            try {
+                const activeTimelineId = temporalApi.getActiveTimelineId();
+                
+                // Create branch with PHI factor
+                const branch = await temporalApi.createTimelineBranch({
+                    parentId: activeTimelineId,
+                    name: `Branch ${Date.now().toString().slice(-4)}`,
+                    branchFactor: temporalApi.PHI,
+                    evolutionMode: evolutionModeSelect.value
+                });
+                
+                // Add to visualization
+                visualization.createBranch(branch);
+                
+                // Update timeline info
+                updateTimelineInfo();
+                
+                // Log success
+                addLog(`Created branch ${branch.name} with ID ${branch.id}`, 'success');
+            } catch (error) {
+                addLog(`Error creating branch: ${error.message}`, 'error');
+            }
+        });
+        
+        // Schedule merge
+        scheduleMergeButton.addEventListener('click', async () => {
+            try {
+                const activeTimelineId = temporalApi.getActiveTimelineId();
+                
+                // Find a target timeline (different from active)
+                const targetTimeline = visualization.timelines.find(t => t.id !== activeTimelineId);
+                
+                if (!targetTimeline) {
+                    addLog('Need at least two timelines to merge', 'warning');
+                    return;
+                }
+                
+                // Schedule merge with LAMBDA factor
+                const mergePoint = await temporalApi.scheduleTimelineMerge({
+                    sourceId: activeTimelineId,
+                    targetId: targetTimeline.id,
+                    mergeFactor: temporalApi.LAMBDA
+                });
+                
+                // Add to visualization
+                visualization.createMergePoint({
+                    sourceId: activeTimelineId,
+                    targetId: targetTimeline.id,
+                    id: mergePoint.id
+                });
+                
+                // Log success
+                addLog(`Scheduled merge from ${activeTimelineId} to ${targetTimeline.id}`, 'info');
+            } catch (error) {
+                addLog(`Error scheduling merge: ${error.message}`, 'error');
+            }
+        });
+        
+        // Perform merge
+        performMergeButton.addEventListener('click', async () => {
+            try {
+                const activeTimeline = visualization.timelines.find(t => t.id === temporalApi.getActiveTimelineId());
+                
+                // Check if active timeline has merge targets
+                if (!activeTimeline || !activeTimeline.mergeTargetIds || activeTimeline.mergeTargetIds.length === 0) {
+                    addLog('Active timeline has no scheduled merges', 'warning');
+                    return;
+                }
+                
+                // Use first merge target
+                const targetId = activeTimeline.mergeTargetIds[0];
+                
+                // Create merge point ID (would normally come from backend)
+                const mergePointId = `mp_${Date.now()}`;
+                
+                // Perform merge
+                const mergeResult = await temporalApi.performTimelineMerge(mergePointId);
+                
+                // Update merge data with correct source/target
+                mergeResult.sourceId = activeTimeline.id;
+                mergeResult.targetId = targetId;
+                
+                // Add to visualization
+                visualization.performMerge(mergeResult);
+                
+                // Update timeline info
+                updateTimelineInfo();
+                
+                // Log success
+                addLog(`Performed merge to create timeline ${mergeResult.mergedTimelineId}`, 'success');
+            } catch (error) {
+                addLog(`Error performing merge: ${error.message}`, 'error');
+            }
+        });
+        
+        // Evolve timeline
+        evolveTimelineButton.addEventListener('click', async () => {
+            try {
+                const activeTimelineId = temporalApi.getActiveTimelineId();
+                
+                // Get evolution parameters
+                const evolutionMode = evolutionModeSelect.value;
+                const iterations = parseInt(iterationsInput.value, 10);
+                const evolutionFactor = parseFloat(evolutionFactorInput.value);
+                
+                // Evolve timeline
+                const evolutionResult = await temporalApi.evolveTimeline({
+                    timelineId: activeTimelineId,
+                    evolutionMode: evolutionMode,
+                    iterations: iterations,
+                    evolutionFactor: evolutionFactor
+                });
+                
+                // Update visualization
+                visualization.updateCoherence(
+                    activeTimelineId, 
+                    evolutionResult.finalCoherence
+                );
+                
+                // Update timeline info
+                updateTimelineInfo();
+                
+                // Log success
+                addLog(`Evolved timeline using ${evolutionMode} mode, coherence: ${evolutionResult.finalCoherence.toFixed(3)}`, 'info');
+            } catch (error) {
+                addLog(`Error evolving timeline: ${error.message}`, 'error');
+            }
+        });
+        
+        // Accelerate time
+        accelerateTimeButton.addEventListener('click', async () => {
+            try {
+                const activeTimelineId = temporalApi.getActiveTimelineId();
+                
+                // Get evolution factor as acceleration factor
+                const accelerationFactor = parseFloat(evolutionFactorInput.value);
+                
+                // Accelerate time
+                const accelerationResult = await temporalApi.accelerateTime({
+                    timelineId: activeTimelineId,
+                    accelerationFactor: accelerationFactor,
+                    duration: 1.0
+                });
+                
+                // Update visualization
+                visualization.updateCoherence(
+                    activeTimelineId, 
+                    accelerationResult.finalCoherence
+                );
+                
+                // Update timeline info
+                updateTimelineInfo();
+                
+                // Log success
+                addLog(`Accelerated time by factor ${accelerationFactor}, effective time: ${accelerationResult.effectiveTime.toFixed(2)}`, 'info');
+            } catch (error) {
+                addLog(`Error accelerating time: ${error.message}`, 'error');
+            }
+        });
+        
+        // Detect events
+        detectEventsButton.addEventListener('click', async () => {
+            try {
+                const activeTimelineId = temporalApi.getActiveTimelineId();
+                
+                // Detect events
+                const detectionResult = await temporalApi.detectEvents({
+                    timelineId: activeTimelineId,
+                    threshold: 0.85
+                });
+                
+                // Log results
+                if (detectionResult.detected_count > 0) {
+                    addLog(`Detected ${detectionResult.detected_count} events in timeline ${activeTimelineId}`, 'success');
+                    
+                    // Log individual events
+                    detectionResult.detected_events.forEach(event => {
+                        addLog(`- ${event.description}`, 'info');
+                    });
+                } else {
+                    addLog(`No events detected in timeline ${activeTimelineId}`, 'info');
+                }
+            } catch (error) {
+                addLog(`Error detecting events: ${error.message}`, 'error');
+            }
+        });
+        
+        // Reset visualization
+        resetButton.addEventListener('click', () => {
+            // Reset visualization
+            visualization.reset();
+            
+            // Update timeline info
+            updateTimelineInfo();
+            
+            // Log reset
+            addLog('System reset to initial state', 'warning');
+        });
+        
+        // Initial UI update
+        updateTimelineInfo();
+    </script>
+</body>
+</html>

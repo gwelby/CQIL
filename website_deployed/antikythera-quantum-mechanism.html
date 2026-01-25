@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phi-Harmonic Antikythera Mechanism | Quantum Experience</title>
+  <style>
+    :root {
+      /* Phi-harmonic color palette based on frequency vibrations */
+      --ground-color: #1a1a2e;      /* 432 Hz - φ⁰ - Ground State */
+      --creation-color: #4b7f52;    /* 528 Hz - φ¹ - Creation State */
+      --resonance-color: #a97142;   /* 594 Hz - φ² - DNA Resonance */
+      --sacred-color: #8a2be2;      /* 672 Hz - φ³ - Sacred Geometry */
+      --vision-color: #00bfff;      /* 720 Hz - φ⁴ - Vision Gate */
+      --unity-color: #d4af37;       /* 768 Hz - φ⁵ - Unity Wave */
+      
+      /* Background gradients */
+      --bg-primary: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 100%);
+      --bg-secondary: linear-gradient(135deg, #121218 0%, #23233a 100%);
+      
+      /* Text colors */
+      --text-primary: #eeeef0;
+      --text-secondary: #aaaacc;
+      --text-accent: #d4af37;
+      
+      /* Accent colors */
+      --accent-primary: #4b7f52;
+      --accent-secondary: #a97142;
+      --accent-tertiary: #8a2be2;
+      
+      /* Phi ratio for proportions */
+      --phi: 1.618033988749895;
+      --phi-inverse: 0.618033988749895;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    .header {
+      background-color: rgba(26, 26, 46, 0.8);
+      padding: calc(1.5rem * var(--phi-inverse)) calc(2rem * var(--phi-inverse));
+      text-align: center;
+      border-bottom: 2px solid var(--creation-color);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="%234b7f52" stroke-width="0.5" fill="none" /></svg>');
+      background-size: calc(100px * var(--phi)) calc(100px * var(--phi));
+      opacity: 0.15;
+      z-index: -1;
+    }
+    
+    h1 {
+      font-size: calc(2.5rem * var(--phi-inverse));
+      color: var(--text-primary);
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--unity-color), transparent);
+    }
+    
+    .subtitle {
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .phi-tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background-color: rgba(75, 127, 82, 0.2);
+      border: 1px solid var(--creation-color);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: calc(1200px * var(--phi-inverse));
+      margin: 0 auto;
+      padding: calc(1.5rem * var(--phi-inverse));
+    }
+    
+    .mechanism-container {
+      width: 100%;
+      height: calc(500px * var(--phi));
+      position: relative;
+      overflow: hidden;
+      background-color: rgba(17, 17, 26, 0.8);
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      margin: calc(1.5rem * var(--phi)) 0;
+      border: 1px solid rgba(75, 127, 82, 0.3);
+    }
+    
+    /* Styling for the control panels and info displays */
+    .antikythera-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      background-color: rgba(26, 26, 46, 0.8);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(169, 113, 66, 0.3);
+    }
+    
+    .nav-controls, .view-controls, .feature-controls {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding: 5px;
+    }
+    
+    .feature-controls {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .antikythera-controls button {
+      padding: 8px 12px;
+      background-color: var(--ground-color);
+      color: var(--text-primary);
+      border: 1px solid rgba(138, 43, 226, 0.5);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+    
+    .antikythera-controls button:hover {
+      background-color: var(--accent-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .antikythera-date-display {
+      background-color: rgba(26, 26, 46, 0.8);
+      padding: 8px 15px;
+      border-radius: 4px;
+      min-width: 200px;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid rgba(0, 191, 255, 0.3);
+      color: var(--text-accent);
+    }
+    
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 5px 0;
+    }
+    
+    /* Switch styling */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 24px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #2b2b3a;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--accent-primary);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+    
+    /* Information display */
+    .antikythera-info {
+      margin-top: 20px;
+    }
+    
+    .antikythera-celestial-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .info-card {
+      background-color: rgba(26, 26, 46, 0.8);
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 3px solid;
+    }
+    
+    .info-card:nth-child(1) {
+      border-left-color: var(--creation-color);
+    }
+    
+    .info-card:nth-child(2) {
+      border-left-color: var(--sacred-color);
+    }
+    
+    .info-card:nth-child(3) {
+      border-left-color: var(--resonance-color);
+    }
+    
+    .info-card:nth-child(4) {
+      border-left-color: var(--unity-color);
+    }
+    
+    .info-card h3 {
+      margin-top: 0;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(90, 90, 126, 0.5);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      font-weight: normal;
+    }
+    
+    .info-card p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+    
+    /* Quantum resonance indicators */
+    .resonance-indicator {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      background-color: rgba(26, 26, 46, 0.7);
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .resonance-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--creation-color);
+      animation: pulse 3s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.8); opacity: 0.5; }
+    }
+    
+    .frequency-selector {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      display: flex;
+      gap: 10px;
+      background-color: rgba(26, 26, 46, 0.7);
+      padding: 8px;
+      border-radius: 4px;
+    }
+    
+    .frequency-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .freq-432 { background-color: rgba(26, 26, 46, 0.9); border: 1px solid var(--ground-color); }
+    .freq-528 { background-color: rgba(75, 127, 82, 0.3); border: 1px solid var(--creation-color); }
+    .freq-594 { background-color: rgba(169, 113, 66, 0.3); border: 1px solid var(--resonance-color); }
+    .freq-672 { background-color: rgba(138, 43, 226, 0.3); border: 1px solid var(--sacred-color); }
+    .freq-720 { background-color: rgba(0, 191, 255, 0.3); border: 1px solid var(--vision-color); }
+    .freq-768 { background-color: rgba(212, 175, 55, 0.3); border: 1px solid var(--unity-color); }
+    
+    .frequency-option.active {
+      box-shadow: 0 0 10px currentColor;
+      transform: scale(1.1);
+    }
+    
+    .freq-432.active { color: var(--ground-color); }
+    .freq-528.active { color: var(--creation-color); }
+    .freq-594.active { color: var(--resonance-color); }
+    .freq-672.active { color: var(--sacred-color); }
+    .freq-720.active { color: var(--vision-color); }
+    .freq-768.active { color: var(--unity-color); }
+    
+    .footer {
+      background-color: var(--ground-color);
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+      border-top: 2px solid var(--sacred-color);
+      color: var(--text-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" stroke="%23d4af37" stroke-width="0.5" fill="none" /></svg>');
+      background-size: calc(50px * var(--phi)) calc(50px * var(--phi));
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+      .mechanism-container {
+        height: 400px;
+      }
+      
+      .antikythera-celestial-info {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-controls, .view-controls, .feature-controls {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header {
+        padding: 15px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .mechanism-container {
+        height: 300px;
+      }
+      
+      .frequency-selector,
+      .resonance-indicator {
+        position: static;
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Phi-Harmonic Antikythera Mechanism</h1>
+    <div class="subtitle">Ancient Wisdom Through Quantum Resonance (150-100 BCE)</div>
+    <div class="phi-tag">Creation State • φ¹ • 528 Hz</div>
+  </div>
+  
+  <div class="container">
+    <div class="mechanism-container" id="mechanism-container">
+      <!-- Canvas for Three.js rendering will be inserted here by the script -->
+      
+      <!-- Quantum Resonance Indicator -->
+      <div class="resonance-indicator">
+        <div class="resonance-dot"></div>
+        <span>Quantum Coherence: <span id="coherence-value">0.62</span></span>
+      </div>
+      
+      <!-- Phi-Harmonic Frequency Selector -->
+      <div class="frequency-selector">
+        <div class="frequency-option freq-432" title="Ground State (432 Hz, φ⁰)">φ⁰</div>
+        <div class="frequency-option freq-528 active" title="Creation State (528 Hz, φ¹)">φ¹</div>
+        <div class="frequency-option freq-594" title="Quantum DNA Resonance (594 Hz, φ²)">φ²</div>
+        <div class="frequency-option freq-672" title="Sacred Sound Geometry (672 Hz, φ³)">φ³</div>
+        <div class="frequency-option freq-720" title="Vision Gate (720 Hz, φ⁴)">φ⁴</div>
+        <div class="frequency-option freq-768" title="Unity Wave (768 Hz, φ⁵)">φ⁵</div>
+      </div>
+    </div>
+    
+    <!-- Controls and Info Displays will be inserted here by the script -->
+  </div>
+  
+  <div class="footer">
+    &copy; 2025 CQIL | Phi-Harmonic Antikythera Mechanism | Merging Ancient Wisdom with Quantum Understanding
+  </div>
+
+  <!-- External dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+  
+  <!-- Project scripts -->
+  <script src="js/quantum-experience/antikythera-types.js"></script>
+  <script src="js/quantum-experience/antikythera-mechanism.js"></script>
+  <script src="js/quantum-experience/antikythera-mechanism-core.js"></script>
+  <script src="js/quantum-experience/antikythera-astronomical.js"></script>
+  <script src="js/quantum-experience/antikythera-visualization.js"></script>
+  <script src="js/quantum-experience/antikythera-visualization-part2.js"></script>
+  <script src="js/quantum-experience/antikythera-visualization-part3.js"></script>
+  <script src="js/quantum-experience/antikythera-integration.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the mechanism
+      const mechanism = new AntikytheraQuantumMechanism({
+        container: document.getElementById('mechanism-container'),
+        enableAudio: true,
+        enableQuantumEffects: true,
+        theme: 'quantum',
+        autoRotate: true,
+        rotationSpeed: 5, // Days per second when auto-rotating
+        startDate: new Date(),
+      });
+      
+      // Start the mechanism
+      mechanism.start();
+      
+      // Update coherence display
+      setInterval(() => {
+        document.getElementById('coherence-value').textContent = 
+          mechanism.state.coherence.toFixed(2);
+      }, 1000);
+      
+      // Set up frequency selector
+      const frequencyOptions = document.querySelectorAll('.frequency-option');
+      frequencyOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove active class from all
+          frequencyOptions.forEach(opt => opt.classList.remove('active'));
+          
+          // Add active class to clicked option
+          this.classList.add('active');
+          
+          // Get frequency from class name
+          const classList = this.classList;
+          let frequency = 528; // Default to Creation State
+          
+          if (classList.contains('freq-432')) frequency = 432;
+          if (classList.contains('freq-528')) frequency = 528;
+          if (classList.contains('freq-594')) frequency = 594;
+          if (classList.contains('freq-672')) frequency = 672;
+          if (classList.contains('freq-720')) frequency = 720;
+          if (classList.contains('freq-768')) frequency = 768;
+          
+          // Update phi tag
+          const phiTag = document.querySelector('.phi-tag');
+          const phiPowers = ['⁰', '¹', '²', '³', '⁴', '⁵'];
+          const stateNames = ['Ground State', 'Creation State', 'Quantum DNA Resonance', 
+                             'Sacred Sound Geometry', 'Vision Gate', 'Unity Wave'];
+          
+          const index = [432, 528, 594, 672, 720, 768].indexOf(frequency);
+          if (index !== -1) {
+            phiTag.textContent = `${stateNames[index]} • φ${phiPowers[index]} • ${frequency} Hz`;
+          }
+          
+          // Apply frequency to mechanism
+          if (typeof mechanism.setFrequency === 'function') {
+            mechanism.setFrequency(frequency);
+          }
+        });
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        mechanism.resize();
+      });
+    });
+  </script>
+</body>
+</html>

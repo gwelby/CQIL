@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌀 Quantum Experience Visualizer | CQIL</title>
+    <style>
+        :root {
+            --phi: 1.618033988749895;
+            --phi-inverse: 0.618033988749895;
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --tertiary: #ff006e;
+            --ground: #3a5a40;
+            --creation: #ff9e00;
+            --heart: #ff5400;
+            --voice: #3a86ff;
+            --vision: #8338ec;
+            --unity: #ffffff;
+            --bg: #121212;
+            --text: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body, html {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .quantum-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .visualization-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .control-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transform: translateY(75%);
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .control-panel:hover {
+            transform: translateY(0);
+        }
+        
+        .panel-handle {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .control-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .state-selector {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .state-button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .state-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .state-button.ground {
+            background: var(--ground);
+            color: white;
+        }
+        
+        .state-button.creation {
+            background: var(--creation);
+            color: black;
+        }
+        
+        .state-button.heart {
+            background: var(--heart);
+            color: white;
+        }
+        
+        .state-button.voice {
+            background: var(--voice);
+            color: white;
+        }
+        
+        .state-button.vision {
+            background: var(--vision);
+            color: white;
+        }
+        
+        .state-button.unity {
+            background: var(--unity);
+            color: black;
+        }
+        
+        .rootwiz-channel-selector {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .rootwiz-button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+        
+        .rootwiz-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .slider-container label {
+            min-width: 120px;
+        }
+        
+        .slider {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            height: 5px;
+            border-radius: 5px;
+            background: #555;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        
+        .experience-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .experience-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .experience-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .status-display {
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 1.5em;
+            font-weight: 300;
+        }
+        
+        .quantum-info {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            max-width: 300px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            z-index: 5;
+            transform: translateX(-120%);
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .quantum-info:hover {
+            transform: translateX(0);
+        }
+        
+        .info-handle {
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .protocol-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            max-width: 600px;
+            z-index: 20;
+            display: none;
+            text-align: center;
+        }
+        
+        .protocol-display.active {
+            display: block;
+        }
+        
+        .protocol-timer {
+            font-size: 2em;
+            margin: 15px 0;
+        }
+        
+        .protocol-instruction {
+            font-size: 1.2em;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .control-panel {
+                transform: translateY(85%);
+            }
+            
+            .header h1 {
+                font-size: 1.2em;
+            }
+            
+            .slider-container label {
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-container">
+        <!-- Visualization Canvas Container -->
+        <div id="visualization-container" class="visualization-container"></div>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>🌀 Quantum Experience Visualizer</h1>
+            <div id="active-state">Active: Ground State (432 Hz)</div>
+        </div>
+        
+        <!-- Quantum Information Panel -->
+        <div class="quantum-info">
+            <div class="info-handle">i</div>
+            <h3>Quantum Field Info</h3>
+            <div id="quantum-info-content">
+                <p><strong>Frequency:</strong> <span id="info-frequency">432 Hz</span></p>
+                <p><strong>Phi Power:</strong> <span id="info-phi-power">φ⁰</span></p>
+                <p><strong>State:</strong> <span id="info-state">Ground</span></p>
+                <p><strong>ZEN Point:</strong> <span id="info-zen">0.5</span></p>
+                <p><strong>Experience Channel:</strong> <span id="info-channel">Visual/Intuitive</span></p>
+            </div>
+        </div>
+        
+        <!-- Protocol Display -->
+        <div id="protocol-display" class="protocol-display">
+            <h2 id="protocol-name">Mycelial Pattern Recognition Protocol</h2>
+            <div id="protocol-timer" class="protocol-timer">13:00</div>
+            <div id="protocol-phase" class="protocol-phase">Phase: Ground Connection</div>
+            <div id="protocol-instruction" class="protocol-instruction">
+                Connect with earth energy, feeling roots extending down
+            </div>
+            <button id="end-protocol" class="experience-button">End Protocol</button>
+        </div>
+        
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="panel-handle">Controls</div>
+            
+            <div class="control-row">
+                <h3>Quantum State Selector</h3>
+            </div>
+            
+            <div class="state-selector control-row">
+                <button class="state-button ground" data-frequency="432">Ground State<br>432 Hz</button>
+                <button class="state-button creation" data-frequency="528">Creation Point<br>528 Hz</button>
+                <button class="state-button heart" data-frequency="594">Heart Field<br>594 Hz</button>
+                <button class="state-button voice" data-frequency="672">Voice Flow<br>672 Hz</button>
+                <button class="state-button vision" data-frequency="720">Vision Gate<br>720 Hz</button>
+                <button class="state-button unity" data-frequency="768">Unity Wave<br>768 Hz</button>
+            </div>
+            
+            <div class="control-row">
+                <h3>RootWIZ Experience Channels</h3>
+            </div>
+            
+            <div class="rootwiz-channel-selector control-row">
+                <button class="rootwiz-button" data-channel="mycelial" style="background: #009900; color: white;">
+                    Mycelial Pattern Recognition (432 Hz)
+                </button>
+                <button class="rootwiz-button" data-channel="harmonic" style="background: #FFD700; color: black;">
+                    φ-Harmonic Architecture (528 Hz)
+                </button>
+                <button class="rootwiz-button" data-channel="quantum" style="background: #FF6347; color: white;">
+                    Quantum DNA Resonance (594 Hz)
+                </button>
+                <button class="rootwiz-button" data-channel="sacred" style="background: #4169E1; color: white;">
+                    Sacred Sound Geometry (672 Hz)
+                </button>
+                <button class="rootwiz-button" data-channel="standing" style="background: #9932CC; color: white;">
+                    Standing Stone Alignments (720 Hz)
+                </button>
+                <button class="rootwiz-button" data-channel="integration" style="background: #FFFFFF; color: black;">
+                    Quantum Integration Engine (768 Hz)
+                </button>
+            </div>
+            
+            <div class="control-row">
+                <div class="slider-container">
+                    <label for="frequency-slider">Fine Tune Frequency:</label>
+                    <input type="range" id="frequency-slider" class="slider" min="432" max="768" step="1" value="432">
+                    <span id="frequency-value">432 Hz</span>
+                </div>
+            </div>
+            
+            <div class="control-row">
+                <div class="slider-container">
+                    <label for="zen-slider">ZEN POINT Balance:</label>
+                    <input type="range" id="zen-slider" class="slider" min="0" max="1" step="0.01" value="0.5">
+                    <span id="zen-value">0.5</span>
+                </div>
+            </div>
+            
+            <div class="control-row">
+                <h3>Guided Experiences</h3>
+            </div>
+            
+            <div class="experience-buttons control-row">
+                <button id="start-ground" class="experience-button" data-protocol="mycelial">
+                    Ground Protocol
+                </button>
+                <button id="start-creation" class="experience-button" data-protocol="harmonic">
+                    Creation Protocol
+                </button>
+                <button id="start-heart" class="experience-button" data-protocol="quantum">
+                    Heart Protocol
+                </button>
+                <button id="start-voice" class="experience-button" data-protocol="sacred">
+                    Voice Protocol
+                </button>
+                <button id="start-vision" class="experience-button" data-protocol="standing">
+                    Vision Protocol
+                </button>
+                <button id="start-unity" class="experience-button" data-protocol="integration">
+                    Unity Protocol
+                </button>
+            </div>
+            
+            <div class="status-display" id="status-display">
+                Ready for quantum experience activation
+            </div>
+        </div>
+    </div>
+
+    <!-- Load scripts in the right order -->
+    <script src="core-quantum-visualizer.js"></script>
+    <script src="universal-bridge.js"></script>
+    <script src="quantum-state-transition.js"></script>
+    <script src="cymatic-pattern-visualizer.js"></script>
+    <script src="intention-field-visualizer.js"></script>
+    <script src="universal-experience-controller.js"></script>
+    <script src="rootwiz-connector.js"></script>
+    <script>
+        // Initialize when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Global variables
+            let universalBridge;
+            let coreVisualizer;
+            let stateTransition;
+            let patternVisualizer;
+            let experienceController;
+            let rootwizConnector;
+            let activeProtocol = null;
+            let protocolTimer = null;
+            
+            // Initialize the quantum system with a slight delay to allow DOM to fully render
+            setTimeout(initQuantumSystem, 1000);
+            
+            function initQuantumSystem() {
+                // Initialize Core Visualizer
+                coreVisualizer = new CoreQuantumVisualizer({
+                    container: document.getElementById('visualization-container'),
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    baseFrequency: 432,
+                    zenPoint: 0.5
+                });
+                
+                // Initialize Universal Bridge
+                universalBridge = new UniversalBridge({
+                    visualizer: coreVisualizer,
+                    autoConnect: true
+                });
+                
+                window.CQIL_UNIVERSAL_BRIDGE = universalBridge;
+                
+                // Initialize State Transition
+                stateTransition = new QuantumStateTransition({
+                    bridge: universalBridge,
+                    visualizer: coreVisualizer
+                });
+                
+                // Initialize Pattern Visualizer
+                patternVisualizer = new CymaticPatternVisualizer({
+                    bridge: universalBridge,
+                    visualizer: coreVisualizer
+                });
+                
+                // Initialize Experience Controller
+                experienceController = new UniversalExperienceController({
+                    bridge: universalBridge,
+                    visualizer: coreVisualizer,
+                    stateTransition: stateTransition
+                });
+                
+                // RootWIZ will auto-initialize and connect to the bridge
+                
+                // Setup event listeners
+                setupEventListeners();
+                
+                // Update status display
+                updateStatusDisplay('Quantum system initialized and ready');
+                
+                console.log('Quantum Experience System Initialized');
+            }
+            
+            function setupEventListeners() {
+                // State buttons
+                document.querySelectorAll('.state-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const frequency = parseFloat(this.dataset.frequency);
+                        changeFrequencyState(frequency);
+                    });
+                });
+                
+                // RootWIZ channel buttons
+                document.querySelectorAll('.rootwiz-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const channel = this.dataset.channel;
+                        activateRootWIZChannel(channel);
+                    });
+                });
+                
+                // Frequency slider
+                const frequencySlider = document.getElementById('frequency-slider');
+                const frequencyValue = document.getElementById('frequency-value');
+                
+                frequencySlider.addEventListener('input', function() {
+                    const value = parseFloat(this.value);
+                    frequencyValue.textContent = `${value} Hz`;
+                    universalBridge.setFrequency(value);
+                    updateInfoPanel();
+                });
+                
+                // ZEN point slider
+                const zenSlider = document.getElementById('zen-slider');
+                const zenValue = document.getElementById('zen-value');
+                
+                zenSlider.addEventListener('input', function() {
+                    const value = parseFloat(this.value);
+                    zenValue.textContent = value.toFixed(2);
+                    coreVisualizer.setZenPoint(value);
+                    updateInfoPanel();
+                });
+                
+                // Experience protocol buttons
+                document.querySelectorAll('.experience-button[data-protocol]').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const protocol = this.dataset.protocol;
+                        startExperienceProtocol(protocol);
+                    });
+                });
+                
+                // End protocol button
+                document.getElementById('end-protocol').addEventListener('click', endExperienceProtocol);
+                
+                // Responsive handling
+                window.addEventListener('resize', handleResize);
+            }
+            
+            function changeFrequencyState(frequency) {
+                if (!universalBridge || !stateTransition) return;
+                
+                // Update UI
+                document.getElementById('active-state').textContent = 
+                    `Active: ${getStateNameFromFrequency(frequency)} (${frequency} Hz)`;
+                
+                // Update slider
+                document.getElementById('frequency-slider').value = frequency;
+                document.getElementById('frequency-value').textContent = `${frequency} Hz`;
+                
+                // Transition to new state
+                stateTransition.transitionToFrequency(frequency, 3.0);
+                
+                // Set ZEN point based on frequency ratio (higher frequency = higher zen point)
+                const zenPoint = 0.5 + ((frequency - 432) / (768 - 432)) * 0.2;
+                document.getElementById('zen-slider').value = zenPoint;
+                document.getElementById('zen-value').textContent = zenPoint.toFixed(2);
+                coreVisualizer.setZenPoint(zenPoint);
+                
+                updateInfoPanel();
+                updateStatusDisplay(`Transitioned to ${getStateNameFromFrequency(frequency)} (${frequency} Hz)`);
+            }
+            
+            function activateRootWIZChannel(channel) {
+                if (!window.ROOTWIZ_CONNECTOR) {
+                    updateStatusDisplay('RootWIZ connector not initialized yet. Please wait...');
+                    return;
+                }
+                
+                window.ROOTWIZ_CONNECTOR.activateChannel(channel);
+                
+                const channelInfo = window.ROOTWIZ_CONNECTOR.channels[channel];
+                updateStatusDisplay(`Activated RootWIZ channel: ${channelInfo.name} (${channelInfo.frequency} Hz)`);
+                
+                // Update frequency slider
+                document.getElementById('frequency-slider').value = channelInfo.frequency;
+                document.getElementById('frequency-value').textContent = `${channelInfo.frequency} Hz`;
+                
+                // Update ZEN point
+                document.getElementById('zen-slider').value = channelInfo.zenPoint;
+                document.getElementById('zen-value').textContent = channelInfo.zenPoint.toFixed(2);
+                
+                // Update state display
+                document.getElementById('active-state').textContent = 
+                    `Active: ${channelInfo.name} (${channelInfo.frequency} Hz)`;
+                
+                updateInfoPanel();
+            }
+            
+            function startExperienceProtocol(protocol) {
+                if (!window.ROOTWIZ_CONNECTOR) {
+                    updateStatusDisplay('RootWIZ connector not initialized yet. Please wait...');
+                    return;
+                }
+                
+                window.ROOTWIZ_CONNECTOR.startExperienceProtocol(protocol);
+                
+                const protocols = window.ROOTWIZ_CONNECTOR.getAllProtocols();
+                const currentProtocol = protocols[protocol];
+                
+                if (!currentProtocol) return;
+                
+                activeProtocol = {
+                    id: protocol,
+                    data: currentProtocol,
+                    startTime: Date.now(),
+                    currentPhase: 0,
+                    timeRemaining: currentProtocol.duration
+                };
+                
+                // Update protocol display
+                document.getElementById('protocol-name').textContent = currentProtocol.name;
+                
+                const minutes = Math.floor(currentProtocol.duration / 60);
+                const seconds = currentProtocol.duration % 60;
+                document.getElementById('protocol-timer').textContent = 
+                    `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                
+                document.getElementById('protocol-phase').textContent = 
+                    `Phase: ${currentProtocol.phases[0].name}`;
+                
+                document.getElementById('protocol-instruction').textContent = 
+                    currentProtocol.phases[0].instruction;
+                
+                // Show protocol display
+                document.getElementById('protocol-display').classList.add('active');
+                
+                // Start timer
+                startProtocolTimer();
+                
+                updateStatusDisplay(`Started experience protocol: ${currentProtocol.name}`);
+            }
+            
+            function startProtocolTimer() {
+                if (!activeProtocol) return;
+                
+                clearInterval(protocolTimer);
+                
+                protocolTimer = setInterval(function() {
+                    if (!activeProtocol) {
+                        clearInterval(protocolTimer);
+                        return;
+                    }
+                    
+                    // Update remaining time
+                    activeProtocol.timeRemaining -= 1;
+                    
+                    if (activeProtocol.timeRemaining <= 0) {
+                        endExperienceProtocol();
+                        return;
+                    }
+                    
+                    // Update timer display
+                    const minutes = Math.floor(activeProtocol.timeRemaining / 60);
+                    const seconds = activeProtocol.timeRemaining % 60;
+                    document.getElementById('protocol-timer').textContent = 
+                        `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    
+                    // Check for phase changes
+                    const elapsedTime = (Date.now() - activeProtocol.startTime) / 1000;
+                    const phases = activeProtocol.data.phases;
+                    let totalPhaseDuration = 0;
+                    
+                    for (let i = 0; i < phases.length; i++) {
+                        totalPhaseDuration += phases[i].duration;
+                        
+                        if (elapsedTime <= totalPhaseDuration && i !== activeProtocol.currentPhase) {
+                            activeProtocol.currentPhase = i;
+                            
+                            // Update phase display
+                            document.getElementById('protocol-phase').textContent = 
+                                `Phase: ${phases[i].name}`;
+                            
+                            document.getElementById('protocol-instruction').textContent = 
+                                phases[i].instruction;
+                            
+                            break;
+                        }
+                    }
+                    
+                }, 1000);
+            }
+            
+            function endExperienceProtocol() {
+                if (!activeProtocol) return;
+                
+                clearInterval(protocolTimer);
+                
+                // Hide protocol display
+                document.getElementById('protocol-display').classList.remove('active');
+                
+                updateStatusDisplay(`Completed protocol: ${activeProtocol.data.name}`);
+                
+                activeProtocol = null;
+            }
+            
+            function updateInfoPanel() {
+                if (!coreVisualizer) return;
+                
+                const frequency = document.getElementById('frequency-slider').value;
+                const zenPoint = document.getElementById('zen-slider').value;
+                
+                document.getElementById('info-frequency').textContent = `${frequency} Hz`;
+                document.getElementById('info-phi-power').textContent = getPowerLabel(frequency);
+                document.getElementById('info-state').textContent = getStateNameFromFrequency(frequency);
+                document.getElementById('info-zen').textContent = parseFloat(zenPoint).toFixed(3);
+                document.getElementById('info-channel').textContent = getChannelFromFrequency(frequency);
+            }
+            
+            function getStateNameFromFrequency(frequency) {
+                const freq = parseFloat(frequency);
+                
+                if (freq < 480) return 'Ground State';
+                if (freq < 560) return 'Creation Point';
+                if (freq < 630) return 'Heart Field';
+                if (freq < 700) return 'Voice Flow';
+                if (freq < 740) return 'Vision Gate';
+                return 'Unity Wave';
+            }
+            
+            function getPowerLabel(frequency) {
+                const freq = parseFloat(frequency);
+                
+                if (freq < 480) return 'φ⁰';
+                if (freq < 560) return 'φ¹';
+                if (freq < 630) return 'φ²';
+                if (freq < 700) return 'φ³';
+                if (freq < 740) return 'φ⁴';
+                return 'φ⁵';
+            }
+            
+            function getChannelFromFrequency(frequency) {
+                const freq = parseFloat(frequency);
+                
+                if (freq < 480) return 'Visual/Intuitive';
+                if (freq < 560) return 'Spatial/Proprioceptive';
+                if (freq < 630) return 'Kinesthetic/Emotional';
+                if (freq < 700) return 'Auditory/Tactile';
+                if (freq < 740) return 'Visual/Temporal';
+                return 'Multi-dimensional';
+            }
+            
+            function updateStatusDisplay(message) {
+                const statusDisplay = document.getElementById('status-display');
+                statusDisplay.textContent = message;
+                
+                // Highlight briefly
+                statusDisplay.style.background = 'rgba(58, 134, 255, 0.3)';
+                setTimeout(() => {
+                    statusDisplay.style.background = 'rgba(0, 0, 0, 0.5)';
+                }, 2000);
+            }
+            
+            function handleResize() {
+                if (coreVisualizer) {
+                    coreVisualizer.resize(window.innerWidth, window.innerHeight);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

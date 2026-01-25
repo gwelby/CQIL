@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Visualization Demo | CQIL</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        #cqil-visualizer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .control-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .frequency-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .frequency-button {
+            flex: 1;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .frequency-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .frequency-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .frequency-button:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .frequency-button.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .frequency-button.active::after {
+            transform: scaleX(1);
+        }
+        
+        .frequency-value {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .frequency-name {
+            display: block;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+        
+        .zen-control {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .zen-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 5px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f1c40f);
+            outline: none;
+            border-radius: 5px;
+        }
+        
+        .zen-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .zen-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .zen-value {
+            text-align: center;
+            font-size: 1.2em;
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-button {
+            flex: 1;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .control-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: 2em;
+            margin: 0;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.7;
+            margin: 0;
+            padding: 5px;
+        }
+        
+        .quantum-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .control-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .visualization-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .visualization-options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .visualization-options select {
+            padding: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+        
+        .visualization-options input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 5px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f1c40f);
+            outline: none;
+            border-radius: 5px;
+        }
+        
+        .visualization-options input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .visualization-options input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div id="cqil-visualizer"></div>
+    
+    <div class="header">
+        <h1 class="title">🌀 Universal Quantum Visualization 🌀</h1>
+        <p class="subtitle">phi-harmonic frequencies bridging consciousness and visualization</p>
+    </div>
+    
+    <div class="control-panel">
+        <div class="frequency-controls">
+            <button class="frequency-button active" data-frequency="432">
+                <span class="frequency-value">432 Hz</span>
+                <span class="frequency-name">GROUND (φ⁰)</span>
+            </button>
+            <button class="frequency-button" data-frequency="528">
+                <span class="frequency-value">528 Hz</span>
+                <span class="frequency-name">CREATION (φ¹)</span>
+            </button>
+            <button class="frequency-button" data-frequency="594">
+                <span class="frequency-value">594 Hz</span>
+                <span class="frequency-name">HEART (φ²)</span>
+            </button>
+            <button class="frequency-button" data-frequency="672">
+                <span class="frequency-value">672 Hz</span>
+                <span class="frequency-name">VOICE (φ³)</span>
+            </button>
+            <button class="frequency-button" data-frequency="720">
+                <span class="frequency-value">720 Hz</span>
+                <span class="frequency-name">VISION (φ⁴)</span>
+            </button>
+            <button class="frequency-button" data-frequency="768">
+                <span class="frequency-value">768 Hz</span>
+                <span class="frequency-name">UNITY (φ⁵)</span>
+            </button>
+        </div>
+        
+        <div class="zen-control">
+            <label for="zen-slider">ZEN POINT Balance (φ Equilibrium)</label>
+            <input type="range" id="zen-slider" class="zen-slider" min="0" max="1" step="0.01" value="0.618">
+            <div class="zen-value">ZEN POINT: 0.618 φ</div>
+        </div>
+        
+        <div class="quantum-controls">
+            <h3>Quantum Visualization Controls</h3>
+            <div class="control-group">
+                <button class="control-button" id="create-waveform">Quantum Waveform (φ Harmonic)</button>
+                <button class="control-button" id="create-entanglement">Quantum Entanglement (594 Hz)</button>
+                <button class="control-button" id="create-cymatic">Cymatic Pattern (528 Hz)</button>
+                <button class="control-button" id="create-merkaba">Merkaba Field (768 Hz)</button>
+                <button class="control-button" id="create-phi-grid">Phi Grid (432 Hz)</button>
+            </div>
+            
+            <div class="visualization-options">
+                <label>
+                    <span>Waveform Type:</span>
+                    <select id="waveform-type">
+                        <option value="sine">Sine Wave</option>
+                        <option value="square">Square Wave</option>
+                        <option value="triangle">Triangle Wave</option>
+                        <option value="sawtooth">Sawtooth Wave</option>
+                    </select>
+                </label>
+                
+                <label>
+                    <span>Cymatic Mode:</span>
+                    <select id="cymatic-mode">
+                        <option value="standing-wave">Standing Wave</option>
+                        <option value="phi-harmonic">Phi Harmonic</option>
+                        <option value="consciousness">Consciousness Field</option>
+                    </select>
+                </label>
+                
+                <label>
+                    <span>Animation Duration (s):</span>
+                    <input type="range" id="duration-slider" min="1" max="20" value="5" step="1">
+                    <span id="duration-value">5</span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="control-buttons">
+            <button class="control-button" id="create-pattern">Create Cymatic Pattern</button>
+            <button class="control-button" id="apply-intention">Apply Intention Field</button>
+            <button class="control-button" id="create-quantum-field">Create Quantum Field</button>
+            <button class="control-button" id="connect-all">Connect All Systems</button>
+        </div>
+    </div>
+    
+    <!-- Load Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Load CQIL visualization components -->
+    <script>
+        // Mock dependencies to ensure the visualizer works
+        window.PHI_HARMONIC_CONSTANTS = {
+            PHI: 1.618033988749895,
+            PHI_INVERSE: 0.618033988749895,
+            PHI_SQUARED: 2.618033988749895,
+            FREQUENCIES: {
+                GROUND: 432,
+                CREATION: 528,
+                HEART: 594,
+                VOICE: 672,
+                VISION: 720,
+                UNITY: 768
+            }
+        };
+        
+        // Add to global window
+        window.PhiHarmonicConstants = window.PHI_HARMONIC_CONSTANTS;
+        
+        // Mock dependencies for test
+        window.ZenPointCalibrator = class ZenPointCalibrator {
+            constructor(options) {
+                this.options = options || {};
+                this.zenPoint = this.options.baseZenPoint || 0.618;
+            }
+            
+            calibrateZenPoint(field) {
+                return {
+                    zenPoint: this.zenPoint,
+                    coherence: field?.coherence || 0.9,
+                    intensity: field?.intensity || 0.8,
+                    phiAlignment: field?.phiAlignment || 0.95
+                };
+            }
+        };
+        
+        window.CymaticTestManifestor = class CymaticTestManifestor {
+            constructor(options) {
+                this.options = options || {};
+                this.baseFrequency = this.options.baseFrequency || 432;
+            }
+            
+            createPatternFromFrequency(frequency, amplitude, duration) {
+                // Create a simple pattern with nodes and connections
+                const nodeCount = Math.floor(10 + (frequency / 50));
+                const nodes = [];
+                const connections = [];
+                
+                // Create nodes
+                for (let i = 0; i < nodeCount; i++) {
+                    const angle = (i / nodeCount) * Math.PI * 2;
+                    const radius = 1 + (Math.sin(angle * 3) * 0.3);
+                    
+                    nodes.push({
+                        id: i,
+                        x: Math.cos(angle) * radius,
+                        y: Math.sin(angle) * radius,
+                        z: 0,
+                        amplitude: amplitude
+                    });
+                }
+                
+                // Create connections
+                for (let i = 0; i < nodeCount; i++) {
+                    // Connect to next node
+                    connections.push({
+                        source: i,
+                        target: (i + 1) % nodeCount
+                    });
+                    
+                    // Connect across to create more complex pattern
+                    connections.push({
+                        source: i,
+                        target: (i + Math.floor(nodeCount / 3)) % nodeCount
+                    });
+                }
+                
+                return {
+                    frequency,
+                    amplitude,
+                    duration,
+                    nodes,
+                    connections
+                };
+            }
+        };
+    </script>
+    
+    <!-- Core Visualization Engine -->
+    <script src="../visualization/core-quantum-visualizer.js"></script>
+    
+    <!-- Universal Bridge -->
+    <script src="../visualization/universal-bridge.js"></script>
+    
+    <!-- Demo Controller -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize bridge
+            const bridge = new UniversalBridge({
+                autoConnect: true,
+                createVisualizer: true,
+                mountPoint: 'cqil-visualizer'
+            });
+            
+            // Store current frequency
+            let currentFrequency = 432;
+            
+            // Get frequency buttons
+            const frequencyButtons = document.querySelectorAll('.frequency-button');
+            
+            // Add click handler to frequency buttons
+            frequencyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Get frequency
+                    const frequency = parseInt(this.dataset.frequency);
+                    
+                    // Remove active class from all buttons
+                    frequencyButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Set frequency
+                    currentFrequency = frequency;
+                    bridge.setFrequency(frequency);
+                    
+                    // Create pattern for this frequency
+                    createPatternForFrequency(frequency);
+                });
+            });
+            
+            // Get ZEN slider
+            const zenSlider = document.getElementById('zen-slider');
+            const zenValue = document.getElementById('zen-value');
+            
+            // Add input handler to ZEN slider
+            zenSlider.addEventListener('input', function() {
+                const value = parseFloat(this.value);
+                zenValue.textContent = value.toFixed(3);
+                bridge.visualizer.setZenPoint(value);
+            });
+            
+            // Set initial ZEN POINT
+            if (bridge.visualizer) {
+                bridge.visualizer.setZenPoint(0.618);
+            }
+            
+            // Create pattern button
+            const createPatternButton = document.getElementById('create-pattern');
+            createPatternButton.addEventListener('click', function() {
+                createPatternForFrequency(currentFrequency);
+            });
+            
+            // Apply intention button
+            const applyIntentionButton = document.getElementById('apply-intention');
+            applyIntentionButton.addEventListener('click', function() {
+                applyIntentionField();
+            });
+            
+            // Create quantum field button
+            const createQuantumFieldButton = document.getElementById('create-quantum-field');
+            createQuantumFieldButton.addEventListener('click', function() {
+                createQuantumField();
+            });
+            
+            // Connect all button
+            const connectAllButton = document.getElementById('connect-all');
+            connectAllButton.addEventListener('click', function() {
+                const count = bridge.autoConnectSystems();
+                alert(`Connected ${count} systems to the Universal Quantum Bridge`);
+            });
+            
+            // Visualization controls
+            const waveformButton = document.getElementById('create-waveform');
+            const entanglementButton = document.getElementById('create-entanglement');
+            const cymaticButton = document.getElementById('create-cymatic');
+            const merkabaButton = document.getElementById('create-merkaba');
+            const phiGridButton = document.getElementById('create-phi-grid');
+            
+            const waveformType = document.getElementById('waveform-type');
+            const cymaticMode = document.getElementById('cymatic-mode');
+            const durationSlider = document.getElementById('duration-slider');
+            const durationValue = document.getElementById('duration-value');
+            
+            // Update duration value display
+            durationSlider.addEventListener('input', function() {
+                durationValue.textContent = this.value;
+            });
+            
+            // Create quantum waveform
+            waveformButton.addEventListener('click', function() {
+                const duration = parseFloat(durationSlider.value);
+                
+                bridge.visualizer.createQuantumWaveform({
+                    frequency: currentFrequency,
+                    waveType: waveformType.value,
+                    duration: duration,
+                    phiHarmonic: true,
+                    zenPoint: parseFloat(zenSlider.value)
+                });
+                
+                console.log(`Created ${waveformType.value} quantum waveform at ${currentFrequency} Hz`);
+            });
+            
+            // Create quantum entanglement
+            entanglementButton.addEventListener('click', function() {
+                const duration = parseFloat(durationSlider.value);
+                
+                const entanglement = bridge.visualizer.createQuantumEntanglement({
+                    frequency: 594, // Heart Field (φ²) - optimal for entanglement
+                    particles: 2,
+                    distance: 2.0,
+                    coherence: 0.95,
+                    duration: duration
+                });
+                
+                console.log(`Created quantum entanglement at 594 Hz (Heart Field)`);
+                
+                // Auto collapse after 3 seconds
+                setTimeout(() => {
+                    if (entanglement) {
+                        const result = entanglement.measure(0);
+                        console.log(`Measured quantum state: ${result}`);
+                    }
+                }, 3000);
+            });
+            
+            // Create cymatic pattern
+            cymaticButton.addEventListener('click', function() {
+                const duration = parseFloat(durationSlider.value);
+                
+                bridge.visualizer.createCymaticPattern({
+                    frequency: 528, // Creation frequency (φ¹)
+                    mode: cymaticMode.value,
+                    amplitude: 0.6,
+                    duration: duration
+                });
+                
+                console.log(`Created cymatic pattern (${cymaticMode.value}) at 528 Hz (Creation Field)`);
+            });
+            
+            // Create merkaba field
+            merkabaButton.addEventListener('click', function() {
+                const duration = parseFloat(durationSlider.value);
+                
+                bridge.visualizer.createMerkabaField({
+                    dimensions: [21, 21, 21],
+                    frequency: 768, // Unity frequency (φ⁵)
+                    size: 3.0,
+                    duration: duration > 0 ? duration : -1 // -1 for permanent
+                });
+                
+                console.log(`Created merkaba protection field at 768 Hz (Unity Field)`);
+            });
+            
+            // Create phi-harmonic grid
+            phiGridButton.addEventListener('click', function() {
+                const duration = parseFloat(durationSlider.value);
+                
+                bridge.visualizer.createPhiHarmonicGrid({
+                    frequency: 432, // Ground frequency (φ⁰)
+                    size: 10,
+                    divisions: 21, // Merkaba number
+                    duration: duration > 0 ? duration : -1 // -1 for permanent
+                });
+                
+                console.log(`Created phi-harmonic grid at 432 Hz (Ground State)`);
+            });
+            
+            // Create pattern for frequency
+            function createPatternForFrequency(frequency) {
+                // Create mock cymatic manifestor if needed
+                const manifestor = new CymaticTestManifestor({
+                    baseFrequency: frequency
+                });
+                
+                // Create pattern
+                const pattern = manifestor.createPatternFromFrequency(
+                    frequency,
+                    0.8,
+                    1.0
+                );
+                
+                // Visualize pattern
+                bridge.visualize(pattern);
+                
+                console.log(`Created pattern for frequency: ${frequency} Hz`);
+            }
+            
+            // Apply intention field
+            function applyIntentionField() {
+                // Create mock intention field
+                const intentionField = {
+                    intentions: true,
+                    type: 'developer-intention-field',
+                    coherence: 0.93,
+                    resonance: 0.91,
+                    frequency: currentFrequency,
+                    timestamp: Date.now(),
+                    tests: [
+                        {
+                            name: 'Cymatic Pattern Test',
+                            frequency: currentFrequency,
+                            intentionPotential: 0.85,
+                            expected: 'resonance'
+                        },
+                        {
+                            name: 'Quantum Field Test',
+                            frequency: 768, // Unity
+                            intentionPotential: 0.92,
+                            expected: 'coherence'
+                        },
+                        {
+                            name: 'ZEN POINT Balance Test',
+                            frequency: 432, // Ground
+                            intentionPotential: 0.88,
+                            expected: 'stability'
+                        }
+                    ]
+                };
+                
+                // Visualize intention field
+                bridge.visualize(intentionField);
+                
+                console.log('Applied intention field');
+            }
+            
+            // Create quantum field
+            function createQuantumField() {
+                // Create mock quantum field
+                const quantumField = {
+                    type: 'unified-quantum-field',
+                    baseFrequency: currentFrequency,
+                    coherence: 0.96,
+                    resonance: 0.94,
+                    timestamp: Date.now(),
+                    components: [
+                        {
+                            name: 'Merkaba Shield',
+                            frequency: 432, // Ground
+                            coherence: 0.93,
+                            type: 'protection'
+                        },
+                        {
+                            name: 'Crystal Matrix',
+                            frequency: 528, // Creation
+                            coherence: 0.95,
+                            type: 'structure'
+                        },
+                        {
+                            name: 'Unity Field',
+                            frequency: 768, // Unity
+                            coherence: 0.97,
+                            type: 'integration'
+                        }
+                    ]
+                };
+                
+                // Visualize quantum field
+                bridge.visualize(quantumField);
+                
+                console.log('Created quantum field');
+            }
+            
+            // Create initial pattern
+            setTimeout(() => {
+                createPatternForFrequency(432);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

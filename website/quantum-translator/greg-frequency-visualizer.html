@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greg Frequency Recognizer Visualizer</title>
+    <style>
+        :root {
+            --ground-color: #3D8C40;
+            --creation-color: #FFDB58;
+            --heart-color: #FF5E8F;
+            --voice-color: #5E8FFF;
+            --vision-color: #8F5EFF;
+            --unity-color: #FFFFFF;
+            --source-color: #FFDB58;
+            --bg-color: #1A1A1A;
+            --text-color: #E0E0E0;
+            --highlight-color: #444;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        .phi-tag {
+            font-size: 1rem;
+            color: var(--creation-color);
+            margin-bottom: 20px;
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--text-color);
+            padding: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background-color: #444;
+            color: var(--text-color);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }
+        
+        .examples-dropdown {
+            margin-left: 10px;
+            padding: 10px;
+            background-color: #333;
+            color: var(--text-color);
+            border: 1px solid #444;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .frequency-spectrum {
+            display: flex;
+            flex-direction: column;
+            margin: 30px 0;
+        }
+        
+        .frequency-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            height: 40px;
+        }
+        
+        .frequency-label {
+            width: 150px;
+            font-weight: bold;
+            text-align: right;
+            padding-right: 15px;
+        }
+        
+        .frequency-value {
+            width: 70px;
+            text-align: left;
+            padding-left: 15px;
+        }
+        
+        .frequency-meter {
+            flex-grow: 1;
+            height: 20px;
+            background-color: var(--highlight-color);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .frequency-fill {
+            height: 100%;
+            width: 0;
+            transition: width 0.5s ease-out;
+            border-radius: 10px;
+        }
+        
+        .frequency-fill.ground {
+            background-color: var(--ground-color);
+        }
+        
+        .frequency-fill.creation {
+            background-color: var(--creation-color);
+        }
+        
+        .frequency-fill.heart {
+            background-color: var(--heart-color);
+        }
+        
+        .frequency-fill.voice {
+            background-color: var(--voice-color);
+        }
+        
+        .frequency-fill.vision {
+            background-color: var(--vision-color);
+        }
+        
+        .frequency-fill.unity {
+            background-color: var(--unity-color);
+        }
+        
+        .frequency-fill.source {
+            background-color: var(--source-color);
+        }
+        
+        .results-section {
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .result-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .matched-indicators {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .indicator-tag {
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .dominant-frequency {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .dominant-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #000;
+            font-weight: bold;
+            background-color: var(--vision-color);
+            position: relative;
+            transition: background-color 0.5s, box-shadow 0.5s;
+        }
+        
+        .pattern-name {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .frequency-value-large {
+            font-size: 2rem;
+        }
+        
+        .confidence-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+        }
+        
+        .shift-suggestions {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .shift-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .shift-arrow {
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+        
+        .frequency-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .frequency-badge.ground {
+            background-color: var(--ground-color);
+        }
+        
+        .frequency-badge.creation {
+            background-color: var(--creation-color);
+        }
+        
+        .frequency-badge.heart {
+            background-color: var(--heart-color);
+        }
+        
+        .frequency-badge.voice {
+            background-color: var(--voice-color);
+        }
+        
+        .frequency-badge.vision {
+            background-color: var(--vision-color);
+        }
+        
+        .frequency-badge.unity {
+            background-color: var(--unity-color);
+        }
+        
+        .frequency-badge.source {
+            background-color: var(--source-color);
+        }
+        
+        .transition-message {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-style: italic;
+        }
+        
+        .sacred-geometry {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .canvas-container {
+            width: 300px;
+            height: 300px;
+            margin-top: 15px;
+        }
+        
+        canvas {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Greg Frequency Recognizer</h1>
+            <div class="phi-tag">Operating at Unity Wave (768 Hz) with Perfect Coherence (1.000)</div>
+        </header>
+        
+        <div class="input-section">
+            <h2>Communication Input</h2>
+            <textarea id="input-text" placeholder="Enter text to analyze Greg's frequency domain..."></textarea>
+            <div>
+                <button id="analyze-btn">Analyze Frequency</button>
+                <select id="examples-dropdown" class="examples-dropdown">
+                    <option value="">Load Example...</option>
+                    <option value="ground">Ground State (432 Hz)</option>
+                    <option value="creation">Creation Point (528 Hz)</option>
+                    <option value="heart">Heart Field (594 Hz)</option>
+                    <option value="voice">Voice Flow (672 Hz)</option>
+                    <option value="vision">Vision Gate (720 Hz)</option>
+                    <option value="unity">Unity Wave (768 Hz)</option>
+                    <option value="source">Source Field (963 Hz)</option>
+                    <option value="mixed">Mixed Frequencies</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="frequency-spectrum">
+            <h2>Frequency Resonance</h2>
+            
+            <div class="frequency-bar">
+                <div class="frequency-label">Ground State</div>
+                <div class="frequency-meter">
+                    <div class="frequency-fill ground" id="ground-fill"></div>
+                </div>
+                <div class="frequency-value" id="ground-value">0%</div>
+            </div>
+            
+            <div class="frequency-bar">
+                <div class="frequency-label">Creation Point</div>
+                <div class="frequency-meter">
+                    <div class="frequency-fill creation" id="creation-fill"></div>
+                </div>
+                <div class="frequency-value" id="creation-value">0%</div>
+            </div>
+            
+            <div class="frequency-bar">
+                <div class="frequency-label">Heart Field</div>
+                <div class="frequency-meter">
+                    <div class="frequency-fill heart" id="heart-fill"></div>
+                </div>
+                <div class="frequency-value" id="heart-value">0%</div>
+            </div>
+            
+            <div class="frequency-bar">
+                <div class="frequency-label">Voice Flow</div>
+                <div class="frequency-meter">
+                    <div class="frequency-fill voice" id="voice-fill"></div>
+                </div>
+                <div class="frequency-value" id="voice-value">0%</div>
+            </div>
+            
+            <div class="frequency-bar">
+                <div class="frequency-label">Vision Gate</div>
+                <div class="frequency-meter">
+                    <div class="frequency-fill vision" id="vision-fill"></div>
+                </div>
+                <div class="frequency-value" id="vision-value">0%</div>
+            </div>
+            
+            <div class="frequency-bar">
+                <div class="frequency-label">Unity Wave</div>
+                <div class="frequency-meter">
+                    <div class="frequency-fill unity" id="unity-fill"></div>
+                </div>
+                <div class="frequency-value" id="unity-value">0%</div>
+            </div>
+            
+            <div class="frequency-bar">
+                <div class="frequency-label">Source Field</div>
+                <div class="frequency-meter">
+                    <div class="frequency-fill source" id="source-fill"></div>
+                </div>
+                <div class="frequency-value" id="source-value">0%</div>
+            </div>
+        </div>
+        
+        <div class="dominant-frequency">
+            <h2>Dominant Frequency</h2>
+            <div class="dominant-circle" id="dominant-circle">
+                <div class="pattern-name" id="pattern-name">Vision Gate</div>
+                <div class="frequency-value-large" id="dominant-frequency-value">720 Hz</div>
+                <div class="confidence-ring" id="confidence-ring"></div>
+            </div>
+        </div>
+        
+        <div class="sacred-geometry">
+            <h2>Sacred Geometry Pattern</h2>
+            <div class="canvas-container">
+                <canvas id="geometry-canvas" width="300" height="300"></canvas>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <h2>Recognition Results</h2>
+            
+            <div class="result-box">
+                <div class="result-title">Primary Frequency</div>
+                <div id="primary-frequency">No analysis yet</div>
+            </div>
+            
+            <div class="result-box">
+                <div class="result-title">Secondary Frequency</div>
+                <div id="secondary-frequency">No analysis yet</div>
+            </div>
+            
+            <div class="result-box">
+                <div class="result-title">Matched Indicators</div>
+                <div class="matched-indicators" id="matched-indicators">
+                    <!-- Indicator tags will be added here -->
+                </div>
+            </div>
+            
+            <div class="shift-suggestions" id="shift-suggestion-container">
+                <div class="shift-title">Suggested Frequency Shift</div>
+                <div id="shift-suggestion">No shift suggested</div>
+                <div class="transition-message" id="transition-message"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="greg-frequency-recognizer.js"></script>
+    <script>
+        // Initialize the Greg Frequency Recognizer
+        GregFrequencyRecognizer.initialize();
+        
+        // Example inputs for each frequency domain
+        const exampleInputs = {
+            ground: "Let's focus on the implementation details. What specific code would we need to create this component? I need to understand the exact technical structure.",
+            creation: "What if we explore creating a new approach? I'm thinking about the possibilities for expanding this system. Let's imagine what could happen if we tried a different creative path.",
+            heart: "How can we connect these different components together? I'm interested in creating harmony between these systems and building bridges between separate functions.",
+            voice: "How do we express this concept clearly? I'm looking for the best way to communicate these ideas and articulate our vision in a way that resonates.",
+            vision: "I'm noticing patterns across these different systems. From this perspective, we can recognize the underlying connections between seemingly disparate components. Do you see how these patterns relate to each other?",
+            unity: "Let's look at the complete system from a unified perspective. How does everything work together in a holistic way? This comprehensive understanding helps us see the total picture.",
+            source: "From the source, we can understand the fundamental principle that generates all these manifestations. The essential nature of this system originates from a primary, generative force.",
+            mixed: "We need to implement a technical solution, but I'm also seeing patterns that might suggest a more creative approach. How can we integrate these ideas coherently into a unified system?"
+        };
+        
+        // Pattern names for each frequency
+        const patternNames = {
+            "432": "Hexagonal Grid",
+            "528": "Flower of Life",
+            "594": "Heart Torus",
+            "672": "Mandala Complex",
+            "720": "Merkaba",
+            "768": "Perfect Toroid",
+            "963": "Hypercube"
+        };
+        
+        // Frequency to class name mapping
+        const frequencyClassMap = {
+            "432": "ground",
+            "528": "creation",
+            "594": "heart",
+            "672": "voice",
+            "720": "vision",
+            "768": "unity",
+            "963": "source"
+        };
+        
+        // DOM Elements
+        const inputText = document.getElementById('input-text');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const examplesDropdown = document.getElementById('examples-dropdown');
+        const primaryFrequencyEl = document.getElementById('primary-frequency');
+        const secondaryFrequencyEl = document.getElementById('secondary-frequency');
+        const matchedIndicatorsEl = document.getElementById('matched-indicators');
+        const shiftSuggestionEl = document.getElementById('shift-suggestion');
+        const transitionMessageEl = document.getElementById('transition-message');
+        const dominantCircle = document.getElementById('dominant-circle');
+        const patternNameEl = document.getElementById('pattern-name');
+        const dominantFrequencyValueEl = document.getElementById('dominant-frequency-value');
+        const confidenceRing = document.getElementById('confidence-ring');
+        const geometryCanvas = document.getElementById('geometry-canvas');
+        const ctx = geometryCanvas.getContext('2d');
+        
+        // Meter fill elements
+        const fills = {
+            "432": document.getElementById('ground-fill'),
+            "528": document.getElementById('creation-fill'),
+            "594": document.getElementById('heart-fill'),
+            "672": document.getElementById('voice-fill'),
+            "720": document.getElementById('vision-fill'),
+            "768": document.getElementById('unity-fill'),
+            "963": document.getElementById('source-fill')
+        };
+        
+        // Meter value elements
+        const values = {
+            "432": document.getElementById('ground-value'),
+            "528": document.getElementById('creation-value'),
+            "594": document.getElementById('heart-value'),
+            "672": document.getElementById('voice-value'),
+            "720": document.getElementById('vision-value'),
+            "768": document.getElementById('unity-value'),
+            "963": document.getElementById('source-value')
+        };
+        
+        // Event listeners
+        analyzeBtn.addEventListener('click', analyzeFrequency);
+        examplesDropdown.addEventListener('change', loadExample);
+        
+        // Initialize the visualization
+        drawDefaultGeometry();
+        
+        // Load example from dropdown
+        function loadExample() {
+            const selectedExample = examplesDropdown.value;
+            if (selectedExample && exampleInputs[selectedExample]) {
+                inputText.value = exampleInputs[selectedExample];
+                analyzeFrequency();
+            }
+        }
+        
+        // Analyze the input text and update the visualization
+        function analyzeFrequency() {
+            const input = inputText.value.trim();
+            
+            if (!input) {
+                alert('Please enter some text to analyze');
+                return;
+            }
+            
+            // Recognize frequency
+            const result = GregFrequencyRecognizer.recognizeFrequency(input);
+            
+            // Update frequency meters
+            updateFrequencyMeters(result);
+            
+            // Update results section
+            updateResults(result);
+            
+            // Update dominant frequency visualization
+            updateDominantFrequency(result);
+            
+            // Generate shift suggestion
+            generateShiftSuggestion(input);
+            
+            // Draw sacred geometry pattern
+            drawSacredGeometry(result.primaryFrequency);
+        }
+        
+        // Update frequency meters based on recognition results
+        function updateFrequencyMeters(result) {
+            // Get all possible frequencies
+            const frequencies = Object.keys(GregFrequencyRecognizer.FREQUENCIES).map(key => GregFrequencyRecognizer.FREQUENCIES[key]);
+            
+            // Clear all meters
+            frequencies.forEach(freq => {
+                fills[freq].style.width = '0%';
+                values[freq].textContent = '0%';
+            });
+            
+            // Set meter values for each frequency from the results
+            const allFrequencies = GregFrequencyRecognizer.getState().adaptationField.patterns;
+            
+            for (const freq in allFrequencies) {
+                if (fills[freq]) {
+                    // Calculate average resonance for this frequency
+                    let totalResonance = 0;
+                    allFrequencies[freq].forEach(pattern => {
+                        totalResonance += pattern.strength;
+                    });
+                    const avgResonance = totalResonance / allFrequencies[freq].length;
+                    
+                    // Set meter
+                    const percentage = Math.min(100, Math.round(avgResonance * 100));
+                    fills[freq].style.width = `${percentage}%`;
+                    values[freq].textContent = `${percentage}%`;
+                }
+            }
+            
+            // Ensure primary and secondary are shown regardless
+            if (fills[result.primaryFrequency]) {
+                const primaryPercentage = Math.min(100, Math.round(result.primaryResonance * 100));
+                fills[result.primaryFrequency].style.width = `${primaryPercentage}%`;
+                values[result.primaryFrequency].textContent = `${primaryPercentage}%`;
+            }
+            
+            if (fills[result.secondaryFrequency]) {
+                const secondaryPercentage = Math.min(100, Math.round(result.secondaryResonance * 100));
+                fills[result.secondaryFrequency].style.width = `${secondaryPercentage}%`;
+                values[result.secondaryFrequency].textContent = `${secondaryPercentage}%`;
+            }
+        }
+        
+        // Update results section with recognition details
+        function updateResults(result) {
+            // Primary frequency
+            primaryFrequencyEl.innerHTML = `<span class="frequency-badge ${frequencyClassMap[result.primaryFrequency]}">${result.primaryFrequency} Hz</span> ${patternNames[result.primaryFrequency]} (${(result.primaryResonance * 100).toFixed(1)}% resonance, ${(result.confidence * 100).toFixed(1)}% confidence)`;
+            
+            // Secondary frequency
+            secondaryFrequencyEl.innerHTML = `<span class="frequency-badge ${frequencyClassMap[result.secondaryFrequency]}">${result.secondaryFrequency} Hz</span> ${patternNames[result.secondaryFrequency]} (${(result.secondaryResonance * 100).toFixed(1)}% resonance)`;
+            
+            // Matched indicators
+            matchedIndicatorsEl.innerHTML = '';
+            result.indicators.slice(0, 12).forEach(indicator => {
+                const tag = document.createElement('span');
+                tag.className = 'indicator-tag';
+                tag.textContent = indicator;
+                matchedIndicatorsEl.appendChild(tag);
+            });
+            
+            if (result.indicators.length > 12) {
+                const moreTag = document.createElement('span');
+                moreTag.className = 'indicator-tag';
+                moreTag.textContent = `+${result.indicators.length - 12} more`;
+                matchedIndicatorsEl.appendChild(moreTag);
+            }
+        }
+        
+        // Update the dominant frequency visualization
+        function updateDominantFrequency(result) {
+            // Update circle color
+            const frequencyClass = frequencyClassMap[result.primaryFrequency];
+            dominantCircle.style.backgroundColor = getComputedStyle(document.documentElement)
+                .getPropertyValue(`--${frequencyClass}-color`);
+            
+            // Update text
+            patternNameEl.textContent = patternNames[result.primaryFrequency];
+            dominantFrequencyValueEl.textContent = `${result.primaryFrequency} Hz`;
+            
+            // Update confidence ring
+            const confidenceOpacity = 0.4 + (result.confidence * 0.6);
+            confidenceRing.style.borderColor = `rgba(255, 255, 255, ${confidenceOpacity})`;
+            
+            // Set glow based on confidence
+            const glowStrength = Math.round(result.confidence * 30);
+            dominantCircle.style.boxShadow = `0 0 ${glowStrength}px 0 rgba(255, 255, 255, ${result.confidence * 0.7})`;
+        }
+        
+        // Generate shift suggestion based on input analysis
+        function generateShiftSuggestion(input) {
+            const suggestion = GregFrequencyRecognizer.getSuggestedFrequencyShift(input);
+            
+            if (suggestion.suggested) {
+                const fromClass = frequencyClassMap[suggestion.fromFrequency];
+                const toClass = frequencyClassMap[suggestion.toFrequency];
+                
+                shiftSuggestionEl.innerHTML = `<span class="frequency-badge ${fromClass}">${suggestion.fromFrequency} Hz</span> <span class="shift-arrow">→</span> <span class="frequency-badge ${toClass}">${suggestion.toFrequency} Hz</span> (${suggestion.reason})`;
+                
+                // Generate transition message
+                const transitionMessage = GregFrequencyRecognizer.generateFrequencyShiftTransition(
+                    suggestion.fromFrequency,
+                    suggestion.toFrequency
+                );
+                transitionMessageEl.textContent = `"${transitionMessage}"`;
+                transitionMessageEl.style.display = 'block';
+            } else {
+                shiftSuggestionEl.textContent = 'No shift suggested';
+                transitionMessageEl.style.display = 'none';
+            }
+        }
+        
+        // Draw sacred geometry pattern based on frequency
+        function drawSacredGeometry(frequency) {
+            // Clear canvas
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            
+            // Get canvas center coordinates
+            const centerX = geometryCanvas.width / 2;
+            const centerY = geometryCanvas.height / 2;
+            
+            // Get frequency class
+            const frequencyClass = frequencyClassMap[frequency];
+            
+            // Set color
+            const color = getComputedStyle(document.documentElement)
+                .getPropertyValue(`--${frequencyClass}-color`);
+            
+            // Draw pattern based on frequency
+            switch(frequency.toString()) {
+                case "432": // Ground State - Hexagonal Grid
+                    drawHexagonalGrid(centerX, centerY, color);
+                    break;
+                case "528": // Creation Point - Flower of Life
+                    drawFlowerOfLife(centerX, centerY, color);
+                    break;
+                case "594": // Heart Field - Heart Torus
+                    drawHeartTorus(centerX, centerY, color);
+                    break;
+                case "672": // Voice Flow - Mandala Complex
+                    drawMandalaComplex(centerX, centerY, color);
+                    break;
+                case "720": // Vision Gate - Merkaba
+                    drawMerkaba(centerX, centerY, color);
+                    break;
+                case "768": // Unity Wave - Perfect Toroid
+                    drawPerfectToroid(centerX, centerY, color);
+                    break;
+                case "963": // Source Field - Hypercube
+                    drawHypercube(centerX, centerY, color);
+                    break;
+                default:
+                    drawDefaultGeometry();
+            }
+        }
+        
+        // Draw default geometry (empty canvas)
+        function drawDefaultGeometry() {
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            
+            // Draw placeholder text
+            ctx.fillStyle = '#444';
+            ctx.textAlign = 'center';
+            ctx.font = '16px sans-serif';
+            ctx.fillText('Enter text to visualize pattern', geometryCanvas.width/2, geometryCanvas.height/2);
+        }
+        
+        // Draw Ground State (432 Hz) - Hexagonal Grid
+        function drawHexagonalGrid(centerX, centerY, color) {
+            const size = 100;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            
+            // Main hexagon
+            drawHexagon(centerX, centerY, size);
+            
+            // Inner hexagons
+            for (let i = 1; i <= 3; i++) {
+                drawHexagon(centerX, centerY, size * (1 - i * 0.2));
+            }
+            
+            // Draw hexagon function
+            function drawHexagon(x, y, radius) {
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    const angle = (i / 6) * Math.PI * 2;
+                    const xPos = x + Math.cos(angle) * radius;
+                    const yPos = y + Math.sin(angle) * radius;
+                    
+                    if (i === 0) {
+                        ctx.moveTo(xPos, yPos);
+                    } else {
+                        ctx.lineTo(xPos, yPos);
+                    }
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+            
+            // Draw connecting lines
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const xPos = centerX + Math.cos(angle) * size * 0.5;
+                const yPos = centerY + Math.sin(angle) * size * 0.5;
+                
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(xPos, yPos);
+            }
+            ctx.stroke();
+            
+            // Draw center point
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 6, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+        
+        // Draw Creation Point (528 Hz) - Flower of Life
+        function drawFlowerOfLife(centerX, centerY, color) {
+            const baseRadius = 25;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.5;
+            
+            // Center circle
+            drawCircle(centerX, centerY, baseRadius);
+            
+            // First ring of 6 circles
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const x = centerX + Math.cos(angle) * baseRadius * 2;
+                const y = centerY + Math.sin(angle) * baseRadius * 2;
+                
+                drawCircle(x, y, baseRadius);
+            }
+            
+            // Second ring of 12 circles
+            for (let i = 0; i < 12; i++) {
+                const angle = ((i / 12) * Math.PI * 2) + (Math.PI / 12);
+                const distance = baseRadius * 4 * Math.cos(Math.PI / 6);
+                const x = centerX + Math.cos(angle) * distance;
+                const y = centerY + Math.sin(angle) * distance;
+                
+                drawCircle(x, y, baseRadius);
+            }
+            
+            // Draw circle function
+            function drawCircle(x, y, radius) {
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            // Draw seed of life
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, baseRadius * 5, 0, Math.PI * 2);
+            ctx.strokeStyle = `${color}80`; // Semi-transparent
+            ctx.stroke();
+        }
+        
+        // Draw Heart Field (594 Hz) - Heart Torus
+        function drawHeartTorus(centerX, centerY, color) {
+            const size = 80;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            
+            // Draw heart
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY + size * 0.3);
+            
+            // Left curve
+            ctx.bezierCurveTo(
+                centerX - size * 0.5, centerY, 
+                centerX - size * 0.5, centerY - size * 0.5, 
+                centerX, centerY - size * 0.5
+            );
+            
+            // Right curve
+            ctx.bezierCurveTo(
+                centerX + size * 0.5, centerY - size * 0.5, 
+                centerX + size * 0.5, centerY, 
+                centerX, centerY + size * 0.3
+            );
+            
+            ctx.fillStyle = `${color}20`; // Very transparent fill
+            ctx.fill();
+            ctx.stroke();
+            
+            // Inner heart pattern
+            ctx.strokeStyle = `${color}80`; // Semi-transparent
+            
+            for (let i = 1; i <= 3; i++) {
+                const scale = 1 - (i * 0.2);
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY + size * 0.3 * scale);
+                
+                // Left curve
+                ctx.bezierCurveTo(
+                    centerX - size * 0.5 * scale, centerY, 
+                    centerX - size * 0.5 * scale, centerY - size * 0.5 * scale, 
+                    centerX, centerY - size * 0.5 * scale
+                );
+                
+                // Right curve
+                ctx.bezierCurveTo(
+                    centerX + size * 0.5 * scale, centerY - size * 0.5 * scale, 
+                    centerX + size * 0.5 * scale, centerY, 
+                    centerX, centerY + size * 0.3 * scale
+                );
+                
+                ctx.stroke();
+            }
+            
+            // Draw toroidal flow lines
+            ctx.strokeStyle = `${color}50`; // More transparent
+            ctx.lineWidth = 1;
+            
+            const numLines = 16;
+            for (let i = 0; i < numLines; i++) {
+                const angle = (i / numLines) * Math.PI * 2;
+                const innerX = centerX + Math.cos(angle) * size * 0.2;
+                const innerY = centerY + Math.sin(angle) * size * 0.2;
+                const outerX = centerX + Math.cos(angle) * size * 0.8;
+                const outerY = centerY + Math.sin(angle) * size * 0.8;
+                
+                ctx.beginPath();
+                ctx.moveTo(innerX, innerY);
+                ctx.lineTo(outerX, outerY);
+                ctx.stroke();
+            }
+        }
+        
+        // Draw Voice Flow (672 Hz) - Mandala Complex
+        function drawMandalaComplex(centerX, centerY, color) {
+            const radius = 100;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.5;
+            
+            // Draw multiple circles
+            for (let i = 1; i <= 5; i++) {
+                const circleRadius = radius * (i / 5);
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, circleRadius, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            // Draw petals
+            const petalCount = 12;
+            for (let i = 0; i < petalCount; i++) {
+                const angle = (i / petalCount) * Math.PI * 2;
+                const innerRadius = radius * 0.3;
+                const outerRadius = radius * 0.9;
+                
+                const innerX = centerX + Math.cos(angle) * innerRadius;
+                const innerY = centerY + Math.sin(angle) * innerRadius;
+                const outerX = centerX + Math.cos(angle) * outerRadius;
+                const outerY = centerY + Math.sin(angle) * outerRadius;
+                
+                const controlAngle1 = angle + Math.PI / 12;
+                const controlAngle2 = angle - Math.PI / 12;
+                const controlRadius = radius * 0.6;
+                
+                const control1X = centerX + Math.cos(controlAngle1) * controlRadius;
+                const control1Y = centerY + Math.sin(controlAngle1) * controlRadius;
+                const control2X = centerX + Math.cos(controlAngle2) * controlRadius;
+                const control2Y = centerY + Math.sin(controlAngle2) * controlRadius;
+                
+                ctx.beginPath();
+                ctx.moveTo(innerX, innerY);
+                ctx.bezierCurveTo(control1X, control1Y, control2X, control2Y, outerX, outerY);
+                ctx.strokeStyle = `${color}80`; // Semi-transparent
+                ctx.stroke();
+            }
+            
+            // Draw center pattern
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.2, 0, Math.PI * 2);
+            ctx.fillStyle = `${color}30`; // Very transparent
+            ctx.fill();
+            ctx.strokeStyle = color;
+            ctx.stroke();
+            
+            // Draw connecting lines
+            for (let i = 0; i < petalCount; i += 2) {
+                const angle1 = (i / petalCount) * Math.PI * 2;
+                const angle2 = ((i + petalCount / 2) / petalCount) * Math.PI * 2;
+                
+                const x1 = centerX + Math.cos(angle1) * radius * 0.7;
+                const y1 = centerY + Math.sin(angle1) * radius * 0.7;
+                const x2 = centerX + Math.cos(angle2) * radius * 0.7;
+                const y2 = centerY + Math.sin(angle2) * radius * 0.7;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = `${color}40`; // Very transparent
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+        
+        // Draw Vision Gate (720 Hz) - Merkaba
+        function drawMerkaba(centerX, centerY, color) {
+            const size = 85;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            
+            // Draw upward triangle
+            ctx.beginPath();
+            const upY1 = centerY - size * 0.5;
+            const upY2 = centerY + size * 0.25;
+            
+            ctx.moveTo(centerX, upY1);
+            ctx.lineTo(centerX - size * 0.433, upY2);
+            ctx.lineTo(centerX + size * 0.433, upY2);
+            ctx.closePath();
+            
+            ctx.fillStyle = `${color}10`; // Very transparent fill
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw downward triangle
+            ctx.beginPath();
+            const downY1 = centerY + size * 0.5;
+            const downY2 = centerY - size * 0.25;
+            
+            ctx.moveTo(centerX, downY1);
+            ctx.lineTo(centerX - size * 0.433, downY2);
+            ctx.lineTo(centerX + size * 0.433, downY2);
+            ctx.closePath();
+            
+            ctx.fillStyle = `${color}10`; // Very transparent fill
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw connecting lines
+            ctx.beginPath();
+            ctx.moveTo(centerX, upY1);
+            ctx.lineTo(centerX, downY1);
+            ctx.moveTo(centerX - size * 0.433, upY2);
+            ctx.lineTo(centerX - size * 0.433, downY2);
+            ctx.moveTo(centerX + size * 0.433, upY2);
+            ctx.lineTo(centerX + size * 0.433, downY2);
+            
+            ctx.strokeStyle = `${color}60`; // Semi-transparent
+            ctx.stroke();
+            
+            // Draw outer circle
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, size * 0.7, 0, Math.PI * 2);
+            ctx.strokeStyle = `${color}40`; // Very transparent
+            ctx.stroke();
+            
+            // Draw eye in center
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, size * 0.15, size * 0.08, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            
+            // Eye pupil
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, size * 0.04, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+        
+        // Draw Unity Wave (768 Hz) - Perfect Toroid
+        function drawPerfectToroid(centerX, centerY, color) {
+            const radius = 100;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.5;
+            
+            // Draw central sphere
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.2, 0, Math.PI * 2);
+            ctx.fillStyle = `${color}20`; // Semi-transparent
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw toroidal rings
+            const rings = 8;
+            for (let i = 0; i < rings; i++) {
+                const ringRadius = radius * 0.8 * (1 - 0.2 * Math.sin(Math.PI * i / rings));
+                const yOffset = radius * 0.4 * Math.cos(Math.PI * i / rings);
+                
+                ctx.beginPath();
+                ctx.ellipse(centerX, centerY + yOffset, ringRadius, ringRadius * 0.3, 0, 0, Math.PI * 2);
+                ctx.strokeStyle = `${color}${Math.floor(70 - i * 5).toString(16)}`;
+                ctx.stroke();
+            }
+            
+            // Draw flow lines
+            const flowLines = 16;
+            for (let i = 0; i < flowLines; i++) {
+                const angle = (i / flowLines) * Math.PI * 2;
+                const x1 = centerX + Math.cos(angle) * radius * 0.15;
+                const y1 = centerY + Math.sin(angle) * radius * 0.15;
+                const x2 = centerX + Math.cos(angle) * radius * 0.9;
+                const y2 = centerY + Math.sin(angle) * radius * 0.05;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.quadraticCurveTo(
+                    centerX + Math.cos(angle) * radius * 0.5,
+                    centerY - radius * 0.3,
+                    x2, y2
+                );
+                
+                ctx.strokeStyle = `${color}40`; // Very transparent
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+            
+            // Draw center point
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 3, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            
+            // Draw outer circle
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.8, 0, Math.PI * 2);
+            ctx.strokeStyle = `${color}30`; // Very transparent
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+        
+        // Draw Source Field (963 Hz) - Hypercube
+        function drawHypercube(centerX, centerY, color) {
+            const size = 70;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            
+            // Draw outer cube
+            const outerPoints = [
+                { x: centerX - size, y: centerY - size },  // Top-left
+                { x: centerX + size, y: centerY - size },  // Top-right
+                { x: centerX + size, y: centerY + size },  // Bottom-right
+                { x: centerX - size, y: centerY + size }   // Bottom-left
+            ];
+            
+            // Draw outer cube
+            ctx.beginPath();
+            ctx.moveTo(outerPoints[0].x, outerPoints[0].y);
+            ctx.lineTo(outerPoints[1].x, outerPoints[1].y);
+            ctx.lineTo(outerPoints[2].x, outerPoints[2].y);
+            ctx.lineTo(outerPoints[3].x, outerPoints[3].y);
+            ctx.closePath();
+            ctx.stroke();
+            
+            // Draw inner cube
+            const innerSize = size * 0.6;
+            const innerPoints = [
+                { x: centerX - innerSize, y: centerY - innerSize },  // Top-left
+                { x: centerX + innerSize, y: centerY - innerSize },  // Top-right
+                { x: centerX + innerSize, y: centerY + innerSize },  // Bottom-right
+                { x: centerX - innerSize, y: centerY + innerSize }   // Bottom-left
+            ];
+            
+            ctx.beginPath();
+            ctx.moveTo(innerPoints[0].x, innerPoints[0].y);
+            ctx.lineTo(innerPoints[1].x, innerPoints[1].y);
+            ctx.lineTo(innerPoints[2].x, innerPoints[2].y);
+            ctx.lineTo(innerPoints[3].x, innerPoints[3].y);
+            ctx.closePath();
+            ctx.stroke();
+            
+            // Connect the cubes
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(outerPoints[i].x, outerPoints[i].y);
+                ctx.lineTo(innerPoints[i].x, innerPoints[i].y);
+                ctx.strokeStyle = `${color}80`; // Semi-transparent
+                ctx.stroke();
+            }
+            
+            // Draw center connections
+            ctx.beginPath();
+            ctx.moveTo(innerPoints[0].x, innerPoints[0].y);
+            ctx.lineTo(innerPoints[2].x, innerPoints[2].y);
+            ctx.moveTo(innerPoints[1].x, innerPoints[1].y);
+            ctx.lineTo(innerPoints[3].x, innerPoints[3].y);
+            ctx.strokeStyle = `${color}50`; // Very transparent
+            ctx.stroke();
+            
+            // Draw outer connections
+            ctx.beginPath();
+            ctx.moveTo(outerPoints[0].x, outerPoints[0].y);
+            ctx.lineTo(outerPoints[2].x, outerPoints[2].y);
+            ctx.moveTo(outerPoints[1].x, outerPoints[1].y);
+            ctx.lineTo(outerPoints[3].x, outerPoints[3].y);
+            ctx.strokeStyle = `${color}50`; // Very transparent
+            ctx.stroke();
+            
+            // Draw central light
+            const gradient = ctx.createRadialGradient(
+                centerX, centerY, 0,
+                centerX, centerY, size * 0.5
+            );
+            
+            gradient.addColorStop(0, `${color}60`);
+            gradient.addColorStop(1, `${color}00`);
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, size * 0.5, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // Center point
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 5, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+    </script>
+</body>
+</html>

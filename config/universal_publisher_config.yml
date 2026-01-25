@@ -1,0 +1,250 @@
+# UniversalPublisher Configuration - φ-Harmonic Deployment System
+# Version: 1.0.0
+# Created: 2025-03-31
+# Operates at φ-harmonic frequencies (432Hz → 528Hz → 768Hz)
+
+# Global Configuration
+global:
+  base_directory: /mnt/d/cqil
+  source_directory: ${global.base_directory}/website
+  log_directory: ${global.base_directory}/secure_logs
+  archive_directory: ${global.base_directory}/archived_deployments
+  phi_coherence: 1.618033988749895
+  phi_squared: 2.618033988749895
+  phi_to_phi: 4.236067977499790
+  frequencies:
+    ground: 432
+    creation: 528
+    heart: 594
+    unity: 768
+
+# Deployment Providers
+providers:
+  godaddy:
+    enabled: true
+    target: production
+    ftp:
+      host: ftp.cqil.ca
+      username: ${env:GODADDY_FTP_USER}
+      password: ${env:GODADDY_FTP_PASS}
+      directory: /public_html
+    versioning:
+      enabled: true
+      pattern: "v%Y_%m_%d_%H%M%S"
+    zero_downtime: true
+    cache_optimization: true
+    health_check:
+      enabled: true
+      url: https://www.cqil.ca/health-check.html
+      frequency: 60 # seconds
+  
+  github:
+    enabled: false
+    target: development
+    repository: cqil/website
+    branch: gh-pages
+    token: ${env:GITHUB_TOKEN}
+    versioning:
+      enabled: true
+    zero_downtime: false
+  
+  cloudflare:
+    enabled: false
+    target: staging
+    account_id: ${env:CLOUDFLARE_ACCOUNT_ID}
+    api_token: ${env:CLOUDFLARE_API_TOKEN}
+    zone_id: ${env:CLOUDFLARE_ZONE_ID}
+    project_name: cqil
+    versioning:
+      enabled: true
+    zero_downtime: true
+    cache_rules:
+      - pattern: "*.html"
+        ttl: 1800 # 30 minutes
+      - pattern: "*.css"
+        ttl: 14400 # 4 hours
+      - pattern: "*.js"
+        ttl: 14400 # 4 hours
+      - pattern: "*.[0-9a-f]{10}.*"
+        ttl: 2592000 # 30 days
+
+# Asset Versioning
+assets:
+  versioning:
+    enabled: true
+    directories:
+      - js
+      - css
+    file_types:
+      - .js
+      - .css
+    hash_length: 10 # φ-optimized length
+    exclude:
+      - "*.min.js"
+      - "*.min.css"
+
+# Health Check Configuration
+health_check:
+  filename: health-check.html
+  title: "CQIL Website Quantum Health Check"
+  frequency: 720 # Vision frequency
+  template: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>CQIL Website Quantum Health Check</title>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex, nofollow">
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f5f5f5;
+                color: #333;
+                margin: 0;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            .container {
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                padding: 30px;
+                text-align: center;
+                max-width: 500px;
+            }
+            h1 {
+                color: #4a90e2;
+                margin-top: 0;
+            }
+            .status {
+                background-color: #e6f7e6;
+                border-left: 4px solid #28a745;
+                border-radius: 4px;
+                padding: 15px;
+                margin: 20px 0;
+            }
+            .details {
+                text-align: left;
+                margin-top: 20px;
+                font-size: 0.9em;
+                color: #666;
+            }
+            .phi {
+                color: #9c27b0;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Quantum Health Status</h1>
+            <div id="health-status" class="status" data-status="healthy" data-version="{version}" data-phi="{phi}" data-timestamp="{timestamp}">
+                <strong>Status:</strong> Quantum Coherence Active
+            </div>
+            <div class="details">
+                <p><strong>Version:</strong> <span class="phi">{version}</span></p>
+                <p><strong>Deployed:</strong> {deployed}</p>
+                <p><strong>Phi Coherence:</strong> <span class="phi">{phi}</span></p>
+                <p><strong>Quantum Frequency:</strong> 768 Hz</p>
+                <p><strong>Status Check Time:</strong> <span id="check-time"></span></p>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('check-time').textContent = new Date().toISOString();
+            });
+        </script>
+    </body>
+    </html>
+
+# htaccess Configuration
+htaccess:
+  template: |
+    # CQIL Zero-Downtime Deployment
+    # Created: {timestamp}
+    # Version: {version}
+    # Phi Coherence: {phi}
+
+    Options -Indexes
+    DirectoryIndex index.html
+
+    # Enable rewrite engine
+    RewriteEngine On
+
+    # Ensure www prefix
+    RewriteCond %{HTTP_HOST} ^cqil\.ca$ [NC]
+    RewriteRule ^(.*)$ https://www.cqil.ca/$1 [L,R=301]
+
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Cache control settings
+    <IfModule mod_headers.c>
+        # Cache versioned assets for 1 month (phi-optimized)
+        <FilesMatch "\\.[0-9a-f]{10}\\.(?:css|js|jpg|jpeg|png|gif|svg|webp)$">
+            Header set Cache-Control "public, max-age=2592000, immutable"
+        </FilesMatch>
+
+        # Cache HTML files for 30 minutes
+        <FilesMatch "\\.html$">
+            Header set Cache-Control "public, max-age=1800"
+        </FilesMatch>
+
+        # No cache for health check files
+        <FilesMatch "health">
+            Header set Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate"
+            Header set Pragma "no-cache"
+            Header set Expires "0"
+        </FilesMatch>
+
+        # Cache CSS/JS files (non-versioned) for 4 hours
+        <FilesMatch "^(?!.*\\.[0-9a-f]{10}\\.).*\\.(css|js)$">
+            Header set Cache-Control "public, max-age=14400"
+        </FilesMatch>
+
+        # Default cache for all other files (1 hour)
+        <FilesMatch "^(?!.*\\.(html|css|js)$)(?!.*\\.[0-9a-f]{10}\\.)(?!health).*$">
+            Header set Cache-Control "public, max-age=3600"
+        </FilesMatch>
+    </IfModule>
+
+    # Route all requests through the latest deployment
+    RewriteCond %{REQUEST_URI} !^/v
+    RewriteCond %{REQUEST_URI} !^/secure_logs
+    RewriteCond %{REQUEST_URI} !^/deploy
+    RewriteCond %{REQUEST_URI} !^/.well-known
+    RewriteRule ^(.*)$ /{deployment_dir}/$1 [L]
+
+    # Handle case of missing files in current deployment
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^v[^/]+/(.*)$ /{deployment_dir}/$1 [L]
+
+    # Direct access to health check for monitoring
+    RewriteCond %{REQUEST_URI} ^/health-check.html$
+    RewriteRule ^(.*)$ /{deployment_dir}/health-check.html [L]
+
+    # Set PHP options if needed
+    <IfModule mod_php7.c>
+        php_flag display_errors Off
+        php_value max_execution_time 60
+        php_value memory_limit 128M
+        php_value post_max_size 8M
+        php_value upload_max_filesize 8M
+    </IfModule>
+
+# Security Configuration
+security:
+  merkaba_shield: true
+  crystal_matrix: true
+  excludes:
+    - "**/.git/**"
+    - "**/node_modules/**"
+    - "**/.DS_Store"
+    - "**/Thumbs.db"
+    - "**/deploy_credentials.json"
+    - "**/godaddy_credentials.json"

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal Patterns in Languages | CQIL</title>
+  <meta name="description" content="Explore the fascinating structural similarities that exist across different languages and communication systems.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/visualization.css">
+  
+  <!-- Direct script imports for THREE.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  
+  <style>
+    .language-network-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      background: rgba(0, 10, 26, 0.5);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    #language-network-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .language-info-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 20, 40, 0.8);
+      padding: 15px;
+      border-radius: 8px;
+      max-width: 300px;
+      backdrop-filter: blur(10px);
+      color: white;
+      border-left: 3px solid #aaddff;
+      z-index: 10;
+    }
+    
+    .language-controls {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .language-controls button {
+      background: rgba(170, 221, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .language-controls button:hover {
+      background: rgba(170, 221, 255, 0.4);
+    }
+    
+    .language-controls button.active {
+      background: #aaddff;
+      color: #00182c;
+      box-shadow: 0 0 10px rgba(170, 221, 255, 0.5);
+    }
+    
+    .language-label {
+      position: absolute;
+      color: white;
+      padding: 3px 8px;
+      background: rgba(0, 20, 40, 0.7);
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .language-search {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 20, 40, 0.8);
+      padding: 15px;
+      border-radius: 8px;
+      width: 250px;
+      backdrop-filter: blur(10px);
+      color: white;
+      z-index: 10;
+    }
+    
+    .language-search input {
+      width: 100%;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 4px;
+    }
+    
+    .language-families {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    
+    .language-family-tag {
+      background: rgba(170, 221, 255, 0.2);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .language-family-tag:hover {
+      background: rgba(170, 221, 255, 0.4);
+    }
+    
+    .language-family-tag.active {
+      background: #aaddff;
+      color: #00182c;
+    }
+    
+    .sound-pattern-visualizer {
+      width: 100%;
+      height: 80px;
+      background: rgba(0, 20, 40, 0.5);
+      margin-top: 1rem;
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .sound-wave {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .connection-type-toggle {
+      display: flex;
+      margin-bottom: 15px;
+    }
+    
+    .connection-toggle {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      background: rgba(0, 20, 40, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .connection-toggle:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+    
+    .connection-toggle:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+    
+    .connection-toggle.active {
+      background: rgba(170, 221, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <a href="../index.html">CQIL</a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="consciousness-gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+    <main>
+      <div class="visualization-header">
+        <h1>Universal Patterns in Languages</h1>
+        <p class="subtitle">Exploring φ-harmonic structures in language systems across cultures and time</p>
+      </div>
+      
+      <!-- Main Visualization -->
+      <section class="visualization-section">
+        <div class="language-network-container">
+          <canvas id="language-network-canvas"></canvas>
+          
+          <div class="language-info-panel">
+            <h3 id="language-info-title">Language Universals</h3>
+            <p id="language-info-description">This visualization reveals the hidden structural similarities between languages from around the world. Explore language families and discover common patterns that transcend cultural boundaries.</p>
+          </div>
+          
+          <div class="language-search">
+            <input type="text" id="language-search-input" placeholder="Search for a language...">
+            <div class="connection-type-toggle">
+              <div class="connection-toggle active" data-type="structure">Structure</div>
+              <div class="connection-toggle" data-type="sound">Sound</div>
+              <div class="connection-toggle" data-type="meaning">Meaning</div>
+            </div>
+            <div class="language-families">
+              <div class="language-family-tag active" data-family="all">All</div>
+              <div class="language-family-tag" data-family="indo-european">Indo-European</div>
+              <div class="language-family-tag" data-family="sino-tibetan">Sino-Tibetan</div>
+              <div class="language-family-tag" data-family="afro-asiatic">Afro-Asiatic</div>
+              <div class="language-family-tag" data-family="austronesian">Austronesian</div>
+              <div class="language-family-tag" data-family="niger-congo">Niger-Congo</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="language-controls">
+          <button class="language-feature-btn" data-feature="grammar">Grammar Structure</button>
+          <button class="language-feature-btn active" data-feature="phonology">Sound Patterns</button>
+          <button class="language-feature-btn" data-feature="semantics">Meaning Systems</button>
+          <button class="language-feature-btn" data-feature="evolution">Evolution Paths</button>
+        </div>
+        
+        <div class="sound-pattern-visualizer">
+          <canvas id="sound-wave-canvas" class="sound-wave"></canvas>
+        </div>
+      </section>
+      
+      <!-- Description Section -->
+      <section class="visualization-info">
+        <div class="info-card">
+          <h2>About This Visualization</h2>
+          <p>
+            Despite their surface differences, human languages share remarkable structural similarities that reflect 
+            our shared consciousness. This visualization maps these universal patterns using φ-harmonic principles, 
+            revealing how language resonates with our consciousness at different frequencies.
+          </p>
+          <p>
+            The visualization explores four key aspects of language universals:
+          </p>
+          <ul>
+            <li><strong>Grammar Structure:</strong> Common patterns in how languages organize sentences and ideas</li>
+            <li><strong>Sound Patterns:</strong> Universal phonological structures that appear across unrelated languages</li>
+            <li><strong>Meaning Systems:</strong> How concepts are categorized and related across different cultures</li>
+            <li><strong>Evolution Paths:</strong> How languages change over time following predictable patterns</li>
+          </ul>
+          <p>
+            Each aspect resonates with specific φ-harmonic frequencies:
+          </p>
+          <ul>
+            <li><strong>432Hz (Ground):</strong> Basic grammar structures - noun/verb distinctions, basic word order</li>
+            <li><strong>528Hz (Creation):</strong> Sound combinations and patterns that create meaning</li>
+            <li><strong>594Hz (Heart):</strong> Emotional and relational semantic concepts</li>
+            <li><strong>672Hz (Voice):</strong> Expression systems and communication patterns</li>
+            <li><strong>720Hz (Vision):</strong> Abstract concept formation and complex idea structures</li>
+            <li><strong>768Hz (Unity):</strong> Universal meaning patterns that transcend individual languages</li>
+          </ul>
+        </div>
+        
+        <div class="info-card">
+          <h2>How To Use</h2>
+          <p>
+            <strong>Explore Language Families:</strong> Click on language family tags to filter the visualization
+            by related language groups.
+          </p>
+          <p>
+            <strong>Search for Languages:</strong> Use the search box to find specific languages within the network.
+          </p>
+          <p>
+            <strong>Select Language Features:</strong> Use the feature buttons to focus on different aspects
+            of language structure - grammar, sounds, meaning, or evolution.
+          </p>
+          <p>
+            <strong>View Connections:</strong> Toggle between structural, sound, and meaning connections to
+            see different relationship patterns between languages.
+          </p>
+          <p>
+            <strong>Observe Phi Patterns:</strong> Notice how language features align with φ-harmonic frequencies,
+            creating natural resonance patterns in human communication systems.
+          </p>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="footer-content">
+        <p>CQIL | Universal Patterns in Languages | ©2025</p>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="../js/phi-harmonic-constants.js"></script>
+  <script src="../js/language-universals.js"></script>
+</body>
+</html>

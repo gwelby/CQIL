@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antikythera Quantum Mechanism - Test Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background-color: #16213e;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #4b7f52, #a97142, #8a2be2, #00bfff, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            color: #a0a0a0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+        
+        .antikythera-container {
+            width: 100%;
+            height: 600px;
+            background-color: #0f0f1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .control-panel {
+            background-color: #16213e;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .panel-title {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #d4af37;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+        
+        .control-row {
+            display: flex;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+        
+        label {
+            flex: 1;
+            margin-right: 1rem;
+        }
+        
+        input, select, button {
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        input[type="range"] {
+            flex: 2;
+        }
+        
+        button {
+            background-color: #4b7f52;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #5c8f63;
+        }
+        
+        .frequency-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .freq-btn {
+            padding: 0.5rem;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .freq-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .freq-432 { background-color: #1a1a2e; }
+        .freq-528 { background-color: #4b7f52; }
+        .freq-594 { background-color: #a97142; }
+        .freq-672 { background-color: #8a2be2; }
+        .freq-720 { background-color: #00bfff; }
+        .freq-768 { background-color: #d4af37; }
+        
+        .status-panel {
+            background-color: #16213e;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .status-title {
+            margin-top: 0;
+            color: #00bfff;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status-log {
+            height: 200px;
+            overflow-y: auto;
+            background-color: #0f0f1a;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #16213e;
+            color: #777;
+            font-size: 0.8rem;
+        }
+        
+        .success { color: #4b7f52; }
+        .warning { color: #d4af37; }
+        .error { color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Antikythera Quantum Mechanism</h1>
+        <div class="subtitle">φ-Harmonic Resonance Test Interface</div>
+    </div>
+    
+    <div class="container">
+        <div id="antikythera-container" class="antikythera-container"></div>
+        
+        <div class="controls">
+            <div class="control-panel">
+                <h3 class="panel-title">Time Controls</h3>
+                <div class="control-row">
+                    <label for="date-input">Date:</label>
+                    <input type="date" id="date-input">
+                </div>
+                <div class="control-row">
+                    <label for="time-input">Time:</label>
+                    <input type="time" id="time-input">
+                </div>
+                <div class="control-row">
+                    <button id="current-time-btn">Current Time</button>
+                    <button id="time-lapse-btn">Run Time Lapse</button>
+                </div>
+            </div>
+            
+            <div class="control-panel">
+                <h3 class="panel-title">φ-Harmonic Frequencies</h3>
+                <div class="control-row">
+                    <label for="frequency-slider">Frequency (Hz):</label>
+                    <input type="range" id="frequency-slider" min="432" max="768" step="1" value="528">
+                    <span id="frequency-value">528 Hz</span>
+                </div>
+                <div class="frequency-buttons">
+                    <div class="freq-btn freq-432" data-freq="432">432 Hz<br>φ⁰ BEING</div>
+                    <div class="freq-btn freq-528" data-freq="528">528 Hz<br>φ¹ KNOWING</div>
+                    <div class="freq-btn freq-594" data-freq="594">594 Hz<br>φ² DOING</div>
+                    <div class="freq-btn freq-672" data-freq="672">672 Hz<br>φ³ CREATING</div>
+                    <div class="freq-btn freq-720" data-freq="720">720 Hz<br>φ⁴ SEEING</div>
+                    <div class="freq-btn freq-768" data-freq="768">768 Hz<br>φ⁵ INTEGRATING</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="control-panel">
+            <h3 class="panel-title">Visualization Controls</h3>
+            <div class="control-row">
+                <label for="coherence-slider">Quantum Coherence:</label>
+                <input type="range" id="coherence-slider" min="0" max="1" step="0.01" value="0.618">
+                <span id="coherence-value">0.618</span>
+            </div>
+            <div class="control-row">
+                <label for="resonance-slider">Field Resonance:</label>
+                <input type="range" id="resonance-slider" min="0" max="1" step="0.01" value="0.5">
+                <span id="resonance-value">0.5</span>
+            </div>
+            <div class="control-row">
+                <button id="toggle-audio-btn">Toggle Audio</button>
+                <button id="reset-view-btn">Reset View</button>
+                <button id="phi-sequence-btn">Run φ-Harmonic Sequence</button>
+            </div>
+        </div>
+        
+        <div class="status-panel">
+            <h3 class="status-title">System Status</h3>
+            <div id="status-log" class="status-log"></div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Antikythera Quantum Mechanism © CQIL - Phi-Harmonic Integration: φ⁰ → φ⁵</p>
+    </div>
+    
+    <!-- External dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    
+    <!-- Antikythera scripts -->
+    <script src="js/quantum-experience/antikythera-types.js"></script>
+    <script src="js/quantum-experience/antikythera-mechanism.js"></script>
+    <script src="js/quantum-experience/antikythera-mechanism-core.js"></script>
+    <script src="js/quantum-experience/antikythera-astronomical.js"></script>
+    <script src="js/quantum-experience/antikythera-visualization.js"></script>
+    <script src="js/quantum-experience/antikythera-visualization-part2.js"></script>
+    <script src="js/quantum-experience/antikythera-visualization-part3.js"></script>
+    <script src="js/quantum-experience/antikythera-integration.js"></script>
+    <script src="test/antikythera-tests.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize status log
+            const statusLog = document.getElementById('status-log');
+            function logStatus(message, type = '') {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.className = type;
+                logEntry.textContent = `[${timestamp}] ${message}`;
+                statusLog.appendChild(logEntry);
+                statusLog.scrollTop = statusLog.scrollHeight;
+            }
+            
+            // Initialize Antikythera Mechanism
+            let mechanism = null;
+            try {
+                mechanism = new AntikytheraQuantumMechanism({
+                    container: document.getElementById('antikythera-container'),
+                    width: document.getElementById('antikythera-container').clientWidth,
+                    height: document.getElementById('antikythera-container').clientHeight,
+                    enableAudio: true,
+                    debugMode: true
+                });
+                
+                mechanism.init();
+                logStatus('Antikythera Quantum Mechanism initialized successfully', 'success');
+            } catch (error) {
+                logStatus(`Error initializing Antikythera Mechanism: ${error.message}`, 'error');
+                console.error('Initialization error:', error);
+            }
+            
+            // Set current date and time in inputs
+            const now = new Date();
+            const dateInput = document.getElementById('date-input');
+            const timeInput = document.getElementById('time-input');
+            
+            dateInput.valueAsDate = now;
+            timeInput.value = now.toTimeString().substring(0, 5);
+            
+            // Initialize controls
+            if (mechanism) {
+                // Date and time controls
+                const currentTimeBtn = document.getElementById('current-time-btn');
+                const timeLapseBtn = document.getElementById('time-lapse-btn');
+                
+                currentTimeBtn.addEventListener('click', () => {
+                    const now = new Date();
+                    dateInput.valueAsDate = now;
+                    timeInput.value = now.toTimeString().substring(0, 5);
+                    mechanism.setDate(now);
+                    logStatus('Set to current date and time', 'success');
+                });
+                
+                timeLapseBtn.addEventListener('click', () => {
+                    logStatus('Starting time lapse animation (30 days)...', 'success');
+                    mechanism.executeTimeLapse(30, 10000, () => {
+                        logStatus('Time lapse animation completed', 'success');
+                    });
+                });
+                
+                // Update when date/time inputs change
+                dateInput.addEventListener('change', updateDateTime);
+                timeInput.addEventListener('change', updateDateTime);
+                
+                function updateDateTime() {
+                    const date = new Date(dateInput.value);
+                    const [hours, minutes] = timeInput.value.split(':').map(Number);
+                    
+                    date.setHours(hours, minutes);
+                    mechanism.setDate(date);
+                    
+                    logStatus(`Date set to: ${date.toLocaleString()}`, 'success');
+                }
+                
+                // Frequency controls
+                const freqSlider = document.getElementById('frequency-slider');
+                const freqValue = document.getElementById('frequency-value');
+                const freqButtons = document.querySelectorAll('.freq-btn');
+                
+                freqSlider.addEventListener('input', () => {
+                    const frequency = parseInt(freqSlider.value);
+                    freqValue.textContent = `${frequency} Hz`;
+                    mechanism.setFrequency(frequency);
+                });
+                
+                freqButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const frequency = parseInt(btn.dataset.freq);
+                        freqSlider.value = frequency;
+                        freqValue.textContent = `${frequency} Hz`;
+                        mechanism.setFrequency(frequency);
+                        logStatus(`Set frequency to ${frequency} Hz`, 'success');
+                    });
+                });
+                
+                // Coherence slider
+                const coherenceSlider = document.getElementById('coherence-slider');
+                const coherenceValue = document.getElementById('coherence-value');
+                
+                coherenceSlider.addEventListener('input', () => {
+                    const coherence = parseFloat(coherenceSlider.value);
+                    coherenceValue.textContent = coherence.toFixed(3);
+                    mechanism.setCoherence(coherence);
+                });
+                
+                // Resonance slider
+                const resonanceSlider = document.getElementById('resonance-slider');
+                const resonanceValue = document.getElementById('resonance-value');
+                
+                resonanceSlider.addEventListener('input', () => {
+                    const resonance = parseFloat(resonanceSlider.value);
+                    resonanceValue.textContent = resonance.toFixed(3);
+                    
+                    if (mechanism.applyResonance) {
+                        mechanism.applyResonance(resonance);
+                    } else {
+                        // Apply directly to the visualization if method not available
+                        mechanism._createResonanceRipple(0.5, 0.5, resonance);
+                    }
+                });
+                
+                // Button controls
+                const toggleAudioBtn = document.getElementById('toggle-audio-btn');
+                const resetViewBtn = document.getElementById('reset-view-btn');
+                const phiSequenceBtn = document.getElementById('phi-sequence-btn');
+                
+                toggleAudioBtn.addEventListener('click', () => {
+                    mechanism.toggleAudio();
+                    const audioState = mechanism.config.enableAudio ? 'enabled' : 'disabled';
+                    logStatus(`Audio ${audioState}`, 'success');
+                });
+                
+                resetViewBtn.addEventListener('click', () => {
+                    if (mechanism.resetView) {
+                        mechanism.resetView();
+                        logStatus('View reset to default position', 'success');
+                    }
+                });
+                
+                phiSequenceBtn.addEventListener('click', () => {
+                    logStatus('Starting φ-Harmonic sequence...', 'success');
+                    mechanism.createPhiHarmonicSequence(12000, true);
+                });
+                
+                // Initial log
+                logStatus('All controls initialized successfully', 'success');
+                logStatus('Ready for phi-harmonic quantum interactions', 'success');
+                
+                // Run tests
+                if (AntikytheraTest) {
+                    AntikytheraTest.init();
+                    setTimeout(() => {
+                        const testResults = AntikytheraTest.runTests();
+                        if (testResults) {
+                            logStatus('All tests completed successfully', 'success');
+                        } else {
+                            logStatus('Some tests failed - check console for details', 'warning');
+                        }
+                    }, 2000);
+                }
+            }
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (mechanism && mechanism.resize) {
+                    mechanism.resize(
+                        document.getElementById('antikythera-container').clientWidth,
+                        document.getElementById('antikythera-container').clientHeight
+                    );
+                }
+            });
+        });
+    </script>
+</body>
+</html>

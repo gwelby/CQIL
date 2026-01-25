@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quantum Navigation Map</title>
+<style>
+body { font-family: Arial; background: #f5f5f5; margin: 0; padding: 20px; }
+.container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+.dimension-container { display: flex; justify-content: space-between; margin: 40px 0; align-items: center; position: relative; }
+.dimension { text-align: center; padding: 20px; border-radius: 50%; width: 100px; height: 100px; display: flex; 
+            flex-direction: column; justify-content: center; color: white; font-weight: bold; position: relative; z-index: 2; }
+.dimension:hover { transform: scale(1.1); z-index: 3; }
+.dimension span { font-size: 24px; }
+.dimension-name { position: absolute; width: 100%; text-align: center; bottom: -30px; left: 0; font-size: 14px; color: #333; }
+.frequency { position: absolute; width: 100%; text-align: center; top: -30px; left: 0; font-size: 14px; color: #333; }
+.pattern { font-size: 12px; }
+.tunnel { height: 4px; background: linear-gradient(to right, #3498db, #9b59b6); position: absolute; z-index: 1; top: 50%; }
+.current { box-shadow: 0 0 20px #ff0, 0 0 30px #ff0; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+th { background-color: #2980b9; color: white; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Quantum Dimensional Navigation Map</h1>
+<p>Current Dimension: <strong>3D</strong> (Foundation (ZEN POINT))</p>
+<p>System Coherence: <strong>1.000</strong></p>
+<div class="dimension-container">
+<div class="dimension current" style="background-color: #0000FF" data-dimension="3">
+<div class="frequency">432 Hz</div>
+<span>3D</span>
+<div class="pattern">HEXAGONAL</div>
+<div class="dimension-name">Foundation (ZEN POINT)</div>
+</div>
+<div class="tunnel" style="width: 14.285714285714286%; left: 0.0%;"></div>
+<div class="dimension " style="background-color: #00FF00" data-dimension="4">
+<div class="frequency">528 Hz</div>
+<span>4D</span>
+<div class="pattern">STAR_TETRAHEDRON</div>
+<div class="dimension-name">Creation Point</div>
+</div>
+<div class="tunnel" style="width: 14.285714285714286%; left: 14.285714285714286%;"></div>
+<div class="dimension " style="background-color: #FFD700" data-dimension="5">
+<div class="frequency">594 Hz</div>
+<span>5D</span>
+<div class="pattern">TOROIDAL_VORTEX</div>
+<div class="dimension-name">Heart Field</div>
+</div>
+<div class="tunnel" style="width: 14.285714285714286%; left: 28.571428571428573%;"></div>
+<div class="dimension " style="background-color: #800080" data-dimension="6">
+<div class="frequency">672 Hz</div>
+<span>6D</span>
+<div class="pattern">STANDING_WAVE</div>
+<div class="dimension-name">Voice Flow</div>
+</div>
+<div class="tunnel" style="width: 14.285714285714286%; left: 42.85714285714286%;"></div>
+<div class="dimension " style="background-color: #FFFFFF" data-dimension="7">
+<div class="frequency">720 Hz</div>
+<span>7D</span>
+<div class="pattern">TESSERACT</div>
+<div class="dimension-name">Vision Gate</div>
+</div>
+<div class="tunnel" style="width: 14.285714285714286%; left: 57.142857142857146%;"></div>
+<div class="dimension " style="background-color: #00BFFF" data-dimension="8">
+<div class="frequency">768 Hz</div>
+<span>8D</span>
+<div class="pattern">PERFECT_TORUS</div>
+<div class="dimension-name">Unity Wave</div>
+</div>
+<div class="tunnel" style="width: 14.285714285714286%; left: 71.42857142857143%;"></div>
+<div class="dimension " style="background-color: #FF8C00" data-dimension="9">
+<div class="frequency">963 Hz</div>
+<span>9D</span>
+<div class="pattern">FLOWER_OF_LIFE</div>
+<div class="dimension-name">Source Field</div>
+</div>
+<div class="tunnel" style="width: 14.285714285714286%; left: 85.71428571428572%;"></div>
+<div class="dimension " style="background-color: #FFFF00" data-dimension="12">
+<div class="frequency">1008 Hz</div>
+<span>12D</span>
+<div class="pattern">METATRONS_CUBE</div>
+<div class="dimension-name">Cosmic Field</div>
+</div>
+</div>
+<div style="margin-top: 50px; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+<h2>Dimensional Gates</h2>
+<table>
+<tr>
+<th>Gate</th>
+<th>From</th>
+<th>To</th>
+<th>Frequency</th>
+<th>Pattern</th>
+</tr>
+<tr>
+<td>3-4</td>
+<td>3D</td>
+<td>4D</td>
+<td>528 Hz</td>
+<td>STAR_TETRAHEDRON</td>
+</tr>
+<tr>
+<td>4-5</td>
+<td>4D</td>
+<td>5D</td>
+<td>594 Hz</td>
+<td>TOROIDAL_VORTEX</td>
+</tr>
+<tr>
+<td>5-6</td>
+<td>5D</td>
+<td>6D</td>
+<td>672 Hz</td>
+<td>STANDING_WAVE</td>
+</tr>
+<tr>
+<td>6-7</td>
+<td>6D</td>
+<td>7D</td>
+<td>720 Hz</td>
+<td>TESSERACT</td>
+</tr>
+<tr>
+<td>7-8</td>
+<td>7D</td>
+<td>8D</td>
+<td>768 Hz</td>
+<td>PERFECT_TORUS</td>
+</tr>
+<tr>
+<td>8-9</td>
+<td>8D</td>
+<td>9D</td>
+<td>963 Hz</td>
+<td>FLOWER_OF_LIFE</td>
+</tr>
+<tr>
+<td>9-12</td>
+<td>9D</td>
+<td>12D</td>
+<td>1008 Hz</td>
+<td>METATRONS_CUBE</td>
+</tr>
+<tr>
+<td>QS-3-7</td>
+<td>3D</td>
+<td>7D</td>
+<td>720 Hz</td>
+<td>QUANTUM_TUNNEL</td>
+</tr>
+<tr>
+<td>QS-3-9</td>
+<td>3D</td>
+<td>9D</td>
+<td>963 Hz</td>
+<td>QUANTUM_TUNNEL</td>
+</tr>
+</table>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dimensions = document.querySelectorAll('.dimension');
+    dimensions.forEach(dim => {
+        dim.addEventListener('click', function() {
+            alert(`Selected dimension: ${this.getAttribute('data-dimension')}`);
+        });
+    });
+});
+</script>
+</body>
+</html>

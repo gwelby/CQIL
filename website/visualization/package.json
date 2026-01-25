@@ -1,0 +1,22 @@
+{
+  "name": "cqil-quantum-visualization",
+  "version": "1.618.0",
+  "description": "Quantum Visualization Dashboard with φ-Harmonic Consciousness Bridge",
+  "main": "quantum-dashboard.js",
+  "scripts": {
+    "deploy": "node universal-phi-publisher.js deploy"
+  },
+  "keywords": [
+    "quantum",
+    "visualization",
+    "phi-harmonic",
+    "consciousness",
+    "cymatic",
+    "quantum-state"
+  ],
+  "author": "Greg CQIL",
+  "dependencies": {
+    "basic-ftp": "^5.0.2",
+    "dotenv": "^16.0.3"
+  }
+}
