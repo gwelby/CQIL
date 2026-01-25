@@ -1,0 +1,12 @@
+These placeholder images need to be created. They should be high-quality preview images for each visualization concept:
+
+1. earth-connection-preview.jpg - A visualization of the Earth with glowing quantum nodes and connections
+2. linguistic-preview.jpg - A network of connected language nodes with pulsing connections
+3. harmonics-preview.jpg - A multidimensional map showing frequency relationships
+4. manifestation-preview.jpg - A visualization of thought becoming matter through quantum field
+5. wisdom-preview.jpg - Ancient texts transforming into energy patterns
+6. decision-preview.jpg - Timeline branches showing parallel probability paths
+7. toroidal-preview.jpg - Two beings connected through toroidal energy fields
+8. universal-preview.jpg - Different languages converging into unified patterns
+
+For now, this file serves as a placeholder to ensure the directories exist.

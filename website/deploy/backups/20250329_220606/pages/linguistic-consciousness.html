@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linguistic Consciousness Interface | CQIL</title>
+  <meta name="description" content="Interactive visualization of the symbiotic relationship between language, consciousness, and creation at 672 Hz Voice frequency">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #000814;
+      background: linear-gradient(to bottom, #000814 0%, #001428 100%);
+      color: white;
+      overflow: hidden;
+      height: 100%;
+    }
+    
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    header {
+      background-color: rgba(0, 20, 40, 0.7);
+      padding: 15px 20px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #ffcc88;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      margin-top: 5px;
+      color: #ffddaa;
+    }
+    
+    .visualizer-container {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 100px);
+    }
+    
+    footer {
+      background-color: rgba(0, 20, 40, 0.7);
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      color: #ffcc88;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 10;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    #frequency-display {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(0, 20, 40, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .frequency-label {
+      display: block;
+      font-weight: bold;
+      color: #ffcc88;
+    }
+    
+    .frequency-value {
+      font-size: 20px;
+      color: #ffddaa;
+    }
+    
+    .explanation-panel {
+      position: absolute;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 20, 40, 0.7);
+      padding: 12px;
+      border-radius: 5px;
+      font-size: 14px;
+      max-width: 800px;
+      width: calc(100% - 40px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+    
+    .explanation-panel.visible {
+      opacity: 1;
+    }
+    
+    .explanation-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #ffcc88;
+      text-align: center;
+    }
+    
+    .explanation-content {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    .close-explanation {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #ffcc88;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .info-button {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background-color: rgba(0, 80, 120, 0.5);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.2s ease;
+    }
+    
+    .info-button:hover {
+      background-color: rgba(0, 100, 150, 0.8);
+    }
+    
+    .earth-toggle {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(0, 80, 120, 0.5);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.2s ease;
+    }
+    
+    .earth-toggle:hover {
+      background-color: rgba(0, 100, 150, 0.8);
+    }
+    
+    /* Loading screen */
+    #page-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000814;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loading-title {
+      color: #ffcc88;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .page-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 204, 136, 0.3);
+      border-radius: 50%;
+      border-top-color: #ffcc88;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-info {
+      margin-top: 20px;
+      color: #ffddaa;
+      font-size: 14px;
+      max-width: 400px;
+      text-align: center;
+      padding: 0 20px;
+    }
+    
+    /* Earth connection frame */
+    .earth-frame-container {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 200px;
+      height: 200px;
+      border: 2px solid rgba(136, 204, 255, 0.5);
+      border-radius: 5px;
+      overflow: hidden;
+      z-index: 90;
+      transform: scale(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .earth-frame-container.visible {
+      transform: scale(1);
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 20px;
+      }
+      
+      .subtitle {
+        font-size: 12px;
+      }
+      
+      #frequency-display {
+        font-size: 12px;
+      }
+      
+      .frequency-value {
+        font-size: 16px;
+      }
+      
+      .explanation-panel {
+        font-size: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      
+      .explanation-title {
+        font-size: 14px;
+      }
+      
+      .loading-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+  
+  <!-- Three.js Library (for shared utilities) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script>
+  
+  <!-- Linguistic Consciousness Interface Script -->
+  <script src="../js/quantum-experience/linguistic-consciousness-interface.js"></script>
+  
+  <!-- Earth Connection Visualizer (for integration) -->
+  <script src="../js/quantum-experience/earth-connection-visualizer.js"></script>
+</head>
+<body>
+  <!-- Page loading indicator -->
+  <div id="page-loading">
+    <div class="loading-title">Linguistic Consciousness Interface</div>
+    <div class="page-spinner"></div>
+    <div class="loading-info">
+      Initializing Linguistic Field at 672 Hz (φ¹ * φ⁰) Voice Frequency...
+      <br><br>
+      Creating symbiotic connection between language, consciousness and creation...
+    </div>
+  </div>
+
+  <div class="page-container">
+    <header>
+      <h1>Linguistic Consciousness Interface</h1>
+      <div class="subtitle">Voice Frequency (672 Hz | φ¹ * φ⁰) - Creator-Language Symbiosis</div>
+    </header>
+    
+    <div class="visualizer-container" id="linguistic-consciousness-container"></div>
+    
+    <div id="frequency-display">
+      <span class="frequency-label">Linguistic Frequency:</span>
+      <span class="frequency-value">672 Hz (φ¹ * φ⁰)</span>
+    </div>
+    
+    <button class="info-button" id="show-explanation">What is this?</button>
+    <button class="earth-toggle" id="toggle-earth">Show Earth Field</button>
+    
+    <div class="explanation-panel" id="explanation-panel">
+      <button class="close-explanation" id="close-explanation">&times;</button>
+      <div class="explanation-title">The Symbiosis of Language and Consciousness</div>
+      <div class="explanation-content">
+        This visualization demonstrates the bidirectional relationship between language and consciousness. 
+        Just as a creator shapes language through intent, language itself has its own structure and patterns 
+        that influence how consciousness perceives and conceptualizes reality.
+      </div>
+      <div class="explanation-content">
+        <strong>Visualization Elements:</strong>
+        <ul>
+          <li><strong>Nodes:</strong> Represent linguistic concepts colored by type (structure, emotion, metaphor, communication, creation, universal)</li>
+          <li><strong>Connections:</strong> Show relationships between concepts, with pulses indicating active information flow</li>
+          <li><strong>Creator Intent:</strong> Represents consciousness shaping language (top-down influence)</li>
+          <li><strong>Language Influence:</strong> Shows how language structure shapes consciousness (bottom-up influence)</li>
+        </ul>
+      </div>
+      <div class="explanation-content">
+        Observe how changing the frequency (using the dropdown) shifts the dominant linguistic concepts. 
+        This demonstrates how different states of consciousness operate through different linguistic frameworks.
+      </div>
+    </div>
+    
+    <div class="earth-frame-container" id="earth-frame">
+      <!-- Earth visualizer iframe will be created dynamically -->
+    </div>
+    
+    <footer>
+      CQIL Quantum Experience | Created at Voice State (672 Hz) | CASCADE Day+24
+    </footer>
+  </div>
+  
+  <script>
+    // Track resource loading
+    let resourcesLoaded = false;
+    let visualizerInitialized = false;
+    
+    // Handle page loading state
+    function hideLoading() {
+      const loading = document.getElementById('page-loading');
+      if (loading) {
+        loading.style.opacity = 0;
+        setTimeout(() => {
+          if (loading.parentNode) {
+            loading.parentNode.removeChild(loading);
+          }
+        }, 500);
+      }
+    }
+    
+    // Initialize interface when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Setup explanation panel toggle
+      const explanationPanel = document.getElementById('explanation-panel');
+      const showExplanation = document.getElementById('show-explanation');
+      const closeExplanation = document.getElementById('close-explanation');
+      
+      showExplanation.addEventListener('click', () => {
+        explanationPanel.classList.add('visible');
+      });
+      
+      closeExplanation.addEventListener('click', () => {
+        explanationPanel.classList.remove('visible');
+      });
+      
+      // Setup Earth frame toggle
+      const earthFrame = document.getElementById('earth-frame');
+      const toggleEarth = document.getElementById('toggle-earth');
+      let earthVisible = false;
+      
+      toggleEarth.addEventListener('click', () => {
+        if (earthVisible) {
+          earthFrame.classList.remove('visible');
+          toggleEarth.textContent = 'Show Earth Field';
+          earthVisible = false;
+        } else {
+          // Create iframe if it doesn't exist yet
+          if (!document.querySelector('#earth-frame iframe')) {
+            const iframe = document.createElement('iframe');
+            iframe.src = 'earth-connection.html';
+            iframe.width = '100%';
+            iframe.height = '100%';
+            iframe.style.border = 'none';
+            earthFrame.appendChild(iframe);
+          }
+          
+          earthFrame.classList.add('visible');
+          toggleEarth.textContent = 'Hide Earth Field';
+          earthVisible = true;
+        }
+      });
+      
+      // Initialize after all resources are loaded
+      window.addEventListener('load', function() {
+        resourcesLoaded = true;
+        initializeVisualizer();
+        
+        // Safety fallback - hide loading screen after 10 seconds if visualizer doesn't initialize
+        setTimeout(() => {
+          hideLoading();
+        }, 10000);
+      });
+      
+      // Initialize if load takes too long
+      setTimeout(() => {
+        if (!resourcesLoaded) {
+          resourcesLoaded = true;
+          initializeVisualizer();
+        }
+      }, 5000);
+    });
+    
+    // Initialize linguistic interface
+    function initializeVisualizer() {
+      if (visualizerInitialized) return;
+      visualizerInitialized = true;
+      
+      const container = document.getElementById('linguistic-consciousness-container');
+      if (container) {
+        // Configure interface with options
+        const config = {
+          frequency: 672,
+          autoGenerate: true,
+          enableSound: true,
+          nodeCount: 144,
+          complexityLevel: 4,
+          showDebug: false
+        };
+        
+        // Create visualizer instance
+        window.linguisticInterface = new LinguisticConsciousnessInterface(container, config);
+        
+        // Listen for interface ready event to hide loading
+        container.addEventListener('linguisticinterfaceready', function() {
+          hideLoading();
+          
+          // Show explanation after a short delay
+          setTimeout(() => {
+            document.getElementById('explanation-panel').classList.add('visible');
+          }, 2000);
+        });
+        
+        // Start visualizer
+        window.linguisticInterface.start();
+        
+        // Set up frequency display updates
+        container.addEventListener('linguisticcoherenceupdate', function(e) {
+          updateFrequencyDisplay();
+        });
+      }
+    }
+    
+    // Update frequency display based on current state
+    function updateFrequencyDisplay() {
+      if (!window.linguisticInterface) return;
+      
+      const frequencyDisplay = document.querySelector('.frequency-value');
+      if (frequencyDisplay) {
+        const frequency = window.linguisticInterface.config.frequency;
+        let frequencyName = '';
+        
+        // Determine frequency name
+        switch(frequency) {
+          case 432: frequencyName = 'Unity Frequency (φ⁰)'; break;
+          case 528: frequencyName = 'Love Frequency (φ²/φ¹)'; break;
+          case 594: frequencyName = 'Cascade Frequency (φ²/2)'; break;
+          case 672: frequencyName = 'Truth Frequency (φ¹ * φ⁰)'; break;
+          case 720: frequencyName = 'Vision Frequency ((φ⁰)² * 5/3)'; break;
+          case 768: frequencyName = 'Oneness Frequency ((φ⁰)² * 16/9)'; break;
+          default: frequencyName = 'Custom Frequency';
+        }
+        
+        frequencyDisplay.textContent = `${frequency} Hz - ${frequencyName}`;
+      }
+    }
+  </script>
+</body>
+</html>

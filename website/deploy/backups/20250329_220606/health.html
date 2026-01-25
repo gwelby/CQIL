@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CQIL Health Check</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="CQIL Website Health Status Page">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    h1 {
+      color: #1a73e8;
+      margin-top: 0;
+    }
+    .status {
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .healthy {
+      background-color: #e6f4ea;
+      border-left: 4px solid #34a853;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .data-table th, .data-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    .data-table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script>
+    // Generate timestamp and metrics dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+      const healthStatus = document.getElementById('health-status');
+      const timestamp = new Date().toISOString();
+      const pageLoadTime = performance.now();
+      const platformElement = document.getElementById('platform');
+      
+      // Set data attributes
+      healthStatus.setAttribute('data-timestamp', timestamp);
+      healthStatus.setAttribute('data-load-time', pageLoadTime.toFixed(2) + 'ms');
+      
+      // Update visible content
+      document.getElementById('timestamp').textContent = new Date().toLocaleString();
+      document.getElementById('load-time').textContent = pageLoadTime.toFixed(2) + 'ms';
+      
+      // Determine platform
+      let platform = 'unknown';
+      const hostname = window.location.hostname;
+      
+      if (hostname.includes('github.io')) {
+        platform = 'GitHub Pages';
+      } else if (hostname.includes('pages.dev')) {
+        platform = 'CloudFlare Pages';
+      } else if (hostname.includes('cqil.ca')) {
+        platform = 'Traditional Hosting';
+      }
+      
+      platformElement.textContent = platform;
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>CQIL Website Health Status</h1>
+    
+    <div id="health-status" class="status healthy" data-status="healthy" data-version="1.0.0">
+      <strong>Status:</strong> Website is healthy
+    </div>
+    
+    <table class="data-table">
+      <tr>
+        <th>Metric</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Version</td>
+        <td>1.0.0</td>
+      </tr>
+      <tr>
+        <td>Timestamp</td>
+        <td id="timestamp">-</td>
+      </tr>
+      <tr>
+        <td>Platform</td>
+        <td id="platform">-</td>
+      </tr>
+      <tr>
+        <td>Page Load Time</td>
+        <td id="load-time">-</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

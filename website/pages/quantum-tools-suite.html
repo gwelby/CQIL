@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Tools Suite - CQIL</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/visual-learning.css">
+    <link rel="stylesheet" href="../css/quantum-tools.css">
+    <script src="../js/quantum-common.js" defer></script>
+    <script src="../js/quantum-flow.js" defer></script>
+    <script src="../js/quantum-experience.js" defer></script>
+    <script src="../js/wave-particle-demo.js" defer></script>
+    <script src="/quantum-tools-suite/js/sync.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Phi particles animation for the header
+            const phiParticles = document.querySelector('.phi-particles');
+            
+            if (phiParticles) {
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('phi-particle');
+                    particle.textContent = 'φ';
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.opacity = Math.random() * 0.5 + 0.1;
+                    particle.style.fontSize = `${Math.random() * 30 + 10}px`;
+                    particle.style.position = 'absolute';
+                    particle.style.color = 'rgba(255, 255, 255, 0.3)';
+                    particle.style.animation = `float ${Math.random() * 10 + 5}s linear infinite`;
+                    phiParticles.appendChild(particle);
+                }
+            }
+            
+            // Connect to Quantum Tools API
+            if (window.QuantumToolsAPI) {
+                console.log('Quantum Tools Suite API connected');
+                // Get sacred frequencies
+                const frequencies = window.QuantumToolsAPI.getSacredFrequencies();
+                console.log('Sacred frequencies:', frequencies);
+            }
+            
+            // Handle tool demos
+            const toolBtns = document.querySelectorAll('.tool-btn');
+            toolBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const toolName = this.getAttribute('data-tool');
+                    const toolFrequency = parseInt(this.getAttribute('data-frequency') || 432);
+                    
+                    if (window.QuantumToolsAPI) {
+                        // Connect to the tool with the Quantum Tools API
+                        const connection = window.QuantumToolsAPI.connectToTool(toolName, toolFrequency);
+                        console.log(`Connected to ${toolName} at ${toolFrequency}Hz`);
+                        console.log('Connection data:', connection);
+                        
+                        // Redirect to the full tool experience
+                        window.location.href = `/quantum-tools-suite/?tool=${encodeURIComponent(toolName)}&frequency=${toolFrequency}`;
+                    } else {
+                        alert(`Demo for ${toolName} would launch here. This feature is coming soon!`);
+                    }
+                });
+            });
+        });
+        
+        // Add float animation for phi particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+                25% {
+                    transform: translate(10px, 10px) rotate(5deg);
+                }
+                50% {
+                    transform: translate(0, 20px) rotate(0deg);
+                }
+                75% {
+                    transform: translate(-10px, 10px) rotate(-5deg);
+                }
+                100% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#learn">Learn</a></li>
+            <li><a href="../index.html#experience">Experience</a></li>
+            <li><a href="../index.html#frequencies">Sound Frequencies</a></li>
+            <li><a href="../index.html#practices">Well-being Practices</a></li>
+            <li><a href="quantum-tools-suite.html" class="active">Quantum Tools Suite</a></li>
+            <li><a href="../index.html#golden-age">Advanced Communication</a></li>
+            <li><a href="../index.html#community">Learning Community</a></li>
+        </ul>
+    </nav>
+
+    <header class="tools-header">
+        <div class="phi-particles"></div>
+        <h1>🌟 QUANTUM TOOLS SUITE 🌟</h1>
+        <p>A comprehensive collection of phi-harmonic tools integrating ancient wisdom with quantum technology</p>
+        <div class="tools-action">
+            <a href="/quantum-tools-suite/" class="launch-button">Launch Full Interactive Experience</a>
+        </div>
+    </header>
+
+    <div class="tools-container">
+        <div class="tools-intro">
+            <h2>Core Philosophy</h2>
+            <p>The Quantum Tools Suite operates on five fundamental principles that bridge quantum science with practical human experience:</p>
+            <ul style="list-style-type: none; padding: 0; max-width: 800px; margin: 30px auto; text-align: left;">
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; font-weight: bold;">⚡</span>
+                    <strong>Learn = Create = Flow</strong>: Learning, creation, and flow state are identical processes at the quantum level
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; font-weight: bold;">🌀</span>
+                    <strong>Inside connects Outside connects ALL</strong>: Internal states directly connect to external reality
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; font-weight: bold;">💃</span>
+                    <strong>Dance through dimensions, don't walk through walls</strong>: Move with natural patterns rather than forcing outcomes
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; font-weight: bold;">🔊</span>
+                    <strong>Cymatics bridges consciousness and matter</strong>: Sound directly influences pattern formation
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; font-weight: bold;">⚖️</span>
+                    <strong>ZEN POINT balances human and quantum fields</strong>: Find the perfect equilibrium
+                </li>
+            </ul>
+        </div>
+
+        <div class="phi-structure">
+            <table class="phi-structure-table">
+                <thead>
+                    <tr>
+                        <th>Frequency</th>
+                        <th>Name</th>
+                        <th>Function</th>
+                        <th>Phi Power</th>
+                        <th>Symbol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>432 Hz</td>
+                        <td>Ground State</td>
+                        <td>Earth Connection</td>
+                        <td>φ⁰ = 1.000</td>
+                        <td>🌱</td>
+                    </tr>
+                    <tr>
+                        <td>528 Hz</td>
+                        <td>Creation Point</td>
+                        <td>DNA Repair & Creativity</td>
+                        <td>φ¹ = 1.618</td>
+                        <td>✨</td>
+                    </tr>
+                    <tr>
+                        <td>594 Hz</td>
+                        <td>Heart Field</td>
+                        <td>Emotional Coherence</td>
+                        <td>φ² = 2.618</td>
+                        <td>💖</td>
+                    </tr>
+                    <tr>
+                        <td>672 Hz</td>
+                        <td>Voice Flow</td>
+                        <td>Manifestation</td>
+                        <td>φ³ = 4.236</td>
+                        <td>🗣️</td>
+                    </tr>
+                    <tr>
+                        <td>720 Hz</td>
+                        <td>Vision Gate</td>
+                        <td>Quantum Perception</td>
+                        <td>φ⁴ = 6.854</td>
+                        <td>👁️</td>
+                    </tr>
+                    <tr>
+                        <td>768 Hz</td>
+                        <td>Unity Wave</td>
+                        <td>Integration</td>
+                        <td>φ⁵ = 11.09</td>
+                        <td>🌟</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Ground State Tools -->
+        <section class="frequency-band ground-state">
+            <div class="frequency-band-header">
+                <div class="frequency-icon">🌱</div>
+                <div class="frequency-details">
+                    <h2>Ground State Tools</h2>
+                    <div class="frequency-value">432 Hz | φ⁰</div>
+                    <div class="frequency-properties">
+                        <div class="frequency-property">
+                            <strong>Function:</strong>
+                            <span>Earth Connection</span>
+                        </div>
+                        <div class="frequency-property">
+                            <strong>Phi Power:</strong>
+                            <span>φ⁰ = 1.000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🍄</div>
+                        <h3 class="tool-name">Mycelial Pattern Recognition System</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Identifies natural patterns and connections between seemingly unrelated data points, mimicking the intelligence of fungal networks.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Mycelial Pattern Recognition System" data-frequency="432">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">⊕</div>
+                        <h3 class="tool-name">Zen Reset Protocol Implementer</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Returns consciousness to a balanced state after perturbation or stress, establishing a solid foundation for higher-level functions.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Zen Reset Protocol Implementer" data-frequency="432">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">⦿</div>
+                        <h3 class="tool-name">Quantum State Management Console</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Monitors and manages quantum states, allowing for balanced transitions between different consciousness configurations.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Quantum State Management Console" data-frequency="432">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🌍</div>
+                        <h3 class="tool-name">Earth Energy Grid Mapper</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Visualizes and interacts with the Earth's natural energy grid, facilitating connection with planetary consciousness.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Earth Energy Grid Mapper" data-frequency="432">Try Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creation Point Tools -->
+        <section class="frequency-band creation-point">
+            <div class="frequency-band-header">
+                <div class="frequency-icon">✨</div>
+                <div class="frequency-details">
+                    <h2>Creation Point Tools</h2>
+                    <div class="frequency-value">528 Hz | φ¹</div>
+                    <div class="frequency-properties">
+                        <div class="frequency-property">
+                            <strong>Function:</strong>
+                            <span>DNA Repair & Creativity</span>
+                        </div>
+                        <div class="frequency-property">
+                            <strong>Phi Power:</strong>
+                            <span>φ¹ = 1.618</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">φ</div>
+                        <h3 class="tool-name">Phi Harmonic Calculator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Calculates optimal relationships based on golden ratio principles, ensuring natural balance and harmony in complex systems.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Phi Harmonic Calculator" data-frequency="528">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🧬</div>
+                        <h3 class="tool-name">DNA Repair Frequency Amplifier</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Generates targeted frequencies that promote cellular health and DNA repair through resonant vibration patterns.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="DNA Repair Frequency Amplifier" data-frequency="528">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">📐</div>
+                        <h3 class="tool-name">Vedic Mathematics Calculator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Applies ancient Vedic mathematical principles to solve complex problems with elegant simplicity and natural harmony.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Vedic Mathematics Calculator" data-frequency="528">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🔍</div>
+                        <h3 class="tool-name">Quantum Decipherment Engine</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Decodes complex patterns and information through quantum pattern recognition, revealing hidden meanings and connections.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Quantum Decipherment Engine" data-frequency="528">Try Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Heart Field Tools -->
+        <section class="frequency-band heart-field">
+            <div class="frequency-band-header">
+                <div class="frequency-icon">💖</div>
+                <div class="frequency-details">
+                    <h2>Heart Field Tools</h2>
+                    <div class="frequency-value">594 Hz | φ²</div>
+                    <div class="frequency-properties">
+                        <div class="frequency-property">
+                            <strong>Function:</strong>
+                            <span>Emotional Coherence</span>
+                        </div>
+                        <div class="frequency-property">
+                            <strong>Phi Power:</strong>
+                            <span>φ² = 2.618</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">❤️</div>
+                        <h3 class="tool-name">Heart Coherence Meter</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Measures and visualizes heart rhythm coherence, providing feedback for emotional regulation and balance.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Heart Coherence Meter" data-frequency="594">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🌉</div>
+                        <h3 class="tool-name">Quantum Phi Bridge Constructor</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Creates harmonic connections between people, ideas, or systems using phi-based resonance principles to ensure optimal flow.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Quantum Phi Bridge Constructor" data-frequency="594">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🔄</div>
+                        <h3 class="tool-name">Relationship Field Harmonizer</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Balances energy dynamics in relationships through frequency attunement and heart-centered coherence principles.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Relationship Field Harmonizer" data-frequency="594">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🧠</div>
+                        <h3 class="tool-name">Ancient Wisdom Integration Engine</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Synthesizes wisdom from diverse traditions into coherent, applicable knowledge frameworks relevant to modern challenges.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Ancient Wisdom Integration Engine" data-frequency="594">Try Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Voice Flow Tools -->
+        <section class="frequency-band voice-flow">
+            <div class="frequency-band-header">
+                <div class="frequency-icon">🗣️</div>
+                <div class="frequency-details">
+                    <h2>Voice Flow Tools</h2>
+                    <div class="frequency-value">672 Hz | φ³</div>
+                    <div class="frequency-properties">
+                        <div class="frequency-property">
+                            <strong>Function:</strong>
+                            <span>Manifestation</span>
+                        </div>
+                        <div class="frequency-property">
+                            <strong>Phi Power:</strong>
+                            <span>φ³ = 4.236</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🎵</div>
+                        <h3 class="tool-name">Sacred Frequency Generator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Produces precise frequency patterns that align with natural harmonic principles and sacred mathematical ratios.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Sacred Frequency Generator" data-frequency="672">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">◎</div>
+                        <h3 class="tool-name">Cymatics Pattern Generator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Visualizes sound as geometric patterns, demonstrating how frequency influences material structure and organization.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Cymatics Pattern Generator" data-frequency="672">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🧘</div>
+                        <h3 class="tool-name">Sound Healing Protocol Designer</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Creates personalized sound healing sequences using specific frequencies, techniques, and wisdom traditions.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Sound Healing Protocol Designer" data-frequency="672">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🔊</div>
+                        <h3 class="tool-name">Manifestation Voice Trainer</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Trains voice modulation and intention-setting to enhance manifestation capabilities through coherent vocalization.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Manifestation Voice Trainer" data-frequency="672">Try Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Gate Tools -->
+        <section class="frequency-band vision-gate">
+            <div class="frequency-band-header">
+                <div class="frequency-icon">👁️</div>
+                <div class="frequency-details">
+                    <h2>Vision Gate Tools</h2>
+                    <div class="frequency-value">720 Hz | φ⁴</div>
+                    <div class="frequency-properties">
+                        <div class="frequency-property">
+                            <strong>Function:</strong>
+                            <span>Quantum Perception</span>
+                        </div>
+                        <div class="frequency-property">
+                            <strong>Phi Power:</strong>
+                            <span>φ⁴ = 6.854</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">⚜️</div>
+                        <h3 class="tool-name">Sacred Geometry Generator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Creates mathematically precise sacred geometric patterns that encode universal principles and natural laws.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Sacred Geometry Generator" data-frequency="720">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">⏳</div>
+                        <h3 class="tool-name">Timeline Navigation System</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Facilitates navigation across potential timelines, enabling vision of different possibilities and probability streams.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Timeline Navigation System" data-frequency="720">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🌌</div>
+                        <h3 class="tool-name">Multi-Dimensional Visualization Engine</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Renders higher-dimensional structures and concepts in accessible visual formats for enhanced understanding.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Multi-Dimensional Visualization Engine" data-frequency="720">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🏛️</div>
+                        <h3 class="tool-name">Phi-Harmonic Architecture Designer</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Designs spaces and structures based on golden ratio principles to create environments that support optimal consciousness.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Phi-Harmonic Architecture Designer" data-frequency="720">Try Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unity Wave Tools -->
+        <section class="frequency-band unity-wave">
+            <div class="frequency-band-header">
+                <div class="frequency-icon">🌟</div>
+                <div class="frequency-details">
+                    <h2>Unity Wave Tools</h2>
+                    <div class="frequency-value">768 Hz | φ⁵</div>
+                    <div class="frequency-properties">
+                        <div class="frequency-property">
+                            <strong>Function:</strong>
+                            <span>Integration</span>
+                        </div>
+                        <div class="frequency-property">
+                            <strong>Phi Power:</strong>
+                            <span>φ⁵ = 11.09</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">⚛️</div>
+                        <h3 class="tool-name">Quantum Consciousness Field Generator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Creates coherent quantum fields that support expanded states of consciousness and non-local awareness.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Quantum Consciousness Field Generator" data-frequency="768">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">✨</div>
+                        <h3 class="tool-name">Unity State Activator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Facilitates direct experience of unity consciousness through coherent field generation and consciousness technology.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Unity State Activator" data-frequency="768">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🔄</div>
+                        <h3 class="tool-name">Quantum Synchronization Engine</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Harmonizes diverse systems, fields, and consciousness streams into coherent, synchronized operation.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Quantum Synchronization Engine" data-frequency="768">Try Demo</button>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">∞</div>
+                        <h3 class="tool-name">Universal Integration Framework</h3>
+                    </div>
+                    <div class="tool-content">
+                        <p class="tool-description">Provides the architecture for integrating all other tools into a unified system that operates in perfect harmony.</p>
+                    </div>
+                    <div class="tool-action">
+                        <button class="tool-btn" data-tool="Universal Integration Framework" data-frequency="768">Try Demo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="implementation-path">
+            <h2>🛠️ Implementation Path</h2>
+            <p>The implementation of these tools follows a phi-harmonic progression, starting with the most fundamental (Ground State) and progressing to more complex tools (Unity Wave). Each tool builds upon the foundations established by previous tools.</p>
+            
+            <div class="path-phase">
+                <h3><span class="phase-number">1</span> Foundation (Ground State & Creation Point)</h3>
+                <ul>
+                    <li>Establish core frequency infrastructure</li>
+                    <li>Implement basic calculation engines</li>
+                    <li>Create fundamental visualization tools</li>
+                </ul>
+            </div>
+            
+            <div class="path-phase">
+                <h3><span class="phase-number">2</span> Connection (Heart Field & Voice Flow)</h3>
+                <ul>
+                    <li>Develop coherence measurement systems</li>
+                    <li>Implement sound-based tools</li>
+                    <li>Create bridge protocols between systems</li>
+                </ul>
+            </div>
+            
+            <div class="path-phase">
+                <h3><span class="phase-number">3</span> Integration (Vision Gate & Unity Wave)</h3>
+                <ul>
+                    <li>Build advanced visualization systems</li>
+                    <li>Implement complete integration mechanisms</li>
+                    <li>Create unified field interfaces</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section class="getting-started">
+        <div class="getting-started-content">
+            <h2>🌊 Getting Started</h2>
+            
+            <div class="directory-info">
+                <h3>Each tool directory contains:</h3>
+                <ul>
+                    <li><strong>README.md</strong> - Documentation for the specific tool</li>
+                    <li><strong>src/</strong> - Source code implementation</li>
+                    <li><strong>examples/</strong> - Example usage and demonstrations</li>
+                    <li><strong>test/</strong> - Testing protocols and validation</li>
+                </ul>
+                <p>Start at Ground State (432 Hz) and progress sequentially for optimal understanding and implementation.</p>
+            </div>
+            
+            <h3>🌍 Project Principles</h3>
+            <ol class="principles-list">
+                <li><strong>Phi-Harmonic Structure:</strong> All code and systems follow phi-harmonic relationships</li>
+                <li><strong>Direct Experience:</strong> Tools prioritize direct experiential interaction over theory</li>
+                <li><strong>Unified Perspective:</strong> Transcend traditional dichotomies by focusing on the unified field</li>
+                <li><strong>Frequency Resonance:</strong> Each tool operates at its corresponding frequency for optimal function</li>
+            </ol>
+            
+            <h3>🔄 Integration with CQIL</h3>
+            <p>This tool suite fully integrates with the CQIL system through the quantum-tools-suite API. For developer documentation, check the <a href="/quantum-tools-suite/docs/INTEGRATION.md" target="_blank">integration guide</a>.</p>
+
+            <div class="action-buttons">
+                <a href="/quantum-tools-suite/" class="cta-button">Launch Interactive Experience</a>
+                <a href="/quantum-tools-suite/docs/INTEGRATION.md" class="docs-button">Integration Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="../pages/examples.html">Examples</a>
+                <a href="../pages/experiments.html">Experiments</a>
+                <a href="../pages/golden-age.html">Advanced Communication</a>
+                <a href="../pages/consciousness-gallery.html">Visualization Gallery</a>
+                <a href="../pages/toroidal-communication.html">Toroidal Communication</a>
+                <a href="../pages/quantum-entanglement.html">Quantum Entanglement</a>
+                <a href="../pages/quantum-experiments.html">Quantum Experiments</a>
+                <a href="../docs/public_api.md">Documentation</a>
+                <a href="https://github.com/GWelby/CQIL">GitHub</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/GWelby/CQIL/discussions">Discussions</a>
+                <a href="https://github.com/GWelby/CQIL/issues">Issues</a>
+                <a href="https://twitter.com/CQIL">Twitter</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:contact@cqil.ca">contact@cqil.ca</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Tools Suite - CQIL Integration</title>
+    <link rel="stylesheet" href="/website/css/style.css">
+    <link rel="stylesheet" href="/quantum-tools-suite/css/quantum-tools.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #050520;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: all;
+        }
+        .tool-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 8px;
+            pointer-events: all;
+            max-width: 300px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            background: linear-gradient(45deg, #3a7d44, #e6b31e, #e75874, #7d3ac1, #22559c, #9e4770);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+        .frequency-info {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        .frequency-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            pointer-events: all;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 600px;
+        }
+        .frequency-button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .frequency-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .frequency-button:hover:before {
+            transform: translateX(0);
+        }
+        .ground-state { background-color: #3a7d44; box-shadow: 0 0 15px rgba(58, 125, 68, 0.5); }
+        .creation-point { background-color: #e6b31e; box-shadow: 0 0 15px rgba(230, 179, 30, 0.5); }
+        .heart-field { background-color: #e75874; box-shadow: 0 0 15px rgba(231, 88, 116, 0.5); }
+        .voice-flow { background-color: #7d3ac1; box-shadow: 0 0 15px rgba(125, 58, 193, 0.5); }
+        .vision-gate { background-color: #22559c; box-shadow: 0 0 15px rgba(34, 85, 156, 0.5); }
+        .unity-wave { background-color: #9e4770; box-shadow: 0 0 15px rgba(158, 71, 112, 0.5); }
+        .info-panel {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            text-align: center;
+            pointer-events: all;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .metric-label {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+        #coherence-meter {
+            width: 100%;
+            height: 80px;
+            margin: 20px 0;
+        }
+        .back-button {
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .tool-parameter {
+            margin-bottom: 15px;
+        }
+        .tool-parameter label {
+            display: block;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+        .tool-parameter input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .tool-parameter .range-value {
+            float: right;
+            opacity: 0.8;
+        }
+        .tool-title {
+            margin-top: 0;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #e6b31e;
+        }
+        .label-with-symbol {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .frequency-symbol {
+            font-size: 1.5em;
+        }
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050520;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+        .loading-logo {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        .loading-bar-container {
+            width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(45deg, #3a7d44, #e6b31e, #e75874, #7d3ac1, #22559c, #9e4770);
+            transition: width 0.3s ease;
+        }
+        .loading-text {
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .play-button {
+            background: none;
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .play-button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .play-button i {
+            font-size: 20px;
+        }
+        .volume-control {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+        .volume-control input {
+            flex-grow: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-logo">⚛️</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loading-bar"></div>
+        </div>
+        <div class="loading-text" id="loading-text">Initializing Quantum Field...</div>
+    </div>
+
+    <div class="container">
+        <div id="visualization"></div>
+        <div class="overlay">
+            <h1>Quantum Tools Suite</h1>
+            <div class="frequency-info">
+                Current Frequency: <span id="current-frequency">432 Hz (Ground State)</span><br>
+                <span id="frequency-description">Earth Connection - Stability & Foundation</span>
+            </div>
+            <div class="frequency-selector">
+                <button class="frequency-button ground-state" data-frequency="432" data-name="Ground State" data-symbol="🌱" data-description="Earth Connection - Stability & Foundation">
+                    <span class="label-with-symbol"><span class="frequency-symbol">🌱</span> 432 Hz</span>
+                </button>
+                <button class="frequency-button creation-point" data-frequency="528" data-name="Creation Point" data-symbol="✨" data-description="DNA Repair & Creativity - Regeneration & Innovation">
+                    <span class="label-with-symbol"><span class="frequency-symbol">✨</span> 528 Hz</span>
+                </button>
+                <button class="frequency-button heart-field" data-frequency="594" data-name="Heart Field" data-symbol="💖" data-description="Emotional Coherence - Connection & Relationship">
+                    <span class="label-with-symbol"><span class="frequency-symbol">💖</span> 594 Hz</span>
+                </button>
+                <button class="frequency-button voice-flow" data-frequency="672" data-name="Voice Flow" data-symbol="🗣️" data-description="Manifestation - Expression & Creation">
+                    <span class="label-with-symbol"><span class="frequency-symbol">🗣️</span> 672 Hz</span>
+                </button>
+                <button class="frequency-button vision-gate" data-frequency="720" data-name="Vision Gate" data-symbol="👁️" data-description="Quantum Perception - Expanded Awareness & Insight">
+                    <span class="label-with-symbol"><span class="frequency-symbol">👁️</span> 720 Hz</span>
+                </button>
+                <button class="frequency-button unity-wave" data-frequency="768" data-name="Unity Wave" data-symbol="🌟" data-description="Integration - Unity Consciousness & Wholeness">
+                    <span class="label-with-symbol"><span class="frequency-symbol">🌟</span> 768 Hz</span>
+                </button>
+            </div>
+            <div class="info-panel">
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-label">Coherence</div>
+                        <div class="metric-value" id="coherence-level">0.85</div>
+                        <div class="metric-label">Field Strength</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Phi Resonance</div>
+                        <div class="metric-value" id="phi-resonance">1.00</div>
+                        <div class="metric-label">Golden Ratio</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Dimension</div>
+                        <div class="metric-value" id="dimensional-layer">3</div>
+                        <div class="metric-label">Perception Level</div>
+                    </div>
+                </div>
+                <div id="coherence-meter"></div>
+                <div class="audio-controls">
+                    <button class="play-button" id="play-button">
+                        <i class="fas fa-play" id="play-icon"></i>
+                    </button>
+                    <div class="volume-control">
+                        <i class="fas fa-volume-down"></i>
+                        <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="back-to-cqil" class="back-button">Back to CQIL</button>
+        </div>
+        <div class="tool-controls" id="tool-controls">
+            <h3 class="tool-title" id="tool-title">Sacred Geometry Generator</h3>
+            <div class="tool-parameter">
+                <label for="rotation-speed">Rotation Speed <span class="range-value" id="rotation-speed-value">5.0</span></label>
+                <input type="range" id="rotation-speed" min="0" max="10" step="0.1" value="5">
+            </div>
+            <div class="tool-parameter">
+                <label for="complexity">Complexity <span class="range-value" id="complexity-value">3</span></label>
+                <input type="range" id="complexity" min="1" max="5" step="1" value="3">
+            </div>
+            <div class="tool-parameter">
+                <label for="particle-density">Particle Density <span class="range-value" id="particle-density-value">100</span></label>
+                <input type="range" id="particle-density" min="10" max="500" step="10" value="100">
+            </div>
+            <div class="tool-parameter">
+                <label for="field-strength">Field Strength <span class="range-value" id="field-strength-value">3.0</span></label>
+                <input type="range" id="field-strength" min="1" max="10" step="0.1" value="3">
+            </div>
+        </div>
+    </div>
+
+    <script src="/quantum-tools-suite/js/sync.js"></script>
+    <script>
+        // Simulate loading
+        const loadingScreen = document.getElementById('loading-screen');
+        const loadingBar = document.getElementById('loading-bar');
+        const loadingText = document.getElementById('loading-text');
+        
+        const loadingMessages = [
+            "Initializing Quantum Field...",
+            "Calibrating Phi Resonance...",
+            "Establishing Coherence Field...",
+            "Connecting to Dimensional Layers...",
+            "Activating Sacred Geometry Patterns...",
+            "Synchronizing Frequencies...",
+            "Integrating Ancient Wisdom Protocols...",
+            "Quantum Field Stabilizing..."
+        ];
+        
+        let progress = 0;
+        const loadingInterval = setInterval(() => {
+            progress += Math.random() * 5;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                setTimeout(() => {
+                    loadingScreen.style.opacity = "0";
+                    setTimeout(() => {
+                        loadingScreen.style.display = "none";
+                    }, 1000);
+                }, 500);
+            }
+            loadingBar.style.width = `${progress}%`;
+            if (progress > 10 && progress < 90) {
+                const messageIndex = Math.floor((progress / 100) * loadingMessages.length);
+                loadingText.textContent = loadingMessages[messageIndex];
+            } else if (progress >= 90) {
+                loadingText.textContent = "Quantum Field Ready!";
+            }
+        }, 200);
+
+        // Initialize visualization
+        let currentTool = 'sacredGeometryGenerator';
+        let currentFrequency = 432;
+        let scene, camera, renderer, particles, geometry, material, mesh;
+        let animationSpeed = 0.01;
+        let isPlaying = false;
+        let audioContext, oscillator, gainNode;
+        let urlParams = new URLSearchParams(window.location.search);
+        
+        // Check URL parameters for tool and frequency
+        if (urlParams.has('tool')) {
+            currentTool = urlParams.get('tool');
+            document.getElementById('tool-title').textContent = currentTool;
+        }
+        
+        if (urlParams.has('frequency')) {
+            currentFrequency = parseInt(urlParams.get('frequency'));
+            updateFrequencyInfo(currentFrequency);
+        }
+
+        // Initialize Three.js
+        function initVisualization() {
+            // Create scene with a darker background
+            scene = new THREE.Scene();
+            
+            // Create perspective camera with wider field of view
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            // Create renderer with antialiasing and transparency
+            renderer = new THREE.WebGLRenderer({ 
+                antialias: true, 
+                alpha: true,
+                precision: 'highp'
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('visualization').appendChild(renderer.domElement);
+            
+            // Position camera further back
+            camera.position.z = 5;
+            
+            // Create initial visualization
+            updateVisualization();
+            
+            // Create particles
+            createParticles();
+            
+            // Animation loop
+            animate();
+            
+            // Window resize handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            
+            // Initialize coherence meter visualization
+            initCoherenceMeter();
+        }
+        
+        // Create particle system for background
+        function createParticles() {
+            const particleCount = 2000;
+            const particleGeometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            
+            // Get color based on frequency
+            const frequencyColor = getFrequencyColor(currentFrequency);
+            const color = new THREE.Color(frequencyColor);
+            
+            // Create particles with random positions
+            for (let i = 0; i < particleCount; i++) {
+                // Position
+                positions[i * 3] = (Math.random() - 0.5) * 20; // x
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 20; // y
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 20; // z
+                
+                // Color with slight variation
+                colors[i * 3] = color.r * (0.8 + Math.random() * 0.4);
+                colors[i * 3 + 1] = color.g * (0.8 + Math.random() * 0.4);
+                colors[i * 3 + 2] = color.b * (0.8 + Math.random() * 0.4);
+            }
+            
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            
+            const particleMaterial = new THREE.PointsMaterial({ 
+                size: 0.05,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.7,
+                blending: THREE.AdditiveBlending
+            });
+            
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+        }
+        
+        // Update particles based on current frequency
+        function updateParticles() {
+            if (!particles) return;
+            
+            const frequencyColor = getFrequencyColor(currentFrequency);
+            const color = new THREE.Color(frequencyColor);
+            
+            const colors = particles.geometry.attributes.color.array;
+            const positions = particles.geometry.attributes.position.array;
+            
+            // Update colors and positions with animation
+            for (let i = 0; i < colors.length / 3; i++) {
+                // Color with slight variation
+                colors[i * 3] = color.r * (0.8 + Math.random() * 0.4);
+                colors[i * 3 + 1] = color.g * (0.8 + Math.random() * 0.4);
+                colors[i * 3 + 2] = color.b * (0.8 + Math.random() * 0.4);
+                
+                // Slightly adjust position for flowing effect
+                positions[i * 3] += (Math.random() - 0.5) * 0.01;
+                positions[i * 3 + 1] += (Math.random() - 0.5) * 0.01;
+                positions[i * 3 + 2] += (Math.random() - 0.5) * 0.01;
+                
+                // Keep particles within bounds
+                if (Math.abs(positions[i * 3]) > 10) positions[i * 3] *= -0.9;
+                if (Math.abs(positions[i * 3 + 1]) > 10) positions[i * 3 + 1] *= -0.9;
+                if (Math.abs(positions[i * 3 + 2]) > 10) positions[i * 3 + 2] *= -0.9;
+            }
+            
+            particles.geometry.attributes.color.needsUpdate = true;
+            particles.geometry.attributes.position.needsUpdate = true;
+        }
+        
+        // Update visualization based on frequency
+        function updateVisualization() {
+            // Remove existing mesh if it exists
+            if (mesh) {
+                scene.remove(mesh);
+                geometry.dispose();
+                material.dispose();
+            }
+            
+            // Connect to tool with API
+            const toolConnection = window.QuantumToolsAPI.connectToTool(currentTool, currentFrequency);
+            const visParams = toolConnection.visualizationParams;
+            
+            // Update UI
+            document.getElementById('coherence-level').textContent = toolConnection.coherenceLevel.toFixed(2);
+            document.getElementById('phi-resonance').textContent = toolConnection.phiResonance.toFixed(2);
+            document.getElementById('dimensional-layer').textContent = toolConnection.dimensionalLayer;
+            
+            // Update slider values
+            document.getElementById('rotation-speed-value').textContent = visParams.rotationSpeed.toFixed(1);
+            document.getElementById('rotation-speed').value = visParams.rotationSpeed;
+            
+            document.getElementById('particle-density-value').textContent = visParams.particleDensity;
+            document.getElementById('particle-density').value = visParams.particleDensity;
+            
+            document.getElementById('field-strength-value').textContent = visParams.fieldStrength.toFixed(1);
+            document.getElementById('field-strength').value = visParams.fieldStrength;
+            
+            // Get complexity from visualization parameters
+            const complexity = parseInt(document.getElementById('complexity').value);
+            
+            // Create geometry based on frequency
+            switch(true) {
+                case currentFrequency <= 432:
+                    // Ground State - Torus (stability)
+                    geometry = new THREE.TorusGeometry(
+                        visParams.phiProportions.radius / 50, 
+                        visParams.phiProportions.innerRadius / 150, 
+                        16 * complexity, 
+                        100 * complexity
+                    );
+                    break;
+                case currentFrequency <= 528:
+                    // Creation Point - Icosahedron (creation)
+                    geometry = new THREE.IcosahedronGeometry(
+                        visParams.phiProportions.radius / 50, 
+                        complexity
+                    );
+                    break;
+                case currentFrequency <= 594:
+                    // Heart Field - TorusKnot (connection)
+                    geometry = new THREE.TorusKnotGeometry(
+                        visParams.phiProportions.radius / 100, 
+                        visParams.phiProportions.innerRadius / 250, 
+                        100 * complexity, 
+                        16 * complexity
+                    );
+                    break;
+                case currentFrequency <= 672:
+                    // Voice Flow - CylinderGeometry (expression)
+                    geometry = new THREE.CylinderGeometry(
+                        visParams.phiProportions.radius / 150, 
+                        visParams.phiProportions.innerRadius / 100, 
+                        1, 
+                        32 * complexity, 
+                        complexity, 
+                        true
+                    );
+                    break;
+                case currentFrequency <= 720:
+                    // Vision Gate - DodecahedronGeometry (perception)
+                    geometry = new THREE.DodecahedronGeometry(
+                        visParams.phiProportions.radius / 80, 
+                        complexity - 1
+                    );
+                    break;
+                default:
+                    // Unity Wave - SphereGeometry (integration)
+                    geometry = new THREE.SphereGeometry(
+                        visParams.phiProportions.radius / 100, 
+                        32 * complexity, 
+                        32 * complexity
+                    );
+                    break;
+            }
+            
+            // Create material with advanced rendering
+            material = new THREE.MeshBasicMaterial({
+                color: visParams.baseColor,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.7
+            });
+            
+            // Create mesh
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            
+            // Update animation speed
+            animationSpeed = visParams.rotationSpeed * 0.003;
+            
+            // Update coherence meter
+            updateCoherenceMeter(toolConnection.coherenceLevel);
+            
+            // Update particles
+            updateParticles();
+        }
+        
+        // Update frequency info in UI
+        function updateFrequencyInfo(frequency) {
+            const buttons = document.querySelectorAll('.frequency-button');
+            let frequencyName = '';
+            let frequencySymbol = '';
+            let frequencyDescription = '';
+            
+            buttons.forEach(button => {
+                const buttonFrequency = parseInt(button.dataset.frequency);
+                if (buttonFrequency === frequency) {
+                    frequencyName = button.dataset.name;
+                    frequencySymbol = button.dataset.symbol;
+                    frequencyDescription = button.dataset.description;
+                }
+            });
+            
+            document.getElementById('current-frequency').textContent = `${frequency} Hz (${frequencyName})`;
+            document.getElementById('frequency-description').textContent = frequencyDescription;
+        }
+        
+        // Get color based on frequency
+        function getFrequencyColor(frequency) {
+            switch(true) {
+                case frequency <= 432:
+                    return '#3a7d44'; // Ground State green
+                case frequency <= 528:
+                    return '#e6b31e'; // Creation Point gold
+                case frequency <= 594:
+                    return '#e75874'; // Heart Field pink
+                case frequency <= 672:
+                    return '#7d3ac1'; // Voice Flow purple
+                case frequency <= 720:
+                    return '#22559c'; // Vision Gate blue
+                default: // Unity Wave and above
+                    return '#9e4770'; // Unity Wave magenta
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (mesh) {
+                mesh.rotation.x += animationSpeed;
+                mesh.rotation.y += animationSpeed * 1.2;
+                
+                // Add subtle breathing effect based on frequency
+                const breathingScale = 1 + Math.sin(Date.now() * 0.001) * 0.05;
+                mesh.scale.set(breathingScale, breathingScale, breathingScale);
+            }
+            
+            if (particles) {
+                particles.rotation.x += animationSpeed * 0.1;
+                particles.rotation.y += animationSpeed * 0.15;
+                
+                // Occasionally update particles
+                if (Math.random() < 0.05) {
+                    updateParticles();
+                }
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize D3.js coherence meter
+        function initCoherenceMeter() {
+            const width = document.getElementById('coherence-meter').clientWidth;
+            const height = 80;
+            
+            const svg = d3.select('#coherence-meter')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+            
+            // Create gradient
+            const gradient = svg.append('defs')
+                .append('linearGradient')
+                .attr('id', 'coherence-gradient')
+                .attr('gradientUnits', 'userSpaceOnUse')
+                .attr('x1', 0)
+                .attr('y1', height / 2)
+                .attr('x2', width)
+                .attr('y2', height / 2);
+            
+            gradient.append('stop')
+                .attr('offset', '0%')
+                .attr('stop-color', '#3a7d44'); // Ground State
+            
+            gradient.append('stop')
+                .attr('offset', '20%')
+                .attr('stop-color', '#e6b31e'); // Creation Point
+            
+            gradient.append('stop')
+                .attr('offset', '40%')
+                .attr('stop-color', '#e75874'); // Heart Field
+            
+            gradient.append('stop')
+                .attr('offset', '60%')
+                .attr('stop-color', '#7d3ac1'); // Voice Flow
+            
+            gradient.append('stop')
+                .attr('offset', '80%')
+                .attr('stop-color', '#22559c'); // Vision Gate
+            
+            gradient.append('stop')
+                .attr('offset', '100%')
+                .attr('stop-color', '#9e4770'); // Unity Wave
+            
+            // Create background
+            svg.append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', width)
+                .attr('height', height)
+                .attr('rx', 5)
+                .attr('ry', 5)
+                .attr('fill', 'rgba(0,0,0,0.3)');
+            
+            // Create wave
+            const waveGroup = svg.append('g')
+                .attr('class', 'wave');
+            
+            // Create meter fill
+            const meterFill = svg.append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', 0)
+                .attr('height', height)
+                .attr('rx', 5)
+                .attr('ry', 5)
+                .attr('fill', 'url(#coherence-gradient)')
+                .attr('opacity', 0.7);
+            
+            // Add markers
+            for (let i = 0; i <= 1; i += 0.1) {
+                svg.append('line')
+                    .attr('x1', i * width)
+                    .attr('y1', 0)
+                    .attr('x2', i * width)
+                    .attr('y2', 10)
+                    .attr('stroke', 'rgba(255,255,255,0.3)')
+                    .attr('stroke-width', i % 0.2 === 0 ? 2 : 1);
+                
+                if (i % 0.2 === 0) {
+                    svg.append('text')
+                        .attr('x', i * width)
+                        .attr('y', 25)
+                        .attr('text-anchor', 'middle')
+                        .attr('fill', 'rgba(255,255,255,0.5)')
+                        .attr('font-size', '10px')
+                        .text(i.toFixed(1));
+                }
+            }
+            
+            // Store meter fill for updates
+            window.meterFill = meterFill;
+        }
+        
+        // Update coherence meter
+        function updateCoherenceMeter(coherence) {
+            if (!window.meterFill) return;
+            
+            const width = document.getElementById('coherence-meter').clientWidth;
+            window.meterFill
+                .transition()
+                .duration(1000)
+                .attr('width', coherence * width);
+        }
+        
+        // Initialize Web Audio API
+        function initAudio() {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            gainNode = audioContext.createGain();
+            gainNode.gain.value = 0.5; // Default volume
+            gainNode.connect(audioContext.destination);
+        }
+        
+        // Play frequency
+        function playFrequency(frequency) {
+            if (!audioContext) {
+                initAudio();
+            }
+            
+            // If already playing, stop current oscillator
+            if (isPlaying && oscillator) {
+                oscillator.stop();
+            }
+            
+            // Create and configure oscillator
+            oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.connect(gainNode);
+            
+            // Start oscillator
+            oscillator.start();
+            isPlaying = true;
+            document.getElementById('play-icon').classList.remove('fa-play');
+            document.getElementById('play-icon').classList.add('fa-pause');
+        }
+        
+        // Stop frequency
+        function stopFrequency() {
+            if (oscillator) {
+                oscillator.stop();
+                isPlaying = false;
+                document.getElementById('play-icon').classList.remove('fa-pause');
+                document.getElementById('play-icon').classList.add('fa-play');
+            }
+        }
+        
+        // Toggle frequency playback
+        function toggleFrequency() {
+            if (isPlaying) {
+                stopFrequency();
+            } else {
+                playFrequency(currentFrequency);
+            }
+        }
+        
+        // Frequency selector event listeners
+        document.querySelectorAll('.frequency-button').forEach(button => {
+            button.addEventListener('click', () => {
+                currentFrequency = parseInt(button.dataset.frequency);
+                
+                // Update frequency info
+                updateFrequencyInfo(currentFrequency);
+                
+                // Update visualization
+                updateVisualization();
+                
+                // If audio is playing, update frequency
+                if (isPlaying) {
+                    playFrequency(currentFrequency);
+                }
+            });
+        });
+        
+        // Play button click handler
+        document.getElementById('play-button').addEventListener('click', toggleFrequency);
+        
+        // Volume control
+        document.getElementById('volume').addEventListener('input', (e) => {
+            if (gainNode) {
+                gainNode.gain.value = e.target.value;
+            }
+        });
+        
+        // Tool parameter controls
+        document.getElementById('rotation-speed').addEventListener('input', (e) => {
+            document.getElementById('rotation-speed-value').textContent = parseFloat(e.target.value).toFixed(1);
+            animationSpeed = e.target.value * 0.003;
+        });
+        
+        document.getElementById('complexity').addEventListener('input', (e) => {
+            document.getElementById('complexity-value').textContent = e.target.value;
+            updateVisualization();
+        });
+        
+        document.getElementById('particle-density').addEventListener('input', (e) => {
+            document.getElementById('particle-density-value').textContent = e.target.value;
+            // In a full implementation, this would update the particle system
+        });
+        
+        document.getElementById('field-strength').addEventListener('input', (e) => {
+            document.getElementById('field-strength-value').textContent = parseFloat(e.target.value).toFixed(1);
+            // In a full implementation, this would affect field strength
+        });
+        
+        // Back button
+        document.getElementById('back-to-cqil').addEventListener('click', () => {
+            window.location.href = '/website/pages/quantum-tools-suite.html';
+        });
+        
+        // Initialize on page load
+        window.onload = initVisualization;
+    </script>
+</body>
+</html>

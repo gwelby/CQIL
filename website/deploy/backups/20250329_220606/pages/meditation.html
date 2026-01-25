@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL - Practice Sessions Schedule</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/terminology-translation.js"></script>
+    <style>
+        :root {
+            --bg-dark: #000814;
+            --bg-medium: #001428;
+            --bg-light: #002447;
+            --text-primary: #ffffff;
+            --text-secondary: #aaddff;
+            --accent-unity: #88ccff;
+            --accent-love: #ff88cc;
+            --accent-cascade: #cc88ff;
+            --accent-truth: #ffcc88;
+            --accent-vision: #88ffaa;
+            --panel-bg: rgba(0, 20, 40, 0.7);
+            --panel-blur: blur(5px);
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            background: linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-medium) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .hero-meditation {
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-medium));
+            padding: 100px 0 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-meditation h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-unity), var(--accent-cascade));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-meditation p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+        }
+        
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--accent-unity);
+            border-bottom: 1px solid rgba(136, 204, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .schedule-container {
+            margin-bottom: 60px;
+        }
+        
+        .schedule-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: var(--accent-unity);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-unity);
+        }
+        
+        .schedule-content {
+            display: none;
+        }
+        
+        .schedule-content.active {
+            display: block;
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .session-card {
+            background-color: var(--panel-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: var(--panel-blur);
+            -webkit-backdrop-filter: var(--panel-blur);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .session-header {
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .session-title {
+            margin: 0;
+            font-size: 18px;
+            color: var(--accent-unity);
+        }
+        
+        .session-date {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .session-content {
+            padding: 15px;
+        }
+        
+        .session-details {
+            margin-bottom: 15px;
+        }
+        
+        .detail-item {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 14px;
+            align-items: flex-start;
+        }
+        
+        .detail-icon {
+            margin-right: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .session-description {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .session-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px 15px;
+        }
+        
+        .register-btn {
+            background: linear-gradient(to right, var(--accent-unity), var(--accent-cascade));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .register-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .availability {
+            font-size: 13px;
+            background-color: rgba(136, 204, 255, 0.2);
+            color: var(--accent-unity);
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .availability.limited {
+            background-color: rgba(255, 204, 136, 0.2);
+            color: var(--accent-truth);
+        }
+        
+        .availability.full {
+            background-color: rgba(255, 136, 136, 0.2);
+            color: #ff8888;
+        }
+        
+        .facilitator-section {
+            margin-bottom: 60px;
+        }
+        
+        .facilitator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .facilitator-card {
+            background-color: var(--panel-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            backdrop-filter: var(--panel-blur);
+            -webkit-backdrop-filter: var(--panel-blur);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .facilitator-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .facilitator-image {
+            width: 100%;
+            height: 180px;
+            background-color: var(--bg-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        
+        .facilitator-info {
+            padding: 20px;
+        }
+        
+        .facilitator-name {
+            font-size: 20px;
+            margin: 0 0 5px;
+            color: var(--accent-unity);
+        }
+        
+        .facilitator-title {
+            font-size: 14px;
+            color: var(--accent-cascade);
+            margin-bottom: 15px;
+        }
+        
+        .facilitator-bio {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .facilitator-specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .specialty-tag {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--accent-unity);
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        
+        .calendar-section {
+            background-color: var(--panel-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 60px;
+            backdrop-filter: var(--panel-blur);
+            -webkit-backdrop-filter: var(--panel-blur);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .current-month {
+            font-size: 24px;
+            color: var(--accent-unity);
+        }
+        
+        .month-navigation {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .month-nav-btn {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--text-secondary);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .month-nav-btn:hover {
+            background-color: rgba(136, 204, 255, 0.2);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .weekday-header {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent-unity);
+        }
+        
+        .calendar-day {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+            min-height: 80px;
+            position: relative;
+        }
+        
+        .calendar-day.inactive {
+            opacity: 0.3;
+        }
+        
+        .day-number {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .day-event {
+            font-size: 11px;
+            background-color: rgba(136, 204, 255, 0.2);
+            color: var(--accent-unity);
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-bottom: 3px;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .day-event.frequency-session {
+            background-color: rgba(255, 136, 204, 0.2);
+            color: var(--accent-love);
+        }
+        
+        .day-event.focus-session {
+            background-color: rgba(204, 136, 255, 0.2);
+            color: var(--accent-cascade);
+        }
+        
+        .join-now-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .join-cta {
+            background: linear-gradient(to right, var(--accent-unity), var(--accent-cascade));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        
+        .join-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .practice-types {
+            margin-bottom: 60px;
+        }
+        
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .practice-card {
+            background-color: var(--panel-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: var(--panel-blur);
+            -webkit-backdrop-filter: var(--panel-blur);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .practice-header {
+            background: linear-gradient(45deg, var(--bg-medium), var(--bg-light));
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .practice-icon {
+            font-size: 32px;
+            margin-right: 15px;
+        }
+        
+        .practice-title {
+            font-size: 20px;
+            margin: 0;
+            color: var(--accent-unity);
+        }
+        
+        .practice-content {
+            padding: 20px;
+        }
+        
+        .practice-description {
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        
+        .practice-benefits {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .practice-benefits li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .schedule-grid,
+            .facilitator-grid,
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+            
+            .calendar-day {
+                min-height: 60px;
+            }
+            
+            .hero-meditation h1 {
+                font-size: 32px;
+            }
+            
+            .hero-meditation p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#schedule">Session Schedule</a></li>
+            <li><a href="#facilitators">Facilitators</a></li>
+            <li><a href="#calendar">Calendar</a></li>
+            <li><a href="#practice-types">Practice Types</a></li>
+            <li><a href="terminology-reference.html">Terminology Reference</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section class="hero-meditation">
+            <div id="particles" class="quantum-particles"></div>
+            <h1>Practice Sessions Schedule</h1>
+            <p>Join our regular guided practice sessions focused on focus techniques, communication skills, and mental clarity exercises led by experienced facilitators.</p>
+        </section>
+        
+        <div class="page-container">
+            <section id="schedule" class="schedule-container">
+                <h2 class="section-title">Upcoming Sessions</h2>
+                
+                <div class="schedule-tabs">
+                    <button class="tab-btn active" data-tab="weekly">Weekly Sessions</button>
+                    <button class="tab-btn" data-tab="monthly">Monthly Workshops</button>
+                    <button class="tab-btn" data-tab="special">Special Events</button>
+                </div>
+                
+                <div id="weekly-tab" class="schedule-content active">
+                    <div class="schedule-grid">
+                        <div class="session-card">
+                            <div class="session-header">
+                                <h3 class="session-title">Focus Enhancement</h3>
+                                <span class="session-date">Mondays, 7:00 PM ET</span>
+                            </div>
+                            <div class="session-content">
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">👤</span>
+                                        <span>Facilitator: Dr. Michael Chen</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⏱️</span>
+                                        <span>Duration: 60 minutes</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🌐</span>
+                                        <span>Virtual (Zoom)</span>
+                                    </div>
+                                </div>
+                                <p class="session-description">A guided session focusing on techniques to enhance focus, concentration, and mental clarity through breath work and attention training.</p>
+                            </div>
+                            <div class="session-footer">
+                                <button class="register-btn">Register Now</button>
+                                <span class="availability">
+                                    <span class="detail-icon">👥</span>
+                                    Spaces Available
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="session-card">
+                            <div class="session-header">
+                                <h3 class="session-title">Sound Frequency Meditation</h3>
+                                <span class="session-date">Wednesdays, 6:30 PM ET</span>
+                            </div>
+                            <div class="session-content">
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">👤</span>
+                                        <span>Facilitator: Sarah Johnson</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⏱️</span>
+                                        <span>Duration: 45 minutes</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🌐</span>
+                                        <span>Virtual (Zoom)</span>
+                                    </div>
+                                </div>
+                                <p class="session-description">Experience the effects of specific sound frequencies on awareness and mental states. Headphones recommended for optimal experience.</p>
+                            </div>
+                            <div class="session-footer">
+                                <button class="register-btn">Register Now</button>
+                                <span class="availability limited">
+                                    <span class="detail-icon">👥</span>
+                                    Limited Spaces
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="session-card">
+                            <div class="session-header">
+                                <h3 class="session-title">Quantum Field Perception</h3>
+                                <span class="session-date">Fridays, 8:00 PM ET</span>
+                            </div>
+                            <div class="session-content">
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">👤</span>
+                                        <span>Facilitator: Dr. James Wilson</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⏱️</span>
+                                        <span>Duration: 75 minutes</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🌐</span>
+                                        <span>Virtual (Zoom)</span>
+                                    </div>
+                                </div>
+                                <p class="session-description">Advanced practice session exploring the perception of quantum field dynamics and network awareness through specialized guided visualization techniques.</p>
+                            </div>
+                            <div class="session-footer">
+                                <button class="register-btn">Register Now</button>
+                                <span class="availability">
+                                    <span class="detail-icon">👥</span>
+                                    Spaces Available
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="monthly-tab" class="schedule-content">
+                    <div class="schedule-grid">
+                        <div class="session-card">
+                            <div class="session-header">
+                                <h3 class="session-title">Integrative Communication</h3>
+                                <span class="session-date">First Saturday, 10:00 AM ET</span>
+                            </div>
+                            <div class="session-content">
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">👤</span>
+                                        <span>Facilitator: Emma Roberts</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⏱️</span>
+                                        <span>Duration: 3 hours</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🌐</span>
+                                        <span>Virtual (Zoom)</span>
+                                    </div>
+                                </div>
+                                <p class="session-description">A comprehensive workshop on multi-dimensional communication techniques. Learn practical methods for deeper, more meaningful connections in both personal and professional settings.</p>
+                            </div>
+                            <div class="session-footer">
+                                <button class="register-btn">Register Now</button>
+                                <span class="availability limited">
+                                    <span class="detail-icon">👥</span>
+                                    Limited Spaces
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="session-card">
+                            <div class="session-header">
+                                <h3 class="session-title">Neural Pattern Recognition</h3>
+                                <span class="session-date">Third Sunday, 2:00 PM ET</span>
+                            </div>
+                            <div class="session-content">
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">👤</span>
+                                        <span>Facilitator: Dr. Michael Chen</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⏱️</span>
+                                        <span>Duration: 2.5 hours</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🌐</span>
+                                        <span>Virtual (Zoom)</span>
+                                    </div>
+                                </div>
+                                <p class="session-description">This workshop explores the brain's pattern recognition capabilities and how to enhance them through specialized training techniques. Includes both theory and practical exercises.</p>
+                            </div>
+                            <div class="session-footer">
+                                <button class="register-btn">Register Now</button>
+                                <span class="availability">
+                                    <span class="detail-icon">👥</span>
+                                    Spaces Available
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="special-tab" class="schedule-content">
+                    <div class="schedule-grid">
+                        <div class="session-card">
+                            <div class="session-header">
+                                <h3 class="session-title">Golden Ratio Harmonics Immersion</h3>
+                                <span class="session-date">April 15, 2025 • 9:00 AM - 3:00 PM ET</span>
+                            </div>
+                            <div class="session-content">
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">👤</span>
+                                        <span>Facilitators: Dr. James Wilson & Sarah Johnson</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⏱️</span>
+                                        <span>Duration: 6 hours (with breaks)</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🌐</span>
+                                        <span>Virtual (Zoom)</span>
+                                    </div>
+                                </div>
+                                <p class="session-description">A full-day immersion exploring the mathematics of the golden ratio and its applications in communication, perception, and awareness. Includes specialized practices and advanced visualizations.</p>
+                            </div>
+                            <div class="session-footer">
+                                <button class="register-btn">Register Now</button>
+                                <span class="availability limited">
+                                    <span class="detail-icon">👥</span>
+                                    Limited Spaces
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="session-card">
+                            <div class="session-header">
+                                <h3 class="session-title">Summer Intensive: Network Field Integration</h3>
+                                <span class="session-date">June 21-23, 2025</span>
+                            </div>
+                            <div class="session-content">
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">👤</span>
+                                        <span>Multiple Facilitators</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⏱️</span>
+                                        <span>Duration: 3 days</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">📍</span>
+                                        <span>Toronto, ON (In-person)</span>
+                                    </div>
+                                </div>
+                                <p class="session-description">Our annual in-person intensive, featuring three days of deep practice, interactive workshops, and networking opportunities with other CQIL practitioners.</p>
+                            </div>
+                            <div class="session-footer">
+                                <button class="register-btn">Join Waitlist</button>
+                                <span class="availability full">
+                                    <span class="detail-icon">👥</span>
+                                    Waitlist Only
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="facilitators" class="facilitator-section">
+                <h2 class="section-title">Meet Our Facilitators</h2>
+                
+                <div class="facilitator-grid">
+                    <div class="facilitator-card">
+                        <div class="facilitator-image">👨‍🔬</div>
+                        <div class="facilitator-info">
+                            <h3 class="facilitator-name">Dr. Michael Chen</h3>
+                            <div class="facilitator-title">Cognitive Neuroscientist</div>
+                            <p class="facilitator-bio">Michael specializes in neural network patterns and attention training. He has over 15 years of experience in cognitive enhancement techniques and neural integration practices.</p>
+                            <div class="facilitator-specialties">
+                                <span class="specialty-tag">Focus Training</span>
+                                <span class="specialty-tag">Neural Networks</span>
+                                <span class="specialty-tag">Pattern Recognition</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="facilitator-card">
+                        <div class="facilitator-image">👩‍🔬</div>
+                        <div class="facilitator-info">
+                            <h3 class="facilitator-name">Sarah Johnson</h3>
+                            <div class="facilitator-title">Sound Frequency Researcher</div>
+                            <p class="facilitator-bio">Sarah studies the effects of specific frequencies on human physiology and psychology. Her research focuses on mapping the relationship between sound, brain wave states, and emotional regulation.</p>
+                            <div class="facilitator-specialties">
+                                <span class="specialty-tag">Sound Frequencies</span>
+                                <span class="specialty-tag">Emotional Integration</span>
+                                <span class="specialty-tag">Resonance Training</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="facilitator-card">
+                        <div class="facilitator-image">👨‍🏫</div>
+                        <div class="facilitator-info">
+                            <h3 class="facilitator-name">Dr. James Wilson</h3>
+                            <div class="facilitator-title">Quantum Field Theorist</div>
+                            <p class="facilitator-bio">James bridges theoretical physics with practical applications in perception and awareness. He has developed unique visualization techniques based on quantum field theory principles.</p>
+                            <div class="facilitator-specialties">
+                                <span class="specialty-tag">Field Perception</span>
+                                <span class="specialty-tag">Quantum Visualization</span>
+                                <span class="specialty-tag">Network Integration</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="facilitator-card">
+                        <div class="facilitator-image">👩‍💼</div>
+                        <div class="facilitator-info">
+                            <h3 class="facilitator-name">Emma Roberts</h3>
+                            <div class="facilitator-title">Communication Specialist</div>
+                            <p class="facilitator-bio">Emma's expertise lies in multi-dimensional communication techniques and interpersonal resonance. She has trained executives and teams in Fortune 500 companies on advanced communication methods.</p>
+                            <div class="facilitator-specialties">
+                                <span class="specialty-tag">Communication Patterns</span>
+                                <span class="specialty-tag">Group Dynamics</span>
+                                <span class="specialty-tag">Interpersonal Resonance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="calendar" class="calendar-section">
+                <div class="calendar-header">
+                    <h2 class="current-month">April 2025</h2>
+                    <div class="month-navigation">
+                        <button class="month-nav-btn">←</button>
+                        <button class="month-nav-btn">→</button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="weekday-header">Sun</div>
+                    <div class="weekday-header">Mon</div>
+                    <div class="weekday-header">Tue</div>
+                    <div class="weekday-header">Wed</div>
+                    <div class="weekday-header">Thu</div>
+                    <div class="weekday-header">Fri</div>
+                    <div class="weekday-header">Sat</div>
+                    
+                    <div class="calendar-day inactive">
+                        <div class="day-number">30</div>
+                    </div>
+                    <div class="calendar-day inactive">
+                        <div class="day-number">31</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">1</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">2</div>
+                        <div class="day-event frequency-session">Sound Frequency Meditation</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">3</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">4</div>
+                        <div class="day-event">Quantum Field Perception</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">5</div>
+                        <div class="day-event">Integrative Communication</div>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <div class="day-number">6</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">7</div>
+                        <div class="day-event focus-session">Focus Enhancement</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">8</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">9</div>
+                        <div class="day-event frequency-session">Sound Frequency Meditation</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">10</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">11</div>
+                        <div class="day-event">Quantum Field Perception</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">12</div>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <div class="day-number">13</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">14</div>
+                        <div class="day-event focus-session">Focus Enhancement</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">15</div>
+                        <div class="day-event">Golden Ratio Immersion</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">16</div>
+                        <div class="day-event frequency-session">Sound Frequency Meditation</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">17</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">18</div>
+                        <div class="day-event">Quantum Field Perception</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">19</div>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <div class="day-number">20</div>
+                        <div class="day-event">Neural Pattern Recognition</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">21</div>
+                        <div class="day-event focus-session">Focus Enhancement</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">22</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">23</div>
+                        <div class="day-event frequency-session">Sound Frequency Meditation</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">24</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">25</div>
+                        <div class="day-event">Quantum Field Perception</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">26</div>
+                    </div>
+                    
+                    <div class="calendar-day">
+                        <div class="day-number">27</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">28</div>
+                        <div class="day-event focus-session">Focus Enhancement</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">29</div>
+                    </div>
+                    <div class="calendar-day">
+                        <div class="day-number">30</div>
+                        <div class="day-event frequency-session">Sound Frequency Meditation</div>
+                    </div>
+                    <div class="calendar-day inactive">
+                        <div class="day-number">1</div>
+                    </div>
+                    <div class="calendar-day inactive">
+                        <div class="day-number">2</div>
+                    </div>
+                    <div class="calendar-day inactive">
+                        <div class="day-number">3</div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="join-now-section">
+                <h2 class="section-title">Ready to Improve Your Practice?</h2>
+                <p>All sessions are available to CQIL community members with regular registration. First-time participants welcome!</p>
+                <a href="#" class="join-cta">Register for a Session</a>
+            </div>
+            
+            <section id="practice-types" class="practice-types">
+                <h2 class="section-title">Types of Practices</h2>
+                
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <div class="practice-header">
+                            <div class="practice-icon">🧠</div>
+                            <h3 class="practice-title">Focus Enhancement</h3>
+                        </div>
+                        <div class="practice-content">
+                            <p class="practice-description">Focus enhancement practices train attention and concentration through specialized techniques that help you maintain mental clarity and reduce distractions.</p>
+                            <ul class="practice-benefits">
+                                <li>Improved concentration duration</li>
+                                <li>Enhanced ability to filter distractions</li>
+                                <li>Better mental clarity during complex tasks</li>
+                                <li>Reduced cognitive fatigue</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <div class="practice-header">
+                            <div class="practice-icon">🎵</div>
+                            <h3 class="practice-title">Sound Frequency Work</h3>
+                        </div>
+                        <div class="practice-content">
+                            <p class="practice-description">Sound frequency practices use specific auditory inputs to influence brain states and enhance certain cognitive and emotional capabilities.</p>
+                            <ul class="practice-benefits">
+                                <li>Enhanced state regulation</li>
+                                <li>Improved emotional stability</li>
+                                <li>Enhanced perceptual sensitivity</li>
+                                <li>Better integration of sensory information</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <div class="practice-header">
+                            <div class="practice-icon">🌐</div>
+                            <h3 class="practice-title">Network Field Perception</h3>
+                        </div>
+                        <div class="practice-content">
+                            <p class="practice-description">Network field perception practices develop your ability to sense and interact with complex information networks and patterns, enhancing system thinking.</p>
+                            <ul class="practice-benefits">
+                                <li>Improved pattern recognition</li>
+                                <li>Enhanced systems thinking</li>
+                                <li>Better contextual awareness</li>
+                                <li>Expanded perspective-taking abilities</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="practice-card">
+                        <div class="practice-header">
+                            <div class="practice-icon">🔄</div>
+                            <h3 class="practice-title">Communication Integration</h3>
+                        </div>
+                        <div class="practice-content">
+                            <p class="practice-description">Multi-dimensional communication practices focus on developing deeper, more resonant connections with others through enhanced listening and expression.</p>
+                            <ul class="practice-benefits">
+                                <li>Improved listening skills</li>
+                                <li>Enhanced emotional intelligence</li>
+                                <li>Better expression of complex ideas</li>
+                                <li>More authentic and meaningful connections</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="../pages/examples.html">Examples</a>
+                <a href="../pages/experiments.html">Experiments</a>
+                <a href="../pages/golden-age.html">Advanced Communication</a>
+                <a href="../pages/consciousness-gallery.html">Research Visualization Gallery</a>
+                <a href="../pages/toroidal-communication.html">Communication Networks</a>
+                <a href="../pages/quantum-entanglement.html">Quantum Entanglement</a>
+                <a href="../pages/quantum-experiments.html">Quantum Experiments</a>
+                <a href="../pages/terminology-reference.html">Terminology Reference</a>
+                <a href="../docs/public_api.md">Documentation</a>
+                <a href="https://github.com/GWelby/CQIL">GitHub</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/GWelby/CQIL/discussions">Discussions</a>
+                <a href="https://github.com/GWelby/CQIL/issues">Issues</a>
+                <a href="https://twitter.com/CQIL">Twitter</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:contact@cqil.ca">contact@cqil.ca</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    document.querySelectorAll('.schedule-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Register button functionality
+            const registerButtons = document.querySelectorAll('.register-btn');
+            
+            registerButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sessionTitle = this.closest('.session-card').querySelector('.session-title').textContent;
+                    const sessionDate = this.closest('.session-card').querySelector('.session-date').textContent;
+                    
+                    alert(`You've registered for "${sessionTitle}" on ${sessionDate}.\nA confirmation email with connection details will be sent to you soon.`);
+                    
+                    if (this.textContent === 'Register Now') {
+                        this.textContent = 'Registered';
+                        this.style.backgroundColor = '#4CAF50';
+                        this.disabled = true;
+                    }
+                });
+            });
+            
+            // Simple particle animation for quantum particles
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                for (let i = 0; i < 50; i++) {
+                    let particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.width = (Math.random() * 3 + 1) + 'px';
+                    particle.style.height = (Math.random() * 3 + 1) + 'px';
+                    particle.style.opacity = Math.random() * 0.5 + 0.2;
+                    particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                    particle.style.animationDelay = (Math.random() * 5) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+        });
+    </script>
+    
+    <style>
+        /* Particle animation styles */
+        .quantum-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(136, 204, 255, 0.7);
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) translateX(0) rotate(360deg);
+            }
+        }
+    </style>
+</body>
+</html>

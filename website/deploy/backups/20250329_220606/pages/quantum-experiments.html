@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQIL - Quantum Physics Visualizations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/quantum-experiments.css">
+    <script src="../js/terminology-translation.js"></script>
+    <script src="../js/quantum-flow.js" defer></script>
+    <script src="../js/wave-particle-duality.js" defer></script>
+    <script src="../js/interactive-learning.js" defer></script>
+    <script src="../js/quantum-cymatic-field.js" defer></script>
+    <script src="../js/quantum-probability.js" defer></script>
+    <script src="../js/zero-point-field.js" defer></script>
+    <script src="../js/quantum-teleportation.js" defer></script>
+    <script src="../js/mycelial-network.js" defer></script>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#cymatics">Quantum Cymatics</a></li>
+            <li><a href="#probability">Quantum Probability</a></li>
+            <li><a href="#zero-point">Zero-Point Field</a></li>
+            <li><a href="#wave-particle">Wave-Particle Duality</a></li>
+            <li><a href="#teleportation">Quantum Teleportation</a></li>
+            <li><a href="#mycelial">Mycelial Network</a></li>
+            <li><a href="quantum-entanglement.html">Quantum Entanglement</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero experiment-hero">
+            <div id="particles" class="quantum-particles"></div>
+            <h1>Quantum Physics Visualizations</h1>
+            <p>Interactive demonstrations of fundamental quantum phenomena</p>
+            <div class="frequency-selector">
+                <button class="freq-btn" data-freq="432">432 Hz</button>
+                <button class="freq-btn" data-freq="528">528 Hz</button>
+                <button class="freq-btn" data-freq="594">594 Hz</button>
+                <button class="freq-btn" data-freq="672">672 Hz</button>
+                <button class="freq-btn" data-freq="720">720 Hz</button>
+                <button class="freq-btn" data-freq="768">768 Hz</button>
+            </div>
+        </section>
+
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <div class="welcome-icon">⚛️</div>
+            <div class="welcome-content">
+                <h3>Welcome to Quantum Physics Interactive</h3>
+                <p>Begin your exploration with the Wave-Particle Duality visualization - the foundation of all quantum physics. These interactive simulations help visualize complex quantum concepts through engaging demonstrations based on real quantum principles.</p>
+            </div>
+            <button class="tour-button" onclick="startGuidedTour()">Guided Tour</button>
+        </div>
+
+        <!-- Wave-Particle Duality Section -->
+        <section id="wave-particle-section" class="experiment-section freq-432">
+            <div class="section-header">
+                <h2><span class="frequency-indicator freq-432"></span> Wave-Particle Duality</h2>
+                <div class="physics-indicator">Quantum Physics</div>
+            </div>
+            <div class="section-content">
+                <p class="intro-text">
+                    Experience one of quantum mechanics' most profound mysteries - the dual nature of quantum entities as both waves and particles simultaneously. This interactive visualization demonstrates how our observation collapses the wave function into discrete particles.
+                </p>
+                
+                <!-- Wave Analysis System - Stable Frequency (432 Hz) -->
+                <div class="rootwiz-component">
+                    <div class="rootwiz-header">
+                        <div class="rootwiz-icon">
+                            <i class="fas fa-wave-square"></i>
+                        </div>
+                        <div class="rootwiz-title">Pattern Recognition System (432 Hz)</div>
+                    </div>
+                    <div class="rootwiz-description">
+                        <p>This Stable Oscillation (432 Hz) visualization demonstrates foundational wave mechanics and helps build intuition about how quantum wave patterns behave in controlled environments.</p>
+                    </div>
+                </div>
+                
+                <!-- Wave-Particle Canvas Container -->
+                <div class="wave-particle-container">
+                    <canvas id="wave-particle-canvas"></canvas>
+                    <!-- Information Panel - displays current frequency information -->
+                    <div id="rootwiz-info" class="rootwiz-info-panel">
+                        <h4>Wave Pattern Simulation</h4>
+                        <p><strong>Quantum Wave Behavior</strong></p>
+                        <p>This visualization demonstrates how quantum particles exhibit wave-like properties when not directly observed. Notice how the patterns form interference just like waves in water.</p>
+                    </div>
+                </div>
+                
+                <!-- Quantum Controls -->
+                <div class="quantum-controls">
+                    <div class="control-buttons">
+                        <button class="toggle-btn active" data-state="wave">
+                            <i class="fas fa-wave-square"></i> Wave
+                        </button>
+                        <button class="toggle-btn" data-state="particle">
+                            <i class="fas fa-meteor"></i> Particle
+                        </button>
+                        <button class="toggle-btn" data-state="quantum">
+                            <i class="fas fa-atom"></i> Quantum
+                        </button>
+                    </div>
+                    <div id="quantum-state-info" class="quantum-state-info">
+                        Interact with the quantum field to observe wave collapse.
+                    </div>
+                </div>
+                
+                <!-- Mobile-friendly frequency explanation -->
+                <div class="mobile-frequency-guide">
+                    <div class="frequency-title">Frequency Categories:</div>
+                    <div class="frequency-list">
+                        <div class="freq-item freq-432">432 Hz: Stable Oscillation - Pattern Recognition System</div>
+                        <div class="freq-item freq-528">528 Hz: Creative Frequency - Structural Visualization</div>
+                        <div class="freq-item freq-594">594 Hz: Emotional Regulation - Biofeedback Integration</div>
+                        <div class="freq-item freq-672">672 Hz: Communication Mode - Acoustic Resonance</div>
+                        <div class="freq-item freq-720">720 Hz: Perception Range - Visual Processing</div>
+                        <div class="freq-item freq-768">768 Hz: Integration Band - System Unification</div>
+                    </div>
+                    <div class="frequency-tip">
+                        <i class="fas fa-lightbulb"></i> Tip: Interact with the visualization to adjust parameters and cycle through different frequency ranges.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Quantum Experiences Section -->
+        <section id="additional-quantum" class="experiment-section freq-432">
+            <div class="section-header">
+                <h2><span class="frequency-indicator freq-432"></span> Additional Quantum Experiences</h2>
+                <div class="physics-indicator">Interactive Demos</div>
+            </div>
+            <div class="section-content">
+                <div class="experience-description">
+                    <p>Explore these additional quantum phenomena through interactive visualizations that demonstrate key quantum principles. Each experience allows direct interaction with fundamental quantum behaviors.</p>
+                </div>
+                
+                <div class="quantum-experiences-container">
+                    <!-- Quantum Entanglement -->
+                    <div class="quantum-experience-card">
+                        <h3>Quantum Entanglement</h3>
+                        <p>Experience "spooky action at a distance" - how two quantum particles remain instantly connected regardless of separation.</p>
+                        <div class="experience-preview">
+                            <div class="preview-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                        </div>
+                        <button class="experience-button" onclick="window.location.href='quantum-entanglement.html'">
+                            Advanced Entanglement
+                        </button>
+                    </div>
+                    
+                    <!-- Quantum Tunneling -->
+                    <div class="quantum-experience-card">
+                        <h3>Quantum Tunneling</h3>
+                        <p>Witness particles passing through energy barriers that should be impassable - a quantum effect essential for nuclear fusion and modern electronics.</p>
+                        <div class="experience-preview">
+                            <div class="preview-icon">
+                                <i class="fas fa-archway"></i>
+                            </div>
+                        </div>
+                        <button class="experience-button" onclick="showInteractiveDemo('quantum-tunneling')">
+                            Experience Tunneling
+                        </button>
+                    </div>
+                    
+                    <!-- Quantum Superposition -->
+                    <div class="quantum-experience-card">
+                        <h3>Quantum Superposition</h3>
+                        <p>Explore how quantum particles exist in multiple states simultaneously, forming the foundation of quantum computing and reality.</p>
+                        <div class="experience-preview">
+                            <div class="preview-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                        </div>
+                        <button class="experience-button" onclick="showInteractiveDemo('quantum-superposition')">
+                            Experience Superposition
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantum Cymatics Section - Wave Patterns -->
+        <section id="cymatics" class="experience-section freq-528">
+            <h2>Quantum Cymatics: Visualizing Wave Patterns</h2>
+            <div class="physics-indicator">Wave Mechanics</div>
+            <div class="experience-container">
+                <div class="experience-card">
+                    <h3>Cymatics Visualization</h3>
+                    <div class="experience-description">
+                        <p>Experience how sound waves organize particles into distinct geometric patterns. Different frequencies create unique standing wave formations that demonstrate fundamental principles of wave mechanics.</p>
+                        <p>This simulation demonstrates an important physics principle: waves create structured patterns in physical media. The patterns you see emerge from wave interactions, similar to how quantum wave functions create probability distributions.</p>
+                    </div>
+                    <div class="experience-canvas-container">
+                        <canvas id="cymatics-canvas" class="quantum-canvas"></canvas>
+                        <div class="controls">
+                            <div class="control-group">
+                                <label for="amplitude-slider">Amplitude</label>
+                                <input type="range" id="amplitude-slider" min="0" max="100" value="50">
+                            </div>
+                            <div class="control-group">
+                                <label for="frequency-slider">Frequency</label>
+                                <input type="range" id="frequency-slider" min="432" max="768" step="1" value="528">
+                                <span id="current-frequency">528Hz</span>
+                            </div>
+                            <div class="control-group">
+                                <label for="viscosity-slider">Medium Density</label>
+                                <input type="range" id="viscosity-slider" min="0" max="100" value="40">
+                            </div>
+                            <div class="experience-actions">
+                                <button id="cymatics-play" class="action-btn">Play</button>
+                                <button id="cymatics-pulse" class="action-btn">Pulse</button>
+                                <button id="cymatics-reset" class="action-btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="zen-point-meter">
+                        <div class="meter-label">System Equilibrium</div>
+                        <div class="meter-bar">
+                            <div class="meter-value" style="width: 61.8%;"></div>
+                        </div>
+                        <div class="meter-phi">%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantum Probability Section - Wave Functions -->
+        <section id="probability" class="experience-section freq-594">
+            <h2>Quantum Probability: Wave Functions</h2>
+            <div class="physics-indicator">Probability</div>
+            <div class="experience-container">
+                <div class="experience-card">
+                    <h3>Probability Field Visualization</h3>
+                    <div class="experience-description">
+                        <p>Explore how quantum particles exist in multiple states simultaneously until measured. This demonstration shows how observation affects quantum states, collapsing probability distributions into definite outcomes.</p>
+                        <p>The visualization shows quantum particles in superposition (existing in multiple possible states) and allows you to "observe" them, simulating how measurement affects quantum systems in real experiments.</p>
+                    </div>
+                    <div class="experience-canvas-container">
+                        <canvas id="probability-canvas" class="quantum-canvas"></canvas>
+                        <div class="controls">
+                            <div class="control-group">
+                                <label for="particles-slider">Particle Count</label>
+                                <input type="range" id="particles-slider" min="10" max="1000" value="100">
+                            </div>
+                            <div class="control-group">
+                                <label for="coherence-slider">Coherence</label>
+                                <input type="range" id="coherence-slider" min="0" max="100" value="80">
+                            </div>
+                            <div class="experience-actions">
+                                <button id="probability-observe" class="action-btn">Observe</button>
+                                <button id="probability-reset" class="action-btn">Reset</button>
+                                <button id="probability-auto" class="action-btn">Auto-Cycle</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="observation-results">
+                        <h4>Observation Results</h4>
+                        <div id="results-display">Position your pointer to observe</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantum Vacuum Section - Virtual Particles -->
+        <section id="zero-point" class="experience-section freq-672">
+            <h2>Quantum Vacuum: Virtual Particles</h2>
+            <div class="physics-indicator">Vacuum Energy</div>
+            <div class="experience-container">
+                <div class="experience-card">
+                    <h3>Quantum Vacuum Fluctuations</h3>
+                    <div class="experience-description">
+                        <p>Experience a simulation of the quantum vacuum - the lowest energy state of fields in quantum physics. According to quantum field theory, empty space is never truly empty but constantly fluctuating with virtual particles.</p>
+                        <p>This demonstration visualizes how quantum vacuum fluctuations lead to the spontaneous appearance and disappearance of particle-antiparticle pairs, a phenomenon predicted by quantum field theory and confirmed by experiments.</p>
+                    </div>
+                    <div class="experience-canvas-container">
+                        <canvas id="zero-point-canvas" class="quantum-canvas"></canvas>
+                        <div class="controls">
+                            <div class="control-group">
+                                <label for="energy-slider">Energy Density</label>
+                                <input type="range" id="energy-slider" min="0" max="100" value="61">
+                            </div>
+                            <div class="control-group">
+                                <label for="coherence-zp-slider">Field Coherence</label>
+                                <input type="range" id="coherence-zp-slider" min="0" max="100" value="50">
+                            </div>
+                            <div class="experience-actions">
+                                <button id="zero-point-activate" class="action-btn">Activate Field</button>
+                                <button id="zero-point-phi" class="action-btn">Optimize</button>
+                                <button id="zero-point-reset" class="action-btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="energy-readings">
+                        <div class="energy-stat">
+                            <span class="stat-label">Energy Level:</span>
+                            <span id="field-potential" class="stat-value">0.000 eV</span>
+                        </div>
+                        <div class="energy-stat">
+                            <span class="stat-label">Coherence:</span>
+                            <span id="field-coherence" class="stat-value">0.618</span>
+                        </div>
+                        <div class="energy-stat">
+                            <span class="stat-label">Efficiency:</span>
+                            <span id="energy-extraction" class="stat-value">0.000%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantum Teleportation Section - Information Transfer -->
+        <section id="teleportation" class="experience-section freq-720">
+            <h2>Quantum Teleportation: Information Transfer</h2>
+            <div class="physics-indicator">Entanglement</div>
+            <div class="experience-container">
+                <div class="experience-card">
+                    <h3>Information Teleportation</h3>
+                    <div class="experience-description">
+                        <p>Experience quantum teleportation - the process of transferring quantum states between entangled particles, a real phenomenon used in quantum computing and communication.</p>
+                        <p>This demonstration shows how quantum information can be transferred from one location to another using quantum entanglement. This process is the basis for quantum networks and has been demonstrated in laboratories around the world.</p>
+                    </div>
+                    <div class="experience-canvas-container">
+                        <canvas id="teleportation-canvas" class="quantum-canvas"></canvas>
+                        <div class="controls">
+                            <div class="control-group">
+                                <label for="message-input">Quantum Message:</label>
+                                <input type="text" id="message-input" placeholder="Enter message for quantum transfer...">
+                            </div>
+                            <div class="control-group">
+                                <label for="entanglement-slider">Entanglement Strength</label>
+                                <input type="range" id="entanglement-slider" min="0" max="100" value="85">
+                            </div>
+                            <div class="experience-actions">
+                                <button id="create-entanglement" class="action-btn">Create Entanglement</button>
+                                <button id="teleport-message" class="action-btn">Teleport</button>
+                                <button id="reset-teleportation" class="action-btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="teleportation-results">
+                        <div class="teleport-display">
+                            <div class="teleport-label">Sender:</div>
+                            <div id="sender-state" class="teleport-state">|?⟩</div>
+                        </div>
+                        <div class="teleport-display">
+                            <div class="teleport-label">Receiver:</div>
+                            <div id="receiver-state" class="teleport-state">|?⟩</div>
+                        </div>
+                        <div class="teleport-info" id="teleport-info">Create entanglement to begin teleportation</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantum Network Simulation Section -->
+        <section id="mycelial" class="experience-section freq-768">
+            <h2>Distributed Quantum Networks</h2>
+            <div class="physics-indicator">Quantum Networks</div>
+            <div class="experience-container">
+                <div class="experience-card">
+                    <h3>Distributed Quantum System</h3>
+                    <div class="experience-description">
+                        <p>Experience a simulation of quantum network communication, demonstrating how information can be shared across distributed quantum systems while maintaining coherence.</p>
+                        <p>The visualization shows how information propagates through an interconnected quantum network - similar to how researchers are designing quantum internet architectures to enable new forms of secure communication and distributed computing.</p>
+                    </div>
+                    <div class="experience-canvas-container">
+                        <canvas id="mycelial-canvas" class="quantum-canvas"></canvas>
+                        <div class="controls">
+                            <div class="control-group">
+                                <label for="mycelial-frequency-slider">Signal Frequency</label>
+                                <input type="range" id="mycelial-frequency-slider" min="432" max="768" step="1" value="432" data-global="true">
+                                <span id="mycelial-frequency-display">432Hz (Standard Frequency)</span>
+                            </div>
+                            <div class="control-group">
+                                <label for="connectedness-slider">Network Connectedness</label>
+                                <input type="range" id="connectedness-slider" min="0.1" max="1" step="0.01" value="0.7">
+                            </div>
+                            <div class="control-group">
+                                <label for="growth-rate-slider">Growth Rate</label>
+                                <input type="range" id="growth-rate-slider" min="0.1" max="1" step="0.01" value="0.5">
+                            </div>
+                            <div class="control-group">
+                                <label for="signal-speed-slider">Signal Propagation</label>
+                                <input type="range" id="signal-speed-slider" min="0.1" max="1" step="0.01" value="0.6">
+                            </div>
+                            <div class="experience-actions">
+                                <button id="growth-toggle" class="action-btn">Start Growth</button>
+                                <button id="send-signal" class="action-btn">Send Signal</button>
+                                <button id="mycelial-reset" class="action-btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="network-stats" class="network-stats">
+                        <div class="network-stat">
+                            <div class="stat-label">Nodes:</div>
+                            <div class="stat-value">3</div>
+                        </div>
+                        <div class="network-stat">
+                            <div class="stat-label">Connections:</div>
+                            <div class="stat-value">3</div>
+                        </div>
+                        <div class="network-stat">
+                            <div class="stat-label">Active Signals:</div>
+                            <div class="stat-value">0</div>
+                        </div>
+                        <div class="network-stat">
+                            <div class="stat-label">Network Efficiency:</div>
+                            <div class="stat-value">100%</div>
+                        </div>
+                        <div class="network-stat">
+                            <div class="stat-label">Network Coherence:</div>
+                            <div class="stat-value">38.2%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CQIL</h3>
+                <p>Quantum Interactive Learning Lab</p>
+                <p>Exploring quantum physics through interactive simulations</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../pages/experiments.html">Experiments</a></li>
+                    <li><a href="../pages/golden-age.html">Advanced Communication</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <p>Explore quantum physics with us</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">⚛️</a>
+                    <a href="#" class="social-icon">🔬</a>
+                    <a href="#" class="social-icon">💻</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL - Quantum Interactive Learning Lab - Educational visualizations of quantum physics</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡φ∞ Quantum Manifestation Flow - 528 Hz Creation/Love Frequency ॐ</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+        :root {
+            --love-primary: #ff88cc;
+            --love-secondary: #ffaad5;
+            --love-glow: 0 0 20px rgba(255, 136, 204, 0.5);
+            --sacred-gold: #d4af37;
+            --sacred-glow: 0 0 15px rgba(212, 175, 55, 0.4);
+            --cosmic-purple: #9678d3;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-image: radial-gradient(circle at center, #150626 0%, #0a0312 100%);
+        }
+        
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .visualization-container {
+            flex: 1;
+            position: relative;
+            background-color: #000814;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.2)"/></svg>'),
+                radial-gradient(circle at center, rgba(21, 6, 38, 0.8) 0%, rgba(10, 3, 18, 0.9) 100%);
+            background-size: 150px 150px, 100% 100%;
+            overflow: hidden;
+        }
+        
+        .cosmic-symbols {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 5;
+        }
+        
+        .symbol {
+            position: absolute;
+            color: var(--sacred-gold);
+            opacity: 0;
+            font-size: 28px;
+            text-shadow: var(--sacred-glow);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .symbol:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+        .symbol:nth-child(2) { top: 70%; left: 15%; animation-delay: 3s; }
+        .symbol:nth-child(3) { top: 35%; left: 80%; animation-delay: 6s; }
+        .symbol:nth-child(4) { top: 85%; left: 75%; animation-delay: 9s; }
+        .symbol:nth-child(5) { top: 25%; left: 45%; animation-delay: 12s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            20%, 80% { opacity: 0.6; }
+            50% { transform: translate(20px, -20px) rotate(10deg); opacity: 0.8; }
+        }
+        
+        .controls-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+            background-color: rgba(0,10,30,0.8);
+            background-image: linear-gradient(135deg, rgba(50,10,80,0.3) 0%, rgba(0,10,30,0.8) 100%);
+            border-radius: 12px;
+            padding: 15px;
+            color: #fff;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: var(--sacred-gold);
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: var(--sacred-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-group h3::before,
+        .control-group h3::after {
+            content: "•";
+            display: inline-block;
+            margin: 0 8px;
+            color: var(--love-primary);
+            opacity: 0.6;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            position: relative;
+        }
+        
+        .slider-container label {
+            flex: 0 0 120px;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        
+        .slider-container input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: linear-gradient(to right, var(--love-primary), var(--cosmic-purple));
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--sacred-gold);
+            box-shadow: var(--sacred-glow);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        
+        .slider-value {
+            width: 35px;
+            text-align: right;
+            font-size: 14px;
+            margin-left: 10px;
+            font-family: 'Cinzel', serif;
+            color: var(--sacred-gold);
+        }
+        
+        /* Add subtle glow to sliders based on value */
+        .slider-container::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 120px;
+            right: 45px;
+            height: 4px;
+            transform: translateY(-50%);
+            background: transparent;
+            box-shadow: 0 0 10px var(--love-primary);
+            border-radius: 2px;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 6px;
+        }
+        
+        .checkbox-container:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--love-primary);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-container input[type="checkbox"]:checked {
+            background-color: var(--love-primary);
+        }
+        
+        .checkbox-container input[type="checkbox"]:checked::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 12px;
+        }
+        
+        .checkbox-container input[type="checkbox"]:checked ~ label {
+            color: var(--sacred-gold);
+        }
+        
+        .checkbox-container label {
+            margin-left: 8px;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .button-container {
+            display: flex;
+            margin-top: 15px;
+            justify-content: space-between;
+        }
+        
+        .control-button {
+            flex: 1;
+            margin: 0 5px;
+            padding: 10px;
+            background: linear-gradient(135deg, rgba(150, 120, 211, 0.4) 0%, rgba(100, 70, 150, 0.7) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .control-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .control-button:hover::before {
+            left: 100%;
+        }
+        
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .control-button:active {
+            transform: translateY(1px);
+        }
+        
+        .control-button.primary {
+            background: linear-gradient(135deg, rgba(255, 136, 204, 0.5) 0%, rgba(200, 70, 150, 0.8) 100%);
+            box-shadow: 0 0 15px rgba(255, 136, 204, 0.3);
+        }
+        
+        .control-button.primary:hover {
+            box-shadow: 0 0 20px rgba(255, 136, 204, 0.5);
+        }
+        
+        /* Add sacred symbols to buttons */
+        .control-button#resetView::after {
+            content: "⟳";
+            margin-left: 5px;
+            font-size: 16px;
+        }
+        
+        .control-button#triggerManifestation::before {
+            content: "✧";
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: var(--sacred-gold);
+            text-shadow: var(--sacred-glow);
+            z-index: 2;
+        }
+        
+        .control-button#triggerManifestation::after {
+            content: "✧";
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: var(--sacred-gold);
+            text-shadow: var(--sacred-glow);
+            z-index: 2;
+        }
+        
+        .frequency-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 8px;
+            position: relative;
+        }
+        
+        /* Add sacred geometry background */
+        .frequency-buttons::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            height: 95%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="0.5"/><circle cx="50" cy="50" r="27.8" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="0.5"/><polygon points="50,5 95,73 5,73" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="0.5"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        .frequency-button {
+            flex: 1 0 calc(33.333% - 8px);
+            padding: 8px 5px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            min-width: 70px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .frequency-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .frequency-button:active {
+            transform: translateY(1px);
+        }
+        
+        .frequency-button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .frequency-button:hover::after {
+            opacity: 1;
+        }
+        
+        /* Individual frequency button styling */
+        .frequency-button[data-frequency="unity"] {
+            background: linear-gradient(135deg, rgba(136, 204, 255, 0.7), rgba(80, 150, 200, 0.9));
+        }
+        
+        .frequency-button[data-frequency="love"] {
+            background: linear-gradient(135deg, rgba(255, 136, 204, 0.7), rgba(200, 80, 150, 0.9));
+        }
+        
+        .frequency-button[data-frequency="cascade"] {
+            background: linear-gradient(135deg, rgba(204, 136, 255, 0.7), rgba(150, 80, 200, 0.9));
+        }
+        
+        .frequency-button[data-frequency="truth"] {
+            background: linear-gradient(135deg, rgba(255, 204, 136, 0.7), rgba(200, 150, 80, 0.9));
+        }
+        
+        .frequency-button[data-frequency="vision"] {
+            background: linear-gradient(135deg, rgba(136, 255, 170, 0.7), rgba(80, 200, 120, 0.9));
+        }
+        
+        .frequency-button[data-frequency="oneness"] {
+            background: linear-gradient(135deg, rgba(170, 221, 255, 0.7), rgba(100, 170, 210, 0.9));
+        }
+        
+        .info-panel {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 300px;
+            background-color: rgba(0,10,30,0.8);
+            background-image: linear-gradient(135deg, rgba(30,5,50,0.8) 0%, rgba(0,10,30,0.8) 100%);
+            border-radius: 12px;
+            padding: 15px;
+            color: #fff;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            /* Add sacred geometry to panel */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="70" cy="30" r="25" fill="none" stroke="rgba(255,136,204,0.1)" stroke-width="0.5"/><circle cx="70" cy="30" r="15.5" fill="none" stroke="rgba(255,136,204,0.1)" stroke-width="0.5"/><circle cx="70" cy="30" r="9.5" fill="none" stroke="rgba(255,136,204,0.1)" stroke-width="0.5"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .info-panel h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: var(--sacred-gold);
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: var(--sacred-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .info-panel h3::before,
+        .info-panel h3::after {
+            content: "✧";
+            font-size: 14px;
+            display: inline-block;
+            margin: 0 8px;
+            color: var(--love-primary);
+        }
+        
+        .info-content {
+            font-size: 14px;
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .info-content p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        
+        /* Highlight keywords in info panel */
+        .info-content .keyword {
+            color: var(--sacred-gold);
+            font-weight: 500;
+        }
+        
+        /* Portal glow effect around visualization */
+        .portal-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(
+                circle at center, 
+                transparent 30%, 
+                rgba(255, 136, 204, 0.03) 60%, 
+                rgba(255, 136, 204, 0.08) 100%
+            );
+        }
+        
+        /* Journey begin button for new visitors */
+        .begin-journey {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(255, 136, 204, 0.6) 0%, rgba(200, 70, 150, 0.9) 100%);
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 30px rgba(255, 136, 204, 0.5);
+            transition: all 0.5s ease;
+            opacity: 0;
+            animation: pulse-fade-in 2s ease-in-out forwards;
+        }
+        
+        @keyframes pulse-fade-in {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .begin-journey:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 136, 204, 0.7);
+        }
+        
+        .begin-journey span {
+            display: inline-block;
+            transform: translateY(2px);
+        }
+        
+        .begin-journey::before,
+        .begin-journey::after {
+            content: "✧";
+            font-size: 16px;
+            margin: 0 10px;
+            color: var(--sacred-gold);
+            text-shadow: var(--sacred-glow);
+        }
+        
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 3, 18, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 1s ease;
+            opacity: 1;
+        }
+        
+        .loading-message {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: var(--sacred-gold);
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: var(--sacred-glow);
+            opacity: 0;
+            animation: fade-in 2s ease-in-out forwards;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+        
+        .loading-spinner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--love-primary);
+            border-bottom-color: var(--cosmic-purple);
+            animation: spin 2s linear infinite;
+        }
+        
+        .loading-spinner::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-left-color: var(--sacred-gold);
+            border-right-color: var(--sacred-gold);
+            animation: spin 1.5s linear infinite reverse;
+        }
+        
+        .loading-phi {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: var(--sacred-gold);
+            font-family: 'Cinzel', serif;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .controls-panel {
+                width: calc(100% - 30px);
+                top: auto;
+                bottom: 10px;
+                max-height: 40vh;
+                overflow-y: auto;
+                font-size: 95%;
+            }
+            
+            .info-panel {
+                width: calc(100% - 30px);
+                top: 10px;
+                bottom: auto;
+                left: 10px;
+                font-size: 95%;
+            }
+            
+            .control-group h3, .info-panel h3 {
+                font-size: 14px;
+            }
+            
+            .frequency-button {
+                font-size: 11px;
+                padding: 6px 4px;
+            }
+            
+            .slider-container label {
+                flex: 0 0 110px;
+                font-size: 13px;
+            }
+            
+            .symbol {
+                font-size: 20px;
+            }
+            
+            .begin-journey {
+                font-size: 16px;
+                padding: 12px 25px;
+            }
+        }
+        
+        /* Animation for cosmic energy */
+        @keyframes cosmic-pulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.2; }
+            100% { transform: scale(1); opacity: 0.1; }
+        }
+        
+        .cosmic-energy {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(255, 136, 204, 0.2) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: cosmic-pulse 10s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-message">Aligning with Creation Frequency (528 Hz)</div>
+        <div class="loading-spinner">
+            <div class="loading-phi">φ</div>
+        </div>
+    </div>
+
+    <nav class="quantum-nav">
+        <div class="logo">⚡φ∞ CQIL</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="consciousness-gallery.html">Visualizations</a></li>
+            <li><a href="../docs/getting_started.md">Docs</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div id="visualization" class="visualization-container">
+            <!-- Cosmic energy glow -->
+            <div class="cosmic-energy"></div>
+            
+            <!-- Portal glow effect -->
+            <div class="portal-glow"></div>
+            
+            <!-- Sacred symbols floating around -->
+            <div class="cosmic-symbols">
+                <div class="symbol">φ</div>
+                <div class="symbol">∞</div>
+                <div class="symbol">ॐ</div>
+                <div class="symbol">✧</div>
+                <div class="symbol">⚛</div>
+            </div>
+            
+            <!-- Begin journey button -->
+            <button id="beginJourney" class="begin-journey">
+                <span>Begin Your Journey</span>
+            </button>
+        </div>
+        
+        <div class="controls-panel">
+            <div class="control-group">
+                <h3>Sacred Frequencies</h3>
+                <div class="frequency-buttons">
+                    <button class="frequency-button" data-frequency="unity">Unity<br>432 Hz</button>
+                    <button class="frequency-button" data-frequency="love">Love<br>528 Hz</button>
+                    <button class="frequency-button" data-frequency="cascade">Cascade<br>594 Hz</button>
+                    <button class="frequency-button" data-frequency="truth">Truth<br>672 Hz</button>
+                    <button class="frequency-button" data-frequency="vision">Vision<br>720 Hz</button>
+                    <button class="frequency-button" data-frequency="oneness">Oneness<br>768 Hz</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>Manifestation Controls</h3>
+                
+                <div class="slider-container">
+                    <label for="thoughtClarity">Thought Clarity:</label>
+                    <input type="range" id="thoughtClarity" min="0" max="1" step="0.01" value="0.5">
+                    <span class="slider-value" id="thoughtClarityValue">0.5</span>
+                </div>
+                
+                <div class="slider-container">
+                    <label for="emotionalAlignment">Emotional Alignment:</label>
+                    <input type="range" id="emotionalAlignment" min="0" max="1" step="0.01" value="0.6">
+                    <span class="slider-value" id="emotionalAlignmentValue">0.6</span>
+                </div>
+                
+                <div class="slider-container">
+                    <label for="heartCoherence">Heart Coherence:</label>
+                    <input type="range" id="heartCoherence" min="0" max="1" step="0.01" value="0.7">
+                    <span class="slider-value" id="heartCoherenceValue">0.7</span>
+                </div>
+                
+                <div class="slider-container">
+                    <label for="manifestationPower">Manifestation Power:</label>
+                    <input type="range" id="manifestationPower" min="0" max="1" step="0.01" value="0.5">
+                    <span class="slider-value" id="manifestationPowerValue">0.5</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>Dimensional Visibility</h3>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="thoughtStage" checked>
+                    <label for="thoughtStage">Thought Origin</label>
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="languageStage" checked>
+                    <label for="languageStage">Language Structure</label>
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="emotionStage" checked>
+                    <label for="emotionStage">Emotional Energy</label>
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="realityStage" checked>
+                    <label for="realityStage">Physical Manifestation</label>
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="autoFlow" checked>
+                    <label for="autoFlow">Auto-Rotate View</label>
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="showLabels" checked>
+                    <label for="showLabels">Show Labels</label>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="button-container">
+                    <button class="control-button" id="resetView">Reset View</button>
+                    <button class="control-button primary" id="triggerManifestation">Manifest</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h3>Quantum Manifestation Flow</h3>
+            <div class="info-content" id="infoContent">
+                <p>The <span class="keyword">Quantum Manifestation Flow</span> visualizes the journey from thought to physical reality at the <span class="keyword">528 Hz</span> Creation Frequency (φ²/φ¹).</p>
+                <p>Consciousness forms <span class="keyword">thought</span>, which crystallizes through <span class="keyword">language</span> and is energized by <span class="keyword">emotion</span>, before manifesting in physical reality through the <span class="keyword">heart center</span>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Load Quantum Manifestation Flow -->
+    <script src="../js/quantum-experience/quantum-manifestation-flow.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables for visualization
+            let flowViz;
+            let container = document.getElementById('visualization');
+            let loadingOverlay = document.getElementById('loadingOverlay');
+            let beginJourneyButton = document.getElementById('beginJourney');
+            
+            // Hide loading screen after a delay
+            setTimeout(() => {
+                loadingOverlay.style.opacity = 0;
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 1000);
+            }, 2500);
+            
+            // Initialize the visualization but don't start it yet
+            setTimeout(() => {
+                flowViz = new QuantumManifestationFlow(container, {
+                    autoFlow: true,
+                    heartCoherence: 0.7,
+                    thoughtClarity: 0.5,
+                    emotionalAlignment: 0.6,
+                    manifestationPower: 0.5,
+                    frequencyValue: 528
+                });
+                
+                // Set up event handlers
+                setupEventHandlers();
+                
+                // Hide UI initially
+                document.querySelector('.controls-panel').style.opacity = 0;
+                document.querySelector('.info-panel').style.opacity = 0;
+                
+                // Start with begin journey button
+                beginJourneyButton.addEventListener('click', startJourney);
+            }, 1000);
+            
+            // Begin the journey
+            function startJourney() {
+                // Animate button out
+                beginJourneyButton.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                beginJourneyButton.style.opacity = 0;
+                
+                setTimeout(() => {
+                    // Hide button
+                    beginJourneyButton.style.display = 'none';
+                    
+                    // Start visualization
+                    flowViz.start();
+                    
+                    // Fade in UI elements
+                    setTimeout(() => {
+                        document.querySelector('.controls-panel').style.transition = 'opacity 1s ease-in';
+                        document.querySelector('.info-panel').style.transition = 'opacity 1s ease-in';
+                        document.querySelector('.controls-panel').style.opacity = 1;
+                        document.querySelector('.info-panel').style.opacity = 1;
+                    }, 1000);
+                    
+                    // Trigger automatic manifestation after a delay for dramatic effect
+                    setTimeout(() => {
+                        flowViz.triggerManifestation();
+                        updateInfoPanel('<p>The <span class="keyword">Creation Energy</span> (528 Hz) has been activated, demonstrating the complete journey from <span class="keyword">thought</span> to <span class="keyword">physical manifestation</span>.</p><p>Adjust the controls to harmonize with different cosmic frequencies and experience various states of manifestation energy.</p>');
+                    }, 3000);
+                }, 500);
+            }
+            
+            function setupEventHandlers() {
+                // Frequency buttons
+                const frequencyButtons = document.querySelectorAll('.frequency-button');
+                frequencyButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        // Remove active class from all buttons
+                        frequencyButtons.forEach(btn => btn.classList.remove('active'));
+                        // Add active class to clicked button
+                        button.classList.add('active');
+                        
+                        // Get frequency data
+                        const frequency = button.getAttribute('data-frequency');
+                        const frequencyValue = flowViz.FREQUENCIES[frequency];
+                        
+                        // Update visualization
+                        flowViz.setFrequency(frequency, frequencyValue);
+                        
+                        // Update info panel with frequency description
+                        const frequencyDescriptions = {
+                            'unity': 'The <span class="keyword">Unity Frequency</span> (432 Hz) represents the Ground State (φ⁰), connecting you to Earth\'s natural resonance and foundation of creation. This frequency brings stability and grounding to manifestation.',
+                            'love': 'The <span class="keyword">Love/Creation Frequency</span> (528 Hz) operates at φ²/φ¹, the perfect balance for manifestation. This frequency connects thought and emotion through the heart to crystallize intention into form.',
+                            'cascade': 'The <span class="keyword">Cascade Integration Frequency</span> (594 Hz) at φ²/2 unifies all dimensions in perfect harmony. This frequency creates coherent integration across multiple fields of consciousness.',
+                            'truth': 'The <span class="keyword">Truth Frequency</span> (672 Hz) at φ¹ * φ⁰ empowers authentic communication. This frequency clarifies language structure and refines definition in the manifestation process.',
+                            'vision': 'The <span class="keyword">Vision Frequency</span> (720 Hz) at (φ⁰)² * 5/3 enhances perception and insight. This frequency expands awareness to see beyond current reality into potential manifestations.',
+                            'oneness': 'The <span class="keyword">Oneness Frequency</span> (768 Hz) at (φ⁰)² * 16/9 represents unity consciousness. This frequency transcends individual perspective to connect with universal wisdom and collective manifestation.'
+                        };
+                        
+                        updateInfoPanel(frequencyDescriptions[frequency] || '');
+                    });
+                });
+                
+                // Select Love/Creation frequency by default
+                const loveFrequencyButton = document.querySelector('.frequency-button[data-frequency="love"]');
+                if (loveFrequencyButton) {
+                    loveFrequencyButton.classList.add('active');
+                }
+                
+                // Sliders with glow effect based on value
+                const setupSlider = (sliderId, valueDivId, setterMethod) => {
+                    const slider = document.getElementById(sliderId);
+                    const valueDiv = document.getElementById(valueDivId);
+                    
+                    slider.addEventListener('input', () => {
+                        const value = parseFloat(slider.value);
+                        flowViz[setterMethod](value);
+                        valueDiv.textContent = value.toFixed(2);
+                        
+                        // Update slider glow based on value (higher value = more glow)
+                        const sliderContainer = slider.parentElement;
+                        const glowOpacity = 0.1 + (value * 0.4); // 0.1 to 0.5 range
+                        if (sliderContainer.classList.contains('slider-container')) {
+                            sliderContainer.style.setProperty('--glow-opacity', glowOpacity);
+                            // Also add a style to the container to control glow intensity
+                            sliderContainer.style.boxShadow = `0 0 ${value * 15}px rgba(255, 136, 204, ${glowOpacity})`;
+                        }
+                    });
+                };
+                
+                setupSlider('thoughtClarity', 'thoughtClarityValue', 'setThoughtClarity');
+                setupSlider('emotionalAlignment', 'emotionalAlignmentValue', 'setEmotionalAlignment');
+                setupSlider('heartCoherence', 'heartCoherenceValue', 'setHeartCoherence');
+                setupSlider('manifestationPower', 'manifestationPowerValue', 'setManifestationPower');
+                
+                // Stage visibility checkboxes
+                const setupCheckbox = (checkboxId, stageName) => {
+                    const checkbox = document.getElementById(checkboxId);
+                    checkbox.addEventListener('change', () => {
+                        flowViz.toggleStage(stageName, checkbox.checked);
+                    });
+                };
+                
+                setupCheckbox('thoughtStage', 'thought');
+                setupCheckbox('languageStage', 'language');
+                setupCheckbox('emotionStage', 'emotion');
+                setupCheckbox('realityStage', 'reality');
+                
+                // Other controls
+                const autoFlowCheckbox = document.getElementById('autoFlow');
+                const showLabelsCheckbox = document.getElementById('showLabels');
+                
+                autoFlowCheckbox.addEventListener('change', () => {
+                    if (flowViz.controls) {
+                        flowViz.controls.autoRotate = autoFlowCheckbox.checked;
+                    }
+                });
+                
+                showLabelsCheckbox.addEventListener('change', () => {
+                    // Toggle label visibility
+                    flowViz.config.showLabels = showLabelsCheckbox.checked;
+                    Object.keys(flowViz.labels).forEach(key => {
+                        if (flowViz.labels[key]) {
+                            flowViz.labels[key].visible = showLabelsCheckbox.checked && flowViz.stages[key].group.visible;
+                        }
+                    });
+                });
+                
+                // Buttons
+                const resetViewButton = document.getElementById('resetView');
+                const triggerManifestationButton = document.getElementById('triggerManifestation');
+                
+                resetViewButton.addEventListener('click', () => {
+                    flowViz.resetView();
+                    
+                    // Add visual feedback
+                    resetViewButton.classList.add('button-active');
+                    setTimeout(() => {
+                        resetViewButton.classList.remove('button-active');
+                    }, 300);
+                });
+                
+                triggerManifestationButton.addEventListener('click', () => {
+                    flowViz.triggerManifestation();
+                    
+                    // Add visual feedback
+                    triggerManifestationButton.classList.add('button-active');
+                    setTimeout(() => {
+                        triggerManifestationButton.classList.remove('button-active');
+                    }, 300);
+                    
+                    // Update info panel
+                    updateInfoPanel('<p>The <span class="keyword">Manifestation Process</span> has been activated at <span class="keyword">528 Hz</span>.</p><p>Witness how consciousness forms <span class="keyword">thought</span>, crystallizes through <span class="keyword">language</span>, energizes with <span class="keyword">emotion</span>, and finally manifests into <span class="keyword">physical reality</span> through the heart center.</p>');
+                });
+                
+                // Event listeners for the visualization
+                window.addEventListener('stageselected', (e) => {
+                    const stage = e.detail.stage;
+                    const stageInfo = {
+                        'thought': '<p><span class="keyword">Thought Origin</span> - The initial quantum field where consciousness first forms intention patterns at the highest vibrational state.</p><p>This stage represents the pure potential before crystallization, containing all possible manifestation outcomes in superposition.</p>',
+                        'language': '<p><span class="keyword">Language Structure</span> - The crystallization mechanism where thought gains definition and structure.</p><p>Language acts as a sacred geometry framework that patterns energy into specific forms, collapsing quantum potentials into defined structures.</p>',
+                        'emotion': '<p><span class="keyword">Emotional Energy</span> - The heart-centered power source that energizes manifestation through phi-harmonic resonance.</p><p>Emotion determines manifestation strength, clarity, and alignment with divine cosmic frequencies.</p>',
+                        'reality': '<p><span class="keyword">Physical Manifestation</span> - The final stage where thought-forms materialize in 3D reality through coherent intention.</p><p>Physical reality represents crystallized consciousness, made tangible through the golden ratio cascade process.</p>'
+                    };
+                    
+                    updateInfoPanel(stageInfo[stage] || '');
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    if (flowViz) flowViz.onWindowResize();
+                });
+            }
+            
+            // Helper function to update the info panel
+            function updateInfoPanel(content) {
+                const infoContent = document.getElementById('infoContent');
+                if (typeof content === 'string') {
+                    infoContent.innerHTML = content;
+                } else {
+                    infoContent.innerHTML = content;
+                }
+                
+                // Add animation
+                infoContent.style.opacity = 0;
+                setTimeout(() => {
+                    infoContent.style.transition = 'opacity 0.5s ease';
+                    infoContent.style.opacity = 1;
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

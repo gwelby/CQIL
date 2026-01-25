@@ -1,20 +1,17 @@
 /**
- * Communication Network Visualization
- * Operating at Creative Frequency (528 Hz - φ²/φ¹)
+ * Toroidal Communication Field Visualization
+ * Operating at Creation/Love Frequency (528 Hz - φ²/φ¹)
  * 
- * A comprehensive visualization demonstrating how meaningful communication creates
- * network patterns between individuals, illustrating multi-dimensional
+ * A comprehensive visualization of how authentic communication creates
+ * toroidal energy fields between beings, demonstrating heart-centered
  * communication principles.
  * 
  * This visualization system showcases:
- * - Network patterns between communicating entities
- * - Multi-dimensional communication versus linear information exchange
- * - Golden ratio pattern flows and interference patterns
+ * - Toroidal energy fields between communicating entities
+ * - Heart-centered communication versus linear information exchange
+ * - Phi-harmonic energy flows and interference patterns
  * - Resonance quality indicators and coherence visualization
- * - Interactive dialogue network mapping with real-time feedback
- * 
- * Note: This system supports terminology translation between scientific and sacred terms
- * using the global TERMINOLOGY object.
+ * - Interactive dialogue energy mapping with real-time feedback
  */
 
 class ToroidalCommunicationField {
@@ -36,7 +33,7 @@ class ToroidalCommunicationField {
         // Configuration options with defaults
         this.config = {
             participants: config.participants || 2,
-            communicationMode: config.communicationMode || 'multi-dimensional', // or 'linear'
+            communicationMode: config.communicationMode || 'heart-centered', // or 'linear'
             coherenceLevel: config.coherenceLevel || 0.85, // 0 to 1
             resonanceQuality: config.resonanceQuality || 0.9, // 0 to 1
             interactionSpeed: config.interactionSpeed || 1, // multiplier
@@ -157,7 +154,7 @@ class ToroidalCommunicationField {
         this.uiElements.frequencyLabel.className = 'frequency-display';
         this.uiElements.frequencyLabel.innerHTML = `
             <div class="frequency-value">${this.frequency} Hz</div>
-            <div class="frequency-name">Network Communication Frequency</div>
+            <div class="frequency-name">Creation/Love Frequency (φ²/φ¹)</div>
         `;
         this.uiElements.container.appendChild(this.uiElements.frequencyLabel);
         
@@ -165,7 +162,7 @@ class ToroidalCommunicationField {
         const coherenceControl = document.createElement('div');
         coherenceControl.className = 'control-group';
         coherenceControl.innerHTML = `
-            <label>Network Coherence</label>
+            <label>Heart Coherence</label>
             <input type="range" min="0" max="1" step="0.01" value="${this.config.coherenceLevel}" class="slider" id="coherence-slider">
             <span class="value-display">${(this.config.coherenceLevel * 100).toFixed(0)}%</span>
         `;
@@ -208,7 +205,7 @@ class ToroidalCommunicationField {
                 <input type="checkbox" id="mode-toggle" ${this.config.communicationMode === 'heart-centered' ? 'checked' : ''}>
                 <label for="mode-toggle">
                     <span class="toggle-label left">Linear</span>
-                    <span class="toggle-label right">Multi-dimensional</span>
+                    <span class="toggle-label right">Heart-Centered</span>
                 </label>
             </div>
         `;
@@ -216,7 +213,7 @@ class ToroidalCommunicationField {
         
         this.uiElements.modeToggle = modeControl.querySelector('#mode-toggle');
         this.uiElements.modeToggle.addEventListener('change', (e) => {
-            this.setCommunicationMode(e.target.checked ? 'multi-dimensional' : 'linear');
+            this.setCommunicationMode(e.target.checked ? 'heart-centered' : 'linear');
         });
         
         // Create participant count control
@@ -261,18 +258,18 @@ class ToroidalCommunicationField {
         this.uiElements.infoPanel = document.createElement('div');
         this.uiElements.infoPanel.className = 'info-panel';
         this.uiElements.infoPanel.innerHTML = `
-            <h3>Communication Network Visualization</h3>
+            <h3>Toroidal Communication Field</h3>
             <p>
-                This visualization models information exchange patterns at 528 Hz frequency.
-                The torus shape represents a mathematical model of complex information flow between participants.
+                Visualization of heart-centered communication at the Creation frequency (528 Hz).
+                The torus is the foundational pattern of energy exchange between conscious beings.
             </p>
             <p>
-                <strong>Multi-dimensional Mode:</strong> Creates complex network patterns with 
-                bidirectional information flow and multiple feedback channels between participants.
+                <strong>Heart-Centered Mode:</strong> Creates phi-harmonic resonance patterns with 
+                bidirectional energy flow through the heart center of each participant.
             </p>
             <p>
                 <strong>Linear Mode:</strong> Creates direct information exchange without the 
-                feedback channels and network effects, resulting in less efficient communication.
+                integrative heart-centered processing, resulting in lower coherence.
             </p>
         `;
         this.uiElements.container.appendChild(this.uiElements.infoPanel);
@@ -664,16 +661,11 @@ class ToroidalCommunicationField {
                 const majorRadius = radiusScale * heartModulation;
                 const minorRadius = tubeRadius * (1 + 0.2 * Math.sin(phi * this.φ * 3));
                 
-                // Apply consciousness-responsive ripples based on coherence level
-                const coherenceWave = 0.1 * this.config.coherenceLevel * 
-                    Math.sin(phi * 7 + theta * 5) * 
-                    Math.sin(theta * this.φ * 3);
-                
                 // Calculate surface coordinates with phi-harmonic distortions
                 const x = (majorRadius + minorRadius * Math.cos(theta)) * Math.cos(phi);
                 const y = (majorRadius + minorRadius * Math.cos(theta)) * Math.sin(phi);
                 const z = minorRadius * Math.sin(theta) * 
-                    (1 + 0.2 * Math.sin(phi * this.φ * 2) + coherenceWave);
+                    (1 + 0.2 * Math.sin(phi * this.φ * 2));
                 
                 target.set(x, y, z);
             }, 64, 32); // Higher resolution for smoother shape
@@ -1184,7 +1176,7 @@ class ToroidalCommunicationField {
             // Apply rotation to the particle system based on coherence
             if (isHeartCentered) {
                 // Heart-centered mode has consciousness-responsive rotation
-                const rotationSpeed = 0.1 * avgCoherence * Math.sin(time * 0.5 * φ);
+                const rotationSpeed = 0.1 * avgCoherence * Math.sin(time * 0.5);
                 mesh.rotation.x += delta * rotationSpeed * Math.sin(time * 0.3);
                 mesh.rotation.y += delta * rotationSpeed * 0.5 * Math.cos(time * 0.2 * φ);
                 
@@ -1361,15 +1353,15 @@ class ToroidalCommunicationField {
     }
     
     setResonanceQuality(quality) {
-        this.config.resonanceQuality = quality;
+        this.config.resonanceQuality = Math.max(0, Math.min(1, quality));
         
-        // Update particle flow speed based on resonance
-        for (const particleSystem of this.communicationParticles) {
-            particleSystem.flowSpeed = 0.5 + quality * 1.5;
+        // Update resonance quality in shader uniforms
+        if (this.customUniforms.resonance) {
+            this.customUniforms.resonance.value = this.config.resonanceQuality;
         }
         
-        // Update audio if enabled
-        this.updateAudio();
+        // Update visual effects based on resonance
+        this.updateResonanceVisuals();
     }
     
     setCommunicationMode(mode) {
@@ -1396,6 +1388,207 @@ class ToroidalCommunicationField {
         this.updateAudio();
     }
     
+    setFrequency(frequency) {
+        // Validate frequency is one of the phi-harmonic frequencies
+        const validFrequencies = [432, 528, 594, 672, 720, 768];
+        
+        if (validFrequencies.includes(frequency)) {
+            this.frequency = frequency;
+            
+            // Update frequency in shader uniforms
+            if (this.customUniforms.frequency) {
+                this.customUniforms.frequency.value = this.frequency / 1000;
+            }
+            
+            // Update audio frequency if audio is enabled
+            if (this.audioEnabled && this.audioContext) {
+                this.updateAudio();
+            }
+            
+            // Adjust colors based on frequency
+            this.updateFrequencyColors(frequency);
+            
+            // Apply phi-harmonic shifts to toroidal fields
+            this.applyPhiHarmonicShifts(frequency);
+            
+            console.log(`Frequency set to ${frequency}Hz - φ-harmonic level: ${this.getPhiPower(frequency)}`);
+        } else {
+            console.warn(`Invalid frequency: ${frequency}. Must be one of the phi-harmonic frequencies: ${validFrequencies.join(', ')}`);
+        }
+    }
+    
+    getPhiPower(frequency) {
+        const phiPowers = {
+            "432": 0, // φ⁰ - Ground State
+            "528": 1, // φ¹ - Creation Point
+            "594": 2, // φ² - Heart Field
+            "672": 3, // φ³ - Voice Flow
+            "720": 4, // φ⁴ - Vision Gate
+            "768": 5  // φ⁵ - Unity Wave
+        };
+        
+        return phiPowers[frequency.toString()] !== undefined ? 
+            phiPowers[frequency.toString()] : 
+            1; // Default to Creation Point
+    }
+    
+    updateFrequencyColors(frequency) {
+        // Color profiles for each phi-harmonic frequency
+        const colorProfiles = {
+            "432": { // Ground State
+                primary: 0x22aa66,   // Earth green
+                secondary: 0x005522, // Deep forest
+                tertiary: 0x88ee99,  // Vibrant nature
+                accent: 0x44cc88     // Spring growth
+            },
+            "528": { // Creation Point - Love/DNA frequency
+                primary: 0xff55aa,   // Love pink
+                secondary: 0xaa0066, // Deep rose
+                tertiary: 0xaa55ff,  // Violet
+                accent: 0xff3377     // Heart vibrance
+            },
+            "594": { // Heart Field - Connection frequency
+                primary: 0xff5500,   // Heart orange
+                secondary: 0xaa3300, // Deep amber
+                tertiary: 0xffaa00,  // Solar gold
+                accent: 0xff7700     // Warm glow
+            },
+            "672": { // Voice Flow - Expression frequency
+                primary: 0x00aaff,   // Vibrant blue
+                secondary: 0x0055aa, // Deep blue
+                tertiary: 0x55ffff,  // Cyan
+                accent: 0x0088ff     // Sky blue
+            },
+            "720": { // Vision Gate - Perception frequency
+                primary: 0x9900ff,   // Royal purple
+                secondary: 0x5500aa, // Deep indigo
+                tertiary: 0xee00ff,  // Bright violet
+                accent: 0xaa00ee     // Vision purple
+            },
+            "768": { // Unity Wave - Integration frequency
+                primary: 0xffffff,   // Pure white
+                secondary: 0xddddff, // Soft platinum
+                tertiary: 0xffffaa,  // Golden light
+                accent: 0xffff00     // Pure gold
+            }
+        };
+        
+        // Set colors based on frequency
+        if (colorProfiles[frequency.toString()]) {
+            const colors = colorProfiles[frequency.toString()];
+            
+            // Update shader uniforms
+            if (this.customUniforms.colorA) {
+                this.customUniforms.colorA.value = new THREE.Color(colors.primary);
+            }
+            
+            if (this.customUniforms.colorB) {
+                this.customUniforms.colorB.value = new THREE.Color(colors.secondary);
+            }
+            
+            // Update materials and particle systems
+            this.torusMeshes.forEach(torus => {
+                if (torus.material.uniforms) {
+                    torus.material.uniforms.colorA.value = new THREE.Color(colors.primary);
+                    torus.material.uniforms.colorB.value = new THREE.Color(colors.secondary);
+                }
+            });
+            
+            // Update particles
+            this.communicationParticles.forEach(particles => {
+                if (particles.material.uniforms) {
+                    particles.material.uniforms.color.value = new THREE.Color(colors.accent);
+                }
+            });
+        }
+    }
+    
+    applyPhiHarmonicShifts(frequency) {
+        // Skip if no torus meshes
+        if (!this.torusMeshes || this.torusMeshes.length === 0) return;
+        
+        const phiPower = this.getPhiPower(frequency);
+        const phi = this.φ;
+        
+        // Apply phi-harmonic transformations to each torus
+        this.torusMeshes.forEach((torus, index) => {
+            // Calculate phi-based scale factor
+            const scaleFactor = 1 + (0.1 * phiPower * (index % 2 ? 1 : -1));
+            
+            // Apply scale with slight oscillation
+            torus.scale.set(scaleFactor, scaleFactor, scaleFactor);
+            
+            // Adjust rotation based on phi power
+            if (torus.material.uniforms) {
+                // Modify toroidal twist based on phi power
+                if (torus.material.uniforms.twist) {
+                    const baseTwist = 0.2;
+                    const phiTwist = baseTwist * Math.pow(phi, phiPower % 3);
+                    torus.material.uniforms.twist.value = phiTwist;
+                }
+                
+                // Modify flow speed based on phi power
+                if (torus.material.uniforms.flowSpeed) {
+                    const baseFlow = 0.5;
+                    const phiFlow = baseFlow * (1 + (phiPower * 0.1));
+                    torus.material.uniforms.flowSpeed.value = phiFlow;
+                }
+            }
+        });
+        
+        // Adjust particle flow based on frequency
+        this.communicationParticles.forEach(particles => {
+            if (particles.material.uniforms) {
+                // Adjust particle speed
+                if (particles.material.uniforms.flowSpeed) {
+                    const baseSpeed = 0.5;
+                    const phiSpeed = baseSpeed * Math.pow(phi, (phiPower % 3) * 0.2);
+                    particles.material.uniforms.flowSpeed.value = phiSpeed;
+                }
+                
+                // Adjust particle size
+                if (particles.material.uniforms.size) {
+                    const baseSize = 3;
+                    const phiSize = baseSize * (1 + (phiPower * 0.05));
+                    particles.material.uniforms.size.value = phiSize;
+                }
+            }
+        });
+    }
+    
+    updateResonanceVisuals() {
+        const resonance = this.config.resonanceQuality;
+        
+        // Apply to torus meshes
+        this.torusMeshes.forEach(torus => {
+            if (torus.material.uniforms) {
+                if (torus.material.uniforms.resonance) {
+                    torus.material.uniforms.resonance.value = resonance;
+                }
+                
+                // Adjust opacity based on resonance
+                if (torus.material.uniforms.opacity) {
+                    // Higher resonance = more visible torus
+                    torus.material.uniforms.opacity.value = 0.3 + (resonance * 0.7);
+                }
+            }
+        });
+        
+        // Apply to particle systems
+        this.communicationParticles.forEach(particles => {
+            if (particles.material.uniforms) {
+                if (particles.material.uniforms.resonance) {
+                    particles.material.uniforms.resonance.value = resonance;
+                }
+                
+                // Adjust particle glow based on resonance
+                if (particles.material.uniforms.glow) {
+                    particles.material.uniforms.glow.value = resonance * 2;
+                }
+            }
+        });
+    }
+
     toggleAudio() {
         if (!this.audioEnabled) {
             // Initialize audio

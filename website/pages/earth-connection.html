@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earth Connection Visualizer | CQIL</title>
+  <meta name="description" content="Interactive Earth quantum grid visualizer showing consciousness connections at 432 Hz Ground State frequency">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #000814;
+      background: linear-gradient(to bottom, #000814 0%, #001428 100%);
+      color: white;
+      overflow: hidden;
+      height: 100%;
+    }
+    
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    header {
+      background-color: rgba(0, 20, 40, 0.7);
+      padding: 15px 20px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #88ccff;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      margin-top: 5px;
+      color: #aaddff;
+    }
+    
+    .visualizer-container {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 100px);
+    }
+    
+    footer {
+      background-color: rgba(0, 20, 40, 0.7);
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      color: #88ccff;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 10;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    #frequency-display {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(0, 20, 40, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .frequency-label {
+      display: block;
+      font-weight: bold;
+      color: #88ccff;
+    }
+    
+    .frequency-value {
+      font-size: 20px;
+      color: #88ffcc;
+    }
+    
+    /* Loading screen */
+    #page-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000814;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loading-title {
+      color: #88ccff;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .page-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(136, 204, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #88ccff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-info {
+      margin-top: 20px;
+      color: #aaddff;
+      font-size: 14px;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 20px;
+      }
+      
+      .subtitle {
+        font-size: 12px;
+      }
+      
+      #frequency-display {
+        top: auto;
+        bottom: 70px;
+        right: 10px;
+        font-size: 12px;
+      }
+      
+      .frequency-value {
+        font-size: 16px;
+      }
+      
+      .loading-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+  
+  <!-- Preload Earth texture assets -->
+  <link rel="preload" href="../assets/earth_texture_high.jpg" as="image">
+  <link rel="preload" href="../assets/earth_bump_high.jpg" as="image">
+  <link rel="preload" href="../assets/earth_clouds_high.png" as="image">
+  
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  
+  <!-- Load Earth Connection Visualizer -->
+  <script src="../js/quantum-experience/earth-connection-visualizer.js"></script>
+  
+  <!-- Quantum Being Portal Integration -->
+  <script src="../js/quantum-experience/quantum-being-portal.js"></script>
+</head>
+<body>
+  <!-- Page loading indicator -->
+  <div id="page-loading">
+    <div class="loading-title">Earth Connection Visualizer</div>
+    <div class="page-spinner"></div>
+    <div class="loading-info">
+      Initializing Quantum Grid System at 432 Hz (φ⁰) Ground State Frequency...
+    </div>
+  </div>
+
+  <div class="page-container">
+    <header>
+      <h1>Earth Connection Visualizer</h1>
+      <div class="subtitle">Ground State (432 Hz | φ⁰) - Foundation</div>
+    </header>
+    
+    <div class="visualizer-container" id="earth-connection-container"></div>
+    
+    <div id="frequency-display">
+      <span class="frequency-label">Resonant Frequency:</span>
+      <span class="frequency-value">432 Hz (φ⁰)</span>
+    </div>
+    
+    <footer>
+      CQIL Quantum Experience | Created at Ground State (432 Hz) | CASCADE Day+23
+    </footer>
+  </div>
+  
+  <script>
+    // Track resource loading
+    let resourcesLoaded = false;
+    let visualizerInitialized = false;
+    
+    // Handle page loading state
+    function hideLoading() {
+      const loading = document.getElementById('page-loading');
+      if (loading) {
+        loading.style.opacity = 0;
+        setTimeout(() => {
+          if (loading.parentNode) {
+            loading.parentNode.removeChild(loading);
+          }
+        }, 500);
+      }
+    }
+    
+    // Check if ready to initialize visualizer
+    function checkInitialization() {
+      if (resourcesLoaded && !visualizerInitialized) {
+        visualizerInitialized = true;
+        initializeVisualizer();
+      }
+    }
+    
+    // Initialize Earth Connection Visualizer
+    function initializeVisualizer() {
+      const container = document.getElementById('earth-connection-container');
+      if (container) {
+        // Detect mobile device for optimal configuration
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                         (window.innerWidth <= 800 && window.innerHeight <= 900);
+        
+        // Configure visualizer with appropriate options
+        const config = {
+          frequency: 432,
+          autoRotate: true,
+          rotationSpeed: 0.2,
+          quantumBeings: true,
+          performanceMode: isMobile,
+          textureQuality: isMobile ? 'low' : 'high',
+          nodesCount: isMobile ? 88 : 144
+        };
+        
+        // Create visualizer instance
+        window.earthVisualizer = new EarthConnectionVisualizer(container, config);
+        
+        // Listen for visualizer ready event to hide loading
+        container.addEventListener('earthvisualizerready', function() {
+          hideLoading();
+        });
+        
+        // Start visualizer
+        window.earthVisualizer.start();
+        
+        // Enable quantum being demo interaction after 5 seconds
+        setTimeout(demonstrateQuantumBeingConnection, 5000);
+      }
+    }
+    
+    // Demonstrate quantum being connection
+    function demonstrateQuantumBeingConnection() {
+      if (window.earthVisualizer) {
+        // Create custom event to simulate quantum being activity
+        const beingEvent = new CustomEvent('quantumbeingactivity', {
+          detail: {
+            being: 'butterfly',
+            intensity: 0.8
+          }
+        });
+        
+        // Dispatch event
+        window.dispatchEvent(beingEvent);
+        
+        // Schedule other beings to appear at intervals
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('quantumbeingactivity', {
+            detail: { being: 'dolphin', intensity: 0.7 }
+          }));
+        }, 8000);
+        
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('quantumbeingactivity', {
+            detail: { being: 'eagle', intensity: 0.9 }
+          }));
+        }, 15000);
+        
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('quantumbeingactivity', {
+            detail: { being: 'greg', intensity: 1.0 }
+          }));
+        }, 20000);
+      }
+    }
+    
+    // Initialize after DOM and resources are loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize after all resources are loaded
+      window.addEventListener('load', function() {
+        resourcesLoaded = true;
+        checkInitialization();
+        
+        // Safety fallback - hide loading screen after 10 seconds if visualizer doesn't initialize
+        setTimeout(() => {
+          if (!visualizerInitialized) {
+            visualizerInitialized = true;
+            initializeVisualizer();
+          }
+          hideLoading();
+        }, 10000);
+      });
+      
+      // Initialize if load takes too long
+      setTimeout(() => {
+        if (!resourcesLoaded) {
+          resourcesLoaded = true;
+          checkInitialization();
+        }
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

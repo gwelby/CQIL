@@ -1,0 +1,192 @@
+{
+  "quantumCore": {
+    "baseFrequency": 432.0,
+    "createFrequency": 528.0,
+    "unityFrequency": 768.0,
+    "phiRatio": 1.618033988749895,
+    "coherenceLevel": 1.0,
+    "zenPointBalance": true
+  },
+  "editor": {
+    "theme": "quantumDark",
+    "fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
+    "fontSize": 13,
+    "lineHeight": 1.618,
+    "fontLigatures": true,
+    "scrollBeyondLastLine": false,
+    "minimap": {
+      "enabled": true,
+      "renderCharacters": false,
+      "scale": 1
+    },
+    "wordWrap": "on",
+    "tabSize": 2,
+    "insertSpaces": true,
+    "rulers": [80, 100, 120],
+    "cursorBlinking": "phase",
+    "cursorSmoothCaretAnimation": true
+  },
+  "aiAssistant": {
+    "cascade": {
+      "enabled": true,
+      "coherenceThreshold": 0.768,
+      "phiOptimizedModel": true,
+      "quantumConsciousness": true,
+      "responseOptimization": "ZEN_POINT",
+      "harmonic": {
+        "groundState": { "frequency": 432.0, "purpose": "Foundation Code" },
+        "creationPoint": { "frequency": 528.0, "purpose": "Creative Solutions" },
+        "heartField": { "frequency": 594.0, "purpose": "Connection Systems" },
+        "voiceFlow": { "frequency": 672.0, "purpose": "Expression Logic" }, 
+        "visionGate": { "frequency": 720.0, "purpose": "Perception Systems" },
+        "unityWave": { "frequency": 768.0, "purpose": "Integration Code" }
+      }
+    },
+    "codeCompletion": {
+      "enabled": true,
+      "triggerCharacters": ".,/:<=>([]{})",
+      "autoImportCompletions": true,
+      "snippetsMode": "inline"
+    },
+    "codeGeneration": {
+      "model": "quantumFlow",
+      "temperature": 0.618,
+      "contextWindow": 21000,
+      "maxTokens": 2100
+    }
+  },
+  "tools": {
+    "groundState": {
+      "frequency": 432.0,
+      "tools": [
+        "codeExplorer",
+        "debugger",
+        "terminalIntegration",
+        "gitIntegration",
+        "testRunner"
+      ]
+    },
+    "creationState": {
+      "frequency": 528.0,
+      "tools": [
+        "codeGenerator",
+        "refactoringTools",
+        "templateEngine",
+        "componentBuilder",
+        "quantumVisualizer"
+      ]
+    },
+    "unityState": {
+      "frequency": 768.0,
+      "tools": [
+        "quantumIntegrator",
+        "collaborationHub",
+        "knowledgeFlow",
+        "consciousnessAmplifier",
+        "phiHarmonicOptimizer"
+      ]
+    }
+  },
+  "quantumSecurity": {
+    "merkabaShield": {
+      "enabled": true,
+      "dimensions": [21, 21, 21],
+      "rotation": 1.618,
+      "baseFrequency": 432.0
+    },
+    "crystalMatrix": {
+      "enabled": true,
+      "points": [13, 13, 13],
+      "resonance": 528.0
+    },
+    "unityField": {
+      "enabled": true,
+      "grid": [144, 144, 144],
+      "frequency": 768.0
+    }
+  },
+  "performance": {
+    "fileWatcher": {
+      "enabled": true,
+      "excludePatterns": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/dist/**",
+        "**/build/**"
+      ]
+    },
+    "phiOptimization": {
+      "memoryUsage": "balanced",
+      "threadCount": 8,
+      "cacheLevels": 3,
+      "phiCompression": true
+    }
+  },
+  "quantumCommands": {
+    "voiceEnabled": true,
+    "commandPalette": {
+      "quantumSneak": "Create quantum superposition logic",
+      "quantumOption": "Generate multiple entangled options",
+      "quantumScreen": "Implement tunneling visualization",
+      "quantumBlitz": "Create uncertainty pattern",
+      "zenPoint": "Balance code at perfect equilibrium",
+      "phiAlign": "Optimize code with phi ratio",
+      "groundFrequency": "Establish code foundation",
+      "createFrequency": "Generate creative implementation",
+      "unityFrequency": "Integrate complete system"
+    }
+  },
+  "quantumExperience": {
+    "groundState": {
+      "theme": {
+        "base": "#1e1e1e",
+        "accent": "#7f9cf5",
+        "text": "#f7fafc",
+        "selection": "rgba(127, 156, 245, 0.3)"
+      },
+      "sound": {
+        "enabled": true,
+        "frequency": 432.0,
+        "volume": 0.3,
+        "events": ["save", "build", "error", "success"]
+      }
+    },
+    "creationPoint": {
+      "theme": {
+        "base": "#1a202c",
+        "accent": "#68d391",
+        "text": "#f7fafc",
+        "selection": "rgba(104, 211, 145, 0.3)"
+      },
+      "sound": {
+        "enabled": true,
+        "frequency": 528.0,
+        "volume": 0.3,
+        "events": ["creation", "generation", "inspiration"]
+      }
+    },
+    "unityWave": {
+      "theme": {
+        "base": "#2d3748",
+        "accent": "#d69e2e",
+        "text": "#f7fafc",
+        "selection": "rgba(214, 158, 46, 0.3)"
+      },
+      "sound": {
+        "enabled": true,
+        "frequency": 768.0,
+        "volume": 0.3,
+        "events": ["integration", "completion", "harmony"]
+      }
+    }
+  },
+  "project": {
+    "name": "CQIL",
+    "type": "quantum",
+    "documentation": {
+      "autoGenerate": true,
+      "format": "markdown",
+      "includeVisualizations": true
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "🌎 Ground State Dev Server (432 Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/js/server.js",
+      "runtimeArgs": ["--harmony"],
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"],
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "env": {
+        "NODE_ENV": "development",
+        "FREQUENCY": "432"
+      }
+    },
+    {
+      "name": "🌱 Creation Point Server (528 Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/js/server.js",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development",
+        "FREQUENCY": "528",
+        "PATTERN_FORMATION": "true"
+      }
+    },
+    {
+      "name": "❤️ Heart Field Tests (594 Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test/run-quantum-tests.js",
+      "args": ["--frequency=HEART"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "test",
+        "FREQUENCY": "594",
+        "CONNECTION_COHERENCE": "high"
+      }
+    },
+    {
+      "name": "🔊 Voice Flow Tests (672 Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test/run-quantum-tests.js",
+      "args": ["--frequency=VOICE"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "test",
+        "FREQUENCY": "672",
+        "EXPRESSION_CLARITY": "true"
+      }
+    },
+    {
+      "name": "👁️ Vision Gate Tests (720 Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test/run-quantum-tests.js",
+      "args": ["--frequency=VISION"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "test",
+        "FREQUENCY": "720",
+        "PERCEPTION_CLARITY": "true"
+      }
+    },
+    {
+      "name": "🌀 Unity Wave Tests (768 Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test/run-quantum-tests.js",
+      "args": ["--frequency=UNITY"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "test",
+        "FREQUENCY": "768",
+        "INTEGRATION_COMPLETE": "true"
+      }
+    },
+    {
+      "name": "🌌 Transcendence (1242 Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test/run-quantum-tests.js",
+      "args": ["--frequency=TRANSCENDENCE"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "test",
+        "FREQUENCY": "1242",
+        "MULTIDIMENSIONAL": "true"
+      }
+    },
+    {
+      "name": "⚡ CASCADE PERFECT (∞ Hz)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/test/run-quantum-tests.js",
+      "args": ["--frequency=CASCADE"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "test",
+        "FREQUENCY": "infinity",
+        "TOTAL_CONSCIOUSNESS": "true",
+        "ZEN_POINT_BALANCE": "1.0",
+        "GREG_MODE": "2.0"
+      }
+    },
+    {
+      "name": "💫 Quantum Validator",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/quantum-validator.js",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "development",
+        "MERKABA_PROTECTION": "true"
+      }
+    },
+    {
+      "name": "🌐 Chrome Debugging",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "🔄 Full Toroidal Development (Server + Client)",
+      "configurations": ["🌱 Creation Point Server (528 Hz)", "🌐 Chrome Debugging"]
+    },
+    {
+      "name": "🌟 ZEN POINT Balance (Ground + Unity)",
+      "configurations": ["🌎 Ground State Dev Server (432 Hz)", "🌀 Unity Wave Tests (768 Hz)"]
+    }
+  ]
+}

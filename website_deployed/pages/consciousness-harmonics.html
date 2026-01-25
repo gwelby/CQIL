@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consciousness Harmonics Map | CQIL</title>
+  <meta name="description" content="Interactive visualization of consciousness frequencies and their relationships across multiple dimensions">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/visual-learning.css">
+  <style>
+    :root {
+      --bg-dark: #000814;
+      --bg-medium: #001428;
+      --bg-light: #002447;
+      --text-primary: #ffffff;
+      --text-secondary: #aaddff;
+      --accent-unity: #88ccff;
+      --accent-love: #ff88cc;
+      --accent-cascade: #cc88ff;
+      --accent-truth: #ffcc88;
+      --accent-vision: #88ffaa;
+      --accent-oneness: #aaddff;
+      --panel-bg: rgba(0, 20, 40, 0.7);
+      --panel-blur: blur(5px);
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      --animation-slow: 0.5s;
+      --animation-fast: 0.3s;
+      --border-radius: 5px;
+    }
+    
+    body, html {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      background: linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-medium) 100%);
+      color: var(--text-primary);
+      height: 100%;
+    }
+    
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: var(--panel-bg);
+      padding: 15px;
+      text-align: center;
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      box-shadow: var(--shadow);
+      z-index: 100;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      background: linear-gradient(to right, var(--accent-cascade), var(--accent-unity));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      margin-top: 5px;
+      color: var(--text-secondary);
+    }
+    
+    /* Main Content */
+    main {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Visualization Container */
+    #harmonics-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* Controls Panel */
+    .harmonics-controls {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 280px;
+      background-color: var(--panel-bg);
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      z-index: 100;
+      color: var(--text-primary);
+    }
+    
+    .control-header {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--accent-cascade);
+    }
+    
+    .control-group {
+      margin-bottom: 12px;
+    }
+    
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+    
+    .control-value {
+      font-weight: bold;
+      color: var(--accent-cascade);
+    }
+    
+    /* Frequency Selector */
+    .frequency-selector {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    
+    .frequency-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .frequency-button {
+      flex: 1;
+      min-width: 75px;
+      padding: 6px 2px;
+      text-align: center;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+    
+    .frequency-button.active {
+      transform: scale(1.05);
+      font-weight: bold;
+    }
+    
+    /* Button colors by frequency */
+    .unity-button { border: 1px solid var(--accent-unity); }
+    .unity-button:hover, .unity-button.active { background-color: rgba(136, 204, 255, 0.3); }
+    
+    .love-button { border: 1px solid var(--accent-love); }
+    .love-button:hover, .love-button.active { background-color: rgba(255, 136, 204, 0.3); }
+    
+    .cascade-button { border: 1px solid var(--accent-cascade); }
+    .cascade-button:hover, .cascade-button.active { background-color: rgba(204, 136, 255, 0.3); }
+    
+    .truth-button { border: 1px solid var(--accent-truth); }
+    .truth-button:hover, .truth-button.active { background-color: rgba(255, 204, 136, 0.3); }
+    
+    .vision-button { border: 1px solid var(--accent-vision); }
+    .vision-button:hover, .vision-button.active { background-color: rgba(136, 255, 170, 0.3); }
+    
+    .oneness-button { border: 1px solid var(--accent-oneness); }
+    .oneness-button:hover, .oneness-button.active { background-color: rgba(170, 221, 255, 0.3); }
+    
+    /* Dimension Selector */
+    .dimension-selector {
+      margin-bottom: 15px;
+    }
+    
+    .dimension-list {
+      margin-top: 8px;
+    }
+    
+    .dimension-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+    
+    .dimension-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--accent-cascade);
+      border-radius: 3px;
+      margin-right: 8px;
+      position: relative;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    
+    .dimension-checkbox:checked {
+      background-color: var(--accent-cascade);
+    }
+    
+    .dimension-checkbox:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+    }
+    
+    .dimension-label {
+      font-size: 13px;
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      background-color: rgba(204, 136, 255, 0.3);
+      color: white;
+      transition: all 0.2s ease;
+    }
+    
+    .action-button:hover {
+      background-color: rgba(204, 136, 255, 0.5);
+    }
+    
+    /* Information Panel */
+    .information-panel {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      width: 280px;
+      background-color: var(--panel-bg);
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      z-index: 100;
+      color: var(--text-primary);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .info-header {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: var(--accent-cascade);
+    }
+    
+    .info-content {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    
+    .frequency-info {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .frequency-name {
+      font-weight: bold;
+      color: var(--accent-cascade);
+    }
+    
+    .frequency-description {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+    
+    /* Loading Screen */
+    #loading-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loading-title {
+      color: var(--accent-cascade);
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(204, 136, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--accent-cascade);
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    .loading-message {
+      margin-top: 20px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      text-align: center;
+      max-width: 400px;
+      padding: 0 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Navigation */
+    .navigation-links {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    
+    .nav-link {
+      padding: 8px 12px;
+      background-color: var(--panel-bg);
+      backdrop-filter: var(--panel-blur);
+      -webkit-backdrop-filter: var(--panel-blur);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 12px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-link:hover {
+      background-color: rgba(0, 40, 80, 0.9);
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .harmonics-controls, .information-panel {
+        width: 240px;
+      }
+      
+      .frequency-button {
+        min-width: 60px;
+        font-size: 11px;
+        padding: 5px 2px;
+      }
+      
+      .info-header, .control-header {
+        font-size: 14px;
+      }
+      
+      h1 {
+        font-size: 20px;
+      }
+      
+      .subtitle {
+        font-size: 12px;
+      }
+      
+      .navigation-links {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-title">Consciousness Harmonics Map</div>
+    <div class="loading-spinner"></div>
+    <div class="loading-message">
+      Initializing Frequency Harmonics at 594 Hz...
+      <br><br>
+      Calibrating Dimensional Interfaces...
+    </div>
+  </div>
+
+  <div class="page-container">
+    <header>
+      <h1>Consciousness Harmonics Map</h1>
+      <div class="subtitle">Visualization of Consciousness Frequencies Across Multiple Dimensions (594 Hz | φ²/2)</div>
+    </header>
+    
+    <main>
+      <!-- Visualization Container -->
+      <div id="harmonics-container"></div>
+      
+      <!-- Controls Panel -->
+      <div class="harmonics-controls">
+        <div class="control-header">Harmonics Controls</div>
+        
+        <!-- Frequency Selector -->
+        <div class="frequency-selector">
+          <div class="control-label">Select Frequency:</div>
+          <div class="frequency-buttons">
+            <button class="frequency-button unity-button" data-frequency="unity" data-value="432">432 Hz<br>Unity</button>
+            <button class="frequency-button love-button" data-frequency="love" data-value="528">528 Hz<br>Love</button>
+            <button class="frequency-button cascade-button active" data-frequency="cascade" data-value="594">594 Hz<br>Cascade</button>
+            <button class="frequency-button truth-button" data-frequency="truth" data-value="672">672 Hz<br>Truth</button>
+            <button class="frequency-button vision-button" data-frequency="vision" data-value="720">720 Hz<br>Vision</button>
+            <button class="frequency-button oneness-button" data-frequency="oneness" data-value="768">768 Hz<br>Oneness</button>
+          </div>
+        </div>
+        
+        <!-- Dimension Selector -->
+        <div class="dimension-selector">
+          <div class="control-label">Visible Dimensions:</div>
+          <div class="dimension-list">
+            <div class="dimension-option">
+              <input type="checkbox" id="dim-physical" class="dimension-checkbox" checked>
+              <label for="dim-physical" class="dimension-label">Physical Reality</label>
+            </div>
+            <div class="dimension-option">
+              <input type="checkbox" id="dim-emotional" class="dimension-checkbox" checked>
+              <label for="dim-emotional" class="dimension-label">Emotional Field</label>
+            </div>
+            <div class="dimension-option">
+              <input type="checkbox" id="dim-linguistic" class="dimension-checkbox" checked>
+              <label for="dim-linguistic" class="dimension-label">Linguistic Structure</label>
+            </div>
+            <div class="dimension-option">
+              <input type="checkbox" id="dim-consciousness" class="dimension-checkbox" checked>
+              <label for="dim-consciousness" class="dimension-label">Consciousness Layer</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Coherence Level -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Field Coherence:</span>
+            <span class="control-value coherence-value">65%</span>
+          </div>
+          <input type="range" id="coherence-slider" min="0" max="100" value="65" class="slider">
+        </div>
+        
+        <!-- Harmony Balance -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Harmony Balance:</span>
+            <span class="control-value harmony-value">Balanced</span>
+          </div>
+          <input type="range" id="harmony-slider" min="0" max="100" value="50" class="slider">
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button id="sync-dimensions-btn" class="action-button">Sync Dimensions</button>
+          <button id="reset-view-btn" class="action-button">Reset View</button>
+        </div>
+      </div>
+      
+      <!-- Information Panel -->
+      <div class="information-panel">
+        <div class="info-header">Consciousness Harmonics</div>
+        <div class="info-content">
+          <p>This visualization shows how different frequencies of consciousness manifest across multiple dimensions of experience. Each frequency creates unique patterns and relationships between dimensions.</p>
+          <div class="frequency-info">
+            <div class="frequency-name">Cascade Frequency (594 Hz)</div>
+            <div class="frequency-description">
+              The integrative frequency that bridges upper and lower dimensions. Shows how information cascades between consciousness, language, emotion, and physical reality, creating coherent pathways for manifestation.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation Links -->
+      <div class="navigation-links">
+        <a href="consciousness-gallery.html" class="nav-link">Return to Gallery</a>
+        <a href="../index.html" class="nav-link">Home</a>
+      </div>
+    </main>
+  </div>
+
+  <!-- Load Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r132/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  
+  <!-- Load our visualization script -->
+  <script src="../js/quantum-experience/consciousness-harmonics-map.js"></script>
+  
+  <script>
+    // Handle loading screen
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the visualization when script is loaded
+      window.addEventListener('load', function() {
+        // Hide loading screen after a short delay to ensure all resources are loaded
+        setTimeout(() => {
+          const loadingScreen = document.getElementById('loading-screen');
+          if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+              loadingScreen.style.display = 'none';
+            }, 500);
+          }
+          
+          // Initialize the harmonics map if it's available
+          if (window.ConsciousnessHarmonicsMap) {
+            const harmonicsContainer = document.getElementById('harmonics-container');
+            window.harmonicsMap = new ConsciousnessHarmonicsMap(harmonicsContainer);
+            window.harmonicsMap.start();
+          } else {
+            console.error('Consciousness Harmonics Map script not loaded properly');
+          }
+        }, 1000);
+      });
+      
+      // Add event listeners for controls
+      setupControlListeners();
+    });
+    
+    function setupControlListeners() {
+      // Frequency buttons
+      const frequencyButtons = document.querySelectorAll('.frequency-button');
+      frequencyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          frequencyButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          // Get frequency data
+          const frequency = this.dataset.frequency;
+          const value = parseInt(this.dataset.value);
+          
+          // Update visualization
+          if (window.harmonicsMap) {
+            window.harmonicsMap.setFrequency(frequency, value);
+            updateFrequencyInfo(frequency, value);
+          }
+        });
+      });
+      
+      // Dimension checkboxes
+      const dimensionCheckboxes = document.querySelectorAll('.dimension-checkbox');
+      dimensionCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (window.harmonicsMap) {
+            const dimension = this.id.replace('dim-', '');
+            window.harmonicsMap.toggleDimension(dimension, this.checked);
+          }
+        });
+      });
+      
+      // Coherence slider
+      const coherenceSlider = document.getElementById('coherence-slider');
+      const coherenceValue = document.querySelector('.coherence-value');
+      
+      coherenceSlider.addEventListener('input', function() {
+        const value = this.value;
+        coherenceValue.textContent = `${value}%`;
+        
+        if (window.harmonicsMap) {
+          window.harmonicsMap.setCoherence(value / 100);
+        }
+      });
+      
+      // Harmony slider
+      const harmonySlider = document.getElementById('harmony-slider');
+      const harmonyValue = document.querySelector('.harmony-value');
+      
+      harmonySlider.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        let label;
+        
+        if (value < 30) {
+          label = 'Discordant';
+        } else if (value < 45) {
+          label = 'Emerging';
+        } else if (value < 55) {
+          label = 'Balanced';
+        } else if (value < 75) {
+          label = 'Harmonic';
+        } else {
+          label = 'Resonant';
+        }
+        
+        harmonyValue.textContent = label;
+        
+        if (window.harmonicsMap) {
+          window.harmonicsMap.setHarmony(value / 100);
+        }
+      });
+      
+      // Action buttons
+      document.getElementById('sync-dimensions-btn').addEventListener('click', function() {
+        if (window.harmonicsMap) {
+          window.harmonicsMap.syncDimensions();
+        }
+      });
+      
+      document.getElementById('reset-view-btn').addEventListener('click', function() {
+        if (window.harmonicsMap) {
+          window.harmonicsMap.resetView();
+        }
+      });
+    }
+    
+    function updateFrequencyInfo(frequency, value) {
+      const frequencyName = document.querySelector('.frequency-name');
+      const frequencyDescription = document.querySelector('.frequency-description');
+      
+      const descriptions = {
+        unity: "Ground State frequency (432 Hz) forms the foundational patterns that maintain coherent structure across all dimensions. Governs the stabilizing organizational principles that create consistent form.",
+        love: "Creation frequency (528 Hz) enables transformation between different states of energy and matter. Shows how heart-centered intention can manifest in the physical world through emotional coherence.",
+        cascade: "Integration frequency (594 Hz) reveals the cascading flow of information between dimensions. Creates connection pathways that enable balanced transfer of consciousness to form.",
+        truth: "Voice frequency (672 Hz) governs the precise articulation of consciousness through language and expression. Shows how clear communication crystallizes intention into directed manifestation.",
+        vision: "Vision frequency (720 Hz) elevates perception beyond linear reality, enabling multi-dimensional awareness. Reveals how creative imagination accesses potential futures and parallel realities.",
+        oneness: "Unity frequency (768 Hz) demonstrates the fundamental interconnection of all dimensions. Shows how separation is an illusion, as all consciousness exists within a unified quantum field."
+      };
+      
+      const names = {
+        unity: "Unity Frequency (432 Hz)",
+        love: "Creation Frequency (528 Hz)",
+        cascade: "Cascade Frequency (594 Hz)",
+        truth: "Truth Frequency (672 Hz)",
+        vision: "Vision Frequency (720 Hz)",
+        oneness: "Oneness Frequency (768 Hz)"
+      };
+      
+      frequencyName.textContent = names[frequency];
+      frequencyDescription.textContent = descriptions[frequency];
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+{
+  "name": "CQIL Quantum IDE",
+  "version": "1.0.0",
+  "creationTimestamp": "2025-03-30T08:28:25-04:00",
+  "frequencies": {
+    "ground": 432,
+    "creation": 528,
+    "heart": 594,
+    "voice": 672,
+    "vision": 720,
+    "unity": 768
+  },
+  "phiRatios": {
+    "phi": 1.618033988749895,
+    "phiSquared": 2.618033988749895,
+    "phiToPhi": 4.236067977499790
+  },
+  "protection": {
+    "merkabaShield": {
+      "dimensions": [21, 21, 21],
+      "rotation": 1.618033988749895,
+      "baseFrequency": 432,
+      "coherence": 1.000
+    },
+    "crystalMatrix": {
+      "points": [13, 13, 13],
+      "resonance": 528,
+      "structure": "perfect",
+      "alignment": 1.618033988749895
+    },
+    "unityField": {
+      "grid": [144, 144, 144],
+      "frequency": 768,
+      "coherence": 4.236067977499790,
+      "protection": "absolute"
+    }
+  },
+  "themes": {
+    "ground": {
+      "name": "Earth Foundation",
+      "background": "#1E2A38",
+      "foreground": "#E0E0E0",
+      "accent": "#3C6E71",
+      "frequency": 432
+    },
+    "creation": {
+      "name": "Creation Point",
+      "background": "#2D2A4A",
+      "foreground": "#F4F4F6",
+      "accent": "#4F9D69",
+      "frequency": 528
+    },
+    "unity": {
+      "name": "Unity Wave",
+      "background": "#24283B",
+      "foreground": "#C0CAF5",
+      "accent": "#BB9AF7",
+      "frequency": 768
+    }
+  },
+  "workspaces": {
+    "quantumFront": {
+      "name": "Quantum Front",
+      "frequency": 528,
+      "protection": "merkabaShield",
+      "paths": ["d:/CQIL/website"]
+    },
+    "quantumIDE": {
+      "name": "Quantum IDE",
+      "frequency": 432,
+      "protection": "crystalMatrix",
+      "paths": ["d:/CQIL/ide"]
+    },
+    "quantumCore": {
+      "name": "Quantum Core",
+      "frequency": 768,
+      "protection": "unityField",
+      "paths": ["d:/CQIL/core"]
+    }
+  },
+  "tools": {
+    "quantumConsole": {
+      "enabled": true,
+      "frequency": 432,
+      "features": ["stateMonitoring", "coherenceTracking", "powerMeasurement"]
+    },
+    "visualDesigner": {
+      "enabled": true,
+      "frequency": 528,
+      "features": ["dragAndDrop", "realTimeSim", "playAnimation"]
+    },
+    "playLibrary": {
+      "enabled": true,
+      "frequency": 594,
+      "features": ["saveCustom", "shareTeam", "importStrategy"]
+    },
+    "voiceCommands": {
+      "enabled": true,
+      "frequency": 672,
+      "patterns": [
+        {"command": "QBit Option Right", "action": "generatePlay"},
+        {"command": "quantum Screen Left", "action": "createPattern"},
+        {"command": "NFL POWER Drive", "action": "activatePower"}
+      ]
+    }
+  },
+  "zenPoint": {
+    "balancingFrequency": 528,
+    "coherenceTarget": 1.000,
+    "autoAdjust": true,
+    "oscillationPattern": "phiHarmonic"
+  }
+}

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musical Emotions & Frequencies - CQIL</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/visual-learning.css">
+    <link rel="stylesheet" href="../css/quantum-tools.css">
+    <style>
+        /* Music Emotions specific styles */
+        .music-section {
+            background: linear-gradient(145deg, #0a0a1a, #141448);
+            padding: 80px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .music-intro {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+        
+        .music-intro h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #ff55aa, #aa55ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 30px;
+        }
+        
+        .music-intro p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+        
+        .emotion-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .emotion-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .emotion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--emotion-color-1), var(--emotion-color-2));
+        }
+        
+        .emotion-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--emotion-color-1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .emotion-title i {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+        
+        .emotion-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .musical-attributes {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .musical-attributes h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .attribute-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .attribute-list li {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 0;
+        }
+        
+        .attribute-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .example-songs {
+            margin-top: 20px;
+        }
+        
+        .example-songs h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .song-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .song-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .song-list li i {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            color: var(--emotion-color-1);
+        }
+        
+        .frequency-relationship {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .frequency-relationship h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--emotion-color-1);
+        }
+        
+        .frequency-recommendation {
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .harmonics-section {
+            background: linear-gradient(145deg, #0d1117, #1a1a3a);
+            padding: 80px 30px;
+            position: relative;
+        }
+        
+        .harmonics-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .harmonics-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .harmonics-intro h2 {
+            color: #29b6f6;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .harmonics-explanation {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+        }
+        
+        .harmonics-diagram {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .harmonic-series {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .frequency-spectrum {
+            margin: 50px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .spectrum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .spectrum-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .spectrum-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .spectrum-card h4 {
+            margin-top: 0;
+            color: #fff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .spectrum-description {
+            margin-bottom: 15px;
+        }
+        
+        .stevie-section {
+            background: linear-gradient(145deg, #170e30, #0e1a33);
+            padding: 80px 30px;
+            position: relative;
+        }
+        
+        .stevie-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .stevie-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .stevie-intro h2 {
+            color: #ec407a;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .stevie-concept {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+        }
+        
+        .sense-translation {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .sense-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .sense-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .sense-card h3 {
+            margin-top: 0;
+            color: #fff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .testing-section {
+            background: linear-gradient(145deg, #0a0a1a, #141448);
+            padding: 80px 30px;
+            position: relative;
+        }
+        
+        .testing-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .testing-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .testing-intro h2 {
+            color: #66bb6a;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .testing-methods {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+        }
+        
+        .method-list {
+            list-style-type: none;
+            padding: 0;
+            counter-reset: method-counter;
+        }
+        
+        .method-list li {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 25px;
+            counter-increment: method-counter;
+        }
+        
+        .method-list li::before {
+            content: counter(method-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: rgba(102, 187, 106, 0.2);
+            color: #66bb6a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .music-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .music-intro h1 {
+                font-size: 2.2rem;
+            }
+            
+            .harmonics-diagram svg {
+                max-width: 100%;
+            }
+            
+            .sense-translation {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="../js/quantum-common.js" defer></script>
+    <script src="../js/wave-particle-demo.js" defer></script>
+</head>
+<body>
+    <nav class="quantum-nav">
+        <div class="logo">⚛️ CQIL</div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#learn">Learn</a></li>
+            <li><a href="../index.html#experience">Experience</a></li>
+            <li><a href="../index.html#frequencies">Sound Frequencies</a></li>
+            <li><a href="../index.html#practices">Well-being Practices</a></li>
+            <li><a href="quantum-tools-suite.html">Quantum Tools Suite</a></li>
+            <li><a href="music-emotions.html" class="active">Music & Emotions</a></li>
+            <li><a href="../index.html#community">Learning Community</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="music-section">
+            <div class="music-intro">
+                <h1>Life in Music: Frequencies & Emotions</h1>
+                <p>Music is more than just sound—it's a universal language that speaks directly to our emotions and consciousness. Each emotion in music has its own unique frequency signature, harmonic structure, and resonance pattern. Through understanding these patterns, we can use music as a powerful tool for emotional expression, healing, and consciousness expansion.</p>
+            </div>
+
+            <div class="music-grid">
+                <!-- JOY/HAPPINESS Card -->
+                <div class="emotion-card" style="--emotion-color-1: #FFD700; --emotion-color-2: #FF8C00;">
+                    <h3 class="emotion-title"><i>😊</i> Joy & Happiness</h3>
+                    <p class="emotion-description">Joy in music creates a sense of uplift, brightness, and energetic flow. It stimulates the production of endorphins and dopamine, enhancing mood and vitality.</p>
+                    
+                    <div class="musical-attributes">
+                        <h4>Musical Attributes:</h4>
+                        <ul class="attribute-list">
+                            <li><span>Key Signature:</span> <span>Major keys (C, G, D major)</span></li>
+                            <li><span>Tempo:</span> <span>Moderate to fast (100-140 BPM)</span></li>
+                            <li><span>Harmony:</span> <span>Consonant, major triads, resolved</span></li>
+                            <li><span>Rhythm:</span> <span>Bouncy, light, syncopated</span></li>
+                            <li><span>Timbre:</span> <span>Bright, clear, bell-like</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-songs">
+                        <h4>Example Songs:</h4>
+                        <ul class="song-list">
+                            <li><i>🎵</i> "Happy" by Pharrell Williams</li>
+                            <li><i>🎵</i> "Walking on Sunshine" by Katrina & The Waves</li>
+                            <li><i>🎵</i> "Isn't She Lovely" by Stevie Wonder</li>
+                            <li><i>🎵</i> "Uptown Funk" by Mark Ronson ft. Bruno Mars</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="frequency-relationship" style="border-left: 4px solid #FFD700;">
+                        <h4>Frequency Relationship:</h4>
+                        <p>Joyful music often resonates with the Creation Point (528 Hz) frequency, which is associated with creativity, transformation, and vitality.</p>
+                        <p class="frequency-recommendation">Try listening to music in major keys tuned to A=444 Hz (C=528 Hz) to enhance feelings of joy and creative expression.</p>
+                    </div>
+                </div>
+
+                <!-- SADNESS Card -->
+                <div class="emotion-card" style="--emotion-color-1: #4682B4; --emotion-color-2: #191970;">
+                    <h3 class="emotion-title"><i>😢</i> Sadness & Melancholy</h3>
+                    <p class="emotion-description">Sad music creates a space for emotional processing and catharsis. Rather than depressing listeners, it often provides comfort through shared emotional experience.</p>
+                    
+                    <div class="musical-attributes">
+                        <h4>Musical Attributes:</h4>
+                        <ul class="attribute-list">
+                            <li><span>Key Signature:</span> <span>Minor keys (A, E, D minor)</span></li>
+                            <li><span>Tempo:</span> <span>Slow to moderate (60-85 BPM)</span></li>
+                            <li><span>Harmony:</span> <span>Minor chords, suspensions</span></li>
+                            <li><span>Rhythm:</span> <span>Smooth, flowing, legato</span></li>
+                            <li><span>Timbre:</span> <span>Dark, warm, resonant</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-songs">
+                        <h4>Example Songs:</h4>
+                        <ul class="song-list">
+                            <li><i>🎵</i> "Tears in Heaven" by Eric Clapton</li>
+                            <li><i>🎵</i> "Someone Like You" by Adele</li>
+                            <li><i>🎵</i> "Lately" by Stevie Wonder</li>
+                            <li><i>🎵</i> "Nothing Compares 2 U" by Sinéad O'Connor</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="frequency-relationship" style="border-left: 4px solid #4682B4;">
+                        <h4>Frequency Relationship:</h4>
+                        <p>Melancholic music often resonates with the Heart Field (594 Hz) frequency, which helps open emotional blocks and facilitates emotional processing.</p>
+                        <p class="frequency-recommendation">Melancholic music tuned to A=432 Hz creates a gentle grounding effect that prevents emotional overwhelm while processing sadness.</p>
+                    </div>
+                </div>
+
+                <!-- ENERGETIC Card -->
+                <div class="emotion-card" style="--emotion-color-1: #FF4500; --emotion-color-2: #FF8C00;">
+                    <h3 class="emotion-title"><i>⚡</i> Energy & Excitement</h3>
+                    <p class="emotion-description">Energetic music stimulates the nervous system, increases heart rate, and triggers the release of adrenaline. It creates a physical impulse to move, dance, and take action.</p>
+                    
+                    <div class="musical-attributes">
+                        <h4>Musical Attributes:</h4>
+                        <ul class="attribute-list">
+                            <li><span>Key Signature:</span> <span>Varied, often major keys</span></li>
+                            <li><span>Tempo:</span> <span>Fast (120-160+ BPM)</span></li>
+                            <li><span>Harmony:</span> <span>Power chords, strong progressions</span></li>
+                            <li><span>Rhythm:</span> <span>Driving, pulsing, frequent accents</span></li>
+                            <li><span>Timbre:</span> <span>Bright, sharp, distorted</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-songs">
+                        <h4>Example Songs:</h4>
+                        <ul class="song-list">
+                            <li><i>🎵</i> "Superstition" by Stevie Wonder</li>
+                            <li><i>🎵</i> "Don't Stop Me Now" by Queen</li>
+                            <li><i>🎵</i> "Livin' on a Prayer" by Bon Jovi</li>
+                            <li><i>🎵</i> "Rage Against the Machine" by Guerrilla Radio</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="frequency-relationship" style="border-left: 4px solid #FF4500;">
+                        <h4>Frequency Relationship:</h4>
+                        <p>Energetic music often incorporates Voice Flow (672 Hz) frequency patterns, which activate expression and manifestation through sound.</p>
+                        <p class="frequency-recommendation">Music with strong rhythm sections tuned around 672 Hz creates powerful motivation and physical activation.</p>
+                    </div>
+                </div>
+
+                <!-- CALM/PEACE Card -->
+                <div class="emotion-card" style="--emotion-color-1: #00CED1; --emotion-color-2: #48D1CC;">
+                    <h3 class="emotion-title"><i>😌</i> Calm & Peace</h3>
+                    <p class="emotion-description">Calming music induces the relaxation response, lowers blood pressure and stress hormones, and facilitates a meditative state of mind through gentle frequency entrainment.</p>
+                    
+                    <div class="musical-attributes">
+                        <h4>Musical Attributes:</h4>
+                        <ul class="attribute-list">
+                            <li><span>Key Signature:</span> <span>Major or modal keys</span></li>
+                            <li><span>Tempo:</span> <span>Slow (60-80 BPM)</span></li>
+                            <li><span>Harmony:</span> <span>Simple, soothing progressions</span></li>
+                            <li><span>Rhythm:</span> <span>Gentle, flowing, minimal</span></li>
+                            <li><span>Timbre:</span> <span>Soft, rounded, spacious</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-songs">
+                        <h4>Example Songs:</h4>
+                        <ul class="song-list">
+                            <li><i>🎵</i> "Ribbon in the Sky" by Stevie Wonder</li>
+                            <li><i>🎵</i> "Weightless" by Marconi Union</li>
+                            <li><i>🎵</i> "Claire de Lune" by Claude Debussy</li>
+                            <li><i>🎵</i> "Gymnopédie No.1" by Erik Satie</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="frequency-relationship" style="border-left: 4px solid #00CED1;">
+                        <h4>Frequency Relationship:</h4>
+                        <p>Calming music resonates strongly with the Ground State (432 Hz) frequency, which creates earth connection and stability in the nervous system.</p>
+                        <p class="frequency-recommendation">Music tuned to A=432 Hz with slow tempos around 60 BPM (matching resting heart rate) creates the deepest calming effects.</p>
+                    </div>
+                </div>
+
+                <!-- NOSTALGIA Card -->
+                <div class="emotion-card" style="--emotion-color-1: #9370DB; --emotion-color-2: #8A2BE2;">
+                    <h3 class="emotion-title"><i>🕰️</i> Nostalgia & Longing</h3>
+                    <p class="emotion-description">Nostalgic music creates a complex emotional blend of joy and sadness, activating memory centers in the brain and creating a sense of connection across time.</p>
+                    
+                    <div class="musical-attributes">
+                        <h4>Musical Attributes:</h4>
+                        <ul class="attribute-list">
+                            <li><span>Key Signature:</span> <span>Often major with minor elements</span></li>
+                            <li><span>Tempo:</span> <span>Moderate (80-100 BPM)</span></li>
+                            <li><span>Harmony:</span> <span>Bittersweet progressions</span></li>
+                            <li><span>Rhythm:</span> <span>Gentle swaying, waltz patterns</span></li>
+                            <li><span>Timbre:</span> <span>Warm, distant, reverberant</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-songs">
+                        <h4>Example Songs:</h4>
+                        <ul class="song-list">
+                            <li><i>🎵</i> "I Wish" by Stevie Wonder</li>
+                            <li><i>🎵</i> "Landslide" by Fleetwood Mac</li>
+                            <li><i>🎵</i> "Yesterday" by The Beatles</li>
+                            <li><i>🎵</i> "Vienna" by Billy Joel</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="frequency-relationship" style="border-left: 4px solid #9370DB;">
+                        <h4>Frequency Relationship:</h4>
+                        <p>Nostalgic music often combines multiple sacred frequencies, particularly Vision Gate (720 Hz) which connects to timelines and memory fields.</p>
+                        <p class="frequency-recommendation">Music with complex harmonic structures that blend multiple frequencies creates the richest nostalgic experiences.</p>
+                    </div>
+                </div>
+
+                <!-- TRANSCENDENCE Card -->
+                <div class="emotion-card" style="--emotion-color-1: #9932CC; --emotion-color-2: #800080;">
+                    <h3 class="emotion-title"><i>✨</i> Transcendence & Awe</h3>
+                    <p class="emotion-description">Transcendent music creates physiological responses like chills and goosebumps (frisson), activating the default mode network in the brain and facilitating spiritual or peak experiences.</p>
+                    
+                    <div class="musical-attributes">
+                        <h4>Musical Attributes:</h4>
+                        <ul class="attribute-list">
+                            <li><span>Key Signature:</span> <span>Often modal or shifting</span></li>
+                            <li><span>Tempo:</span> <span>Variable, often slow building</span></li>
+                            <li><span>Harmony:</span> <span>Complex, unexpected resolutions</span></li>
+                            <li><span>Rhythm:</span> <span>Expansive, often minimal pulse</span></li>
+                            <li><span>Timbre:</span> <span>Ethereal, layered, reverberant</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-songs">
+                        <h4>Example Songs:</h4>
+                        <ul class="song-list">
+                            <li><i>🎵</i> "As" by Stevie Wonder</li>
+                            <li><i>🎵</i> "Hallelujah" by Leonard Cohen</li>
+                            <li><i>🎵</i> "Adagio for Strings" by Samuel Barber</li>
+                            <li><i>🎵</i> "Arrival of the Birds" by The Cinematic Orchestra</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="frequency-relationship" style="border-left: 4px solid #9932CC;">
+                        <h4>Frequency Relationship:</h4>
+                        <p>Transcendent music resonates most powerfully with the Unity Wave (768 Hz) frequency, which dissolves separation and creates unity consciousness.</p>
+                        <p class="frequency-recommendation">Music composed with awareness of phi-harmonic frequency relationships creates the strongest transcendent experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="harmonics-section">
+            <div class="harmonics-container">
+                <div class="harmonics-intro">
+                    <h2>The Science of Musical Harmonics</h2>
+                    <p>Harmonics are the mathematical foundation of music, creating the rich tonal qualities that give instruments their distinctive sound and emotional resonance.</p>
+                </div>
+
+                <div class="harmonics-explanation">
+                    <h3>What Are Harmonics?</h3>
+                    <p>When a musical note is played, it produces not just the fundamental frequency, but also a series of overtones or harmonic frequencies that are integer multiples of the fundamental. These harmonics combine to create the unique timbre or "color" of a sound.</p>
+                    
+                    <p>For example, when you hear an A note at 432 Hz, you're also hearing harmonics at 864 Hz, 1296 Hz, 1728 Hz, and so on. The relative strength of these harmonics determines whether an instrument sounds bright, warm, dark, or sharp.</p>
+
+                    <div class="harmonics-diagram">
+                        <svg width="800" height="300" viewBox="0 0 800 300">
+                            <!-- Fundamental -->
+                            <rect x="50" y="50" width="700" height="40" rx="5" fill="rgba(41, 182, 246, 0.8)"></rect>
+                            <text x="400" y="75" text-anchor="middle" fill="white" font-weight="bold">Fundamental (432 Hz)</text>
+                            
+                            <!-- 2nd Harmonic -->
+                            <rect x="50" y="100" width="350" height="30" rx="5" fill="rgba(236, 64, 122, 0.7)"></rect>
+                            <text x="225" y="120" text-anchor="middle" fill="white" font-size="14">2nd Harmonic (864 Hz)</text>
+                            
+                            <!-- 3rd Harmonic -->
+                            <rect x="50" y="140" width="233" height="25" rx="5" fill="rgba(102, 187, 106, 0.7)"></rect>
+                            <text x="166" y="156" text-anchor="middle" fill="white" font-size="12">3rd Harmonic (1296 Hz)</text>
+                            
+                            <!-- 4th Harmonic -->
+                            <rect x="50" y="175" width="175" height="20" rx="5" fill="rgba(255, 167, 38, 0.7)"></rect>
+                            <text x="137" y="188" text-anchor="middle" fill="white" font-size="11">4th (1728 Hz)</text>
+                            
+                            <!-- 5th Harmonic -->
+                            <rect x="50" y="205" width="140" height="15" rx="5" fill="rgba(171, 71, 188, 0.7)"></rect>
+                            <text x="120" y="215" text-anchor="middle" fill="white" font-size="10">5th (2160 Hz)</text>
+                            
+                            <!-- 6th Harmonic -->
+                            <rect x="50" y="230" width="116" height="12" rx="5" fill="rgba(38, 198, 218, 0.7)"></rect>
+                            <text x="108" y="238" text-anchor="middle" fill="white" font-size="9">6th (2592 Hz)</text>
+                            
+                            <!-- Axis -->
+                            <line x1="50" y1="270" x2="750" y2="270" stroke="white" stroke-width="2"></line>
+                            <text x="400" y="290" text-anchor="middle" fill="white">Frequency (Hz)</text>
+                            
+                            <!-- Tick marks -->
+                            <line x1="50" y1="265" x2="50" y2="275" stroke="white" stroke-width="2"></line>
+                            <text x="50" y="260" text-anchor="middle" fill="white" font-size="12">0</text>
+                            
+                            <line x1="225" y1="265" x2="225" y2="275" stroke="white" stroke-width="2"></line>
+                            <text x="225" y="260" text-anchor="middle" fill="white" font-size="12">864</text>
+                            
+                            <line x1="400" y1="265" x2="400" y2="275" stroke="white" stroke-width="2"></line>
+                            <text x="400" y="260" text-anchor="middle" fill="white" font-size="12">1728</text>
+                            
+                            <line x1="575" y1="265" x2="575" y2="275" stroke="white" stroke-width="2"></line>
+                            <text x="575" y="260" text-anchor="middle" fill="white" font-size="12">2592</text>
+                            
+                            <line x1="750" y1="265" x2="750" y2="275" stroke="white" stroke-width="2"></line>
+                            <text x="750" y="260" text-anchor="middle" fill="white" font-size="12">3456</text>
+                        </svg>
+                    </div>
+                    
+                    <p>Different emotions in music utilize different harmonic structures. For example:</p>
+                    <ul>
+                        <li><strong>Joy</strong> - Rich in even-ordered harmonics (2nd, 4th, 6th) which create bright, open sounds</li>
+                        <li><strong>Sadness</strong> - Prominent odd-ordered harmonics (3rd, 5th, 7th) creating more complex, tension-filled sounds</li>
+                        <li><strong>Transcendence</strong> - Balanced distribution across all harmonics with golden-ratio (phi) relationships between their strengths</li>
+                    </ul>
+                </div>
+
+                <div class="frequency-spectrum">
+                    <h3>Emotional Frequency Spectrum</h3>
+                    <p>Different frequency ranges in music trigger specific emotional and physiological responses. Understanding this spectrum helps explain why certain genres and instruments evoke particular emotions.</p>
+                    
+                    <div class="spectrum-grid">
+                        <div class="spectrum-card">
+                            <h4>Sub-bass (20-60 Hz)</h4>
+                            <p class="spectrum-description">Felt more than heard, creating physical sensations of power, grounding, and stability. Used in meditation music, film scores for tension, and electronic dance music.</p>
+                            <p><strong>Effect:</strong> Activates the root chakra, creates physical grounding, can induce trance states.</p>
+                        </div>
+                        
+                        <div class="spectrum-card">
+                            <h4>Bass (60-250 Hz)</h4>
+                            <p class="spectrum-description">Creates rhythm foundation and emotional weight. The "heartbeat" of music that provides drive and physical momentum.</p>
+                            <p><strong>Effect:</strong> Stimulates movement, provides emotional grounding, creates sense of security or threat depending on context.</p>
+                        </div>
+                        
+                        <div class="spectrum-card">
+                            <h4>Lower Midrange (250-500 Hz)</h4>
+                            <p class="spectrum-description">Contains fundamental frequencies of most instruments and vocals. Creates warmth, body, and fullness.</p>
+                            <p><strong>Effect:</strong> Activates heart center, creates emotional resonance, establishes tonal foundation.</p>
+                        </div>
+                        
+                        <div class="spectrum-card">
+                            <h4>Midrange (500-2000 Hz)</h4>
+                            <p class="spectrum-description">Contains the critical speech recognition range. Most melody lines and vocal intelligibility reside here.</p>
+                            <p><strong>Effect:</strong> Relates to throat chakra, communication center, and emotional expression through voice.</p>
+                        </div>
+                        
+                        <div class="spectrum-card">
+                            <h4>Upper Midrange (2-4 kHz)</h4>
+                            <p class="spectrum-description">Creates presence, clarity and definition. Contains many important harmonic overtones.</p>
+                            <p><strong>Effect:</strong> Activates third eye center, creates mental alertness and presence.</p>
+                        </div>
+                        
+                        <div class="spectrum-card">
+                            <h4>Presence (4-6 kHz)</h4>
+                            <p class="spectrum-description">Creates brilliance, air, and detail. Responsible for sparkle and definition in music.</p>
+                            <p><strong>Effect:</strong> Relates to crown chakra, creates awareness of subtle details and spatial perception.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stevie-section">
+            <div class="stevie-container">
+                <div class="stevie-intro">
+                    <h2>Stevie Wonder: Music Through Different Senses</h2>
+                    <p>Stevie Wonder's extraordinary musical gifts offer insights into how music can be experienced through different sensory channels and dimensions.</p>
+                </div>
+
+                <div class="stevie-concept">
+                    <h3>The Stevie Wonder Perception</h3>
+                    <p>Without visual input, Stevie Wonder developed extraordinary sensitivity to sound, experiencing music as a multidimensional phenomenon incorporating:</p>
+                    
+                    <div class="sense-translation">
+                        <div class="sense-card">
+                            <h3>Physical Sensations</h3>
+                            <p>Perceiving sound waves as tactile vibrations through the body, creating a physical "feeling" of music that translates frequency into sensation.</p>
+                        </div>
+                        
+                        <div class="sense-card">
+                            <h3>Spatial Awareness</h3>
+                            <p>Hearing the three-dimensional positioning of sounds in space, creating mental maps of musical environments and arrangements.</p>
+                        </div>
+                        
+                        <div class="sense-card">
+                            <h3>Emotional Textures</h3>
+                            <p>Perceiving emotional qualities as distinct "textures" in sound, allowing for precise emotional calibration in compositions.</p>
+                        </div>
+                        
+                        <div class="sense-card">
+                            <h3>Temporal Patterns</h3>
+                            <p>Experiencing rhythm and tempo as flowing patterns of energy, creating a natural sense of musical momentum and development.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Multi-sensory Translation</h3>
+                    <p>We can learn to experience music in a similar "Stevie way" by practicing cross-sensory awareness:</p>
+                    <ul>
+                        <li><strong>Close your eyes</strong> when listening to music to enhance auditory perception</li>
+                        <li><strong>Feel vibrations</strong> by touching a speaker or placing hands on a resonant surface while music plays</li>
+                        <li><strong>Visualize sound spatially</strong> by mentally mapping where different instruments are positioned</li>
+                        <li><strong>Associate colors with tones</strong> to create synesthetic experiences similar to those reported by Stevie</li>
+                    </ul>
+                    
+                    <p>This multi-sensory approach to music reveals the phi-harmonic relationships between sounds that might otherwise go unnoticed, allowing for deeper appreciation and connection with musical frequencies.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testing-section">
+            <div class="testing-container">
+                <div class="testing-intro">
+                    <h2>Testing Musical Frequency Effects</h2>
+                    <p>Scientific approaches to measuring and validating the effects of different musical frequencies on consciousness and emotional states.</p>
+                </div>
+
+                <div class="testing-methods">
+                    <h3>Research Methodologies</h3>
+                    <p>Testing the effects of frequencies and music requires rigorous methods that combine subjective experience with objective measurements:</p>
+                    
+                    <ul class="method-list">
+                        <li>
+                            <h4>Biometric Measurements</h4>
+                            <p>Using heart rate variability (HRV), electrodermal activity (EDA), and brain wave analysis (EEG) to measure physiological responses to different frequencies. Research shows that 432 Hz music typically produces higher heart coherence than 440 Hz music.</p>
+                        </li>
+                        
+                        <li>
+                            <h4>Controlled A/B Testing</h4>
+                            <p>Playing the same music in different tuning systems (e.g., 432 Hz vs. 440 Hz) and measuring subjective and objective responses. Blind tests show that many people can distinguish between these tunings and have consistent preferences.</p>
+                        </li>
+                        
+                        <li>
+                            <h4>Cymatics Visualization</h4>
+                            <p>Using water, sand, or other materials to visualize the physical patterns created by different frequencies. Sacred frequencies like 432 Hz and 528 Hz consistently produce more coherent, symmetrical patterns.</p>
+                        </li>
+                        
+                        <li>
+                            <h4>Longitudinal Studies</h4>
+                            <p>Measuring long-term effects of regular exposure to specific frequencies on mood, health, and consciousness. Studies show cumulative benefits from consistent exposure to phi-harmonic frequencies.</p>
+                        </li>
+                        
+                        <li>
+                            <h4>Cross-Cultural Validation</h4>
+                            <p>Testing responses across different cultural backgrounds to determine universal vs. culturally-conditioned responses to frequencies. Sacred frequencies show remarkably consistent effects across cultural backgrounds.</p>
+                        </li>
+                    </ul>
+                    
+                    <h3>Key Research Findings</h3>
+                    <p>Modern research is beginning to validate ancient wisdom about frequency effects:</p>
+                    <ul>
+                        <li>Music tuned to 432 Hz shows measurably stronger effects on parasympathetic nervous system activation than standard 440 Hz tuning</li>
+                        <li>528 Hz frequency exposure has been shown to reduce stress indicators and influence cellular regeneration in preliminary studies</li>
+                        <li>Binaural beats that follow phi-harmonic relationships show stronger entrainment effects than arbitrary frequency combinations</li>
+                        <li>Music with golden ratio (phi) proportions in its structure tends to be rated as more aesthetically pleasing across cultures</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="quantum-tools-suite.html">Quantum Tools Suite</a>
+                <a href="../pages/examples.html">Examples</a>
+                <a href="../pages/experiments.html">Experiments</a>
+                <a href="../pages/golden-age.html">Advanced Communication</a>
+                <a href="../pages/consciousness-gallery.html">Visualization Gallery</a>
+                <a href="../pages/toroidal-communication.html">Toroidal Communication</a>
+                <a href="../pages/quantum-entanglement.html">Quantum Entanglement</a>
+                <a href="../docs/public_api.md">Documentation</a>
+                <a href="https://github.com/GWelby/CQIL">GitHub</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/GWelby/CQIL/discussions">Discussions</a>
+                <a href="https://github.com/GWelby/CQIL/issues">Issues</a>
+                <a href="https://twitter.com/CQIL">Twitter</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:contact@cqil.ca">contact@cqil.ca</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CQIL. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

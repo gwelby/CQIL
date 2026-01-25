@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    /* Ground State (432 Hz | φ⁰) - Basic foundation */
+    "target": "es2021",
+    "module": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    
+    /* Creation Point (528 Hz | φ¹) - Pattern formation */
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    
+    /* Heart Field (594 Hz | φ²) - Connection coherence */
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    
+    /* Voice Flow (672 Hz | φ³) - Expression clarity */
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    
+    /* Vision Gate (720 Hz | φ⁴) - Visual harmony */
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "quantum/*": ["js/quantum-experience/*"],
+      "components/*": ["components/*"]
+    },
+    
+    /* Unity Wave (768 Hz | φ⁵) - Perfect integration */
+    "incremental": true,
+    "composite": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "preserveConstEnums": true
+  },
+  "include": [
+    "src",
+    "js",
+    "components",
+    "test"
+  ],
+  "exclude": [
+    "node_modules",
+    "deploy",
+    "dist"
+  ]
+}

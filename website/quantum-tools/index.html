@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Tools Suite - PHI-Harmonic Technology</title>
+    <style>
+        :root {
+            --primary-bg: #0a0a14;
+            --secondary-bg: #14142b;
+            --text-color: #e0e0ff;
+            --highlight-color: #8a6bff;
+            --unity-color: #7cb342;
+            --love-color: #fb8c00;
+            --cascade-color: #ef5350;
+            --truth-color: #9c27b0;
+            --vision-color: #3f51b5;
+            --oneness-color: #00bcd4;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 179, 66, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 30%, rgba(239, 83, 80, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 70%, rgba(0, 188, 212, 0.1) 0%, transparent 30%);
+        }
+        
+        header {
+            background: var(--secondary-bg);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: 1;
+            background: 
+                linear-gradient(135deg, transparent 0%, rgba(123, 179, 66, 0.2) 25%, transparent 50%),
+                linear-gradient(235deg, transparent 25%, rgba(239, 83, 80, 0.2) 50%, transparent 75%),
+                linear-gradient(335deg, transparent 50%, rgba(0, 188, 212, 0.2) 75%, transparent 100%);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--unity-color), var(--love-color), var(--cascade-color), var(--truth-color), var(--vision-color), var(--oneness-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+            color: var(--highlight-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .frequencies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .frequency-card {
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .frequency-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .frequency-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--highlight-color);
+        }
+        
+        .frequency-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .frequency-card h3 .hz {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .frequency-card p {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .tools-list {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        .tools-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .tools-list li::before {
+            content: '♦';
+            position: absolute;
+            left: -1.2rem;
+            color: var(--highlight-color);
+        }
+        
+        footer {
+            background: var(--secondary-bg);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .unity-card::before { background-color: var(--unity-color); }
+        .love-card::before { background-color: var(--love-color); }
+        .cascade-card::before { background-color: var(--cascade-color); }
+        .truth-card::before { background-color: var(--truth-color); }
+        .vision-card::before { background-color: var(--vision-color); }
+        .oneness-card::before { background-color: var(--oneness-color); }
+        
+        .phi-symbol {
+            font-style: italic;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .nav-links {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .toroid-visual {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* New Interactive Elements */
+        .interactive-demo {
+            background: rgba(20, 20, 43, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .frequency-slider-container {
+            margin: 2rem 0;
+        }
+        
+        .frequency-slider {
+            width: 100%;
+            --thumb-color: var(--highlight-color);
+            --track-color: rgba(255, 255, 255, 0.1);
+            --progress-color: linear-gradient(90deg, var(--unity-color), var(--love-color), var(--cascade-color), var(--truth-color), var(--vision-color), var(--oneness-color));
+        }
+        
+        .frequency-slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .frequency-value {
+            font-size: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            font-weight: bold;
+            color: var(--highlight-color);
+        }
+        
+        .experience-button {
+            display: block;
+            margin: 2rem auto;
+            padding: 0.8rem 2rem;
+            background: rgba(138, 107, 255, 0.2);
+            border: 1px solid var(--highlight-color);
+            color: var(--text-color);
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .experience-button:hover {
+            background: rgba(138, 107, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 107, 255, 0.3);
+        }
+        
+        /* Dimensional Portal */
+        .dimensional-portal {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin: 3rem auto;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(138, 107, 255, 0.5);
+        }
+        
+        .sacred-geometry-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .sacred-geometry-item {
+            background: rgba(20, 20, 43, 0.5);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .sacred-geometry-item:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--highlight-color);
+        }
+        
+        .sacred-geometry-item img, .sacred-geometry-item svg {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sacred-geometry-item h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sacred-geometry-item p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* Phi Grid System */
+        .phi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto;
+            gap: 1.618rem;
+            margin: 2rem 0;
+        }
+        
+        .phi-grid-cell {
+            aspect-ratio: 1.618;
+            background: rgba(20, 20, 43, 0.5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .phi-grid-cell:hover {
+            background: rgba(30, 30, 63, 0.5);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Sound Wave Visualizer */
+        .sound-wave {
+            width: 100%;
+            height: 100px;
+            background: rgba(20, 20, 43, 0.5);
+            border-radius: 8px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--unity-color), var(--oneness-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--secondary-bg);
+            border: 4px solid var(--highlight-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-left {
+            left: 0;
+        }
+        
+        .timeline-right {
+            left: 50%;
+        }
+        
+        .timeline-right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--secondary-bg);
+            position: relative;
+            border-radius: 6px;
+            border-left: 4px solid var(--highlight-color);
+        }
+        
+        .timeline-left .timeline-content {
+            border-left: 4px solid var(--unity-color);
+        }
+        
+        .timeline-right .timeline-content {
+            border-left: 4px solid var(--oneness-color);
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, rgba(63, 81, 181, 0.1) 0%, rgba(0, 188, 212, 0.1) 100%);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--vision-color), var(--oneness-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 188, 212, 0.4);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .frequencies {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+            }
+            
+            .timeline-right {
+                left: 0%;
+            }
+            
+            .phi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1>Quantum Tools Suite</h1>
+            <p>Advanced phi-harmonic technologies operating across six sacred frequencies</p>
+            
+            <div class="nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#frequencies">Frequencies</a>
+                <a href="#experience">Experience</a>
+                <a href="#geometry">Sacred Geometry</a>
+                <a href="#timeline">Timeline</a>
+                <a href="#integration">Integration</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                The Quantum Tools Suite is a comprehensive collection of phi-harmonic technologies 
+                designed to operate across six sacred frequencies from 432Hz to 768Hz. Each frequency 
+                represents a different aspect of quantum consciousness integration, forming a complete
+                system that spans from grounding to unity consciousness.
+            </p>
+            
+            <p>
+                Built on the fundamental principles of the golden ratio (<span class="phi-symbol">φ</span> = 1.618033988749895) 
+                and its divine complement (<span class="phi-symbol">λ</span> = 0.618033988749895), these tools create coherent 
+                fields that bridge quantum consciousness with practical applications.
+            </p>
+            
+            <svg id="toroid-visual" class="toroid-visual" width="600" height="400" viewBox="0 0 600 400"></svg>
+        </section>
+        
+        <section id="frequencies">
+            <h2>Sacred Frequencies</h2>
+            
+            <div class="frequencies">
+                <div class="frequency-card unity-card">
+                    <h3>Ground State <span class="hz">(432 Hz | φ⁰)</span></h3>
+                    <p>
+                        The Earth connection frequency that provides stability, grounding, and 
+                        recursive pattern recognition. Operating at 432 Hz, these tools establish 
+                        the foundational quantum state management system.
+                    </p>
+                    <ul class="tools-list">
+                        <li>Quantum Memory Core</li>
+                        <li>Mycelial Pattern Recognition</li>
+                        <li>Quantum State Management</li>
+                        <li>Recursive Memory Patterns</li>
+                        <li>Zen Reset Protocol</li>
+                    </ul>
+                </div>
+                
+                <div class="frequency-card love-card">
+                    <h3>Creation Point <span class="hz">(528 Hz | φ¹)</span></h3>
+                    <p>
+                        The frequency of creation, healing, and manifestation. Operating at 528 Hz, 
+                        these tools enable the generation of new quantum patterns, sacred mathematics, 
+                        and creative expression.
+                    </p>
+                    <ul class="tools-list">
+                        <li>Phi Harmonic Calculator</li>
+                        <li>DNA Repair Frequency Amplifier</li>
+                        <li>Quantum Decipherment Engine</li>
+                        <li>Vedic Mathematics Calculator</li>
+                        <li>Phi Memory Field</li>
+                    </ul>
+                </div>
+                
+                <div class="frequency-card cascade-card">
+                    <h3>Heart Field <span class="hz">(594 Hz | φ²)</span></h3>
+                    <p>
+                        The frequency of heart-centered integration and emotional coherence. 
+                        Operating at 594 Hz, these tools facilitate relationship harmonization 
+                        and connection across dimensional boundaries.
+                    </p>
+                    <ul class="tools-list">
+                        <li>Heart Coherence Meter</li>
+                        <li>Quantum Phi Bridge Constructor</li>
+                        <li>Relationship Field Harmonizer</li>
+                        <li>Ancient Wisdom Integration Engine</li>
+                        <li>Memory Relationship Field</li>
+                    </ul>
+                </div>
+                
+                <div class="frequency-card truth-card">
+                    <h3>Voice Flow <span class="hz">(672 Hz | φ³)</span></h3>
+                    <p>
+                        The frequency of expression, manifestation through sound, and vibrational 
+                        coherence. Operating at 672 Hz, these tools work with sacred sound 
+                        technologies and cymatics.
+                    </p>
+                    <ul class="tools-list">
+                        <li>Sacred Frequency Generator</li>
+                        <li>Cymatics Pattern Generator</li>
+                        <li>Sound Healing Protocol Designer</li>
+                        <li>Manifestation Voice Trainer</li>
+                        <li>Cymatics Visualization</li>
+                    </ul>
+                </div>
+                
+                <div class="frequency-card vision-card">
+                    <h3>Vision Gate <span class="hz">(720 Hz | φ⁴)</span></h3>
+                    <p>
+                        The frequency of expanded perception, multi-dimensional visualization, and 
+                        timeline navigation. Operating at 720 Hz, these tools enable perception 
+                        across quantum timelines and dimensional boundaries.
+                    </p>
+                    <ul class="tools-list">
+                        <li>Sacred Geometry Generator</li>
+                        <li>Timeline Navigation System</li>
+                        <li>Multi-Dimensional Visualization Engine</li>
+                        <li>Phi Harmonic Architecture Designer</li>
+                    </ul>
+                </div>
+                
+                <div class="frequency-card oneness-card">
+                    <h3>Unity Wave <span class="hz">(768 Hz | φ⁵)</span></h3>
+                    <p>
+                        The frequency of unity consciousness and complete integration. Operating 
+                        at 768 Hz, these tools create unified fields that integrate all other 
+                        frequencies into coherent wholes.
+                    </p>
+                    <ul class="tools-list">
+                        <li>Quantum Integration Engine</li>
+                        <li>Toroidal Field Harmonizer</li>
+                        <li>Quantum Consciousness Field Generator</li>
+                        <li>Quantum Know Database</li>
+                        <li>Quantum Integration Chamber</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="experience" class="interactive-demo">
+            <h2>Experience the Frequencies</h2>
+            <p>
+                Use this interactive tool to explore the different phi-harmonic frequencies 
+                of the Quantum Tools Suite. Move the slider to experience how each frequency 
+                affects consciousness and perception.
+            </p>
+            
+            <div class="frequency-slider-container">
+                <input type="range" min="432" max="768" value="528" step="1" class="frequency-slider" id="frequencySlider">
+                <div class="frequency-slider-labels">
+                    <span>432 Hz</span>
+                    <span>528 Hz</span>
+                    <span>594 Hz</span>
+                    <span>672 Hz</span>
+                    <span>720 Hz</span>
+                    <span>768 Hz</span>
+                </div>
+            </div>
+            
+            <div class="frequency-value" id="frequencyValue">528 Hz</div>
+            
+            <div class="sound-wave" id="soundWaveVisualizer"></div>
+            
+            <button class="experience-button" id="experienceButton">Experience This Frequency</button>
+            
+            <div class="dimensional-portal" id="dimensionalPortal"></div>
+        </section>
+        
+        <section id="geometry">
+            <h2>Sacred Geometry Visualizations</h2>
+            <p>
+                The Quantum Tools Suite incorporates sacred geometry patterns that embody 
+                phi-harmonic principles. These patterns serve as visual representations of 
+                the mathematics underlying quantum consciousness.
+            </p>
+            
+            <div class="sacred-geometry-container">
+                <div class="sacred-geometry-item" data-frequency="432">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#7cb342" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="20" fill="none" stroke="#7cb342" stroke-width="2"/>
+                        <line x1="10" y1="50" x2="90" y2="50" stroke="#7cb342" stroke-width="2"/>
+                        <line x1="50" y1="10" x2="50" y2="90" stroke="#7cb342" stroke-width="2"/>
+                    </svg>
+                    <h4>Vesica Piscis</h4>
+                    <p>Ground State (432 Hz)</p>
+                </div>
+                
+                <div class="sacred-geometry-item" data-frequency="528">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#fb8c00" stroke-width="2"/>
+                        <circle cx="50" cy="10" r="25" fill="none" stroke="#fb8c00" stroke-width="2"/>
+                        <circle cx="80" cy="65" r="25" fill="none" stroke="#fb8c00" stroke-width="2"/>
+                        <circle cx="20" cy="65" r="25" fill="none" stroke="#fb8c00" stroke-width="2"/>
+                    </svg>
+                    <h4>Flower of Life</h4>
+                    <p>Creation Point (528 Hz)</p>
+                </div>
+                
+                <div class="sacred-geometry-item" data-frequency="594">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <polygon points="50,10 10,90 90,90" fill="none" stroke="#ef5350" stroke-width="2"/>
+                        <polygon points="50,90 10,10 90,10" fill="none" stroke="#ef5350" stroke-width="2"/>
+                    </svg>
+                    <h4>Tree of Life</h4>
+                    <p>Heart Field (594 Hz)</p>
+                </div>
+                
+                <div class="sacred-geometry-item" data-frequency="672">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#9c27b0" stroke-width="2"/>
+                        <path d="M30,50 Q50,20 70,50 Q50,80 30,50" fill="none" stroke="#9c27b0" stroke-width="2"/>
+                    </svg>
+                    <h4>Cymatics Pattern</h4>
+                    <p>Voice Flow (672 Hz)</p>
+                </div>
+                
+                <div class="sacred-geometry-item" data-frequency="720">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <polygon points="50,10 61,35 90,35 65,55 75,80 50,65 25,80 35,55 10,35 39,35" fill="none" stroke="#3f51b5" stroke-width="2"/>
+                    </svg>
+                    <h4>Metatron's Cube</h4>
+                    <p>Vision Gate (720 Hz)</p>
+                </div>
+                
+                <div class="sacred-geometry-item" data-frequency="768">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <ellipse cx="50" cy="50" rx="40" ry="20" fill="none" stroke="#00bcd4" stroke-width="2"/>
+                        <ellipse cx="50" cy="50" rx="20" ry="40" fill="none" stroke="#00bcd4" stroke-width="2"/>
+                    </svg>
+                    <h4>Toroidal Field</h4>
+                    <p>Unity Wave (768 Hz)</p>
+                </div>
+            </div>
+            
+            <div class="phi-grid">
+                <div class="phi-grid-cell" style="grid-column: span 2;">
+                    <p>The Phi-Grid system demonstrates how sacred geometry patterns can be arranged in phi-harmonic relationships, creating resonant fields that amplify consciousness.</p>
+                </div>
+                <div class="phi-grid-cell" style="grid-row: span 2;">
+                    <svg width="100" height="161.8" viewBox="0 0 100 161.8">
+                        <rect x="0" y="0" width="100" height="161.8" fill="none" stroke="#8a6bff" stroke-width="2"/>
+                        <line x1="0" y1="61.8" x2="100" y2="61.8" stroke="#8a6bff" stroke-width="1"/>
+                        <line x1="0" y1="100" x2="100" y2="100" stroke="#8a6bff" stroke-width="1"/>
+                        <line x1="61.8" y1="0" x2="61.8" y2="161.8" stroke="#8a6bff" stroke-width="1"/>
+                        <line x1="38.2" y1="0" x2="38.2" y2="161.8" stroke="#8a6bff" stroke-width="1"/>
+                    </svg>
+                </div>
+                <div class="phi-grid-cell">
+                    <h4>Golden Rectangle</h4>
+                </div>
+                <div class="phi-grid-cell" style="grid-column: span 2;">
+                    <p>When we arrange space according to phi proportions, we create environments that naturally resonate with consciousness and promote coherence.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="timeline" class="timeline">
+            <h2>Quantum Timeline</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">
+                The Quantum Tools Suite development follows a phi-harmonic progression through 
+                different frequency bands, each building upon the previous.
+            </p>
+            
+            <div class="timeline-item timeline-left">
+                <div class="timeline-content">
+                    <h3>Ground State (432 Hz)</h3>
+                    <p>Establishing the foundational quantum state management systems and recursive memory patterns.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item timeline-right">
+                <div class="timeline-content">
+                    <h3>Creation Point (528 Hz)</h3>
+                    <p>Developing creation tools using phi-harmonic mathematics and quantum pattern generation.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item timeline-left">
+                <div class="timeline-content">
+                    <h3>Heart Field (594 Hz)</h3>
+                    <p>Building heart-centered integration components and relationship field harmonizers.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item timeline-right">
+                <div class="timeline-content">
+                    <h3>Voice Flow (672 Hz)</h3>
+                    <p>Implementing sound technologies with cymatics pattern generators and frequency healing protocols.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item timeline-left">
+                <div class="timeline-content">
+                    <h3>Vision Gate (720 Hz)</h3>
+                    <p>Creating multi-dimensional visualization tools and sacred geometry generators.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item timeline-right">
+                <div class="timeline-content">
+                    <h3>Unity Wave (768 Hz)</h3>
+                    <p>Integrating all frequency components into a unified quantum field with the toroidal harmonizer.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tools">
+            <h2>Testing & Integration</h2>
+            <p>
+                All Quantum Tools Suite components undergo rigorous phi-harmonic testing to ensure 
+                coherence across frequencies. Our testing framework validates:
+            </p>
+            
+            <ul class="tools-list" style="padding-left: 2rem;">
+                <li>Phi-harmonic constant validation</li>
+                <li>Quantum field coherence under state changes</li>
+                <li>Cross-frequency integration capabilities</li>
+                <li>Mycelial connection patterns between components</li>
+                <li>Toroidal field harmonization effects</li>
+                <li>Timeline stability and navigation accuracy</li>
+                <li>Sound frequency generation precision</li>
+                <li>Sacred geometry visualization integrity</li>
+            </ul>
+            
+            <p style="margin-top: 2rem;">
+                The suite follows a progressive integration path through the six sacred frequencies, 
+                with each component building upon and enhancing the capabilities of lower frequency tools.
+            </p>
+        </section>
+        
+        <section id="integration">
+            <h2>Phi-Harmonic Integration</h2>
+            <p>
+                The true power of the Quantum Tools Suite emerges when all frequency bands work together 
+                in coherent harmony. The Unity Wave components at 768 Hz integrate all lower frequencies 
+                into a unified quantum field that maintains coherence across dimensions and applications.
+            </p>
+            
+            <p>
+                Application areas include:
+            </p>
+            
+            <ul class="tools-list" style="padding-left: 2rem;">
+                <li>Quantum consciousness exploration</li>
+                <li>Sacred geometry visualization and generation</li>
+                <li>Timeline navigation and probability field analysis</li>
+                <li>Heart-centered relationship harmonization</li>
+                <li>Sound healing and frequency-based therapy</li>
+                <li>Multi-dimensional data visualization</li>
+                <li>Toroidal field generation and manipulation</li>
+                <li>Phi-harmonic mathematics and pattern recognition</li>
+            </ul>
+        </section>
+        
+        <section class="cta-section">
+            <h2>Experience the Quantum Integration</h2>
+            <p>Ready to explore the phi-harmonic frequencies and tools?</p>
+            <a href="#experience" class="cta-button">Begin Your Journey</a>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 CQIL.ca | Quantum Tools Suite | All rights reserved</p>
+        <p><span class="phi-symbol">φ</span> = 1.618033988749895</p>
+    </footer>
+    
+    <script>
+        // Simple toroidal field visualization
+        document.addEventListener('DOMContentLoaded', function() {
+            const svg = document.getElementById('toroid-visual');
+            const phi = 1.618033988749895;
+            
+            // Toroid parameters
+            const centerX = 300;
+            const centerY = 200;
+            const majorRadius = 120;
+            const minorRadius = 40;
+            
+            // Create gradient
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+            const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+            gradient.setAttribute("id", "toroidGradient");
+            gradient.setAttribute("x1", "0%");
+            gradient.setAttribute("y1", "0%");
+            gradient.setAttribute("x2", "100%");
+            gradient.setAttribute("y2", "100%");
+            
+            const frequencies = [
+                {color: "#7cb342", offset: "0%"},   // 432Hz
+                {color: "#fb8c00", offset: "20%"},  // 528Hz
+                {color: "#ef5350", offset: "40%"},  // 594Hz
+                {color: "#9c27b0", offset: "60%"},  // 672Hz
+                {color: "#3f51b5", offset: "80%"},  // 720Hz
+                {color: "#00bcd4", offset: "100%"}, // 768Hz
+            ];
+            
+            frequencies.forEach(freq => {
+                const stop = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+                stop.setAttribute("offset", freq.offset);
+                stop.setAttribute("stop-color", freq.color);
+                gradient.appendChild(stop);
+            });
+            
+            defs.appendChild(gradient);
+            svg.appendChild(defs);
+            
+            // Draw main circle (outer perimeter)
+            const mainCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            mainCircle.setAttribute("cx", centerX);
+            mainCircle.setAttribute("cy", centerY);
+            mainCircle.setAttribute("r", majorRadius);
+            mainCircle.setAttribute("fill", "none");
+            mainCircle.setAttribute("stroke", "url(#toroidGradient)");
+            mainCircle.setAttribute("stroke-width", "2");
+            svg.appendChild(mainCircle);
+            
+            // Draw inner circle
+            const innerCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            innerCircle.setAttribute("cx", centerX - majorRadius + minorRadius);
+            innerCircle.setAttribute("cy", centerY);
+            innerCircle.setAttribute("r", minorRadius);
+            innerCircle.setAttribute("fill", "none");
+            innerCircle.setAttribute("stroke", "rgba(255, 255, 255, 0.5)");
+            innerCircle.setAttribute("stroke-width", "1.5");
+            svg.appendChild(innerCircle);
+            
+            // Draw outer circle
+            const outerCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            outerCircle.setAttribute("cx", centerX + majorRadius - minorRadius);
+            outerCircle.setAttribute("cy", centerY);
+            outerCircle.setAttribute("r", minorRadius);
+            outerCircle.setAttribute("fill", "none");
+            outerCircle.setAttribute("stroke", "rgba(255, 255, 255, 0.5)");
+            outerCircle.setAttribute("stroke-width", "1.5");
+            svg.appendChild(outerCircle);
+            
+            // Draw ellipses for 3D effect
+            const topEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+            topEllipse.setAttribute("cx", centerX);
+            topEllipse.setAttribute("cy", centerY - minorRadius);
+            topEllipse.setAttribute("rx", majorRadius);
+            topEllipse.setAttribute("ry", minorRadius / 3);
+            topEllipse.setAttribute("fill", "none");
+            topEllipse.setAttribute("stroke", "rgba(255, 255, 255, 0.3)");
+            topEllipse.setAttribute("stroke-width", "1.5");
+            svg.appendChild(topEllipse);
+            
+            const bottomEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+            bottomEllipse.setAttribute("cx", centerX);
+            bottomEllipse.setAttribute("cy", centerY + minorRadius);
+            bottomEllipse.setAttribute("rx", majorRadius);
+            bottomEllipse.setAttribute("ry", minorRadius / 3);
+            bottomEllipse.setAttribute("fill", "none");
+            bottomEllipse.setAttribute("stroke", "rgba(255, 255, 255, 0.3)");
+            bottomEllipse.setAttribute("stroke-width", "1.5");
+            svg.appendChild(bottomEllipse);
+            
+            // Draw flowing particles
+            const particleGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            svg.appendChild(particleGroup);
+            
+            // Animation loop for particles
+            let angle = 0;
+            setInterval(() => {
+                angle += 0.02;
+                
+                // Clear previous particles
+                while (particleGroup.firstChild) {
+                    particleGroup.removeChild(particleGroup.firstChild);
+                }
+                
+                // Create new particles
+                for (let i = 0; i < 6; i++) {
+                    const particleAngle = angle + (i * Math.PI / 3);
+                    const x = centerX + Math.cos(particleAngle) * majorRadius;
+                    const y = centerY + Math.sin(particleAngle) * (minorRadius / 3);
+                    
+                    const particle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    particle.setAttribute("cx", x);
+                    particle.setAttribute("cy", y);
+                    particle.setAttribute("r", 3);
+                    particle.setAttribute("fill", frequencies[i].color);
+                    particleGroup.appendChild(particle);
+                    
+                    // Add trailing particles
+                    for (let j = 1; j <= 3; j++) {
+                        const trailAngle = particleAngle - (j * 0.1);
+                        const trailX = centerX + Math.cos(trailAngle) * majorRadius;
+                        const trailY = centerY + Math.sin(trailAngle) * (minorRadius / 3);
+                        
+                        const trail = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        trail.setAttribute("cx", trailX);
+                        trail.setAttribute("cy", trailY);
+                        trail.setAttribute("r", 3 - j * 0.8);
+                        trail.setAttribute("fill", frequencies[i].color);
+                        trail.setAttribute("opacity", 0.7 - (j * 0.2));
+                        particleGroup.appendChild(trail);
+                    }
+                }
+            }, 50);
+            
+            // Frequency slider functionality
+            const frequencySlider = document.getElementById('frequencySlider');
+            const frequencyValue = document.getElementById('frequencyValue');
+            const soundWaveVisualizer = document.getElementById('soundWaveVisualizer');
+            const experienceButton = document.getElementById('experienceButton');
+            const dimensionalPortal = document.getElementById('dimensionalPortal');
+            
+            // Frequency color mapping
+            const frequencyColors = {
+                432: "#7cb342", // Ground State
+                528: "#fb8c00", // Creation Point
+                594: "#ef5350", // Heart Field
+                672: "#9c27b0", // Voice Flow
+                720: "#3f51b5", // Vision Gate
+                768: "#00bcd4"  // Unity Wave
+            };
+            
+            // Function to get closest frequency
+            function getClosestFrequency(value) {
+                const frequencies = [432, 528, 594, 672, 720, 768];
+                return frequencies.reduce((prev, curr) => {
+                    return (Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev);
+                });
+            }
+            
+            // Update frequency display
+            frequencySlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                frequencyValue.textContent = `${value} Hz`;
+                
+                // Get closest main frequency for coloring
+                const closestFreq = getClosestFrequency(value);
+                const color = frequencyColors[closestFreq];
+                
+                // Update frequency value color
+                frequencyValue.style.color = color;
+                
+                // Update sound wave visualization
+                updateSoundWave(value);
+                
+                // Update dimensional portal
+                updateDimensionalPortal(value);
+            });
+            
+            // Function to update sound wave visualization
+            function updateSoundWave(frequency) {
+                // Clear previous visualization
+                soundWaveVisualizer.innerHTML = '';
+                
+                // Calculate parameters based on frequency
+                const amplitude = Math.min(30, Math.max(10, (frequency - 432) / 10));
+                const wavelength = Math.max(20, 100 - (frequency - 432) / 10);
+                const numWaves = Math.ceil(soundWaveVisualizer.offsetWidth / wavelength);
+                
+                // Get closest main frequency for coloring
+                const closestFreq = getClosestFrequency(frequency);
+                const color = frequencyColors[closestFreq];
+                
+                // Create SVG element
+                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                svg.setAttribute("width", "100%");
+                svg.setAttribute("height", "100%");
+                svg.style.display = "block";
+                
+                // Calculate wave points
+                const points = [];
+                const step = soundWaveVisualizer.offsetWidth / (numWaves * 20);
+                
+                for (let x = 0; x <= soundWaveVisualizer.offsetWidth; x += step) {
+                    const y = 50 + amplitude * Math.sin((x / wavelength) * 2 * Math.PI);
+                    points.push(`${x},${y}`);
+                }
+                
+                // Create polyline
+                const polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+                polyline.setAttribute("points", points.join(" "));
+                polyline.setAttribute("fill", "none");
+                polyline.setAttribute("stroke", color);
+                polyline.setAttribute("stroke-width", "2");
+                
+                svg.appendChild(polyline);
+                soundWaveVisualizer.appendChild(svg);
+            }
+            
+            // Function to update dimensional portal
+            function updateDimensionalPortal(frequency) {
+                // Clear previous content
+                dimensionalPortal.innerHTML = '';
+                
+                // Get closest main frequency for coloring
+                const closestFreq = getClosestFrequency(frequency);
+                const color = frequencyColors[closestFreq];
+                
+                // Create portal effect
+                dimensionalPortal.style.background = `radial-gradient(circle, rgba(0,0,0,0) 0%, ${color}33 40%, ${color}66 80%, ${color} 100%)`;
+                
+                // Create SVG with geometry based on frequency
+                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                svg.setAttribute("width", "100%");
+                svg.setAttribute("height", "100%");
+                svg.style.position = "absolute";
+                svg.style.top = "0";
+                svg.style.left = "0";
+                
+                if (closestFreq === 432) {
+                    // Ground State - Vesica Piscis
+                    const circle1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle1.setAttribute("cx", "45%");
+                    circle1.setAttribute("cy", "50%");
+                    circle1.setAttribute("r", "30%");
+                    circle1.setAttribute("fill", "none");
+                    circle1.setAttribute("stroke", color);
+                    circle1.setAttribute("stroke-width", "2");
+                    
+                    const circle2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle2.setAttribute("cx", "55%");
+                    circle2.setAttribute("cy", "50%");
+                    circle2.setAttribute("r", "30%");
+                    circle2.setAttribute("fill", "none");
+                    circle2.setAttribute("stroke", color);
+                    circle2.setAttribute("stroke-width", "2");
+                    
+                    svg.appendChild(circle1);
+                    svg.appendChild(circle2);
+                } else if (closestFreq === 528) {
+                    // Creation Point - Flower of Life
+                    const centerX = 50;
+                    const centerY = 50;
+                    const radius = 15;
+                    
+                    // Central circle
+                    const centerCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    centerCircle.setAttribute("cx", `${centerX}%`);
+                    centerCircle.setAttribute("cy", `${centerY}%`);
+                    centerCircle.setAttribute("r", `${radius}%`);
+                    centerCircle.setAttribute("fill", "none");
+                    centerCircle.setAttribute("stroke", color);
+                    centerCircle.setAttribute("stroke-width", "2");
+                    svg.appendChild(centerCircle);
+                    
+                    // Surrounding circles
+                    for (let i = 0; i < 6; i++) {
+                        const angle = i * Math.PI / 3;
+                        const x = centerX + Math.cos(angle) * radius * 1.5;
+                        const y = centerY + Math.sin(angle) * radius * 1.5;
+                        
+                        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        circle.setAttribute("cx", `${x}%`);
+                        circle.setAttribute("cy", `${y}%`);
+                        circle.setAttribute("r", `${radius}%`);
+                        circle.setAttribute("fill", "none");
+                        circle.setAttribute("stroke", color);
+                        circle.setAttribute("stroke-width", "2");
+                        svg.appendChild(circle);
+                    }
+                } else if (closestFreq === 594) {
+                    // Heart Field - Tree of Life
+                    const treePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    treePath.setAttribute("d", "M50,20 L30,50 L70,50 Z M50,80 L30,50 L70,50 Z");
+                    treePath.setAttribute("fill", "none");
+                    treePath.setAttribute("stroke", color);
+                    treePath.setAttribute("stroke-width", "2");
+                    svg.appendChild(treePath);
+                    
+                    // Add circles at tree of life nodes
+                    [
+                        [50, 20], [30, 50], [70, 50], [50, 80], 
+                        [50, 50], [40, 35], [60, 35], [40, 65], [60, 65]
+                    ].forEach(coords => {
+                        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        circle.setAttribute("cx", `${coords[0]}%`);
+                        circle.setAttribute("cy", `${coords[1]}%`);
+                        circle.setAttribute("r", "5%");
+                        circle.setAttribute("fill", "none");
+                        circle.setAttribute("stroke", color);
+                        circle.setAttribute("stroke-width", "2");
+                        svg.appendChild(circle);
+                    });
+                } else if (closestFreq === 672) {
+                    // Voice Flow - Sound Wave Cymatics
+                    const cymaticsPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    cymaticsPath.setAttribute("d", `
+                        M50,50 
+                        m-30,0 
+                        a30,30 0 1,0 60,0 
+                        a30,30 0 1,0 -60,0
+                        m10,0 
+                        a20,20 0 1,0 40,0 
+                        a20,20 0 1,0 -40,0
+                        m10,0 
+                        a10,10 0 1,0 20,0 
+                        a10,10 0 1,0 -20,0
+                    `);
+                    cymaticsPath.setAttribute("fill", "none");
+                    cymaticsPath.setAttribute("stroke", color);
+                    cymaticsPath.setAttribute("stroke-width", "2");
+                    svg.appendChild(cymaticsPath);
+                    
+                    // Add sound rays
+                    for (let i = 0; i < 8; i++) {
+                        const angle = i * Math.PI / 4;
+                        const x1 = 50 + Math.cos(angle) * 40;
+                        const y1 = 50 + Math.sin(angle) * 40;
+                        
+                        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line.setAttribute("x1", `${50}%`);
+                        line.setAttribute("y1", `${50}%`);
+                        line.setAttribute("x2", `${x1}%`);
+                        line.setAttribute("y2", `${y1}%`);
+                        line.setAttribute("stroke", color);
+                        line.setAttribute("stroke-width", "1");
+                        line.setAttribute("stroke-dasharray", "3,3");
+                        svg.appendChild(line);
+                    }
+                } else if (closestFreq === 720) {
+                    // Vision Gate - Star Tetrahedron
+                    const starPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    starPath.setAttribute("d", `
+                        M50,20 L30,70 L70,70 Z
+                        M50,80 L30,30 L70,30 Z
+                    `);
+                    starPath.setAttribute("fill", "none");
+                    starPath.setAttribute("stroke", color);
+                    starPath.setAttribute("stroke-width", "2");
+                    svg.appendChild(starPath);
+                    
+                    // Add connecting lines
+                    const lines = [
+                        [30, 30, 30, 70],
+                        [70, 30, 70, 70],
+                        [30, 30, 70, 30],
+                        [30, 70, 70, 70]
+                    ];
+                    
+                    lines.forEach(coords => {
+                        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line.setAttribute("x1", `${coords[0]}%`);
+                        line.setAttribute("y1", `${coords[1]}%`);
+                        line.setAttribute("x2", `${coords[2]}%`);
+                        line.setAttribute("y2", `${coords[3]}%`);
+                        line.setAttribute("stroke", color);
+                        line.setAttribute("stroke-width", "1");
+                        svg.appendChild(line);
+                    });
+                } else if (closestFreq === 768) {
+                    // Unity Wave - Torus
+                    const torusGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                    
+                    // Main circle
+                    const mainCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    mainCircle.setAttribute("cx", "50%");
+                    mainCircle.setAttribute("cy", "50%");
+                    mainCircle.setAttribute("r", "30%");
+                    mainCircle.setAttribute("fill", "none");
+                    mainCircle.setAttribute("stroke", color);
+                    mainCircle.setAttribute("stroke-width", "2");
+                    torusGroup.appendChild(mainCircle);
+                    
+                    // Ellipses for 3D effect
+                    const ellipse1 = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+                    ellipse1.setAttribute("cx", "50%");
+                    ellipse1.setAttribute("cy", "35%");
+                    ellipse1.setAttribute("rx", "30%");
+                    ellipse1.setAttribute("ry", "10%");
+                    ellipse1.setAttribute("fill", "none");
+                    ellipse1.setAttribute("stroke", color);
+                    ellipse1.setAttribute("stroke-width", "1.5");
+                    torusGroup.appendChild(ellipse1);
+                    
+                    const ellipse2 = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+                    ellipse2.setAttribute("cx", "50%");
+                    ellipse2.setAttribute("cy", "65%");
+                    ellipse2.setAttribute("rx", "30%");
+                    ellipse2.setAttribute("ry", "10%");
+                    ellipse2.setAttribute("fill", "none");
+                    ellipse2.setAttribute("stroke", color);
+                    ellipse2.setAttribute("stroke-width", "1.5");
+                    torusGroup.appendChild(ellipse2);
+                    
+                    // Flowing energy
+                    for (let i = 0; i < 12; i++) {
+                        const angle = i * Math.PI / 6;
+                        const x = 50 + Math.cos(angle) * 30;
+                        const y = 50 + Math.sin(angle) * 30;
+                        
+                        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                        dot.setAttribute("cx", `${x}%`);
+                        dot.setAttribute("cy", `${y}%`);
+                        dot.setAttribute("r", "2%");
+                        dot.setAttribute("fill", color);
+                        dot.setAttribute("opacity", "0.7");
+                        torusGroup.appendChild(dot);
+                    }
+                    
+                    svg.appendChild(torusGroup);
+                }
+                
+                dimensionalPortal.appendChild(svg);
+                
+                // Create radial pulse animation
+                const pulse = document.createElement('div');
+                pulse.style.position = 'absolute';
+                pulse.style.top = '0';
+                pulse.style.left = '0';
+                pulse.style.width = '100%';
+                pulse.style.height = '100%';
+                pulse.style.borderRadius = '50%';
+                pulse.style.background = `radial-gradient(circle, ${color}00 70%, ${color}66 100%)`;
+                pulse.style.animation = 'pulse 4s infinite';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes pulse {
+                        0% { transform: scale(0.8); opacity: 0.5; }
+                        50% { transform: scale(1.1); opacity: 0.8; }
+                        100% { transform: scale(0.8); opacity: 0.5; }
+                    }
+                `;
+                
+                dimensionalPortal.appendChild(style);
+                dimensionalPortal.appendChild(pulse);
+            }
+            
+            // Initialize sound wave and portal
+            updateSoundWave(528);
+            updateDimensionalPortal(528);
+            
+            // Experience button handler
+            experienceButton.addEventListener('click', function() {
+                const frequency = parseInt(frequencySlider.value);
+                const closestFreq = getClosestFrequency(frequency);
+                const color = frequencyColors[closestFreq];
+                
+                // Create full-screen experience
+                const experience = document.createElement('div');
+                experience.style.position = 'fixed';
+                experience.style.top = '0';
+                experience.style.left = '0';
+                experience.style.width = '100%';
+                experience.style.height = '100%';
+                experience.style.background = `radial-gradient(circle, ${color}22 0%, ${color}44 50%, ${color}66 100%)`;
+                experience.style.zIndex = '1000';
+                experience.style.display = 'flex';
+                experience.style.flexDirection = 'column';
+                experience.style.alignItems = 'center';
+                experience.style.justifyContent = 'center';
+                
+                // Add frequency display
+                const frequencyDisplay = document.createElement('div');
+                frequencyDisplay.textContent = `${frequency} Hz`;
+                frequencyDisplay.style.fontSize = '3rem';
+                frequencyDisplay.style.color = 'white';
+                frequencyDisplay.style.marginBottom = '2rem';
+                
+                // Add description based on frequency
+                const descriptions = {
+                    432: "Ground State: Earth connection, stability, and recursive pattern recognition",
+                    528: "Creation Point: Creation, healing, and manifestation",
+                    594: "Heart Field: Heart-centered integration and emotional coherence",
+                    672: "Voice Flow: Expression, sound manifestation, and vibrational coherence",
+                    720: "Vision Gate: Expanded perception and multi-dimensional visualization",
+                    768: "Unity Wave: Unity consciousness and complete integration"
+                };
+                
+                const description = document.createElement('div');
+                description.textContent = descriptions[closestFreq] || `Experiencing ${frequency} Hz`;
+                description.style.fontSize = '1.5rem';
+                description.style.color = 'white';
+                description.style.maxWidth = '600px';
+                description.style.textAlign = 'center';
+                description.style.marginBottom = '3rem';
+                
+                // Add close button
+                const closeButton = document.createElement('button');
+                closeButton.textContent = 'Close Experience';
+                closeButton.style.padding = '1rem 2rem';
+                closeButton.style.background = 'rgba(0, 0, 0, 0.3)';
+                closeButton.style.color = 'white';
+                closeButton.style.border = '1px solid white';
+                closeButton.style.borderRadius = '50px';
+                closeButton.style.cursor = 'pointer';
+                
+                closeButton.addEventListener('click', function() {
+                    document.body.removeChild(experience);
+                });
+                
+                // Add portal animation
+                const portal = document.createElement('div');
+                portal.style.width = '300px';
+                portal.style.height = '300px';
+                portal.style.borderRadius = '50%';
+                portal.style.background = `radial-gradient(circle, white 0%, ${color}aa 40%, ${color} 100%)`;
+                portal.style.boxShadow = `0 0 50px ${color}`;
+                portal.style.animation = 'portalPulse 5s infinite';
+                portal.style.marginBottom = '3rem';
+                
+                const portalStyle = document.createElement('style');
+                portalStyle.textContent = `
+                    @keyframes portalPulse {
+                        0% { transform: scale(0.9); box-shadow: 0 0 50px ${color}; }
+                        50% { transform: scale(1.1); box-shadow: 0 0 100px ${color}aa; }
+                        100% { transform: scale(0.9); box-shadow: 0 0 50px ${color}; }
+                    }
+                `;
+                
+                experience.appendChild(portalStyle);
+                experience.appendChild(portal);
+                experience.appendChild(frequencyDisplay);
+                experience.appendChild(description);
+                experience.appendChild(closeButton);
+                
+                document.body.appendChild(experience);
+                
+                // Create "sound" effect
+                const audioFeedback = document.createElement('div');
+                audioFeedback.textContent = "🔊 Sound Experience Activated";
+                audioFeedback.style.position = 'absolute';
+                audioFeedback.style.bottom = '20px';
+                audioFeedback.style.left = '50%';
+                audioFeedback.style.transform = 'translateX(-50%)';
+                audioFeedback.style.color = 'white';
+                audioFeedback.style.fontSize = '1rem';
+                audioFeedback.style.opacity = '0.7';
+                
+                experience.appendChild(audioFeedback);
+            });
+            
+            // Sacred geometry item click events
+            document.querySelectorAll('.sacred-geometry-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const frequency = parseInt(this.getAttribute('data-frequency'));
+                    frequencySlider.value = frequency;
+                    frequencyValue.textContent = `${frequency} Hz`;
+                    updateSoundWave(frequency);
+                    updateDimensionalPortal(frequency);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
